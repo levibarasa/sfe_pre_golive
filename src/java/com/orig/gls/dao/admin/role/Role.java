@@ -1,10 +1,11 @@
 package com.orig.gls.dao.admin.role;
 
 import com.orig.gls.conn.AdminDb;
-import com.orig.gls.utils.App;
+import com.orig.gls.utils.App; 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import org.apache.commons.logging.Log;
@@ -133,5 +134,12 @@ public class Role {
     public static ArrayList getMenuOptions() {
         String sql = "select mop_id from resources";
         return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
+    public static void main(String[] args) {
+        List roles = getAllRoles();
+        for(Object ob: roles){
+            
+        System.out.println(""); 
+        }
     }
 }
