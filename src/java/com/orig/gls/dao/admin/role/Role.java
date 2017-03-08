@@ -1,11 +1,10 @@
 package com.orig.gls.dao.admin.role;
 
 import com.orig.gls.conn.AdminDb;
-import com.orig.gls.utils.App; 
+import com.orig.gls.utils.App;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import org.apache.commons.logging.Log;
@@ -23,6 +22,7 @@ public class Role {
         roleId = aRoleId;
     }
     static SimpleDateFormat sdf = new SimpleDateFormat(App.DATEFORMAT, Locale.getDefault());
+
     private static int roleId;
 
     public static boolean roleExists(String roleDesc) {
@@ -60,13 +60,15 @@ public class Role {
     }
 
     public static int addRole(String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
-        String sql = "insert into ROLE_PROFILE_TABLE(ROLE_ID,BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,to_date(?,'dd/MM/yyyy'),?,to_date(?,'dd/MM/yyyy'),?,?)";
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000000);
-        String formatedInt;
-        formatedInt = String.format("%06d", randomInt);
-        String in = formatedInt + "," + bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
-        AdminDb.dbWork(sql, 9, in);
+        String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,to_date(?,'dd/MM/yyyy'),?,to_date(?,'dd/MM/yyyy'),?,?)";
+        int randomInt = 0;
+        int status = 0;
+        String in = bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
+
+        status = AdminDb.dbWork(sql, 8, in);
+        if (status == 1) {
+            randomInt = getRoleId(roleDesc);
+        }
         return randomInt;
     }
 
@@ -89,22 +91,29 @@ public class Role {
         log.debug("Role Id: " + role + " Mapped Successfully");
     }
 
+    public static int getMapId(String mopId) {
+        String sql = "select MAP_ID from res_mapping where mopId = ?";
+        String str = AdminDb.getValue(sql, 1, 1, mopId);
+        return Integer.parseInt(str);
+    }
+
     // Map Role to Menu options 
     public static int addMapping(String delFlg, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName, String rcreRep) {
-        String sql = "insert into res_mapping(MAP_ID, DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?,?)";
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?,?)";
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000000);
-        String formatedInt;
-        formatedInt = String.format("%06d", randomInt);
-        String in = formatedInt + "," + delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
-        AdminDb.dbWork(sql, 10, in);
+        int randomInt = 0;
+         String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
+        int status = AdminDb.dbWork(sql, 9, in);
+        if(status == 1){
+       randomInt = getMapId(mopId);
+        }
         return randomInt;
     }
 
     public static void addMappingMod(int modId, String delFlg, int mapId, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName) {
-        String sql = "insert into res_mapping(MAP_ID, DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?)";
-        String in = String.valueOf(modId) + "," + delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
-        AdminDb.dbWork(sql, 9, in);
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?)";
+        String in =  delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
+        AdminDb.dbWork(sql, 8, in);
     }
 
     public static int getRoleId(String roleDesc) {
@@ -135,11 +144,16 @@ public class Role {
         String sql = "select mop_id from resources";
         return AdminDb.execArrayLists(sql, 0, "", 1);
     }
-    public static void main(String[] args) {
-        List roles = getAllRoles();
-        for(Object ob: roles){
-            
-        System.out.println(""); 
-        }
-    }
+//    public static void main(String[] args) {
+//        ArrayList roles = getAllRoles(); 
+//     //select role_desc, rcre_time, rcre_user_id, bank_id  
+//     System.out.println("--Desc --  time ---userId -- bankId--");
+//        for(int w = 1; w <= roles.size(); w++){
+//           String roleDsc =  roles.get(0).toString();
+//            String rcretime = roles.get(1).toString();
+//             String rcreuserID =  roles.get(2).toString();
+//             String bankId = roles.get(3).toString();
+//           System.out.println("--Desc --  time ---userId -- bankId--");      
+//        }
+//    }
 }

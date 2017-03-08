@@ -146,6 +146,7 @@ public class User {
         String acctExpyDate = getfutureDateString("Month", 3);
         String rcre_time = getfutureDateString("Month", 0);
         String pass = EncodeUserPassword(username, passwrd);
+        
         String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate + "," + acctExpyDate + ",N," + pass + "," + username;
         String sql = "update user_creds_tbl set disabled_from_date = to_date(?, 'dd/MM/yyyy'), disabled_upto_date = to_date(?, 'dd/MM/yyyy'), pw_expy_date = to_date(?, 'dd/MM/yyyy'), acct_expy_date = to_date(?, 'dd/MM/yyyy'), last_access_time = to_date(sysdate, 'dd/MM/yyyy'), new_user_flg = ?, user_pw = ? where user_name =?";
         AdminDb.dbWork(sql, 7, in);
@@ -210,4 +211,8 @@ public class User {
         }
         return dt.toString(fmt);
     }
+//    public static void main(String[] args) {
+//         String pass = EncodeUserPassword("LEVI", "pass1234");
+//        System.out.println("pass:     "+pass+"    yea");
+//    }
 }
