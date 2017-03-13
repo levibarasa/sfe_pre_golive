@@ -29,7 +29,7 @@ public class User {
     }
 
     public static int addUserDetails(String userName, String roleId, String userPw, int numPwdHistory, String pwdHistory, int numPwdAttempts, String newUserFlg, int acctInactiveDays, String rcreUserId, String solId) {
-        String sql = "insert into user_creds_tbl(USER_ID,ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(?,to_date(?,'dd/MM/yyyy'),?,to_date(?,'dd/MM/yyyy'),to_date(?,'dd/MM/yyyy'),to_date(?,'dd/MM/yyyy'),?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?,?,?,?,?)";
         String disabledFromDate = getfutureDateString("Year", 2);
         String disabledUptoDate = getfutureDateString("Year", 3);
         String pwExpyDate = getfutureDateString("Month", 3);
@@ -38,12 +38,13 @@ public class User {
         int role = getRoleId(roleId);
         String userN = userName.trim();
         String passwD = userPw.trim();
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000000);
-        String formatedInt;
-        formatedInt = String.format("%06d", randomInt);
-        String in = formatedInt + "," + acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userName + "," + EncodeUserPassword(userN, passwD) + "," + solId + ",U," + rcreUserId;
-        return AdminDb.dbWork(sql, 17, in);
+//        Random randomGenerator = new Random();
+//        int randomInt = randomGenerator.nextInt(1000000);
+//        String formatedInt;
+//        formatedInt = String.format("%06d", randomInt);
+//        
+        String in =  acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userName + "," + EncodeUserPassword(userN, passwD) + "," + solId + ",U," + rcreUserId;
+        return AdminDb.dbWork(sql, 16, in);
     }
 
     public static ArrayList getAllVerifiedUsers() {
@@ -107,14 +108,15 @@ public class User {
                 break;
         }
 
-        String sql = "insert into user_creds_tbl_mod(MOD_ID,ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(?,to_date(?,'dd/MM/yyyy'),?,to_date(?,'dd/MM/yyyy'),to_date(?,'dd/MM/yyyy'),to_date(?,'dd/MM/yyyy'),?,?,?,to_date(?,'dd/MM/yyyy'),?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?,?,?,?,?)";
         int role = getRoleId(roleId);
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000000);
-        String formatedInt;
-        formatedInt = String.format("%06d", randomInt);
-        String in = formatedInt + "," + acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userId + "," + userName + "," + EncodeUserPassword(userName, userPw) + "," + lastOper + "," + rcreUserId;
-        return AdminDb.dbWork(sql, 17, in) > 0;
+//        int randomInt = randomGenerator.nextInt(1000000);
+//        String formatedInt;
+//        formatedInt = String.format("%06d", randomInt);
+        
+        String in =  acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userId + "," + userName + "," + EncodeUserPassword(userName, userPw) + "," + lastOper + "," + rcreUserId;
+        return AdminDb.dbWork(sql, 16, in) > 0;
 
     }
 
@@ -148,7 +150,7 @@ public class User {
         String pass = EncodeUserPassword(username, passwrd);
         
         String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate + "," + acctExpyDate + ",N," + pass + "," + username;
-        String sql = "update user_creds_tbl set disabled_from_date = to_date(?, 'dd/MM/yyyy'), disabled_upto_date = to_date(?, 'dd/MM/yyyy'), pw_expy_date = to_date(?, 'dd/MM/yyyy'), acct_expy_date = to_date(?, 'dd/MM/yyyy'), last_access_time = to_date(sysdate, 'dd/MM/yyyy'), new_user_flg = ?, user_pw = ? where user_name =?";
+        String sql = "update user_creds_tbl set disabled_from_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , disabled_upto_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , pw_expy_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , acct_expy_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , last_access_time = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , new_user_flg = ?, user_pw = ? where user_name =?";
         AdminDb.dbWork(sql, 7, in);
     }
 
@@ -212,7 +214,7 @@ public class User {
         return dt.toString(fmt);
     }
 //    public static void main(String[] args) {
-//         String pass = EncodeUserPassword("LEVI", "pass1234");
+//         String pass = EncodeUserPassword("ADMIN", "admin1234");
 //        System.out.println("pass:     "+pass+"    yea");
 //    }
 }

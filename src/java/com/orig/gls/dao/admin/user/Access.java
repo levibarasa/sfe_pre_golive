@@ -76,7 +76,7 @@ public class Access {
     }
 
     public static void loginUser(String userName, String solId, Date loggedInTime, String sessionId) {
-        String sql = "insert into logged_in_user(log_id,logged_in_time, session_id, sol_id, user_name) values (gls_seq.nextval,sysdate,?,?,?)";
+        String sql = "insert into logged_in_user(logged_in_time, session_id, sol_id, user_name) values (GETDATE(),?,?,?)";
         String in = sessionId + "," + solId + "," + userName;
         AdminDb.dbWork(sql, 3, in);
     }

@@ -17,9 +17,15 @@ public class DBConnection {
     public Connection getDbConnection() {
         try {
             Class.forName(pr.getDBProperty().getProperty("database.driver"));
-            conn = DriverManager.getConnection(pr.getDBProperty().getProperty("database.url") + ":@" + pr.getDBProperty().getProperty("database.host")
-                    + ":" + pr.getDBProperty().getProperty("database.port") + ":" + pr.getDBProperty().getProperty("database.sid"),
-                    pr.getDBProperty().getProperty("database.user"), pr.getDBProperty().getProperty("database.pass"));
+            String url = pr.getDBProperty().getProperty("database.url");
+            String userName = pr.getDBProperty().getProperty("database.user");
+            String pass = pr.getDBProperty().getProperty("database.pass");
+            conn = DriverManager.getConnection(url, userName, pass);
+
+//            Class.forName(pr.getDBProperty().getProperty("database.driver"));
+//            conn = DriverManager.getConnection(pr.getDBProperty().getProperty("database.url") + ":@" + pr.getDBProperty().getProperty("database.host")
+//                    + ":" + pr.getDBProperty().getProperty("database.port") + ":" + pr.getDBProperty().getProperty("database.sid"),
+//                    pr.getDBProperty().getProperty("database.user"), pr.getDBProperty().getProperty("database.pass"));
         } catch (ClassNotFoundException asd) {
             System.err.println(asd.getMessage());
         } catch (SQLException asd) {
