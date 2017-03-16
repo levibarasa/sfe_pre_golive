@@ -60,7 +60,7 @@ public class Role {
     }
 //                                                                                                                                                                                                                                         
     public static int addRole(String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
-        String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?)";
+        String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?)";
         int randomInt = 0;
         int status = 0;
         String in = bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
@@ -73,7 +73,7 @@ public class Role {
     }
 
     public static void addRoleMod(int roleId, String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
-        String sql = "insert into ROLE_PROFILE_TABLE_MOD(ROLE_ID,BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?)";
+        String sql = "insert into ROLE_PROFILE_TABLE_MOD(ROLE_ID,BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?)";
         String in = roleId + "," + bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
         AdminDb.dbWork(sql, 9, in);
     }
@@ -99,7 +99,7 @@ public class Role {
 
     // Map Role to Menu options 
     public static int addMapping(String delFlg, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName, String rcreRep) {
-        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?)";
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,?)";
         Random randomGenerator = new Random();
         int randomInt = 0;
          String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
@@ -111,11 +111,11 @@ public class Role {
     }
 
     public static void addMappingMod(int modId, String delFlg, int mapId, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName) {
-        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102),?,?,?)";
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?)";
         String in =  delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
         AdminDb.dbWork(sql, 8, in);
     }
-
+ 
     public static int getRoleId(String roleDesc) {
         String sql = "select role_id from role_profile_table where role_desc = ?";
         String str = AdminDb.getValue(sql, 1, 1, roleDesc);

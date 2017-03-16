@@ -13,7 +13,7 @@ public class Category {
     }
 
     public static void addCategories(String bankId, String categorycode, String categorytype, String categoryvalue, String bocreatedby, String bomodifiedby) {
-        String sql = "insert into categories(BANK_ID,BOCREATEDBY,BODATECREATED,BODATEMODIFIED,BOMODIFIEDBY,CATEGORYCODE,CATEGORYTYPE,CATEGORYVALUE) values(?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102),?,?,?,?)";
+        String sql = "insert into categories(BANK_ID,BOCREATEDBY,BODATECREATED,BODATEMODIFIED,BOMODIFIEDBY,CATEGORYCODE,CATEGORYTYPE,CATEGORYVALUE) values(?,?,FORMAT (?, 'dd/MM/yyyy ') as date,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,?)";
         String in = bankId + "," + bocreatedby + "," + bomodifiedby + "," + categorycode + "," + categorytype + "," + categoryvalue;
         AdminDb.dbWork(sql, 6, in);
     }

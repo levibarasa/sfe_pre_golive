@@ -78,7 +78,7 @@ public class Customer {
         String str = AdminDb.getValue(sql, 20, 1, forr);
         String[] args = str.split("\\s*,\\s*");
         String s = "insert into general_acct_mast_table_mod(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID,ACCT_NAME,ACCT_OWNERSHIP,BANK_ID,CLR_BAL_AMT,CUST_ID,DEL_FLG,DRWNG_POWER,ENTITY_CRE_FLG,FORACID,LIEN_AMT,RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,LCHG_USER_ID, SUB_GROUP_CODE,LAST_OPER,CREDIT_RATING) values"
-                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,TRY_CONVERT(GETDATE(), 'dd/MM/yyyy', 102) ,TRY_CONVERT(GETDATE(), 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?)";
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date ,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date ,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date,?,?,?,?)";
         String in = "";
         for (int w = 0; w < 18; w++) {
             in = in + args[w] + ",";
@@ -111,7 +111,7 @@ public class Customer {
             ArrayList one = (ArrayList) ar.get(w);
             String in = one.get(0) + "," + one.get(1) + "," + one.get(2) + "," + one.get(3) + "," + one.get(4) + "," + one.get(5) + "," + one.get(6) + "," + one.get(7) + "," + one.get(8) + "," + one.get(9) + "," + one.get(10) + "," + one.get(11) + "," + one.get(12) + "," + one.get(13) + "," + one.get(14) + "," + one.get(15) + "," + one.get(16) + "," + one.get(17) + "," + one.get(18) + "," + one.get(9) + "," + one.get(20)
                     + "," + one.get(21) + "," + one.get(22) + "," + ((String) one.get(23)).substring(0, 10) + "," + ((String) one.get(24)).substring(0, 10) + "," + ((String) one.get(25)).substring(0, 10) + "," + ((String) one.get(26)).substring(0, 10);
-            String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER, ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID ,SUB_GROUP_CODE, MAPPED_FLG, MEMBER_STATUS, CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,SNO) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) , GLS_SEQ.NEXTVAL)";
+            String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER, ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID ,SUB_GROUP_CODE, MAPPED_FLG, MEMBER_STATUS, CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,SNO) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date , GLS_SEQ.NEXTVAL)";
             h = AdminDb.dbWork(sql, 27, in);
         }
         return h;

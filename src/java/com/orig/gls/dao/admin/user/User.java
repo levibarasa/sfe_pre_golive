@@ -29,7 +29,7 @@ public class User {
     }
 
     public static int addUserDetails(String userName, String roleId, String userPw, int numPwdHistory, String pwdHistory, int numPwdAttempts, String newUserFlg, int acctInactiveDays, String rcreUserId, String solId) {
-        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,?,?,?,?,?)";
         String disabledFromDate = getfutureDateString("Year", 2);
         String disabledUptoDate = getfutureDateString("Year", 3);
         String pwExpyDate = getfutureDateString("Month", 3);
@@ -108,7 +108,7 @@ public class User {
                 break;
         }
 
-        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,TRY_CONVERT(?, 'dd/MM/yyyy', 102) ,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,?,?,?,?,?)";
         int role = getRoleId(roleId);
         Random randomGenerator = new Random();
 //        int randomInt = randomGenerator.nextInt(1000000);
@@ -150,7 +150,7 @@ public class User {
         String pass = EncodeUserPassword(username, passwrd);
         
         String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate + "," + acctExpyDate + ",N," + pass + "," + username;
-        String sql = "update user_creds_tbl set disabled_from_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , disabled_upto_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , pw_expy_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , acct_expy_date = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , last_access_time = TRY_CONVERT(?, 'dd/MM/yyyy', 102) , new_user_flg = ?, user_pw = ? where user_name =?";
+        String sql = "update user_creds_tbl set disabled_from_date = FORMAT (?, 'dd/MM/yyyy ') as date , disabled_upto_date = FORMAT (?, 'dd/MM/yyyy ') as date , pw_expy_date = FORMAT (?, 'dd/MM/yyyy ') as date , acct_expy_date = FORMAT (?, 'dd/MM/yyyy ') as date, last_access_time = FORMAT (?, 'dd/MM/yyyy ') as date , new_user_flg = ?, user_pw = ? where user_name =?";
         AdminDb.dbWork(sql, 7, in);
     }
 
