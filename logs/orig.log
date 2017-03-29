@@ -1,0 +1,24 @@
+[origlogger] [23 Mar 2017 - 12:30:54] [DEBUG][fileuploads.FileUpload][getLoanDemandsList][117] - 1 
+[origlogger] [23 Mar 2017 - 12:35:05] [DEBUG][fileuploads.FileUpload][getLoanDemandsList][117] - 1 
+[origlogger] [23 Mar 2017 - 12:37:48] [DEBUG][fileuploads.FileUpload][getLoanDemandsList][117] - 1 
+[origlogger] [23 Mar 2017 - 12:42:19] [DEBUG][prop.TestFile][getLoanDemandsList][65] - 1 
+[origlogger] [23 Mar 2017 - 12:44:18] [DEBUG][prop.TestFile][getLoanDemandsList][65] - 1 
+[origlogger] [23 Mar 2017 - 14:33:25] [DEBUG][fileuploads.FileUpload][getLoanDemandsList][118] - 1 
+[origlogger] [27 Mar 2017 - 11:46:03] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 7. 
+[origlogger] [27 Mar 2017 - 12:07:18] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'FIRST_MEET_DATE', table 'GLS.dbo.GROUPS_TABLE'; column does not allow nulls. INSERT fails. 
+[origlogger] [27 Mar 2017 - 12:15:44] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'FIRST_MEET_DATE', table 'GLS.dbo.GROUPS_TABLE'; column does not allow nulls. INSERT fails. 
+[origlogger] [27 Mar 2017 - 12:25:34] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'NXT_MEET_DATE', table 'GLS.dbo.GROUPS_TABLE'; column does not allow nulls. INSERT fails. 
+[origlogger] [27 Mar 2017 - 15:39:02] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 35. 
+[origlogger] [27 Mar 2017 - 15:41:04] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 35. 
+[origlogger] [27 Mar 2017 - 15:43:02] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'FIRST_MEET_DATE', table 'GLS.dbo.SUB_GRP_TABLE'; column does not allow nulls. INSERT fails. 
+[origlogger] [28 Mar 2017 - 15:29:33] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 15:30:44] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 15:33:08] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 15:34:46] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 15:36:04] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 16:14:49] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 16:18:25] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 23 is out of range. 
+[origlogger] [28 Mar 2017 - 16:37:49] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 25. 
+[origlogger] [28 Mar 2017 - 16:51:54] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 25. 
+[origlogger] [28 Mar 2017 - 16:54:59] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 25. 
+[origlogger] [29 Mar 2017 - 09:42:55] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 24 is out of range. 

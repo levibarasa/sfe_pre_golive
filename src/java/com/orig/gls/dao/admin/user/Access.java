@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 public class Access {
 
     private static final Log log = LogFactory.getLog("origlogger");
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-YYYY", Locale.getDefault());
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
 
     public static boolean userExists(String userName, String userPw) {
         String sql = "select count(*)cnt from user_creds_tbl where user_name = ? and user_pw = ?";

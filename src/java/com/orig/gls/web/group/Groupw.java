@@ -78,6 +78,7 @@ public class Groupw {
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
             String groupCode = request.getParameter("groupcode");
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
             Date formationDate = new Date();
             String groupCenter = request.getParameter("groupcenter");
@@ -220,7 +221,7 @@ public class Groupw {
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
             String groupCode = request.getParameter("groupcode");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
             Date formationDate = new Date();
             String groupCenter = request.getParameter("groupcenter");
             String groupVillage = request.getParameter("groupvillage");

@@ -1,7 +1,11 @@
 package com.orig.gls.dao.admin.role;
 
 import com.orig.gls.conn.AdminDb;
+import com.orig.gls.prop.GlsFile;
 import com.orig.gls.utils.App;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,8 +16,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Role {
 
-    private static final Log log = LogFactory.getLog(App.LOGGER);
-
+    private static final Log log = LogFactory.getLog(App.LOGGER); 
     public static int getRoleId() {
         return roleId;
     }
@@ -49,6 +52,36 @@ public class Role {
         return AdminDb.execArrayLists(sql, 2, in, 4);
     }
 
+    public static ArrayList getAllRolesFromFinacle() {
+        ArrayList arr = new ArrayList();
+        GlsFile pr = new GlsFile();
+        String uploadFilepath = pr.getDBProperty().getProperty("role.file");
+        String line;
+        try {
+            FileInputStream fs = new FileInputStream(uploadFilepath);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+            String[] split;
+            while ((line = br.readLine()) != null) {
+                split = line.split("\\|");
+                ArrayList one = new ArrayList();
+                one.add(split[0]);
+                one.add(split[1]);
+                one.add(split[2]);
+                one.add(split[3]);
+                one.add(split[4]);
+                one.add(split[5]);
+                one.add(split[6]);
+                one.add(split[7]);
+                one.add(split[8]); 
+                arr.add(one);
+            }
+            fs.close();
+			br.close();
+        } catch (Exception asd) {
+            log.debug(asd.getMessage());
+        }
+        return arr;
+    } 
     public static ArrayList getUnverifiedRoles() {
         String sql = "select role_desc, rcre_time, rcre_user_id, bank_id from role_profile_table_mod";
         return AdminDb.execArrayLists(sql, 0, "", 4);
@@ -60,7 +93,7 @@ public class Role {
     }
 //                                                                                                                                                                                                                                         
     public static int addRole(String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
-        String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?)";
+        String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,?,?)";
         int randomInt = 0;
         int status = 0;
         String in = bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
@@ -73,7 +106,7 @@ public class Role {
     }
 
     public static void addRoleMod(int roleId, String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
-        String sql = "insert into ROLE_PROFILE_TABLE_MOD(ROLE_ID,BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?)";
+        String sql = "insert into ROLE_PROFILE_TABLE_MOD(ROLE_ID,BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,?,try_convert(date, ?, 111) ,?,try_convert(date, ?, 111),?,?)";
         String in = roleId + "," + bankId + "," + delFlg + "," + entityCreFlg + "," + lchgTime + "," + lchgUserId + "," + rcreTime + "," + rcreUserId + "," + roleDesc;
         AdminDb.dbWork(sql, 9, in);
     }
@@ -99,7 +132,7 @@ public class Role {
 
     // Map Role to Menu options 
     public static int addMapping(String delFlg, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName, String rcreRep) {
-        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,?)";
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,try_convert(date, ?, 111),?,?,?,?)";
         Random randomGenerator = new Random();
         int randomInt = 0;
          String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
@@ -111,7 +144,7 @@ public class Role {
     }
 
     public static void addMappingMod(int modId, String delFlg, int mapId, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName) {
-        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?)";
+        String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,try_convert(date, ?, 111),?,?,?)";
         String in =  delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
         AdminDb.dbWork(sql, 8, in);
     }

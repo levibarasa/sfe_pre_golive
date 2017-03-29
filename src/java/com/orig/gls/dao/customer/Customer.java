@@ -1,6 +1,7 @@
 package com.orig.gls.dao.customer;
-
+ 
 import com.orig.gls.conn.AdminDb;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Customer {
@@ -13,7 +14,7 @@ public class Customer {
     // Get unmapped account details using cust no
     public static ArrayList getUnMappedAccountDetails(String foracid) {
         String sql = "select cust_id, acct_name, sol_id from general_acct_mast_table where sub_group_code is null and mapped_flg = ? and schm_code <>? and cust_id = ?";
-        String in = "N,SBGRP," + foracid;
+         String in = "N,SBGRP," + foracid;
         return AdminDb.execArrayLists(sql, 3, in, 3);
     }
 
@@ -77,16 +78,16 @@ public class Customer {
         String sql = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID,ACCT_NAME,ACCT_OWNERSHIP,BANK_ID,CLR_BAL_AMT,CUST_ID,DEL_FLG,DRWNG_POWER,ENTITY_CRE_FLG,FORACID,LIEN_AMT,RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,RCRE_TIME,ACCT_OPN_DATE from general_acct_mast_table where cust_id = ?";
         String str = AdminDb.getValue(sql, 20, 1, forr);
         String[] args = str.split("\\s*,\\s*");
-        String s = "insert into general_acct_mast_table_mod(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID,ACCT_NAME,ACCT_OWNERSHIP,BANK_ID,CLR_BAL_AMT,CUST_ID,DEL_FLG,DRWNG_POWER,ENTITY_CRE_FLG,FORACID,LIEN_AMT,RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,LCHG_USER_ID, SUB_GROUP_CODE,LAST_OPER,CREDIT_RATING) values"
-                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date ,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date ,FORMAT (GETDATE(), 'dd/MM/yyyy ') as date,?,?,?,?)";
+         String s = "insert into general_acct_mast_table_mod (ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID,ACCT_NAME,ACCT_OWNERSHIP,BANK_ID,CLR_BAL_AMT,CUST_ID,DEL_FLG,DRWNG_POWER,ENTITY_CRE_FLG,FORACID,LIEN_AMT,RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,RCRE_TIME,ACCT_OPN_DATE,LAST_MODIFIED_DATE,LCHG_TIME,LCHG_USER_ID, SUB_GROUP_CODE,LAST_OPER,CREDIT_RATING) values"
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111),try_convert(date, getDate(), 111) ,try_convert(date, getDate(), 111),?,?,?,?)";
         String in = "";
-        for (int w = 0; w < 18; w++) {
+        
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+         for (int w = 0; w <20 ; w++) {
             in = in + args[w] + ",";
         }
-        for (int w = 18; w < 20; w++) {
-            in = in + args[w].substring(0, 10) + ",";
-        }
-        String adds = uname + "," + subGroupId + "," + lastOper + "," + creditRate;
+        
+        String adds =  uname + "," + subGroupId + "," + lastOper + "," + creditRate;
         in = in + adds;
         int n = AdminDb.dbWork(s, 24, in);
         if (n > 0) {
@@ -94,7 +95,10 @@ public class Customer {
         }
         return n > 0;
     }
-
+    public static void main(String[] args) {
+        getAccountDetails("37024", "6", "A","1", "MIKE");
+    }
+    
     public static int getSolId(String bankId) {
         String sql = "select sol_id from  service_outlet_table where bank_id= ?";
         String r = AdminDb.getValue(sql, 1, 1, bankId);
@@ -111,7 +115,7 @@ public class Customer {
             ArrayList one = (ArrayList) ar.get(w);
             String in = one.get(0) + "," + one.get(1) + "," + one.get(2) + "," + one.get(3) + "," + one.get(4) + "," + one.get(5) + "," + one.get(6) + "," + one.get(7) + "," + one.get(8) + "," + one.get(9) + "," + one.get(10) + "," + one.get(11) + "," + one.get(12) + "," + one.get(13) + "," + one.get(14) + "," + one.get(15) + "," + one.get(16) + "," + one.get(17) + "," + one.get(18) + "," + one.get(9) + "," + one.get(20)
                     + "," + one.get(21) + "," + one.get(22) + "," + ((String) one.get(23)).substring(0, 10) + "," + ((String) one.get(24)).substring(0, 10) + "," + ((String) one.get(25)).substring(0, 10) + "," + ((String) one.get(26)).substring(0, 10);
-            String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER, ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID ,SUB_GROUP_CODE, MAPPED_FLG, MEMBER_STATUS, CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,SNO) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date , GLS_SEQ.NEXTVAL)";
+            String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE(ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER, ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID ,SUB_GROUP_CODE, MAPPED_FLG, MEMBER_STATUS, CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,ACCT_OPN_DATE,SNO) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111),try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111) , GLS_SEQ.NEXTVAL)";
             h = AdminDb.dbWork(sql, 27, in);
         }
         return h;
@@ -142,7 +146,7 @@ public class Customer {
         return AdminDb.getValue(sql, 1, 1, subGroupId);
     }
 
-    // Get subgroup name
+    // Get getlinkedAccounts
     public static String getlinkedAccounts(String subGroupId, int custId) {
         String sql = "select foracid from general_acct_mast_table where schm_code like ? and cust_id = ?";
         String in = subGroupId + "," + custId;
@@ -213,4 +217,19 @@ public class Customer {
         String sql = "select last_oper from general_acct_mast_table_mod where cust_id = ?";
         return AdminDb.getValue(sql, 1, 1, String.valueOf(custId));
     }
+    
+    
+    
+//        public static void main(String[] args) {
+//            //cust_id, acct_name, sol_id
+//        ArrayList roles = getUnMappedAccounts() ;  
+//     System.out.println("--Desc --  time ---userId -- bankId--");
+//        for(int w = 1; w <= roles.size(); w++){
+//           String cust_id =  roles.get(0).toString();
+//            String acct_name = roles.get(1).toString();
+//             String sol_id =  roles.get(2).toString(); 
+//             System.out.println(cust_id+" --"+acct_name+" --"+sol_id); 
+//           System.out.println("--Desc --  time ---userId -- bankId--");      
+//        }
+//    }
 }

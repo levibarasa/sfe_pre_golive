@@ -106,8 +106,8 @@ public class Accessw {
                                     }
                                 } else {
                                     session.setAttribute("userlogged", true);
-                                    session.setAttribute("content_page", "login.jsp");
-                                    response.sendRedirect("login.jsp");
+                                    session.setAttribute("content_page", "ucontent.jsp");
+                                    response.sendRedirect("index.jsp");
                                 }
                             } else {
                                 session.setAttribute("usrdisabled", true);

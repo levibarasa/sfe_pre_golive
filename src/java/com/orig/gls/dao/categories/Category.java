@@ -13,7 +13,7 @@ public class Category {
     }
 
     public static void addCategories(String bankId, String categorycode, String categorytype, String categoryvalue, String bocreatedby, String bomodifiedby) {
-        String sql = "insert into categories(BANK_ID,BOCREATEDBY,BODATECREATED,BODATEMODIFIED,BOMODIFIEDBY,CATEGORYCODE,CATEGORYTYPE,CATEGORYVALUE) values(?,?,FORMAT (?, 'dd/MM/yyyy ') as date,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,?)";
+        String sql = "insert into categories(BANK_ID,BOCREATEDBY,BODATECREATED,BODATEMODIFIED,BOMODIFIEDBY,CATEGORYCODE,CATEGORYTYPE,CATEGORYVALUE) values(?,?,try_convert(date, GETDATE(), 111),try_convert(date, GETDATE(), 111),?,?,?,?)";
         String in = bankId + "," + bocreatedby + "," + bomodifiedby + "," + categorycode + "," + categorytype + "," + categoryvalue;
         AdminDb.dbWork(sql, 6, in);
     }
@@ -22,4 +22,8 @@ public class Category {
         String sql = "select categorycode, categorytype, categoryvalue, bocreatedby, bank_id from categories where categorytype = ?";
         return AdminDb.execArrayLists(sql, 1, statuscategory, 5);
     }
+    
+//    public static void main(String[] args) {
+//       addCategories("001","CT01","CURRENCY","CR","MIKE","MIKE" ); 
+//    }
 }

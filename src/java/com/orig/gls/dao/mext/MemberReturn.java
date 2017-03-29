@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 public class MemberReturn {
 
     private static final Log log = LogFactory.getLog("origlogger");
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
 
     public static int considerDaysOut(int custId) {
         int numOfDays = 0;

@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 public class Transact {
 
     private static final Log log = LogFactory.getLog("origlogger");
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
 
     public static ArrayList getAllAccountsMappedtoSubGroup(String subgroupCode) {
         String sql = "select foracid, acct_name, from general_acct_mast_table where sub_group_code = ? and schm_code <>?";
@@ -24,7 +24,7 @@ public class Transact {
     }
 
     public static int addTranDetails(BigDecimal tranAmt, Date tranDate, String acid, String tranParticulars, String rcreUserId, Date rcreTime, String lchgUserId, Date lchgTime, String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
-        String sql = " insert into DAILY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,TRAN_ID,TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,FORMAT (?, 'dd/MM/yyyy ') as date  ,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = " insert into DAILY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,TRAN_ID,TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?,?,?,?)";
         String in = tranAmt + "," + tranDate + "," + acid + ",GLS_SEQ.nextval," + tranParticulars + "," + rcreUserId + "," + rcreTime + "," + lchgUserId + "," + lchgTime + "," + delFlg + "," + pstdFlg + "," + tranType + "," + bankTranId + "," + subGroupCode;
         return AdminDb.dbWork(sql, 13, in);
     }
@@ -50,7 +50,7 @@ public class Transact {
             ins = ins + vals[w] + ",";
         }
         ins = ins + vals[13];
-        String sq = " insert into HISTORY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,TRAN_ID,TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,FORMAT (?, 'dd/MM/yyyy ') as date  ,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sq = " insert into HISTORY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,TRAN_ID,TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,try_convert(date, ?, 111)  ,?,?,?,?,?,?,?,?,?,?,?,?)";
         return AdminDb.dbWork(sq, 14, ins);
     }
 

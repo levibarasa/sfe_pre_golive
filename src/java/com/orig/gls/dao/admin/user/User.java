@@ -1,15 +1,25 @@
 package com.orig.gls.dao.admin.user;
 
 import com.orig.gls.conn.AdminDb;
+import com.orig.gls.prop.GlsFile;
 import com.orig.gls.security.Encode;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class User {
 
+    private static final Log log = LogFactory.getLog("origlogger");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
     public static boolean userExists(String userName) {
         String sql = "select count(*)cnt from user_creds_tbl where user_name = ?";
         String str = AdminDb.getValue(sql, 1, 1, userName);
@@ -29,7 +39,7 @@ public class User {
     }
 
     public static int addUserDetails(String userName, String roleId, String userPw, int numPwdHistory, String pwdHistory, int numPwdAttempts, String newUserFlg, int acctInactiveDays, String rcreUserId, String solId) {
-        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(try_convert(date, ?, 111),?,try_convert(date, ?, 111) ,try_convert(date, ?, 111),try_convert(date, ?, 111) ,?,?,?,try_convert(date, ?, 111),?,?,?,?,?,?,?,?)";
         String disabledFromDate = getfutureDateString("Year", 2);
         String disabledUptoDate = getfutureDateString("Year", 3);
         String pwExpyDate = getfutureDateString("Month", 3);
@@ -43,7 +53,7 @@ public class User {
 //        String formatedInt;
 //        formatedInt = String.format("%06d", randomInt);
 //        
-        String in =  acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userName + "," + EncodeUserPassword(userN, passwD) + "," + solId + ",U," + rcreUserId;
+        String in =   acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," +  disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userName + "," + EncodeUserPassword(userN, passwD) + "," + solId + ",U," + rcreUserId;
         return AdminDb.dbWork(sql, 16, in);
     }
 
@@ -108,7 +118,7 @@ public class User {
                 break;
         }
 
-        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(FORMAT (?, 'dd/MM/yyyy ') as date ,?,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date ,FORMAT (?, 'dd/MM/yyyy ') as date,?,?,?,FORMAT (?, 'dd/MM/yyyy ') as date ,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?)";
         int role = getRoleId(roleId);
         Random randomGenerator = new Random();
 //        int randomInt = randomGenerator.nextInt(1000000);
@@ -131,9 +141,29 @@ public class User {
     }
 
     public static ArrayList getUsersList() {
-        String sql = "select user_name, sol_id from finacle_users";
-        return AdminDb.execArrayLists(sql, 0, "", 2);
-    }
+        ArrayList arr = new ArrayList();
+        GlsFile pr = new GlsFile();
+        String uploadFilepath = pr.getDBProperty().getProperty("user.file");
+        String line;
+        try {
+            FileInputStream fs = new FileInputStream(uploadFilepath);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+            String[] split;
+            while ((line = br.readLine()) != null) {
+                split = line.split("\\|");
+                ArrayList one = new ArrayList();
+                one.add(split[0]);
+                one.add(split[1]);
+                one.add(split[2]);
+                arr.add(one);
+            }
+            fs.close();
+			br.close();
+        } catch (Exception asd) {
+            log.debug(asd.getMessage());
+        }
+        return arr;
+    } 
 
     public static void deleteUser(int userId) {
         String sql = "update user_creds_tbl set user_status = ? where user_id = ?";
@@ -150,7 +180,7 @@ public class User {
         String pass = EncodeUserPassword(username, passwrd);
         
         String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate + "," + acctExpyDate + ",N," + pass + "," + username;
-        String sql = "update user_creds_tbl set disabled_from_date = FORMAT (?, 'dd/MM/yyyy ') as date , disabled_upto_date = FORMAT (?, 'dd/MM/yyyy ') as date , pw_expy_date = FORMAT (?, 'dd/MM/yyyy ') as date , acct_expy_date = FORMAT (?, 'dd/MM/yyyy ') as date, last_access_time = FORMAT (?, 'dd/MM/yyyy ') as date , new_user_flg = ?, user_pw = ? where user_name =?";
+        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111), disabled_upto_date = try_convert(date, ?, 111) , pw_expy_date = try_convert(date, ?, 111) , acct_expy_date = try_convert(date, ?, 111), last_access_time = try_convert(date, ?, 111) , new_user_flg = ?, user_pw = ? where user_name =?";
         AdminDb.dbWork(sql, 7, in);
     }
 
@@ -200,7 +230,7 @@ public class User {
     }
 
     private static String getfutureDateString(String intType, int months) {
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
         DateTime dt = new DateTime();
         if (months > 0) {
             if (intType.equalsIgnoreCase("Year")) {
@@ -214,7 +244,7 @@ public class User {
         return dt.toString(fmt);
     }
 //    public static void main(String[] args) {
-//         String pass = EncodeUserPassword("ADMIN", "admin1234");
+//         String pass = EncodeUserPassword("MARK", "mark1234");
 //        System.out.println("pass:     "+pass+"    yea");
 //    }
 }

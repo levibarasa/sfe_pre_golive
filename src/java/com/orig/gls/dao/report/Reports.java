@@ -25,7 +25,7 @@ public class Reports extends HttpServlet {
         session.setAttribute("dtErr", false);
         if ((String) session.getAttribute("uname") != null) {
             String rtype = request.getParameter("rFunction");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
             Date fDate = new Date();
             Date tDate = new Date();
             try {

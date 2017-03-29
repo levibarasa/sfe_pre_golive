@@ -88,7 +88,7 @@ public class Transactionw {
         session.setAttribute("umodified", false);
         session.setAttribute("fatal", false);
         String uname = (String) session.getAttribute("uname");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
         if ((String) session.getAttribute("uname") != null) {
             try {
                 String amt = request.getParameter("amt");
