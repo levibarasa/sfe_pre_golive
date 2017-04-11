@@ -1,5 +1,6 @@
 package com.orig.gls.conn;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +43,7 @@ public class AdminDb {
             DBConnection.closeConn(conn);
         } catch (SQLException ex) {
             log.debug(ex);
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return 0;
     }

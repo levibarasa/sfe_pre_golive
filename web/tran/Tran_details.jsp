@@ -1,3 +1,6 @@
+<%@page import="java.math.BigDecimal"%>
+<%@page import="java.util.Date"%> 
+<%@page import="java.text.SimpleDateFormat"%>
 <link rel="icon" href="images/favicon.ico" type="image/x-icon" />	
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*,
@@ -6,12 +9,26 @@
     LoanMapping frd = new LoanMapping();
     String subgroup = (String) session.getAttribute("subgroupCode");
     String subgroupName = (String) session.getAttribute("subgroupName");
-    String fromDate = (String) session.getAttribute("fromDate");
-    String toDate = (String) session.getAttribute("toDate");
-    ArrayList all = frd.getAlldemandsSubGroup(subgroup, fromDate, toDate);
-    int size = all.size();
+    String fDate = (String) session.getAttribute("fromDate");
+    String tDate = (String) session.getAttribute("toDate");
 
-%>
+    SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
+
+    try {
+        Date fromDate_ = in.parse(fDate);
+        Date toDate_ = in.parse(tDate);
+        // output format
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        String fromDate = fmt.format(fromDate_);
+        String toDate = fmt.format(toDate_);
+
+        System.out.println("SubgroupCode:" + subgroup + "\n subgroupName:" + subgroupName);
+        System.out.println("\n fromDate:" + fromDate + "\n toDate:" + toDate);
+
+        ArrayList all = frd.getAlldemandsSubGroup(subgroup, fromDate, toDate);
+        int size = all.size();
+
+%> 
 <style type="text/css">
     <!--
     .style10 {color: #000000; font-weight: bold; font-size: 12px; }
@@ -59,16 +76,21 @@
             <%
                 if (size > 0) {
                     for (int i = 0; i < size; i++) {
-                        ArrayList one = (ArrayList) all.get(i);%>
+                        ArrayList one = (ArrayList) all.get(i);
+                        String acid = (String) one.get(0);
+                        String name = (String) one.get(1);
+                        BigDecimal dmdAmt = new BigDecimal("" + one.get(2) + "");
+
+            %>
             <tr style="height:30px; padding:4px;">
                 <td><div>
                         <label>
-                            <input type="text" name="<%=i + "actr"%>" value="<%=one.get(0)%>" id="<%=i + "actr"%>" readonly="true"/>
+                            <input type="text" name="<%=i + "actr"%>" value="<%=  acid%>" id="<%=i + "actr"%>" readonly="true"/>
                         </label>
                     </div>
                 </td>
-                <td><div align="center"><%=(String) one.get(1)%></div></td>
-                <td><div align="center"><%=(double) one.get(2)%></div></td>
+                <td><div align="center"><%= name%></div></td>
+                <td><div align="center"><%= dmdAmt%></div></td>
                 <td><input type="text" name="<%=i + "amt"%>" onkeypress="return isNumberKey(event)" value="" id="<%=i + "amt"%>" required="true" maxlength="8"/></td>
                 <td>
                     <input value="Enter" type="button" class="redButton" onclick="MM_validateForm('<%=i + "amt"%>', '', 'R');javascript:deleteDriver(<%=i%>)" size="6"/>
@@ -79,7 +101,12 @@
             <tr>
                 <td colspan="7">All repayments entered for selected sub group</td>
             </tr>           
-            <%}%>
+            <%}
+//end of try catch
+                } catch (Exception ex) {
+                    System.err.println(ex.getMessage());
+                }
+            %>
         </table>
     </div>
 </form>

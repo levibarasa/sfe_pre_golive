@@ -51,6 +51,7 @@ public class Role {
         String in = "N,Y";
         return AdminDb.execArrayLists(sql, 2, in, 4);
     }
+    
 
     public static ArrayList getAllRolesFromFinacle() {
         ArrayList arr = new ArrayList();

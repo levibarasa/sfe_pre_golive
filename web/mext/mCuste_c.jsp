@@ -21,14 +21,14 @@
             break;
     }
     ArrayList all = Mext.getAllMembers(subgroup, status);
-    int size = all.size();
-    int custId = 0;
+    int size = all.size(); 
+     String custId="";
     String acctName, savingsAcnt, loanAcnt, solId, subgroupCode, subgroupName, acctType, operAcnt;
     acctName = savingsAcnt = loanAcnt = solId = subgroupCode = subgroupName = acctType = operAcnt = "";
 
     for (int i = 0; i < size; i++) {
-        ArrayList one = (ArrayList) all.get(i);
-        custId = (int) one.get(0);
+        ArrayList one = (ArrayList) all.get(0); 
+        custId = (String) one.get(0);
         acctName = (String) one.get(1);
         savingsAcnt = (String) one.get(3);
         operAcnt = (String) one.get(4);

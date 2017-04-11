@@ -86,7 +86,7 @@ public class SubGroup {
                 + "outstanding_bal, 'PROTECTED', 'PROTECTED', sub_grp_acnt_no, sub_grp_acnt_name from sub_grp_table";
         return AdminDb.execArrayLists(sql, 0, "", 35);
     }
-
+        
     public static ArrayList getUnverifiedSubGroups(String username) {
         String sql = "select sub_group_code, sub_group_id, sub_group_name, rcre_time, rcre_user_id, sol_id, branch_name, sub_grp_mgr_id, "
                 + "sub_grp_reg_no, formation_date, sub_gp_region, sub_group_center, sub_group_village, sub_group_address, sub_group_phone,"
@@ -106,7 +106,17 @@ public class SubGroup {
     }
 
     public static boolean addSubGroupModDetails(int subGroupId, String bankId, String countryCode, String delFlg, String subGroupAddress, double subGroupLoans, String subGroupName, String subGroupPhone, String subGrpMgrId, String subGrpRegNo, Date lchgDate, String lchgUserId, int maxAllowedMembers, int groupId, int noOfMembers, double outstandingBal, double savingsAmt, Date rcreTime, String rcreUserId, String subGpRegion, String subgroupCode, Date formationDate, String subGroupCenter, String subGroupVillage, Date firstMeetDate, String meetTime, String meetPlace, String subGpChair, String subGpTreasurer, String subGpSecretary, String subGpStatus, String subGpStatusCode, int loanAccounts, int savingAccounts, int solId, String branchName, String meetFrequency, String lastOper, String accountNo, String accountName) {
-        String sql = "insert into sub_grp_table_mod( bank_id, branch_name, country_code, del_flg, group_id, last_oper, lchg_user_id, loan_accounts, max_allowed_members, meet_frequency, meet_place, no_of_members, outstanding_bal, rcre_user_id, saving_accounts, savings_amt, sol_id, sub_gp_region, sub_gp_status, sub_gp_status_code, sub_group_address, sub_group_center, sub_group_code, sub_group_id, sub_group_loans, sub_group_name, sub_group_phone, sub_group_village, sub_grp_mgr_id, sub_grp_reg_no, sub_grp_acnt_no, sub_grp_acnt_name,first_meet_date, formation_date,lchg_date,nxt_meet_date, rcre_time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111)  ,try_convert(date, ?, 111) ,try_convert(date, ?, 111)  ,try_convert(date, ?, 111)  ,try_convert(date, getdate(), 111)  )";
+        String sql = "insert into sub_grp_table_mod( bank_id, branch_name, country_code, del_flg, group_id,"
+                + " last_oper, lchg_user_id, loan_accounts, max_allowed_members, meet_frequency, meet_place,"
+                + " no_of_members, outstanding_bal, rcre_user_id, saving_accounts, savings_amt, sol_id,"
+                + " sub_gp_region, sub_gp_status, sub_gp_status_code, sub_group_address, sub_group_center, "
+                + "sub_group_code, sub_group_id, sub_group_loans, sub_group_name, sub_group_phone, sub_group_village,"
+                + " sub_grp_mgr_id, sub_grp_reg_no, sub_grp_acnt_no, sub_grp_acnt_name,first_meet_date, formation_date,"
+                + "lchg_date,nxt_meet_date, rcre_time) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) "
+                + " ,try_convert(date, getDate(), 111) ,try_convert(date, ?, 111)  ,try_convert(date, ?, 111)  ,"
+                + "try_convert(date, getdate(), 111)  )";
+        //37inputs
         String in = bankId + "," + branchName + "," + countryCode + "," + delFlg + "," + groupId + "," + lastOper + "," + lchgUserId + "," + loanAccounts + "," + maxAllowedMembers + "," + meetFrequency + "," + meetPlace + "," + noOfMembers + "," + outstandingBal + "," + rcreUserId + "," + savingAccounts + "," + savingsAmt + "," + solId + "," + subGpRegion + "," + subGpStatus + "," + subGpStatusCode + "," + subGroupAddress + "," + subGroupCenter + "," + subgroupCode + "," + subGroupId + "," + subGroupLoans + "," + subGroupName + "," + subGroupPhone + "," + subGroupVillage + "," + subGrpMgrId + "," + subGrpRegNo + "," + accountNo + "," + accountName+ "," + parseDates(firstMeetDate) + "," + parseDates(formationDate)+ "," + parseDates(lchgDate)+ "," +  parseDates(getNextMettingDate(firstMeetDate, meetFrequency)) ;
         int addmod = AdminDb.dbWork(sql, 35, in);
         return addmod != 0;
@@ -148,7 +158,7 @@ public class SubGroup {
     }
     private static String parseDates(Date date) {
         DateTime dateTime = new DateTime(date);
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY-MM-DD");
         return dateTime.toString(fmt);
     }
     

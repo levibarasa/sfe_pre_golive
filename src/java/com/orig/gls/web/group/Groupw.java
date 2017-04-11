@@ -221,14 +221,16 @@ public class Groupw {
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
             String groupCode = request.getParameter("groupcode");
-             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+              SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date formationDate = new Date();
             String groupCenter = request.getParameter("groupcenter");
             String groupVillage = request.getParameter("groupvillage");
             Date firstMeetDate = new Date();
             try {
-                formationDate = sdf.parse(request.getParameter("formationd"));
-                firstMeetDate = sdf.parse(request.getParameter("firstmeetingd"));
+                //fmt.format(in.parse())
+                formationDate = fmt.parse(request.getParameter("formationd"));
+                firstMeetDate = fmt.parse(request.getParameter("firstmeetingd"));
             } catch (Exception asd) {
                 log.debug(asd.getMessage());
             }

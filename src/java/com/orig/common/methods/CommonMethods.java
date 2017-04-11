@@ -18,7 +18,7 @@ public class CommonMethods {
     }
 
     public static boolean getMemberLoans(String acid) {
-        String sql = "select sum(clrBalAmt)AMT from general_acct_mast_table where cust_id = ?";
+        String sql = "select sum(CLR_BAL_AMT)AMT from general_acct_mast_table where cust_id = ?";
         String amt = AdminDb.getValue(sql, 1, 1, acid);
         double custId = Double.parseDouble(amt);
         return custId > 0.0;

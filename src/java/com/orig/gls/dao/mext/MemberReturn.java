@@ -27,8 +27,10 @@ public class MemberReturn {
         }
         return numOfDays;
     }
-
+    
+    
     public static boolean retainClass(int custId, int numDays) {
         return considerDaysOut(custId) < numDays;
     }
+    
 }

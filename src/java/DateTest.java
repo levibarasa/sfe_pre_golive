@@ -17,13 +17,14 @@ public class DateTest {
 
     public DateTest() {
         // expected input format in YYYY-MM-DD???
-        String startDate = "27-MAR-2017";
-        SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
+        String startDate = "27-03-2017";
+        SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy");
 
           
         try {
          Date date = in.parse(startDate);
             // output format
+            //fmt.format(in.parse(date))
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             System.out.println(fmt.format(date));
             

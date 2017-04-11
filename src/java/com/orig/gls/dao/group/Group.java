@@ -15,10 +15,16 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Group {
-
+/*
+    1. create a method to autoincrement members during member/customer mapping.
+    2. Group members should not exceed 6
+    -should fetch sub-group chair person, secretery and treasure details
+    
+    
+    */
     private static final Log log = LogFactory.getLog("origlogger");
     private static int groupId;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     public static boolean groupExists(String groupCode, String groupName) {
         String sql = "select count(*)CNT from groups_table where group_code= ? and group_name = ?";
@@ -81,9 +87,20 @@ public class Group {
     }
 
     public static int addGroupDetails(String bankId, String countryCode, String delFlg, String groupAddress, double groupLoans, String groupName, String groupPhone, String grpMgrId, String grpRegNo, Date lchgDate, String lchgUserId, int maxAllowedMembers, int maxAllowedSubGrps, int noOfMembers, int noOfSubGrps, double outstandingBal, double savingsAmt, Date rcreTime, String rcreUserId, String gpRegion, String groupCode, Date formationDate, String groupCenter, String groupVillage, Date firstMeetDate, String meetTime, String meetPlace, String gpChair, String gpTreasurer, String gpSecretary, String gpStatus, String gpStatusCode, int loanAccounts, int savingAccounts, int solId, String branchName, String meetFrequency, String groupType) {
-        String sql = "insert into groups_table( BANK_ID,BRANCH_NAME, COUNTRY_CODE,DEL_FLG, FIRST_MEET_DATE,FORMATION_DATE,NXT_MEET_DATE,GP_CHAIR,GP_REGION, GP_SECRETARY,GP_STATUS,GP_STATUS_CODE,GP_TREASURER,GROUP_ADDRESS,GROUP_CENTER,GROUP_CODE,GROUP_LOANS,GROUP_NAME,GROUP_PHONE,GROUP_VILLAGE,GRP_MGR_ID,GRP_REG_NO,LCHG_USER_ID,LOAN_ACCOUNTS,MAX_ALLOWED_MEMBERS,MAX_ALLOWED_SUB_GRPS,MEET_FREQUENCY, MEET_PLACE,MEET_TIME,NO_OF_MEMBERS, NO_OF_SUB_GRPS, OUTSTANDING_BAL, RCRE_USER_ID,SAVING_ACCOUNTS,SAVINGS_AMT,SOL_ID,GROUP_TYPE, LCHG_DATE,RCRE_TIME) values"
+        String sql = "insert into groups_table( BANK_ID,BRANCH_NAME,"
+                + " COUNTRY_CODE,DEL_FLG, FIRST_MEET_DATE,FORMATION_DATE,"
+                + "NXT_MEET_DATE,GP_CHAIR,GP_REGION, GP_SECRETARY,"
+                + "GP_STATUS,GP_STATUS_CODE,GP_TREASURER,GROUP_ADDRESS,"
+                + "GROUP_CENTER,GROUP_CODE,GROUP_LOANS,GROUP_NAME,GROUP_PHONE,"
+                + "GROUP_VILLAGE,GRP_MGR_ID,GRP_REG_NO,LCHG_USER_ID,LOAN_ACCOUNTS,"
+                + "MAX_ALLOWED_MEMBERS,MAX_ALLOWED_SUB_GRPS,MEET_FREQUENCY, "
+                + "MEET_PLACE,MEET_TIME,NO_OF_MEMBERS, NO_OF_SUB_GRPS, "
+                + "OUTSTANDING_BAL, RCRE_USER_ID,SAVING_ACCOUNTS,SAVINGS_AMT,"
+                + "SOL_ID,GROUP_TYPE, LCHG_DATE,RCRE_TIME) values"
                 
-                + "(?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111))";
+                + "(?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,"
+                + "try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+                + "?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111))";
         String in = bankId + "," + branchName + "," + countryCode + "," + delFlg + "," +parseDates(firstMeetDate) + "," + parseDates(formationDate) + "," + parseDates(getNextMettingDate(firstMeetDate, meetFrequency)) + ","+ gpChair + "," + gpRegion + "," + gpSecretary + "," + gpStatus + "," + gpStatusCode + "," + gpTreasurer + "," + groupAddress + "," + groupCenter + "," + groupCode + "," + groupLoans + "," + groupName + "," + groupPhone + "," + groupVillage + "," + grpMgrId + "," + grpRegNo + ","  + lchgUserId + "," + loanAccounts + "," + maxAllowedMembers + "," + maxAllowedSubGrps + "," + meetFrequency + "," + meetPlace + "," + meetTime + "," + noOfMembers + "," + noOfSubGrps + ","  + outstandingBal +  "," + rcreUserId + "," + savingAccounts + "," + savingsAmt + "," + solId + "," + groupType +","+ parseDates(lchgDate) + "," + parseDates(rcreTime);
         int k = AdminDb.dbWork(sql, 39, in);
         if (k > 0) {
@@ -123,8 +140,18 @@ public class Group {
     }
 
     public static boolean addGroupModDetails(int groupId, String bankId, String countryCode, String delFlg, String groupAddress, double groupLoans, String groupName, String groupPhone, String grpMgrId, String grpRegNo, Date lchgDate, String lchgUserId, int maxAllowedMembers, int maxAllowedSubGrps, int noOfMembers, int noOfSubGrps, double outstandingBal, double savingsAmt, Date rcreTime, String rcreUserId, String gpRegion, String groupCode, Date formationDate, String groupCenter, String groupVillage, Date firstMeetDate, Date nxtMeetDate, String meetTime, String meetPlace, String gpChair, String gpTreasurer, String gpSecretary, String gpStatus, String gpStatusCode, int loanAccounts, int savingAccounts, int solId, String branchName, String meetFrequency, String lastOper) {
-        String sql = "insert into groups_table_mod(GROUP_ID, BANK_ID,BRANCH_NAME, COUNTRY_CODE,DEL_FLG,GP_CHAIR,GP_REGION, GP_SECRETARY,GP_STATUS,GP_STATUS_CODE,GP_TREASURER,GROUP_ADDRESS,GROUP_CENTER,GROUP_CODE,GROUP_LOANS,GROUP_NAME,GROUP_PHONE,GROUP_VILLAGE,GRP_MGR_ID,GRP_REG_NO,LCHG_USER_ID,LOAN_ACCOUNTS,MAX_ALLOWED_MEMBERS,MAX_ALLOWED_SUB_GRPS,MEET_FREQUENCY, MEET_PLACE,MEET_TIME,NO_OF_MEMBERS, NO_OF_SUB_GRPS,OUTSTANDING_BAL, RCRE_USER_ID,SAVING_ACCOUNTS,SAVINGS_AMT,SOL_ID,LAST_OPER, FIRST_MEET_DATE,FORMATION_DATE,RCRE_TIME,LCHG_DATE,NXT_MEET_DATE) values"
-                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111))";
+        String sql = "insert into groups_table_mod(GROUP_ID, BANK_ID,BRANCH_NAME, "
+                + "COUNTRY_CODE,DEL_FLG,GP_CHAIR,GP_REGION, GP_SECRETARY,GP_STATUS,"
+                + "GP_STATUS_CODE,GP_TREASURER,GROUP_ADDRESS,GROUP_CENTER,GROUP_CODE,"
+                + "GROUP_LOANS,GROUP_NAME,GROUP_PHONE,GROUP_VILLAGE,GRP_MGR_ID,GRP_REG_NO,"
+                + "LCHG_USER_ID,LOAN_ACCOUNTS,MAX_ALLOWED_MEMBERS,MAX_ALLOWED_SUB_GRPS,"
+                + "MEET_FREQUENCY, MEET_PLACE,MEET_TIME,NO_OF_MEMBERS, NO_OF_SUB_GRPS,"
+                + "OUTSTANDING_BAL, RCRE_USER_ID,SAVING_ACCOUNTS,SAVINGS_AMT,SOL_ID,"
+                + "LAST_OPER, FIRST_MEET_DATE,FORMATION_DATE,RCRE_TIME,LCHG_DATE,NXT_MEET_DATE) values"
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+                + "try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111) "
+                + ",try_convert(date, ?, 111) ,try_convert(date, ?, 111))";
+        
         String in = groupId + "," + bankId + "," + branchName + "," + countryCode + "," + delFlg + "," + gpChair + "," + gpRegion + "," + gpSecretary + "," + gpStatus + "," + gpStatusCode + "," + gpTreasurer + "," + groupAddress + "," + groupCenter + "," + groupCode + "," + groupLoans + "," + groupName + "," + groupPhone + "," + groupVillage + "," + grpMgrId + "," + grpRegNo + ","  + lchgUserId + "," + loanAccounts + "," + maxAllowedMembers + "," + maxAllowedSubGrps + "," + meetFrequency + "," + meetPlace + "," + meetTime + "," + noOfMembers + "," + noOfSubGrps + "," +outstandingBal + ","  + rcreUserId + "," + savingAccounts + "," + savingsAmt + "," + solId + "," + lastOper +","+ parseDates(firstMeetDate) + "," + parseDates(formationDate) + ","+ parseDates(rcreTime) + ","+ parseDates(lchgDate) + "," + parseDates(getNextMettingDate(firstMeetDate, meetFrequency));
         int addmod = AdminDb.dbWork(sql, 40, in);
         return addmod != 0;
@@ -140,6 +167,28 @@ public class Group {
         log.debug("Group Id: " + groupid + " Added Successfully");
         return groupid != 0;
     }
+   //String bankId, String countryCode, String delFlg, String groupAddress, 
+    //double groupLoans, String groupName, String groupPhone, String grpMgrId,
+    //String grpRegNo, Date lchgDate, String lchgUserId, int maxAllowedMembers,
+    //int maxAllowedSubGrps, int noOfMembers, int noOfSubGrps, double outstandingBal,
+    //double savingsAmt, Date rcreTime, String rcreUserId, String gpRegion, Date formationDate, --
+    //String groupCenter, String groupVillage, Date firstMeetDate, String meetTime, String meetPlace, 
+    //String gpChair, String gpTreasurer, String gpSecretary, String gpStatus, String gpStatusCode, int loanAccounts, 
+    //int savingAccounts, int solId, String branchName, String meetFrequency, String lastOper, String groupType 
+//        public static void main(String[] args) {
+//       boolean r = executeaddGroup("001", "KE", "N", "BOX 1002 NRB", 100000, 
+//               "ARID MERCHANTS GROUP", "07354748498", "0100", "8200376", new Date(), 
+//               "MIKE", 5, 5, 4, 5, 10000.00, 2000.00,  new Date(), "MIKE", "GITHURAI", new Date(),
+//               "Center","Village", new Date(),"10:00AM","Office","Chair","Treasure","Secretary","N","DF",4,
+//               4,1,"CBD","W","C","DF"
+//               ); 
+//       /*
+//       "GRP001",  new Date(), "GC001", "VL",  new Date(), "10:00", "Office",
+//               "SAM", "KIM", "OLIVER", "N", "N", 4, 4, 1, "CBD", "W", "DF"
+//       */
+//            System.out.println(" Results"+r);
+//        }
+    
 
     public static void verifyGroup(int groupId) {
         String sql = "delete from groups_table_mod where group_id = ?";
@@ -221,11 +270,9 @@ public class Group {
 
     private static String parseDates(Date date) {
         DateTime dateTime = new DateTime(date);
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY-MM-DD");
         return dateTime.toString(fmt);
     }
     
-//    public static void main(String[] args) {
-//       addGroupDetails("001", "KE", "N", "BOX 1002 NRB", 100000, "GIANTS GROUP", "07354748498", "0100", "826376", new Date(), "MIKE", 5, 5, 4, 5, 10000.00, 2000.00,  new Date(), "MIKE", "CBD", "GRP001",  new Date(), "GC001", "VL",  new Date(), "10:00", "Office", "SAM", "KIM", "OLIVER", "N", "N", 4, 4, 1, "CBD", "W", "DF"); 
-//    }
+
 }

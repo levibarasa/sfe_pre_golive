@@ -28,14 +28,14 @@ public class Access {
     }
 
     public static void disableUser(int userId) {
-        String sql = "update user_creds_tbl set disabled_from_date = ?, disabled_upto_date = ? where user_id = ?";
-        String in = sdf.format(new Date()) + "," + getExpDate(1000) + "," + userId;
+        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111), disabled_upto_date = try_convert(date, ?, 111) where user_id = ?";
+        String in = sdf.format(new Date()) + "," + sdf.format(getExpDate(1000)) + "," + userId;
         AdminDb.dbWork(sql, 3, in);
     }
 
     public static void enableUser(int userId) {
-        String sql = "update user_creds_tbl set disabled_from_date = ?, disabled_upto_date = ? where user_id = ?";
-        String in = getExpDate(1000) + "," + getExpDate(1000) + "," + userId;
+        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111), disabled_upto_date = try_convert(date, ?, 111) where user_id = ?";
+        String in = sdf.format(getExpDate(1000)) + "," + sdf.format(getExpDate(1000)) + "," + userId;
         AdminDb.dbWork(sql, 3, in);
     }
 
@@ -76,7 +76,7 @@ public class Access {
     }
 
     public static void loginUser(String userName, String solId, Date loggedInTime, String sessionId) {
-        String sql = "insert into logged_in_user(logged_in_time, session_id, sol_id, user_name) values (GETDATE(),?,?,?)";
+        String sql = "insert into logged_in_user(logged_in_time, session_id, sol_id, user_name) values (try_convert(date, getDate(), 111),?,?,?)";
         String in = sessionId + "," + solId + "," + userName;
         AdminDb.dbWork(sql, 3, in);
     }
@@ -92,4 +92,6 @@ public class Access {
         cal.add(Calendar.DAY_OF_MONTH, numberOfDays);
         return cal.getTime();
     }
+    
+     
 }

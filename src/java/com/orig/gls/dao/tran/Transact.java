@@ -24,11 +24,15 @@ public class Transact {
     }
 
     public static int addTranDetails(BigDecimal tranAmt, Date tranDate, String acid, String tranParticulars, String rcreUserId, Date rcreTime, String lchgUserId, Date lchgTime, String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
-        String sql = " insert into DAILY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,TRAN_ID,TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?,?,?,?)";
-        String in = tranAmt + "," + tranDate + "," + acid + ",GLS_SEQ.nextval," + tranParticulars + "," + rcreUserId + "," + rcreTime + "," + lchgUserId + "," + lchgTime + "," + delFlg + "," + pstdFlg + "," + tranType + "," + bankTranId + "," + subGroupCode;
-        return AdminDb.dbWork(sql, 13, in);
+        
+        String sql = " insert into DAILY_TRANSACTIONS_TABLE"
+                + "(FORACID,BANK_TRAN_ID,DEL_FLG,LCHG_TIME,LCHG_USER_ID,PSTD_FLG,RCRE_TIME,RCRE_USER_ID,SUB_GROUP_CODE,TRAN_AMT,TRAN_DATE ,TRAN_PARTICULARS,TRAN_TYPE) "
+                + " values (?,?,?,try_convert(date, ?, 111),?,?,try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111),?,?)";
+           String in = acid+ "," +bankTranId+ "," + delFlg+ "," + lchgTime + "," + lchgUserId + "," + pstdFlg + "," + rcreTime + "," + rcreUserId  + "," + subGroupCode  + "," + new BigDecimal(""+tranAmt+"") + "," + tranDate + "," + tranParticulars  + "," + tranType;
+       return AdminDb.dbWork(sql, 13, in);
     }
-
+     
+    
     public static void completeTran(String foracid) {
         String sql = "delete from loan_demands_table where acid = ?";
         AdminDb.dbWork(sql, 1, foracid);
@@ -55,9 +59,10 @@ public class Transact {
     }
 
     public static String getAcid(String foracid) {
-        String sql = "select acid from general_acct_mast_table where foracid ?";
+        String sql = "select acid from general_acct_mast_table where foracid= ?";
         return AdminDb.getValue(sql, 1, 1, foracid);
     }
+    
 
     public static int getLastInsertId() {
         String sql = "select max(tran_id) from daily_transactions_table";
@@ -70,13 +75,16 @@ public class Transact {
     }
 
     public static ArrayList verifyTransacctions(String subgroupCode) {
-        String sql = "select bank_tran_id, tran_amt, tran_type, acid, sub_group_code from daily_transactions_table where sub_group_code = ? and tran_type = ?";
+        String sql = "select bank_tran_id, tran_amt, tran_type, foracid, sub_group_code from daily_transactions_table where sub_group_code = ? and tran_type = ?";
         String in = subgroupCode + ",C";
         return AdminDb.execArrayLists(sql, 2, in, 5);
     }
+    
 
+    
+ 
     public static void postTransacctions(String subgroupCode) {
-        String sql = "select acid, tran_amt, tran_particulars, bank_tran_id from daily_transactions_table where sub_group_code = ? and tran_type = ?";
+        String sql = "select foracid, tran_amt, tran_particulars, bank_tran_id from daily_transactions_table where sub_group_code = ? and tran_type = ?";
         String in = subgroupCode + ",C";
         String val = AdminDb.getValue(sql, 3, 2, in);
         String[] vals = val.split("\\s*,\\s*");
@@ -100,6 +108,13 @@ public class Transact {
         }
     }
 
+    //    public static void main(String[] args) {
+//        ArrayList ar =verifyTransacctions("WES2010");
+//        for (int i = 0; i < ar.size(); i++) {
+//                        ArrayList one = (ArrayList) ar.get(i);
+//                        System.out.println((String) one.get(0)+" "+ one.get(1)+" "+(String) one.get(2)+" "+(String) one.get(3)+" "+(String) one.get(4));
+//        }
+//    }
     public static String getDebitAccountNumber(String foracid) {
         String sql = "select sub_grp_acnt_no from sub_grp_table where sub_group_code = ?";
         return AdminDb.getValue(sql, 1, 1, foracid);

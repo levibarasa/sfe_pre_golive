@@ -20,6 +20,7 @@ public class User {
 
     private static final Log log = LogFactory.getLog("origlogger");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
+    
     public static boolean userExists(String userName) {
         String sql = "select count(*)cnt from user_creds_tbl where user_name = ?";
         String str = AdminDb.getValue(sql, 1, 1, userName);
@@ -39,7 +40,11 @@ public class User {
     }
 
     public static int addUserDetails(String userName, String roleId, String userPw, int numPwdHistory, String pwdHistory, int numPwdAttempts, String newUserFlg, int acctInactiveDays, String rcreUserId, String solId) {
-        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(try_convert(date, ?, 111),?,try_convert(date, ?, 111) ,try_convert(date, ?, 111),try_convert(date, ?, 111) ,?,?,?,try_convert(date, ?, 111),?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_creds_tbl(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,"
+                + "LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,"
+                + "USER_NAME,USER_PW,SOL_ID,USER_STATUS,LCHG_USER_ID) values(try_convert(date, ?, 111),?,"
+                + "try_convert(date, ?, 111) ,try_convert(date, ?, 111),try_convert(date, ?, 111) ,?,?,?,"
+                + "try_convert(date, ?, 111),?,?,?,?,?,?,?)";
         String disabledFromDate = getfutureDateString("Year", 2);
         String disabledUptoDate = getfutureDateString("Year", 3);
         String pwExpyDate = getfutureDateString("Month", 3);
@@ -48,26 +53,22 @@ public class User {
         int role = getRoleId(roleId);
         String userN = userName.trim();
         String passwD = userPw.trim();
-//        Random randomGenerator = new Random();
-//        int randomInt = randomGenerator.nextInt(1000000);
-//        String formatedInt;
-//        formatedInt = String.format("%06d", randomInt);
-//        
         String in =   acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," +  disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userName + "," + EncodeUserPassword(userN, passwD) + "," + solId + ",U," + rcreUserId;
         return AdminDb.dbWork(sql, 16, in);
     }
-
+ 
     public static ArrayList getAllVerifiedUsers() {
         String sql = "select user_name, user_id, role_id from user_creds_tbl";
         return AdminDb.execArrayLists(sql, 0, "", 3);
     }
 
+    
     public static ArrayList getAllUsers(String uname) {
         String sql = "select user_name, user_id, role_id from user_creds_tbl where user_name <> ? and user_status =?";
         String in = uname + ",A";
         return AdminDb.execArrayLists(sql, 2, in, 3);
     }
-
+    
     public static ArrayList getAvailableUsers() {
         String sql = "select user_name, role_id,user_id from user_creds_tbl where user_status = ?";
         return AdminDb.execArrayLists(sql, 1, "A", 3);
@@ -78,6 +79,8 @@ public class User {
         return AdminDb.execArrayLists(sql, 1, username, 3);
     }
 
+    
+    
     public static ArrayList getUnverifiedUsers() {
         String sql = "select user_name, user_id,role_id from user_creds_tbl_mod";
         return AdminDb.execArrayLists(sql, 0, "", 3);
@@ -88,6 +91,7 @@ public class User {
         return AdminDb.execArrayLists(sql, 1, in, 10);
     }
 
+   
     public static String lastOper(String in) {
         String sql = "select last_oper from user_creds_tbl_mod where user_id = ?";
         return AdminDb.getValue(sql, 1, 0, in);
@@ -118,7 +122,12 @@ public class User {
                 break;
         }
 
-        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?)";
+       //1,3,4,5,9,
+        String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE,"
+                + "DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,"
+                + "PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) "
+                + "values(try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) "
+                + ",try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?)";
         int role = getRoleId(roleId);
         Random randomGenerator = new Random();
 //        int randomInt = randomGenerator.nextInt(1000000);
@@ -129,6 +138,13 @@ public class User {
         return AdminDb.dbWork(sql, 16, in) > 0;
 
     }
+//    //"User", "DBA", "user1234", 0, "12", 0, "Y", 0, "Eliud", "001"
+//    public static void main(String[] args) {
+//        System.out.println( addUserModDetails(1154, "User", "DBA",
+//        "user1234", 0, "12", 
+//         0, "Y", 0, 
+//                "C", "Eliud", "Modify"));
+//    }
 
     public static void verifyUser(int userId) {
         String sql = "delete from user_creds_mod where user_id = ?";
@@ -140,7 +156,12 @@ public class User {
         AdminDb.dbWork(sql, 1, userName);
     }
 
-    public static ArrayList getUsersList() {
+     public static ArrayList getUsersList() {
+        String sql = "SELECT  USER_NAME ,SOL_ID,ROLE_DESC FROM  FINACLE_USERS";
+        return AdminDb.execArrayLists(sql, 0, "", 3);
+    }
+      
+    public static ArrayList getFileUsersList() {
         ArrayList arr = new ArrayList();
         GlsFile pr = new GlsFile();
         String uploadFilepath = pr.getDBProperty().getProperty("user.file");
@@ -228,9 +249,10 @@ public class User {
         String sql = "select role_desc from role_profile_table";
         return AdminDb.execArrayLists(sql, 0, "", 1);
     }
-
+    
+    
     private static String getfutureDateString(String intType, int months) {
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         DateTime dt = new DateTime();
         if (months > 0) {
             if (intType.equalsIgnoreCase("Year")) {
@@ -243,8 +265,10 @@ public class User {
         }
         return dt.toString(fmt);
     }
+    
 //    public static void main(String[] args) {
-//         String pass = EncodeUserPassword("MARK", "mark1234");
+//        
+//         String pass = EncodeUserPassword("ELIUD", "eliud1234");
 //        System.out.println("pass:     "+pass+"    yea");
 //    }
 }

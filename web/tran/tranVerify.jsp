@@ -47,7 +47,7 @@
                         ArrayList one = (ArrayList) all.get(i);%>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><%=(String) one.get(0)%></div></td>
-                <td><div align="center"><%=(java.math.BigDecimal) one.get(1)%></div></td>
+                <td><div align="center"><%= one.get(1)%></div></td>
                 <td><div align="center"><%=(String) one.get(2)%></div></td>
                 <td><div align="center"><%=(String) one.get(3)%></div></td>
                 <td><div align="center"><%=(String) one.get(4)%></div></td>

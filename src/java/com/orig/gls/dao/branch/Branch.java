@@ -9,4 +9,5 @@ public class Branch {
         String sql = "select sol_id, sol_desc, bank_id from service_outlet_table order by sol_id desc";
         return AdminDb.execArrayLists(sql, 0, "", 3);
     }
+     
 }

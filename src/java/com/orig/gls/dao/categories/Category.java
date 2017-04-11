@@ -23,7 +23,5 @@ public class Category {
         return AdminDb.execArrayLists(sql, 1, statuscategory, 5);
     }
     
-//    public static void main(String[] args) {
-//       addCategories("001","CT01","CURRENCY","CR","MIKE","MIKE" ); 
-//    }
+
 }

@@ -39,6 +39,7 @@ public class MemberExitw {
     public static void navigateAfterGroupSelect(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        //mextsuc , mextfal ,
         session.setAttribute("mextsuc", false);
         session.setAttribute("mextfal", false);
         session.setAttribute("mrenfal", false);

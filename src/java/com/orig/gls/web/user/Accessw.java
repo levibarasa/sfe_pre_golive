@@ -34,13 +34,15 @@ public class Accessw {
         String username = request.getParameter("Username");
         String password = request.getParameter("Password");
         int userId;
+        SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
         if (User.userExists(username)) {
             userId = User.getUserId(username);
             ArrayList user = User.getUserDetails(String.valueOf(userId));
 
             Encode enc = new Encode(Encode.generateUserKey(username, password), Encode.generateUserIV(username, password));
             Date currdate = new Date();
-            int logattempts = 0;
+            
+             int logattempts = 0;
             Date pwdexpyDate = new Date();
             Date acctexpyDate = new Date();
             Date disabledFromDate = new Date();
@@ -85,7 +87,7 @@ public class Accessw {
                                             if (!newUsrFlg.equalsIgnoreCase("Y")) {
                                                 session.setAttribute("role", roleName);
                                                 Access.loginUser(username, "000", new Date(), session.getId());
-                                                Access.enableUser(userId);
+                                                //Access.enableUser(userId);
                                                 Access.markCorrectLoginAttempt(username);
                                                 session.setAttribute("content_page", "ucontent.jsp");
                                                 response.sendRedirect("index.jsp");

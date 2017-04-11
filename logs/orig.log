@@ -22,3 +22,49 @@
 [origlogger] [28 Mar 2017 - 16:51:54] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 25. 
 [origlogger] [28 Mar 2017 - 16:54:59] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 25. 
 [origlogger] [29 Mar 2017 - 09:42:55] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 24 is out of range. 
+[origlogger] [29 Mar 2017 - 12:32:10] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 5. 
+[origlogger] [29 Mar 2017 - 12:37:24] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'last_modified_time'. 
+[origlogger] [29 Mar 2017 - 12:39:10] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'last_modified_time'. 
+[origlogger] [29 Mar 2017 - 12:41:07] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [03 Apr 2017 - 11:13:46] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 17. 
+[origlogger] [03 Apr 2017 - 14:20:40] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: There are more columns in the INSERT statement than values specified in the VALUES clause. The number of values in the VALUES clause must match the number of columns specified in the INSERT statement. 
+[origlogger] [03 Apr 2017 - 15:00:00] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: There are more columns in the INSERT statement than values specified in the VALUES clause. The number of values in the VALUES clause must match the number of columns specified in the INSERT statement. 
+[origlogger] [03 Apr 2017 - 15:03:06] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 14 is out of range. 
+[origlogger] [03 Apr 2017 - 15:03:27] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: There are more columns in the INSERT statement than values specified in the VALUES clause. The number of values in the VALUES clause must match the number of columns specified in the INSERT statement. 
+[origlogger] [03 Apr 2017 - 15:08:03] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 13. 
+[origlogger] [03 Apr 2017 - 15:08:53] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: There are more columns in the INSERT statement than values specified in the VALUES clause. The number of values in the VALUES clause must match the number of columns specified in the INSERT statement. 
+[origlogger] [03 Apr 2017 - 15:14:37] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [03 Apr 2017 - 16:04:10] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting date and/or time from character string. 
+[origlogger] [03 Apr 2017 - 16:09:45] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [03 Apr 2017 - 16:11:47] [DEBUG][conn.AdminDb][dbWork][44] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 11:29:11] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'acct_type'. 
+[origlogger] [04 Apr 2017 - 11:40:45] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'acct_type'. 
+[origlogger] [04 Apr 2017 - 16:22:37] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 16:26:12] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 13. 
+[origlogger] [04 Apr 2017 - 16:31:15] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 16:32:14] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 16:39:23] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 12. 
+[origlogger] [04 Apr 2017 - 16:42:27] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 13. 
+[origlogger] [04 Apr 2017 - 16:44:10] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 16:45:42] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [04 Apr 2017 - 17:09:50] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Error converting data type nvarchar to numeric. 
+[origlogger] [04 Apr 2017 - 17:11:15] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Error converting data type nvarchar to numeric. 
+[origlogger] [04 Apr 2017 - 17:12:29] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Error converting data type nvarchar to numeric. 
+[origlogger] [04 Apr 2017 - 17:13:33] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 13. 
+[origlogger] [04 Apr 2017 - 17:29:58] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'acid'. 
+[origlogger] [05 Apr 2017 - 11:40:45] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'clrBalAmt'. 
+[origlogger] [05 Apr 2017 - 12:53:33] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Error converting data type nvarchar to numeric. 
+[origlogger] [06 Apr 2017 - 09:57:26] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'group_id'. 
+[origlogger] [06 Apr 2017 - 10:02:54] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'group_id'. 
+[origlogger] [06 Apr 2017 - 10:33:39] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 26. 
+[origlogger] [06 Apr 2017 - 14:48:46] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [06 Apr 2017 - 14:48:46] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [06 Apr 2017 - 14:48:46] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [06 Apr 2017 - 14:55:56] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [06 Apr 2017 - 14:55:56] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [06 Apr 2017 - 14:55:56] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert explicit value for identity column in table 'GENERAL_ACCT_MAST_AUDIT_TABLE' when IDENTITY_INSERT is set to OFF. 
+[origlogger] [11 Apr 2017 - 10:08:54] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 17. 
+[origlogger] [11 Apr 2017 - 10:43:53] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Column 'loan_demands_report.DMD_AMT' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause. 
+[origlogger] [11 Apr 2017 - 10:44:21] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Column 'loan_demands_report.DMD_AMT' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause. 
+[origlogger] [11 Apr 2017 - 10:48:33] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Column 'loan_demands_report.DMD_AMT' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause. 
+[origlogger] [11 Apr 2017 - 12:41:42] [DEBUG][group.Group][executeaddGroup][166] - Group Id: 13 Added Successfully 
