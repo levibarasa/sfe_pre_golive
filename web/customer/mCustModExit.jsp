@@ -4,7 +4,7 @@
          java.util.*,com.orig.gls.dao.customer.Customer" errorPage="" %>
 <%
     Customer frd = new Customer();
-    ArrayList all = frd.getAllUnMappedAccountMod((String) session.getAttribute("uname"));
+    ArrayList all = frd.getAllUnMappedExitAccountMod((String) session.getAttribute("uname"));
     int size = all.size();
 %>
 
@@ -15,14 +15,14 @@
     -->
 </style>
 
-<script type="text/javascript">
+<!--script type="text/javascript">
     if (${cverified == 'true'}) {
         alert("Record Verified Successfully");
     }
     if (${cmexitverified == 'true'}) {
         alert("Member Exit Verified Successfully");
     }
-</script>
+</script-->
 <script>
     function deleteDriver(id) {
         if (confirm('Want to Verify this Record?')) {

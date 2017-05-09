@@ -68,7 +68,7 @@ public class User {
         String in = uname + ",A";
         return AdminDb.execArrayLists(sql, 2, in, 3);
     }
-    
+
     public static ArrayList getAvailableUsers() {
         String sql = "select user_name, role_id,user_id from user_creds_tbl where user_status = ?";
         return AdminDb.execArrayLists(sql, 1, "A", 3);
@@ -192,18 +192,25 @@ public class User {
         AdminDb.dbWork(sql, 2, in);
     }
 
+   
     public static void changePassword(String username, String passwrd) {
-        String disabledFromDate = getfutureDateString("Year", 2);
+         String disabledFromDate = getfutureDateString("Year", 2);
         String disabledUptoDate = getfutureDateString("Year", 3);
         String pwExpyDate = getfutureDateString("Month", 3);
         String acctExpyDate = getfutureDateString("Month", 3);
         String rcre_time = getfutureDateString("Month", 0);
         String pass = EncodeUserPassword(username, passwrd);
-        
-        String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate + "," + acctExpyDate + ",N," + pass + "," + username;
-        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111), disabled_upto_date = try_convert(date, ?, 111) , pw_expy_date = try_convert(date, ?, 111) , acct_expy_date = try_convert(date, ?, 111), last_access_time = try_convert(date, ?, 111) , new_user_flg = ?, user_pw = ? where user_name =?";
-        AdminDb.dbWork(sql, 7, in);
-    }
+       
+        String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate +
+                "," + acctExpyDate  +",N," + pass + "," + username;
+        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111)"
+                + ", disabled_upto_date = try_convert(date, ?, 111) , pw_expy_date = try_convert(date, ?, 111) "
+                + ", acct_expy_date = try_convert(date, ?, 111), last_access_time = try_convert(date, ?, 111)"
+                + " , new_user_flg = 'N', user_pw = ? where user_name =?";
+       
+        if((AdminDb.dbWork(sql, 7, in)) > 0){
+         }
+          }
 
     public static void modifyUser(int userId, String username) {
         String sql = "select role_id, new_user_flg from user_creds_tbl_mod where user_id=?";
@@ -268,7 +275,7 @@ public class User {
     
 //    public static void main(String[] args) {
 //        
-//         String pass = EncodeUserPassword("ELIUD", "eliud1234");
+//         String pass = EncodeUserPassword("LEVI", "pass1234");
 //        System.out.println("pass:     "+pass+"    yea");
 //    }
 }

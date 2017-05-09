@@ -25,8 +25,20 @@
                 <th bgcolor="#00C3F9" scope="col"><span class="style10">Function Name </span></th>
                 <th bgcolor="#00C3F9" scope="col"><span class="style10">Function Code </span></th>
             </tr>
-            <tr style="height:30px; padding:4px;">
+             <!--tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">EXIT MEMBER</a></div></td>
+                <td><div align="center">A</div></td>
+            </tr--> 
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">VOLUNTARY EXIT</a></div></td>
+                <td><div align="center">A</div></td>
+            </tr>  
+             <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">EXPULSION</a></div></td>
+                <td><div align="center">A</div></td>
+            </tr>  
+             <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">DECEASED</a></div></td>
                 <td><div align="center">A</div></td>
             </tr>  
             <tr style="height:30px; padding:4px;">

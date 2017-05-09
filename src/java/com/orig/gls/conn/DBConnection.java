@@ -42,7 +42,7 @@ public class DBConnection {
                 
            }
        }
-       public static void main(String[] args) {
+  //     public static void main(String[] args) {
 //           DBConnection   bConnection = new DBConnection();
 //           if (bConnection.getDbConnection()!=null)
 //           {
@@ -54,5 +54,5 @@ public class DBConnection {
 //           System.out.println("Fuck you"); 
 //           }
            
-    }
+  //  }
 }

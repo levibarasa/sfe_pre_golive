@@ -283,7 +283,7 @@
       class="org.jpos.iso.IFA_LLLCHAR"/>
   <isofield
       id="56"
-      length="41"
+      length="35"
       name="RESERVED ISO"
       class="org.jpos.iso.IFA_LLCHAR"/>
   <isofield

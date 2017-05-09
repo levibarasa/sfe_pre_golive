@@ -68,3 +68,16 @@
 [origlogger] [11 Apr 2017 - 10:44:21] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Column 'loan_demands_report.DMD_AMT' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause. 
 [origlogger] [11 Apr 2017 - 10:48:33] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Column 'loan_demands_report.DMD_AMT' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause. 
 [origlogger] [11 Apr 2017 - 12:41:42] [DEBUG][group.Group][executeaddGroup][166] - Group Id: 13 Added Successfully 
+[origlogger] [13 Apr 2017 - 12:47:24] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Error converting data type nvarchar to numeric. 
+[origlogger] [21 Apr 2017 - 12:39:06] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 8. 
+[origlogger] [21 Apr 2017 - 12:44:23] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 8. 
+[origlogger] [26 Apr 2017 - 11:30:43] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 3. 
+[origlogger] [26 Apr 2017 - 11:30:44] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 3. 
+[origlogger] [09 May 2017 - 11:13:16] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 11:15:00] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 11:20:29] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 11:31:28] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'LAST_OPER'. 
+[origlogger] [09 May 2017 - 11:34:19] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 12:00:12] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 12:18:15] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [09 May 2017 - 12:20:13] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 

@@ -245,10 +245,11 @@
                         <td>:</td>
                         <td><input type="text" name="groupname" id="groupname" onkeyup="this.value = this.value.toUpperCase();" <%=isreadonly%>  <%=ishidden%> /></td>
                     </tr>
-                    <tr>
+                    <tr><!-- getSolValueValue() -->
                         <td>Sol Id</td>
                         <td>:</td>
                         <td><input type="text" name="solid" id="solid" onkeyup="this.value = this.value.toUpperCase();" value="<%=solId%>" readonly="true" /></td>
+                         <td><a href=""  <%=ishiddenv%> onclick="return getSolValueValue()"><img src="images/search.png"></a></td>
                         <td ><input type="text" <%=ishidden%> name="branchname" id="branchname" onkeyup="this.value = this.value.toUpperCase();" readonly="true" </td>
                         <td>Group Mgr Id</td>
                         <td>:</td>

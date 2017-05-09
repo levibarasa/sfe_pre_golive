@@ -2,32 +2,101 @@
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*,
          java.util.*,com.orig.gls.dao.mext.Mext" errorPage="" %>
+<script type="text/javascript">
+    function MM_findObj(n, d) { //v4.01
+        var p, i, x;
+        if (!d)
+            d = document;
+        if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+            d = parent.frames[n.substring(p + 1)].document;
+            n = n.substring(0, p);
+        }
+        if (!(x = d[n]) && d.all)
+            x = d.all[n];
+        for (i = 0; !x && i < d.forms.length; i++)
+            x = d.forms[i][n];
+        for (i = 0; !x && d.layers && i < d.layers.length; i++)
+            x = MM_findObj(n, d.layers[i].document);
+        if (!x && d.getElementById)
+            x = d.getElementById(n);
+        return x;
+    }
+
+    function MM_validateForm() { //v4.0
+        var i, p, q, nm, test, num, min, max, errors = '', args = MM_validateForm.arguments;
+        for (i = 0; i < (args.length - 2); i += 3) {
+            test = args[i + 2];
+            val = MM_findObj(args[i]);
+            if (val) {
+                nm = val.name;
+                if ((val = val.value) !== "") {
+                    if (test.indexOf('isEmail') !== -1) {
+                        p = val.indexOf('@');
+                        if (p < 1 || p === (val.length - 1))
+                            errors += '- ' + nm + ' must contain an e-mail address.\n';
+                    } else if (test !== 'R') {
+                        num = parseFloat(val);
+                        if (isNaN(val))
+                            errors += '- ' + nm + ' must contain a number.\n';
+                        if (test.indexOf('inRange') !== -1) {
+                            p = test.indexOf(':');
+                            min = test.substring(8, p);
+                            max = test.substring(p + 1);
+                            if (num < min || max < num)
+                                errors += '- ' + nm + ' must contain a number between ' + min + ' and ' + max + '.\n';
+                        }
+                    }
+                } else if (test.charAt(0) === 'R')
+                    errors += '- ' + nm + ' is required.\n';
+            }
+        }
+        if (errors)
+            alert('The following error(s) occurred:\n' + errors);
+        document.MM_returnValue = (errors === '');
+    }
+
+</script>
 <%
     String subgroup = (String) session.getAttribute("custId");
+     
     String func = (String) session.getAttribute("mextren");
     String status;
     String label;
     String info;
+    /*
+    A - ACTIVE  | D - DECEASED | V - VOLUNTARY EXIT | E - EXPULSION  |D -   RE-INSTATE MEMBER
+     */
     switch (func) {
-        case "EXIT MEMBER":
+        case "VOLUNTARY EXIT":
             label = "Exit";
             status = "A";
-            info = "Exited";
+            info = "Be Exited";
+            break;
+        case "DECEASED":
+            status = "A";
+            label = "Exit";
+            info = "Be Exited";
+            break;
+        case "EXPULSION":
+            status = "A";
+            label = "Exit";
+            info = " Be Exited";
             break;
         default:
-            status = "D";
+            status = "V";
             label = "Re-instate";
-            info = "Re-instated";
+            info = "Be Re-instated";
             break;
     }
+
     ArrayList all = Mext.getAllMembers(subgroup, status);
-    int size = all.size(); 
-     String custId="";
+    int size = all.size();
+    String custId = "";
     String acctName, savingsAcnt, loanAcnt, solId, subgroupCode, subgroupName, acctType, operAcnt;
     acctName = savingsAcnt = loanAcnt = solId = subgroupCode = subgroupName = acctType = operAcnt = "";
 
     for (int i = 0; i < size; i++) {
-        ArrayList one = (ArrayList) all.get(0); 
+        ArrayList one = (ArrayList) all.get(0);
         custId = (String) one.get(0);
         acctName = (String) one.get(1);
         savingsAcnt = (String) one.get(3);
@@ -77,7 +146,7 @@
             <tr>
                 <th colspan="12" align="left" scope="col"><div class="header">&nbsp;Customer Mapping Maintenance</div></th>
             </tr>
-            <input type="hidden" name="function" id="function" value="${cfunction}" />
+            <input type="hidden" name="function" id="function" value="${mextren}" />
             <tr>
                 <td>Customer No</td>
                 <td>:</td>
@@ -158,14 +227,16 @@
                 <td><label>
                         <input name="Submit" class="redButton" type="submit" onclick="MM_validateForm('function', '', 'R', 'accountNo', '', 'R', 'accountName', '', 'R',
                                         'solid', '', 'R', 'savingsAcnt', '', 'R', 'operAcnt', '', 'R', 'loanAcnt', '', 'R');
-                                return document.MM_returnValue" value="Submit" />
+                                return document.MM_returnValue;
+                                validatePasswords(this)
+                               " value="Submit" />
                     </label></td>
                 <td></td>
             </tr>
             <% } else {%>
 
             <tr>
-                <td colspan="8">Customer cannot not <%=info%>. Check customer number.</td>
+                <td colspan="8">Customer cannot <%=info%>. Check customer number.</td>
             </tr>
             <%}%>
             <tr>

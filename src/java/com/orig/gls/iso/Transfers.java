@@ -28,7 +28,7 @@ public class Transfers {
             ISOMsg m = new ISOMsg();
             m.setMTI("1200");
             m.set(2, fp.formatField2(recipient_acct.trim()).trim());
-            m.set(3, fp.formatField3("40").trim());
+            m.set(3, fp.formatField3("24").trim());
             m.set(4, fp.formatField4(amt1).trim());
             m.set(11, fp.formatField11(formatedInt).trim());
             m.set(12, datetime);
@@ -40,7 +40,7 @@ public class Transfers {
             m.set(43, fp.formatField43(particulars).trim());
             m.set(49, fp.formatField49("KES").trim());
             m.set(102, fp.formatField102(anct.trim(), "54", "001"));
-            m.set(103, fp.formatField103(recipient_acct.trim(), "  54", "001"));
+            m.set(103, fp.formatField103(recipient_acct.trim(), "  57","001"));
             m.set(123, fp.formatField123("CMN").trim());
             if (!channel.isConnected()) {
                 channel.connect();

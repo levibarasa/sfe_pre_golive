@@ -168,11 +168,7 @@
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="c852f9ea-5bdd-4bb2-8677-9c01762bf552" x="0" y="4" width="100" height="13"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+			 
 		</band>
 	</pageFooter>
 	<summary>

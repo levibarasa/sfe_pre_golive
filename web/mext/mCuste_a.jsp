@@ -72,47 +72,24 @@
             return false;
         }
     </script>
-    <script type="text/javascript">
-            if (${gadded == 'true'}) {
-                alert("Group Added Successfully");
-            }
-            if (${sgadded == 'true'}) {
-                alert("Sub-Group Added Successfully");
-            }
-            if (${gverified == 'true'}) {
-                alert("Group Verified Successfully");
-            }
-            if (${sgverified == 'true'}) {
-                alert("Sub-Group Verified Successfully");
-            }
-            if (${gmodified == 'true'}) {
-                alert("Group Modified Successfully");
-            }
-            if (${sgmodified == 'true'}) {
-                alert("Sub-Group Modified Successfully");
-            }
-            if (${ginquired == 'true'}) {
-                alert("Group Inquired Successfully");
-            }
-            if (${sginquired == 'true'}) {
-                alert("Sub-Group Inquired Successfully");
-            }
-            if (${gdeleted == 'true'}) {
-                alert("Group Deleted Successfully");
-            }
-            if (${sgdeleted == 'true'}) {
-                alert("Sub-Group Deleted Successfully");
-            }
-            if (${gcancelled == 'true'}) {
-                alert("Previous Operation Cancelled Successfully");
-            }
-            if (${sgcancelled == 'true'}) {
-                alert("Previous Operation Cancelled Successfully");
-            }
-           
-    </script>
+    <!--script type="text/javascript">
+        if (${mextsuc == 'true'}) {
+            alert("Member exit process completed successfully.\n Awaiting verification");
+        }
+        if (${mextfal == 'true'}) {
+            alert("Member exit process failed.\nLoan amount is larger than compulsory savings account.\n Only a member without a running loan or whose\ncompulsory savings is more than sum of outstanding loan amount can be exited directly.");
+        }
+        if (${mrenfal == 'true'}) {
+            alert("Member re-instatement process failed.\nCustomer has been out of group lending for more than the specified grace period.\n New erollment is the way to go.");
+        }
+        if (${fatal == 'true'}) {
+            alert("Gross error.\n Contact system administrator");
+        }
+      
+    </script-->
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">Member Exit/Re-Instate Module</h2>
+
 <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=gomext" onsubmit=" return validatePasswords(this)">
     <table width="70%" border="0" align="left" cellpadding="5" cellspacing="2">
         <tr>

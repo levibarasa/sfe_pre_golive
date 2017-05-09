@@ -142,6 +142,11 @@
                 popup.focus();
                 return false;
             }
+            function getBranches() {
+                popup = window.open("pop/regionpop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
             function getRegionValue() {
                 popup = window.open("pop/regionpop.jsp", "Functions", "width=500,height=400");
                 popup.focus();
@@ -241,16 +246,19 @@
                         <td/>
                         <td>Branch Name</td>
                         <td>:</td>
-                        <td><input type="text" name="branchname" onkeyup="this.value = this.value.toUpperCase();" id="branchname"  readonly="readonly" /></td>
-                    </tr>        
+                        <td><input type="text" name="branchname" onkeyup="this.value = this.value.toUpperCase();" 
+                                   id="branchname"  readonly="readonly" /></td>
+                        </tr>        
                     <tr>
                         <td>Sub-Group Mgr Id</td>
                         <td>:</td>
-                        <td><input type="text" name="acctmgr" onkeyup="this.value = this.value.toUpperCase();" id="acctmgr" readonly="true" /></td>
+                        <td><input type="text" name="acctmgr" onkeyup="this.value = this.value.toUpperCase();" id="acctmgr" 
+                                   readonly="true" /></td>
                         <td><a href=""  <%=ishiddenv%> onclick="return getUsers()"><img src="images/search.png"></a></td>
                         <td>Reg. Number</td>
                         <td>:</td>
-                        <td><input type="text" name="regnumber" onkeyup="this.value = this.value.toUpperCase();" id="regnumber" <%=isreadonly%> /></td>
+                        <td><input type="text" name="regnumber" onkeyup="this.value = this.value.toUpperCase();" id="regnumber" 
+                                   <%=isreadonly%> /></td>
                     </tr>
                     <tr>
                         <td>Sub-Group Formation Date</td>
@@ -321,9 +329,11 @@
                     <tr>
                         <td>Sub-Group Treasurer</td>
                         <td>:</td>
-                        <td><input type="text" name="treasurer" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="treasurer"  <%=isreadonly%> /></td>
+                        <td><input type="text" name="treasurer" onkeyup="this.value = this.value.toUpperCase();"
+                                   placeholder="Customer Id" id="treasurer"  <%=isreadonly%> /></td>
                         <td></td>
-                        <td><input type="text" name="treasurername" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="treasurername"  <%=isreadonly%>  /></td>            
+                        <td><input type="text" name="treasurername" onkeyup="this.value = this.value.toUpperCase();"
+                                   placeholder="Customer Name" id="treasurername"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
                     </tr>

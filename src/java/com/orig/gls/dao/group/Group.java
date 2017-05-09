@@ -59,10 +59,11 @@ public class Group {
         return k;
     }
 
-    public static String getbranchName(String groupCode) {
+    public static String getbranchName(String solId) {
         String sql = "select sol_desc from service_outlet_table where sol_id = ?";
-        return AdminDb.getValue(sql, 1, 1, groupCode);
+        return AdminDb.getValue(sql, 1, 1, solId);
     }
+    
 
     public static String getLastOper(int groupCode) {
         String sql = "select last_oper from groups_table_mod where group_id = ?";
@@ -101,7 +102,18 @@ public class Group {
                 + "(?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111) ,"
                 + "try_convert(date, ?, 111) ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
                 + "?,?,?,?,?,?,?,?,?,?,?,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111))";
-        String in = bankId + "," + branchName + "," + countryCode + "," + delFlg + "," +parseDates(firstMeetDate) + "," + parseDates(formationDate) + "," + parseDates(getNextMettingDate(firstMeetDate, meetFrequency)) + ","+ gpChair + "," + gpRegion + "," + gpSecretary + "," + gpStatus + "," + gpStatusCode + "," + gpTreasurer + "," + groupAddress + "," + groupCenter + "," + groupCode + "," + groupLoans + "," + groupName + "," + groupPhone + "," + groupVillage + "," + grpMgrId + "," + grpRegNo + ","  + lchgUserId + "," + loanAccounts + "," + maxAllowedMembers + "," + maxAllowedSubGrps + "," + meetFrequency + "," + meetPlace + "," + meetTime + "," + noOfMembers + "," + noOfSubGrps + ","  + outstandingBal +  "," + rcreUserId + "," + savingAccounts + "," + savingsAmt + "," + solId + "," + groupType +","+ parseDates(lchgDate) + "," + parseDates(rcreTime);
+                if(bankId.isEmpty()){bankId="001";}
+                if(countryCode.isEmpty()){countryCode="UG";}
+                if(rcreTime == null){ parseDates(new Date());}
+        String in = bankId + "," + branchName + "," + countryCode + "," + delFlg + "," +parseDates(firstMeetDate) +
+                "," + parseDates(formationDate) + "," + parseDates(getNextMettingDate(firstMeetDate, meetFrequency)) +
+                ","+ gpChair + "," + gpRegion + "," + gpSecretary + "," + gpStatus + "," + gpStatusCode + "," +
+                gpTreasurer + "," + groupAddress + "," + groupCenter + "," + groupCode + "," + groupLoans + "," + 
+                groupName + "," + groupPhone + "," + groupVillage + "," + grpMgrId + "," + grpRegNo + ","  + 
+                lchgUserId + "," + loanAccounts + "," + maxAllowedMembers + "," + maxAllowedSubGrps + "," + 
+                meetFrequency + "," + meetPlace + "," + meetTime + "," + noOfMembers + "," + noOfSubGrps + ","  +
+                outstandingBal +  "," + rcreUserId + "," + savingAccounts + "," + savingsAmt + "," + solId + "," + 
+                groupType +","+ parseDates(lchgDate) + "," + parseDates(rcreTime);
         int k = AdminDb.dbWork(sql, 39, in);
         if (k > 0) {
             String s = "select group_id from groups_table where group_code = ?";
@@ -162,7 +174,12 @@ public class Group {
         int randomInt = random.nextInt(100);
         String runNu = String.format("%03d", randomInt);
         String groupCode = groupCenter.substring(0, 3) + solId + runNu;
-        int groupid = addGroupDetails(bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, groupType);
+        int groupid = addGroupDetails(bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, 
+                groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps,
+                noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, 
+                formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer,
+                gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, groupType);
+        
         addGroupModDetails(groupid, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, getNextMettingDate(firstMeetDate, meetFrequency), meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper);
         log.debug("Group Id: " + groupid + " Added Successfully");
         return groupid != 0;
@@ -226,7 +243,15 @@ public class Group {
         }
         return date;
     }
-
+//    public static void main(String[] args) {
+//        try{
+//        System.out.println(sdf.format(getNextMettingDate(sdf.parse("2017-04-18"), "W")));
+//        }
+//        catch(Exception e){
+//        e.printStackTrace();
+//        }
+//    }
+    
     public static void deleteGroup(int groupId, String username) {
         String sql = "update groups_table set del_flg = ?, lchg_user_id = ? where group_id = ?";
         String in = "Y," + username + "," + groupId;
@@ -270,7 +295,7 @@ public class Group {
 
     private static String parseDates(Date date) {
         DateTime dateTime = new DateTime(date);
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY-MM-DD");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         return dateTime.toString(fmt);
     }
     

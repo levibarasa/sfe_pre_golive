@@ -36,6 +36,10 @@
                 <td><div align="center">V</div></td>
             </tr>
             <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">VERIFY MEMBER EXIT</a></div></td>
+                <td><div align="center">V</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">MODIFY</a></div></td>
                 <td><div align="center">M</div></td>
             </tr>

@@ -19,22 +19,20 @@ public class LoanMapping {
         String in = subgroupCode + "," + fromDate + "," + toDate;
         return AdminDb.execArrayLists(sql, 3, in, 3);
     }
-    
-    
-    
-        public static void main(String[] args) {
-            
-       ArrayList all = getAlldemandsSubGroup("WES2010","2016-01-01","2019-01-01");
-                for (int i = 0; i < all.size(); i++) {
-                        ArrayList list = (ArrayList) all.get(i);
-                        
-                        String acid = (String) list.get(0);
-                        String name = (String) list.get(1);
-                        BigDecimal dmdAmt = new BigDecimal(""+list.get(2)+"");
-                        System.out.println(acid+" "+name+" "+dmdAmt);
-                }
-                 
-    }
+//   public static void main(String[] args) {
+//            
+//       ArrayList all = getAlldemandsSubGroup("WES2010","2010-01-01","2019-01-01");
+//                for (int i = 0; i < all.size(); i++) {
+//                        ArrayList list = (ArrayList) all.get(i);
+//                        
+//                        String acid = (String) list.get(0);
+//                        String name = (String) list.get(1);
+//                        BigDecimal dmdAmt = new BigDecimal(""+list.get(2)+"");
+//                        System.out.println(acid+" "+name+" "+dmdAmt);
+//                }
+//                 
+//    }
+   
     public static ArrayList getAccountMappedtoSubGroup(String subgroupCode) {
         GlsProp pr = new GlsProp();
         String sql = "select foracid, acct_name from general_acct_mast_table where sub_group_code = ? and schm_code <> ?";

@@ -26,7 +26,7 @@ public class DateTest {
             // output format
             //fmt.format(in.parse(date))
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-            System.out.println(fmt.format(date));
+            System.out.println(fmt.format(new Date()));
             
         } catch (ParseException ex) {
             Logger.getLogger(DateTest.class.getName()).log(Level.SEVERE, null, ex);

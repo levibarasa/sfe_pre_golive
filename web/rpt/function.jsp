@@ -47,9 +47,70 @@
                 <td><div align="center">REIN</div></td>
             </tr>
             <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">PROJECTIONS </a></div></td>
+                <td><div align="center">PRJCTN</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">GROUP-LOAN-STATUS</a></div></td>
+                <td><div align="center">GLSTS</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">COMPULSARY-SAVING-WITHDRAWAL</a></div></td>
+                <td><div align="center">CSW</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">DISBURSED-LOAN-REGISTER</a></div></td>
+                <td><div align="center">DLR</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">EXITED</a></div></td>
                 <td><div align="center">EXTD</div></td>
             </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">RETENTION-RATES</a></div></td>
+                <td><div align="center">RR</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">PORTFOLIO-STATUS </a></div></td>
+                <td><div align="center">PS</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">WRITTEN-OFF</a></div></td>
+                <td><div align="center">WO</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-AND-SAVING-PORTFOLIO</a></div></td>
+                <td><div align="center">LASP</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">OFFICER-MONITORING</a></div></td>
+                <td><div align="center">OM</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-DISBURSEMENT </a></div></td>
+                <td><div align="center">LD</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-APPLICATION </a></div></td>
+                <td><div align="center">LA</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-APPROVAL </a></div></td>
+                <td><div align="center">LAP</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-DISBURSEMENT </a></div></td>
+                <td><div align="center">LDI</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">ACTIVE-EXITED </a></div></td>
+                <td><div align="center">A-EXTD</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">NEW-MEMBER </a></div></td>
+                <td><div align="center">N-MEM</div></td>
+            </tr>
+            
         </table>
     </form>
 </html>

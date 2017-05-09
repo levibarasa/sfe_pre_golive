@@ -14,24 +14,41 @@ public class Mext {
         ArrayList ar = AdminDb.execArrayLists(sql, 3, in, 4);
         int k = Integer.parseInt(foracid);
         ArrayList arr = new ArrayList();
+         String operAcc ="001";
+         String loanAcc ="001";
+         String saveAcc ="001";
+         String  subGroupName =" ";
         for (int h = 0; h < ar.size(); h++) {
             ArrayList hs = (ArrayList) ar.get(h);
+            operAcc =Customer.getlinkedAccounts("GLS%", k);
+            loanAcc = Customer.getlinkedAccounts("SBGCO", k);
+            saveAcc = Customer.getlinkedAccounts("SBGLS", k);
+            subGroupName = Customer.getSubGroupName((String) hs.get(2));
             ArrayList one = new ArrayList();
             one.add(foracid);
             one.add((String) hs.get(0));
-            one.add(Customer.getlinkedAccounts("GLS%", k));
-            one.add(Customer.getlinkedAccounts("SBGCO", k));
-            one.add(Customer.getlinkedAccounts("SBGLS", k));
+            if(operAcc.isEmpty()){
+            operAcc ="001";
+            }
+             if(loanAcc.isEmpty()){
+            loanAcc ="001";
+            }
+             if(saveAcc.isEmpty()){
+            saveAcc ="001";
+            }
+            one.add(operAcc);
+            one.add(loanAcc);
+            one.add(saveAcc);
             one.add((String) hs.get(1));
             one.add((String) hs.get(2));
-            one.add(Customer.getSubGroupName((String) hs.get(2)));//5
+            one.add(subGroupName);//5
             one.add((String) hs.get(3));
             arr.add(one);
         }
         return arr;
     }
 //    public static void main(String[] args) {
-//    ArrayList all = getAllMembers("37022", "A");
+//    ArrayList all = getAllMembers("37025", "A");
 //    int size = all.size(); 
 //    String custId="";
 //    String acctName, savingsAcnt, loanAcnt, solId, subgroupCode, subgroupName, acctType, operAcnt;
@@ -51,15 +68,33 @@ public class Mext {
 //            System.out.println(" id:"+custId+"\n accName: "+acctName+"\n operAcc:"+operAcnt+"\n loanAcc:"+loanAcnt+"\n saveAcc:"+savingsAcnt+"\n subgrpname:"+subgroupName+"\n");
 //    }
 //    }
+//    
+    /*
     
-    public static boolean computeBeforeExit(String custId, String uname) {
+    
+    boolean  computebefore = false;//computeBeforeExit(String custId, String uname);
+    
+    boolean hasLoan = CommonMethods.getMemberLoans(custId);
+    if(hasLoan){
+    int exitmem = exitMember(custId, uname);
+    computebefore = true;
+    if(exitmem >0){
+    -markVoluntaryExit(custId); or 
+    -markDecease(custId);   or
+    -markExpelled(custId);
+    }
+    }
+    */
+    
+    public static boolean computeBeforeExit(String custId, String uname, String mStatus) {
         if (CommonMethods.getMemberLoans(custId)) {
-            exitMember(custId, uname);
+            exitMember(custId, uname,mStatus);
             return true;
         } else {
             return false;
         }
     }
+   
     public static String getSubGrCode(String custId) { 
       String s = "select sub_group_code from general_acct_mast_table where cust_id = ?";
         String r = AdminDb.getValue(s, 1, 1, custId);
@@ -79,15 +114,12 @@ public class Mext {
         }
         return subGrpId;
     }
-//    public static void main(String[] args) {
-//        System.out.println(""+getSubGrpCode("37022"));
-//    }
     
-    public static void exitMember(String custId, String uname) { 
+    public static int exitMember(String custId, String uname,String mStatus) { 
         String sql = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID,ACCT_NAME,ACCT_OPN_DATE,"
                 + "ACCT_OWNERSHIP,BANK_ID,CLR_BAL_AMT,CUST_ID,DEL_FLG,DRWNG_POWER,ENTITY_CRE_FLG,"
                 + "FORACID,LAST_MODIFIED_DATE,LCHG_TIME,LCHG_USER_ID,LIEN_AMT,RCRE_TIME,RCRE_USER_ID,"
-                + "SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,sub_group_code from general_acct_mast_table where cust_id = ?";
+                + "SANCT_LIM,SCHM_CODE,SCHM_TYPE,SOL_ID,SUB_GROUP_CODE  from general_acct_mast_table where cust_id = ?";
         String str = AdminDb.getValue(sql, 24, 1, custId);
         String[] args = str.split("\\s*,\\s*");
          
@@ -102,17 +134,34 @@ public class Mext {
         for (int w = 0; w < 24; w++) {
             in = in + args[w] + ",";
         }
-        in = in + "D";
-        int n = AdminDb.dbWork(s, 25, in);
-        if (n > 0) {
-            markExited(custId);  
-        } 
+        in = in + mStatus;
+//        int n = AdminDb.dbWork(s, 25, in);
+//        if (n > 0) {
+//            markExited(custId);  
+//        } 
+      return AdminDb.dbWork(s, 25, in);
     }
 
-    public static void markExited(String in) {
+    public static void main(String[] args) {
+        System.out.println(exitMember("37025", "ELIUD","V"));
+    }
+    
+    //mark voluntary exit
+    public static void markVoluntaryExit(String in) {
+        String sql = "update general_acct_mast_table set member_status = ? where cust_id = ?";
+        String ins = "V," + in;
+        AdminDb.dbWork(sql, 2, ins);
+    }
+    //mark Dead member exit
+    public static void markDeceased(String in) {
+        String sql = "update general_acct_mast_table set member_status = ? where cust_id = ?";
+        String ins = "D," + in;
+        AdminDb.dbWork(sql, 2, ins);
+    }
+    //mark expulsion  
+    public static void markExpelled(String in) {
         String sql = "update general_acct_mast_table set member_status = ? where cust_id = ?";
         String ins = "E," + in;
         AdminDb.dbWork(sql, 2, ins);
     }
-    // Get subgroup name    
 }

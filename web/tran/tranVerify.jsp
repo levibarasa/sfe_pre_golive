@@ -39,18 +39,20 @@
                 <th bgcolor="#019ADD" scope="col" style="width: 25%"><span class="style10">Tran Amount </span></th>
                 <th bgcolor="#019ADD" scope="col" style="width: 15%"><span class="style10">Tran Type</span></th>
                 <th bgcolor="#019ADD" scope="col" style="width: 15%"><span class="style10">Account Number</span></th>            
-                <th bgcolor="#019ADD" scope="col" style="width: 15%"><span class="style10">Sub Group Code</span></th>
+                <th bgcolor="#019ADD" scope="col" style="width: 15%"><span class="style10">Action</span></th>
             </tr>  
             <%
                 if (size > 0) {
                     for (int i = 0; i < size; i++) {
-                        ArrayList one = (ArrayList) all.get(i);%>
+                        ArrayList one = (ArrayList) all.get(0);%>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><%=(String) one.get(0)%></div></td>
                 <td><div align="center"><%= one.get(1)%></div></td>
                 <td><div align="center"><%=(String) one.get(2)%></div></td>
                 <td><div align="center"><%=(String) one.get(3)%></div></td>
-                <td><div align="center"><%=(String) one.get(4)%></div></td>
+                <td><div align="center"><label>
+                        <input name="Submit" class="redButton" type="submit" onclick="return document.MM_returnValue" value="Post" />
+                    </label></div></td>
             </tr>
 
             <%             }
@@ -59,7 +61,7 @@
                 <td colspan="5">No unverified transactions available for you</td>
             </tr>           
             <%}%>
-            <tr>
+            <!--tr>
                 <td><input type="reset" name="Submit2" value="Reset"   class="redButton"/></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -67,7 +69,7 @@
                 <td><label>
                         <input name="Submit" class="redButton" type="submit" onclick="return document.MM_returnValue" value="Post" />
                     </label></td>
-            </tr>
+            </tr-->
         </table>
     </div>
 </form>

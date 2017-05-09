@@ -4,6 +4,7 @@ import com.orig.gls.dao.bank.Bank;
 import com.orig.gls.dao.group.Group;
 import com.orig.gls.dao.subgroup.SubGroup;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -18,6 +19,9 @@ import org.apache.commons.logging.LogFactory;
 public class Groupw {
 
     private static final Log log = LogFactory.getLog("origlogger");
+    private static Date formationDate;
+    private static Date firstMeetDate;
+    private static Date nxtMeetDate;
 
     public static void handleGoGroup(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,22 +78,40 @@ public class Groupw {
             int noOfSubGrps = 0;
             double outstandingBal = Double.parseDouble(request.getParameter("totalloanbal"));
             double savingsAmt = Double.parseDouble(request.getParameter("totalsavingsbal"));
-            Date rcreTime = new Date();
+            Date rcreTime = new Date();//rcreTime,lchgDate
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
             String groupCode = request.getParameter("groupcode");
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-            Date formationDate = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
+
             String groupCenter = request.getParameter("groupcenter");
             String groupVillage = request.getParameter("groupvillage");
-            Date firstMeetDate = new Date();
-            Date nxtMeetDate = new Date();
+
+            String firstDate = request.getParameter("formationdate");
+            String formDate = request.getParameter("firstmeetingdate");
+            String nxtDate = request.getParameter("nextmeetingdate");
+
             try {
-                formationDate = sdf.parse(request.getParameter("formationdate"));
-                firstMeetDate = sdf.parse(request.getParameter("firstmeetingdate"));
-                nxtMeetDate = sdf.parse(request.getParameter("nextmeetingdate"));
-            } catch (Exception asd) {
+                
+
+                formationDate = in.parse(request.getParameter("formationdate"));
+                firstMeetDate = in.parse(request.getParameter("firstmeetingdate"));
+                nxtMeetDate = in.parse(request.getParameter("nextmeetingdate"));
+                
+                if(formationDate == null){
+                formationDate = sdf.parse(in.format(new Date()));
+                }
+                if(firstMeetDate == null){
+                firstMeetDate = sdf.parse(in.format(new Date()));
+                }
+                if(nxtMeetDate == null){
+                nxtMeetDate = sdf.parse(in.format(new Date()));
+                }
+                rcreTime = sdf.parse(in.format(new Date()));
+                lchgDate = sdf.parse(in.format(new Date()));
+                
+            } catch (ParseException asd) {
                 log.debug(asd.getMessage());
             }
             String meetTime = request.getParameter("meetingtime");
@@ -106,9 +128,14 @@ public class Groupw {
             String meetFrequency = request.getParameter("meetingfrequency");
             String function = (String) session.getAttribute("gfunction");
             String lastOper = "";
+            System.out.println("Sol Id: "+String.valueOf(solId));
+            if(solId == 4){
+            solId = 1014;
+            }
             switch (function) {
                 case "ADD":
-                    branchName = Group.getbranchName(String.valueOf(solId));
+                    
+                   branchName = Group.getbranchName(String.valueOf(solId));
                     groupName = request.getParameter("groupname1");
                     if (!Group.groupExists(groupCode, groupName)) {
                         lastOper = "A";
@@ -221,8 +248,8 @@ public class Groupw {
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
             String groupCode = request.getParameter("groupcode");
-             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-              SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date formationDate = new Date();
             String groupCenter = request.getParameter("groupcenter");
             String groupVillage = request.getParameter("groupvillage");

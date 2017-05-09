@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 public class Customerw {
 
     private static final Log log = LogFactory.getLog("origlogger");
+    static int getAccDetails = 0;
 
     public static void handleGoCustomer(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,6 +33,9 @@ public class Customerw {
                 case "VERIFY":
                     session.setAttribute("content_page", "customer/mCustMod.jsp");
                     break;
+                case "VERIFY MEMBER EXIT":
+                    session.setAttribute("content_page", "customer/mCustModExit.jsp");
+                    break;
                 default:
                     session.setAttribute("content_page", "customer/mOtherActions.jsp");
                     break;
@@ -48,14 +52,18 @@ public class Customerw {
             String account = request.getParameter("did");
             String smg = request.getParameter("subgroup");
             String actType = request.getParameter("custType");
+            if (actType.equals(null)) {
+                actType = "1";
+            }
             System.out.println("Customer Number " + account);
             System.out.println("Customer Sub group " + smg);
             System.out.println("Customer type " + actType);
             session.setAttribute("mapsuc", false);
             session.setAttribute("mapErr", false);
             session.setAttribute("subErr", false);
+             getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
             if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
-                if (Customer.getAccountDetails(account, smg, "A",actType, (String) session.getAttribute("uname"))) {
+                if (getAccDetails > 0) {
                     Customer.addGroupMember(Customer.getGroupId(smg), (String) session.getAttribute("uname"));
                     System.out.println("Testing for any loop point two ");
                     session.setAttribute("mapsuc", true);
@@ -86,12 +94,18 @@ public class Customerw {
         if ((String) session.getAttribute("uname") != null) {
             String accountNo = request.getParameter("did");
             String function = (String) session.getAttribute("cfunction");
-            switch (function) {
+            switch (function) {//
                 case "VERIFY":
-                    Customer.verifyAccountDetails(accountNo,(String) session.getAttribute("uname"));
+                    Customer.verifyAccountDetails(accountNo, (String) session.getAttribute("uname"));
                     Customer.addAuditCustomerTrail(accountNo);
                     session.setAttribute("cverified", true);
                     session.setAttribute("content_page", "customer/mCustMod.jsp");
+                    break;
+                case "VERIFY MEMBER EXIT":
+                    Customer.verifyAccountDetails(accountNo, (String) session.getAttribute("uname"));
+                    Customer.addAuditCustomerTrail(accountNo);
+                    session.setAttribute("cmexitverified", true);
+                    session.setAttribute("content_page", "customer/mCustModExit.jsp");
                     break;
                 case "MODIFY":
                     session.setAttribute("account", accountNo);
@@ -119,16 +133,27 @@ public class Customerw {
         session.setAttribute("modsuc", false);
         session.setAttribute("delsuc", false);
         session.setAttribute("fatal", false);
+
         if ((String) session.getAttribute("uname") != null) {
+
             String account = request.getParameter("accountNo");
             String function = (String) session.getAttribute("cfunction");
-            System.out.println("Function selected " + function);
             String smg = request.getParameter(account + "subgroup");
             String actType = request.getParameter(account + "custType");
+            String memberStatus = Customer.getMemberStatus(account);
+            if (actType.isEmpty()) {
+                actType = "1";
+            }
+            System.out.println("Function selected " + function);
+            System.out.println("Account selected " + account);
+            System.out.println("smg selected " + smg);
+            System.out.println("actType selected " + actType);
+
             switch (function) {
                 case "MODIFY":
+                    getAccDetails = Customer.getAccountDetails(account, smg, "M", actType, (String) session.getAttribute("uname"));
                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
-                        if (Customer.getAccountDetails(account, smg, "M", actType, (String) session.getAttribute("uname"))) {
+                        if (getAccDetails > 0) {
                             session.setAttribute("modsuc", true);
                         } else {
                             session.setAttribute("fatal", true);
@@ -139,15 +164,19 @@ public class Customerw {
                     session.setAttribute("content_page", "customer/mOtherActions.jsp");
                     break;
                 default:
-                    System.out.println("Doing member exit .... ");
+                    getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
+                    System.out.println("Doing member Re-Instatement .... ");
                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
-                        if (Customer.getAccountDetails(account, smg, "R", actType, (String) session.getAttribute("uname"))) {
+                        if (getAccDetails > 0) {
                             session.setAttribute("modsuc", true);
+                            session.setAttribute("content_page", "customer/mMembers.jsp");
                         } else {
+                            session.setAttribute("content_page", "mext/mCuste_a.jsp");
                             session.setAttribute("fatal", true);
                         }
 
                     } else {
+                        session.setAttribute("content_page", "mext/mCuste_a.jsp");
                         session.setAttribute("fatal", true);
                     }
                     session.setAttribute("content_page", "mext/mRen.jsp");

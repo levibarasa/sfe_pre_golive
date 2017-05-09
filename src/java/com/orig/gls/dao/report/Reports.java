@@ -25,15 +25,24 @@ public class Reports extends HttpServlet {
         session.setAttribute("dtErr", false);
         if ((String) session.getAttribute("uname") != null) {
             String rtype = request.getParameter("rFunction");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
-            Date fDate = new Date();
-            Date tDate = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
+
+            String fDate = request.getParameter("fromdate");
+            String tDate = request.getParameter("todate");
+
             try {
-                fDate = sdf.parse(request.getParameter("fromdate"));
-                tDate = sdf.parse(request.getParameter("todate"));
+                Date f_Date = in.parse(fDate);
+                Date t_Date = in.parse(tDate);
+
+                fDate = sdf.format(f_Date);
+                tDate = sdf.format(t_Date);
+                
             } catch (ParseException asd) {
                 System.out.println(asd.getMessage());
             }
+            System.out.println("From Date:"+fDate);
+            System.out.println("To Date:"+tDate);
             String subgroup = request.getParameter("subgroup");
             String path = (String) context.getAttribute("reportdir");
             String rname = rtype;
@@ -87,7 +96,14 @@ public class Reports extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
-    public static boolean IsDateValid(Date dates) {
-        return dates.after(new Date());
+    public static boolean IsDateValid(String dates) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date selectDate = new Date();
+        try {
+            selectDate = sdf.parse(dates);
+        } catch (ParseException asd) {
+            System.out.println(asd.getMessage());
+        }
+        return selectDate.after(new Date());
     }
 }

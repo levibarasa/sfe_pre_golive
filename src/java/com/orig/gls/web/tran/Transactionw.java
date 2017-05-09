@@ -35,7 +35,7 @@ public class Transactionw {
                     session.setAttribute("content_page", "tran/mTran_add.jsp");
                     break;
                 case "VERIFY":
-                    session.setAttribute("tfunction", function);
+                    session.setAttribute("tfunction", function);  
                     session.setAttribute("content_page", "tran/tVerify.jsp");
                     break;
             }
@@ -130,8 +130,14 @@ public class Transactionw {
         if ((String) session.getAttribute("uname") != null) {
             String subgroupCode = request.getParameter("subgroup");
             System.out.println("Sub group for posting ... " + subgroupCode);
-            Transact.postTransacctions(subgroupCode);
-            // session.setAttribute("content_page", "tran/tranVerify.jsp");
+            
+           if(Transact.postTransacctions(subgroupCode)){
+           //if post successful 
+           session.setAttribute("transuc", false);
+           session.setAttribute("content_page", "tran/tranVerify.jsp");
+           }else{
+             session.setAttribute("content_page", "tran/tranVerify.jsp");
+           }
         } else {
             session.setAttribute("content_page", "sessionexp.jsp");
         }

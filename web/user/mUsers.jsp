@@ -1,7 +1,8 @@
 <%@page import="com.orig.gls.utils.App, com.orig.gls.dao.admin.user.User, java.util.*"%>
 
 <%
-    String function = (String) session.getAttribute("ufunction");
+   // String function = (String) session.getAttribute("ufunction");
+   String function = (String) session.getAttribute("function");
     boolean isadded = App.isAdd(function);
     boolean isverify = App.isVerify(function);
     boolean isModify = App.isModify(function);
@@ -132,7 +133,8 @@
                         <div align="left">Add User Details </div>
                     </div></th>
             </tr>
-            <input type="hidden" name="function" id="function" value="${ufunction}" />
+            <!--input type="hidden" name="function" id="function" value="${ufunction}" /-->
+            <input type="hidden" name="function" id="function" value="${function}" />
             <tr>
                 <td width="20%">&nbsp;</td>
                 <td width="27%">&nbsp;</td>

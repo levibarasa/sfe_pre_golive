@@ -107,9 +107,12 @@ public class Accessw {
                                         response.sendRedirect("login.jsp");
                                     }
                                 } else {
+                                    
+                                    
                                     session.setAttribute("userlogged", true);
                                     session.setAttribute("content_page", "ucontent.jsp");
-                                    response.sendRedirect("index.jsp");
+                                    response.sendRedirect("login.jsp");
+                                    //response.sendRedirect("index.jsp");
                                 }
                             } else {
                                 session.setAttribute("usrdisabled", true);

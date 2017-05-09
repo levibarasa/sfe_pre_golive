@@ -4,23 +4,35 @@
 <%
     Customer frd = new Customer();
     String account = (String) session.getAttribute("account");
+    String status = "V";
+    String label = "Re-instate";
+    String info = "Be Re-instated";
+    
+    String memberStatus = frd.getMemberStatus(account);
     ArrayList all = frd.getAccountDetails(account);
     int size = all.size();
-    int custId = 0;
-    String acctName, savingsAcnt, loanAcnt, solId, groupCode, groupName, subgroupCode, subgroupName;
-    acctName = savingsAcnt = loanAcnt = solId = groupCode = groupName = subgroupCode = subgroupName = "";
+    
+    String custId = "";
+    String acctName, savingsAcnt, loanAcnt, solId, groupCode, groupName, subgroupCode, subgroupName, creditRating ,member_status;
+    acctName = savingsAcnt = loanAcnt = solId = groupCode = groupName = subgroupCode = subgroupName = creditRating = member_status = "";
+    
     for (int i = 0; i < size; i++) {
         ArrayList one = (ArrayList) all.get(i);
-        custId = (int) one.get(0);
+        custId = (String) one.get(0);
         acctName = (String) one.get(1);
-        savingsAcnt = (String) one.get(3);
-        loanAcnt = (String) one.get(2);
-        solId = (String) one.get(4);
-        groupCode = (String) one.get(5);
-        subgroupCode = (String) one.get(6);
-        groupName = (String) one.get(7);
-        subgroupName = (String) one.get(8);
+        savingsAcnt = (String) one.get(2);
+        loanAcnt = (String) one.get(3);
+        //oprAcnt = (String) one.get(4);
+        solId = (String) one.get(5);
+        groupCode = (String) one.get(6);
+        subgroupCode = (String) one.get(7);
+        groupName = (String) one.get(8);
+        subgroupName = (String) one.get(9);
+        creditRating = (String) one.get(10);
+        
+        member_status = (String) one.get(11);
     }
+    
 %>
 <html>
     <head>
@@ -108,8 +120,14 @@
             if (${fatal == 'true'}) {
                 alert("ERROR\nA Fatal Error Has Occured\nPlease Contact System Administrator!");
             }
+            if (${mrenfal == 'true'}) {
+                alert("ERROR \Member  can not be Re-instated.\n Been inactive for more than 2 years.");
+            }
+             if (${mvol == 'true'}) {
+                alert("ERROR \Member  can not be Re-instated.\n Please Contact System Administrator!");
+            }
             if (${modsuc == 'true'}) {
-                alert("Success\Group Mapping re-instatement successful.\nawaiting verification");
+                alert("Success\Group Mapping re-instatement successful. ");
             }
         </script>
     </head>
@@ -122,6 +140,7 @@
                         <th colspan="12" align="left" scope="col"><div class="header">&nbsp;Customer Maintenance</div></th>
                     </tr>
                     <input type="hidden" name="function" id="function" value="${cfunction}" />
+                    <!--input type="hidden" name="function" id="function" value="${cfunction}" /-->
                     <tr>
                         <td>Customer No</td>
                         <td>:</td>
@@ -170,6 +189,24 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <td>Credit Rating</td>
+                        <td>:</td>
+                        <td>
+                            <select name="<%= custId + "custType"%>" id="<%= custId + "custType"%>" onkeyup="caps(this)" class="textboxes" required="true">
+                                <option> <%=creditRating%></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </td>
+                        <td><input type="text" value="<%= creditRating%>" readonly="true" /></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -198,15 +235,16 @@
                         <td></td>
                         <td><label>
                                 <input name="Submit" class="redButton" type="submit" onclick="MM_validateForm('solid', '', 'R', 'branchname', '', 'R', 'groupcode', '', 'R',
-                                            'groupname', '', 'R', 'acctmgr', '', 'R', 'regnumber', '', 'R', 'formationdate', '', 'R', 'region', '', 'R', 'groupcenter', '', 'R',
-                                            'groupvillage', '', 'R', 'groupaddress', '', 'R', 'groupphone', '', 'R', 'firstmeetingdate', '', 'R', 'nextmeetingdate', '', 'R',
-                                            'meetingtime', '', 'R', 'meetingplace', '', 'R', 'maxmembers', '', 'R', 'maxsgroups', '', 'R', 'status', '', 'R', 'statusreason', '', 'R',
-                                            'totalmembers', '', 'R', 'meetingfrequency', '', 'R', 'totalsavingacs', '', 'R', 'totalsavingsbal', '', 'R', 'totalloanacs', '', 'R',
-                                            'totalloanbal', '', 'R');
-                                    return document.MM_returnValue" value="Submit" />
+                                                'groupname', '', 'R', 'acctmgr', '', 'R', 'regnumber', '', 'R', 'formationdate', '', 'R', 'region', '', 'R', 'groupcenter', '', 'R',
+                                                'groupvillage', '', 'R', 'groupaddress', '', 'R', 'groupphone', '', 'R', 'firstmeetingdate', '', 'R', 'nextmeetingdate', '', 'R',
+                                                'meetingtime', '', 'R', 'meetingplace', '', 'R', 'maxmembers', '', 'R', 'maxsgroups', '', 'R', 'status', '', 'R', 'statusreason', '', 'R',
+                                                'totalmembers', '', 'R', 'meetingfrequency', '', 'R', 'totalsavingacs', '', 'R', 'totalsavingsbal', '', 'R', 'totalloanacs', '', 'R',
+                                                'totalloanbal', '', 'R');
+                                        return document.MM_returnValue" value="Submit" />
                             </label></td>
                         <td></td>
                     </tr>
+                  
                     <tr>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
