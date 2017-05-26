@@ -61,15 +61,24 @@ public class Customerw {
             session.setAttribute("mapsuc", false);
             session.setAttribute("mapErr", false);
             session.setAttribute("subErr", false);
+            int Max =Customer.getMaxNumberOfGrpMembers(Customer.getGroupId(smg));
+             int getNumberOfGrpMembers =Customer.getNumberOfGrpMembers(Customer.getGroupId(smg));
+               int getMaxSbGrpMembers =Customer.getMaxSbGrpMembers(Customer.getGroupId(smg));
+             int getNumberOfSbGrpMembers =Customer.getNumberOfSbGrpMembers(Customer.getGroupId(smg));
+             Max =Max+1;
+             getMaxSbGrpMembers=getMaxSbGrpMembers+1;
              getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
             if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
-                if (getAccDetails > 0) {
-                    Customer.addGroupMember(Customer.getGroupId(smg), (String) session.getAttribute("uname"));
+                
+                if ((getAccDetails > 0) && (getNumberOfGrpMembers < Max) && (getNumberOfSbGrpMembers < getMaxSbGrpMembers) ) {
+                       Customer.addGroupMember(Customer.getGroupId(smg), (String) session.getAttribute("uname"));
                     System.out.println("Testing for any loop point two ");
                     session.setAttribute("mapsuc", true);
+                    
                 } else {
                     session.setAttribute("mapErr", true);
                 }
+                   
             } else {
                 session.setAttribute("subErr", true);
             }
@@ -179,7 +188,7 @@ public class Customerw {
                         session.setAttribute("content_page", "mext/mCuste_a.jsp");
                         session.setAttribute("fatal", true);
                     }
-                    session.setAttribute("content_page", "mext/mRen.jsp");
+                    session.setAttribute("content_page", "mext/mCuste_a.jsp");
                     break;
             }
         } else {

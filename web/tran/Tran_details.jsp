@@ -56,9 +56,9 @@
 <div class="header">Loan repayment module</div>
 <br/>
 <br/>
-<form method="post">
+<form method="post"  >
     <div class="div">
-        <table width="95%" align="center"  style="border:#019ADD solid 2px;padding:10px;">
+        <table width="95%" align="center"  style="border:#019ADD solid 2px;padding:10px;border:1;">
             <tr>
                 <td>Sub Group Code</td>
                 <td><input type="text" name="subgroup" onkeyup="this.value = this.value.toUpperCase();" value="<%=subgroup%>" id="subgroup" readonly="true" /></td>

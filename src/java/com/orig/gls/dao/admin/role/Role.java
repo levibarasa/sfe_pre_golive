@@ -51,38 +51,37 @@ public class Role {
         String in = "N,Y";
         return AdminDb.execArrayLists(sql, 2, in, 4);
     }
-    
-
-    public static ArrayList getAllRolesFromFinacle() {
-        ArrayList arr = new ArrayList();
-        GlsFile pr = new GlsFile();
-        String uploadFilepath = pr.getDBProperty().getProperty("role.file");
-        String line;
-        try {
-            FileInputStream fs = new FileInputStream(uploadFilepath);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
-            String[] split;
-            while ((line = br.readLine()) != null) {
-                split = line.split("\\|");
-                ArrayList one = new ArrayList();
-                one.add(split[0]);
-                one.add(split[1]);
-                one.add(split[2]);
-                one.add(split[3]);
-                one.add(split[4]);
-                one.add(split[5]);
-                one.add(split[6]);
-                one.add(split[7]);
-                one.add(split[8]); 
-                arr.add(one);
-            }
-            fs.close();
-			br.close();
-        } catch (Exception asd) {
-            log.debug(asd.getMessage());
-        }
-        return arr;
-    } 
+     
+//    public static ArrayList getAllRolesFromFinacle() {
+//        ArrayList arr = new ArrayList();
+//        GlsFile pr = new GlsFile();
+//        String uploadFilepath = pr.getDBProperty().getProperty("role.file");
+//        String line;
+//        try {
+//            FileInputStream fs = new FileInputStream(uploadFilepath);
+//            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+//            String[] split;
+//            while ((line = br.readLine()) != null) {
+//                split = line.split("\\|");
+//                ArrayList one = new ArrayList();
+//                one.add(split[0]);
+//                one.add(split[1]);
+//                one.add(split[2]);
+//                one.add(split[3]);
+//                one.add(split[4]);
+//                one.add(split[5]);
+//                one.add(split[6]);
+//                one.add(split[7]);
+//                one.add(split[8]); 
+//                arr.add(one);
+//            }
+//            fs.close();
+//			br.close();
+//        } catch (Exception asd) {
+//            log.debug(asd.getMessage());
+//        }
+//        return arr;
+//    } 
     public static ArrayList getUnverifiedRoles() {
         String sql = "select role_desc, rcre_time, rcre_user_id, bank_id from role_profile_table_mod";
         return AdminDb.execArrayLists(sql, 0, "", 4);

@@ -36,7 +36,7 @@
                 test = args[i + 2];
                 val = MM_findObj(args[i]);
                 if (val) {
-                    nm = val.name;
+                    nm = val.name; // action="do?MOD=BOK&ACT=gomuser"
                     if ((val = val.value) !== "") {
                         if (test.indexOf('isEmail') !== -1) {
                             p = val.indexOf('@');
@@ -76,7 +76,9 @@
     </script>
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">User Maintenance</h2>
-<form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=gomuser" onsubmit=" return validatePasswords(this)">
+<form id="form1" name="form1" method="post" 
+        action="do?MOD=BOK&ACT=gomuser" 
+      onsubmit=" return validatePasswords(this)">
     <table width="70%" border="0" align="left" cellpadding="5" cellspacing="2">
         <tr>
             <th colspan="5" scope="col"><div class="header">&nbsp;User Register Maintenance</div></th>

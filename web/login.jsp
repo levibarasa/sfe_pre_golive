@@ -66,10 +66,12 @@
                                 if (${usrdisabled == 'true'}) {
                                     alert("User account is disabled");
                                 }
-                               if (${userlogged == 'true'}) {
+                                if (${userlogged == 'true'}) {
                                     alert("User is already logged in. Log in again to kill session former session");
                                 }
-                                
+                                if (${pwdchanged == 'true'}) {
+                                    alert("You have successfully updated your password. Kindly Login");
+                                }
                             </script>
                             <script type="text/javascript">
                                 function MM_findObj(n, d) { //v4.01

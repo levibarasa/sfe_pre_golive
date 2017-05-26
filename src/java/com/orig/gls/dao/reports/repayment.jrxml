@@ -18,27 +18,20 @@
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement uuid="c77b7b0e-49f3-4abb-b80b-c40a7c615409" mode="Opaque" x="-20" y="-20" width="843" height="92" backcolor="#006699"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="843" height="92" backcolor="#006699" uuid="c77b7b0e-49f3-4abb-b80b-c40a7c615409"/>
 				<staticText>
-					<reportElement uuid="ee8e7fc8-f311-49af-b9bb-763418452ee1" x="62" y="20" width="234" height="43" forecolor="#FFFFFF"/>
+					<reportElement x="62" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="ee8e7fc8-f311-49af-b9bb-763418452ee1"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[PGUB]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="350ca0e7-e215-45da-86f0-d8e74fcde204" x="614" y="63" width="180" height="20" forecolor="#FFFFFF"/>
+					<reportElement x="614" y="63" width="180" height="20" forecolor="#FFFFFF" uuid="350ca0e7-e215-45da-86f0-d8e74fcde204"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[GLS: Repayment Report]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="dc841c3b-003c-428b-b377-4738b7eaeaf0" x="332" y="63" width="100" height="20" forecolor="#FFFFFF"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Empowering you]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -49,84 +42,84 @@
 	<columnHeader>
 		<band height="40">
 			<staticText>
-				<reportElement uuid="a93cffa3-f510-4cfe-9ba5-9c6435a1155f" mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="a93cffa3-f510-4cfe-9ba5-9c6435a1155f"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a25a14ae-208a-461e-a03b-4c921029cdae" mode="Opaque" x="152" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="152" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="a25a14ae-208a-461e-a03b-4c921029cdae"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c964be4a-fe8f-4429-a7a4-b2b4c4fa9224" mode="Opaque" x="312" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="312" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="c964be4a-fe8f-4429-a7a4-b2b4c4fa9224"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Account No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="97b29535-aca1-451f-bfd8-b762ac076442" mode="Opaque" x="442" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="442" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="97b29535-aca1-451f-bfd8-b762ac076442"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Maker]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="99c05ab5-87bc-4d84-ac7c-48bbea2b453f" mode="Opaque" x="570" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="570" y="0" width="92" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="99c05ab5-87bc-4d84-ac7c-48bbea2b453f"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Verifier]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="878d366a-8d1a-414e-a371-788cd8813df7" mode="Opaque" x="662" y="0" width="140" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="662" y="0" width="140" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="878d366a-8d1a-414e-a371-788cd8813df7"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sub group]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b6112fe9-988e-408b-a18a-f6ef4ee61114" x="588" y="20" width="107" height="20"/>
+				<reportElement x="588" y="20" width="107" height="20" uuid="b6112fe9-988e-408b-a18a-f6ef4ee61114"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LCHG_USER_ID}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="78fd7a05-e4bb-463e-b343-66bf01f4497c" x="710" y="20" width="92" height="20"/>
+				<reportElement x="710" y="20" width="92" height="20" uuid="78fd7a05-e4bb-463e-b343-66bf01f4497c"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SUB_GROUP_CODE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="f5894be9-4461-45bd-8697-a579279c724c" x="459" y="20" width="111" height="20"/>
+				<reportElement x="459" y="20" width="111" height="20" uuid="f5894be9-4461-45bd-8697-a579279c724c"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RCRE_USER_ID}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="4da72d7b-9880-48cd-a50a-d88abf97d65e" x="297" y="20" width="145" height="20"/>
+				<reportElement x="297" y="20" width="145" height="20" uuid="4da72d7b-9880-48cd-a50a-d88abf97d65e"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FORACID}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="232fc351-f15f-4291-9cd0-aa57519eaca6" x="134" y="20" width="142" height="20"/>
+				<reportElement x="134" y="20" width="142" height="20" uuid="232fc351-f15f-4291-9cd0-aa57519eaca6"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRAN_DATE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9eb542c7-13be-4aea-bab2-46cf15068422" x="8" y="20" width="111" height="20"/>
+				<reportElement x="8" y="20" width="111" height="20" uuid="9eb542c7-13be-4aea-bab2-46cf15068422"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -143,16 +136,14 @@
 	<pageFooter>
 		<band height="17">
 			<textField>
-				<reportElement uuid="2241cecf-59a0-4920-9c0a-5cceb615bf95" mode="Opaque" x="239" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="239" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="2241cecf-59a0-4920-9c0a-5cceb615bf95"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="019a0e93-b3d3-459f-b3d3-f58d14c7afa1" mode="Opaque" x="762" y="4" width="40" height="13" backcolor="#E6E6E6"/>
-				<textElement/>
+				<reportElement mode="Opaque" x="762" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="019a0e93-b3d3-459f-b3d3-f58d14c7afa1"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			 
 		</band>
 	</pageFooter>
 	<summary>

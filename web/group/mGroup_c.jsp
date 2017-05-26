@@ -216,7 +216,7 @@
                         <td><a href=""  <%=ishiddenv%> onclick="return getSolValueValue()"><img src="images/search.png"></a></td>
                         <td>Branch Name</td>
                         <td>:</td>
-                        <td><input type="text" name="branchname" onkeyup="this.value = this.value.toUpperCase();" id="branchname"  readonly="readonly" /></td>
+                        <td><input type="text" <%=ishiddenv%> name="branchname" onkeyup="this.value = this.value.toUpperCase();" id="branchname"  readonly="readonly" /></td>
                     </tr>        
                     <tr>
                         <td>Group Mgr Id</td>
@@ -288,7 +288,7 @@
                         <td>Group Chairperson</td>
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson"  <%=isreadonly%> /></td>
-                        <td></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" <%=isreadonlym%> name="chairpersonname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="chairpersonname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -297,7 +297,7 @@
                         <td>Group Treasurer</td>
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="treasurer" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="treasurer"  <%=isreadonly%> /></td>
-                        <td></td>
+                       <td><a href=""  <%=ishiddenv%> onclick="return getAccountTreasureValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" <%=isreadonlym%> name="treasurername" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="treasurername"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -306,7 +306,7 @@
                         <td>Group Secretary</td>
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="secretary"  <%=isreadonly%> /></td>
-                        <td></td>
+                         <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" <%=isreadonlym%> name="secretaryname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="secretaryname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>

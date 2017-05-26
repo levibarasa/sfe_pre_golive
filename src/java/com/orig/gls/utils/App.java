@@ -4,7 +4,7 @@ public class App {
 
     public static final String EMPTY_STRING = "";
     public static final String LOGGER = "origlogger";
-    public static final String DATEFORMAT = "yyyy-mm-dd";
+    public static final String DATEFORMAT = "yyyy-MM-dd";
 
     public static boolean isAdd(String function) {
         return function.equalsIgnoreCase("ADD");

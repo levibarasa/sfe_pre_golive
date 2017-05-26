@@ -87,9 +87,14 @@
         if (${pwdexpy == 'true'}) {
             alert("ERROR\n Password for ${expyuname} is Expired");
         }
+         if (${pwdchanged == 'true'}) {
+            alert("You have successfully updated your password. Kindly Login");
+        }
     </script>
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">System Users Maintenance</h2>
+
+
 <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=dochC" onsubmit="return validatePasswords(form1)">
     <table width="70%" border="0" align="center" cellpadding="5" cellspacing="2">
         <tr>
@@ -121,12 +126,18 @@
                 </label></td>
             <td>&nbsp;</td>
         </tr>
+        <%
+
+            String username = (String) session.getAttribute("uname");
+        %>
+
         <tr>
             <td>&nbsp;</td>
             <td>Confirm</td>
             <td>:</td>
             <td><label>
                     <input name="Password1" type="password" id="Password1" class="textboxes" />
+                    <input type="hidden" name="Username" value="<%= username %>" />
                 </label></td>
             <td>&nbsp;</td>
         </tr>

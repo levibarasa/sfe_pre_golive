@@ -9,7 +9,7 @@
     String info = "Be Re-instated";
     
     String memberStatus = frd.getMemberStatus(account);
-    ArrayList all = frd.getAccountDetails(account);
+    ArrayList all = frd.getVoluntaryExitAccountDetails(account);
     int size = all.size();
     
     String custId = "";

@@ -1,9 +1,11 @@
 
+<%@page import="com.orig.gls.dao.customer.Customer"%>
 <%@page import="com.orig.gls.utils.App"%>
 <%
     String function = (String) session.getAttribute("gfunction");
     String uname = (String) session.getAttribute("uname");
     String solId = (String) session.getAttribute("solId");
+
     boolean isadded = App.isAdd(function);
     boolean isverify = App.isVerify(function);
     boolean isModify = App.isModify(function);
@@ -134,6 +136,22 @@
                 popup.focus();
                 return false;
             }
+            function getAccountChairmanValue() {
+                popup = window.open("pop/custchairman_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
+
+            function getAccountTreasureValue() {
+                popup = window.open("pop/custtreasure_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
+            function getAccountSecretaryValue() {
+                popup = window.open("pop/custsecretary_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
             function getGroupCodeValue() {
                 var func = document.getElementById("function");
                 if (func.value === "VERIFY") {
@@ -245,14 +263,14 @@
                         <td>:</td>
                         <td><input type="text" name="groupname" id="groupname" onkeyup="this.value = this.value.toUpperCase();" <%=isreadonly%>  <%=ishidden%> /></td>
                     </tr>
-                    <tr><!-- getSolValueValue() -->
+                    <tr>
                         <td>Sol Id</td>
                         <td>:</td>
                         <td><input type="text" name="solid" id="solid" onkeyup="this.value = this.value.toUpperCase();" value="<%=solId%>" readonly="true" /></td>
-                         <td><a href=""  <%=ishiddenv%> onclick="return getSolValueValue()"><img src="images/search.png"></a></td>
-                        <td ><input type="text" <%=ishidden%> name="branchname" id="branchname" onkeyup="this.value = this.value.toUpperCase();" readonly="true" </td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getSolValueValue()"><img src="images/search.png"></a></td>
+                        <td> <input type="text" <%=ishiddenv%> name="branchname" id="branchname" onkeyup="this.value = this.value.toUpperCase();" readonly="true" /></td>
                         <td>Group Mgr Id</td>
-                        <td>:</td>
+                        <!--td>:</td-->
                         <td><input type="text" name="acctmgr" onkeyup="this.value = this.value.toUpperCase();" id="acctmgr" readonly="true" value="<%=uname%>"/></td>
                         <td><a href=""  <%=ishiddenv%> onclick="return getUsers()"><img src="images/search.png"></a></td>
                     </tr>        
@@ -323,27 +341,46 @@
                         <td>:*</td>
                         <td><input type="text" <%=isreadonlym%> name="maxsgroups" onkeyup="this.value = this.value.toUpperCase();" id="maxsgroups" value="10"/></td>            
                     </tr>
+                    <%
+                         String chairpersonid ="000037039";
+                         
+                    %>
                     <tr>
                         <td>Group Chairperson</td>
                         <td>:</td>
-                        <td><input type="text" <%=isreadonlym%> name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson" /></td>
-                        <td></td>
+                        <td><input type="text" <%=isreadonlym%> name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson" 
+                                   value=" "/></td>
+
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
                         <td colspan="3"><input type="text" <%=isreadonlym%> name="chairpersonname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="chairpersonname" size="50"/></td>            
                         <td></td>
-                    </tr>
+                     </tr>
+                    <%
+                          String treasurerid ="000037045";
+                          
+                         
+                    %>
                     <tr>
                         <td>Group Treasurer</td>
                         <td>:</td>
-                        <td><input type="text" <%=isreadonlym%> name="treasurer" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="treasurer"/></td>
-                        <td></td>
+                        <td><input type="text" <%=isreadonlym%> name="treasurer" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="treasurer"
+
+                                   value=" "/></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountTreasureValue()"><img src="images/search.png"></a></td>
                         <td colspan="3"><input type="text" <%=isreadonlym%> name="treasurername" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="treasurername"  size="50"/></td>            
                         <td></td>
                     </tr>
+                     <%
+                         String secretaryid ="000037023";
+                        
+                    %>
                     <tr>
                         <td>Group Secretary</td>
                         <td>:</td>
-                        <td><input type="text" <%=isreadonlym%> name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="secretary"/></td>
-                        <td></td>
+                        <td><input type="text" <%=isreadonlym%> name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="secretary"
+                                   value=" "
+                                   /></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
                         <td colspan="3"><input type="text" <%=isreadonlym%> name="secretaryname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="secretaryname" size="50"/></td>            
                         <td></td>
                     </tr>

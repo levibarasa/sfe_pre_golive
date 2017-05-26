@@ -81,3 +81,21 @@
 [origlogger] [09 May 2017 - 12:00:12] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
 [origlogger] [09 May 2017 - 12:18:15] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
 [origlogger] [09 May 2017 - 12:20:13] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [11 May 2017 - 16:41:24] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Operand data type varchar is invalid for sum operator. 
+[origlogger] [11 May 2017 - 16:43:42] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Operand data type varchar is invalid for sum operator. 
+[origlogger] [11 May 2017 - 16:47:28] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Operand data type varchar is invalid for sum operator. 
+[origlogger] [11 May 2017 - 17:06:01] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting the varchar value '500000.00' to data type int. 
+[origlogger] [11 May 2017 - 17:06:38] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Arithmetic overflow error converting varchar to data type numeric. 
+[origlogger] [11 May 2017 - 20:45:56] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 1. 
+[origlogger] [12 May 2017 - 00:12:11] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'dmd_amt'. 
+[origlogger] [17 May 2017 - 11:10:53] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 1. 
+[origlogger] [23 May 2017 - 10:36:03] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 3 is out of range. 
+[origlogger] [23 May 2017 - 10:36:21] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 4. 
+[origlogger] [23 May 2017 - 10:37:08] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting the nvarchar value 'M' to data type int. 
+[origlogger] [25 May 2017 - 15:23:01] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 35. 
+[origlogger] [25 May 2017 - 15:24:59] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [25 May 2017 - 16:18:28] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [25 May 2017 - 16:31:27] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [25 May 2017 - 16:45:57] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [25 May 2017 - 16:50:05] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'GP_CHAIR_ID'. 
+[origlogger] [25 May 2017 - 16:51:48] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 

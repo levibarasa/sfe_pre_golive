@@ -18,6 +18,7 @@
     if (${mapsuc == 'true'}) {
         alert("Customer mapping successful");
     }
+      
     if (${mapErr == 'true'}) {
         alert("Customer mapping failed");
     }

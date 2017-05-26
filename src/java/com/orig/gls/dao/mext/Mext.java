@@ -12,7 +12,7 @@ public class Mext {
         String sql = "select acct_name, sol_id, sub_group_code, credit_rating from general_acct_mast_table where cust_id = ? and member_status = ? and mapped_flg = ?";
         String in = foracid + "," + mStatus + ",Y";
         ArrayList ar = AdminDb.execArrayLists(sql, 3, in, 4);
-        int k = Integer.parseInt(foracid);
+       // int k = Integer.parseInt(foracid);
         ArrayList arr = new ArrayList();
          String operAcc ="001";
          String loanAcc ="001";
@@ -20,9 +20,9 @@ public class Mext {
          String  subGroupName =" ";
         for (int h = 0; h < ar.size(); h++) {
             ArrayList hs = (ArrayList) ar.get(h);
-            operAcc =Customer.getlinkedAccounts("GLS%", k);
-            loanAcc = Customer.getlinkedAccounts("SBGCO", k);
-            saveAcc = Customer.getlinkedAccounts("SBGLS", k);
+            operAcc =Customer.getlinkedAccounts("GLS%", foracid);
+            loanAcc = Customer.getlinkedAccounts("SBGCO", foracid);
+            saveAcc = Customer.getlinkedAccounts("SBGLS", foracid);
             subGroupName = Customer.getSubGroupName((String) hs.get(2));
             ArrayList one = new ArrayList();
             one.add(foracid);
@@ -47,8 +47,10 @@ public class Mext {
         }
         return arr;
     }
+    
+      
 //    public static void main(String[] args) {
-//    ArrayList all = getAllMembers("37025", "A");
+//    ArrayList all = getAllMembers("000037026", "A");
 //    int size = all.size(); 
 //    String custId="";
 //    String acctName, savingsAcnt, loanAcnt, solId, subgroupCode, subgroupName, acctType, operAcnt;
@@ -65,10 +67,12 @@ public class Mext {
 //        subgroupCode = (String) one.get(6);
 //        subgroupName = (String) one.get(7);
 //        acctType = (String) one.get(8);
-//            System.out.println(" id:"+custId+"\n accName: "+acctName+"\n operAcc:"+operAcnt+"\n loanAcc:"+loanAcnt+"\n saveAcc:"+savingsAcnt+"\n subgrpname:"+subgroupName+"\n");
+//            System.out.println(" id:"+custId+"\n accName: "+acctName+"\n operAcc:"+operAcnt+"\n loanAcc:"+
+//                    loanAcnt+"\n saveAcc:"+savingsAcnt+"\n subgrpname:"+subgroupName+"\n"
+//            );
 //    }
 //    }
-//    
+    
     /*
     
     
@@ -87,7 +91,7 @@ public class Mext {
     */
     
     public static boolean computeBeforeExit(String custId, String uname, String mStatus) {
-        if (CommonMethods.getMemberLoans(custId)) {
+        if (CommonMethods.getMemberLoans(custId,uname)) {
             exitMember(custId, uname,mStatus);
             return true;
         } else {
@@ -141,10 +145,10 @@ public class Mext {
 //        } 
       return AdminDb.dbWork(s, 25, in);
     }
-
-    public static void main(String[] args) {
-        System.out.println(exitMember("37025", "ELIUD","V"));
-    }
+ 
+//    public static void main(String[] args) {
+//        System.out.println(exitMember("000037036", "ELIUD","V"));
+//    }
     
     //mark voluntary exit
     public static void markVoluntaryExit(String in) {

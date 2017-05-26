@@ -100,6 +100,8 @@ public class Transactionw {
                 String bankTranId = "PBUG" + lastId;
                 String subgroup = request.getParameter("subgroup");
                 String acnt = Transact.getDebitAccountNumber(subgroup);
+                System.out.println("Debit Account: "+acnt);
+               
                 int k = Transact.addTranDetails(amts, fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
                 if (k > 0) {
                     int n = Transact.addTranDetails(amts, fDate, actr, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "C", bankTranId, subgroup);

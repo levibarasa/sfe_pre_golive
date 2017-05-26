@@ -3,18 +3,29 @@ package com.orig.gls.web.user;
 import com.orig.gls.dao.admin.user.Access;
 import com.orig.gls.dao.admin.user.User;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Userw {
 
     public static void handleGoUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if ((String) session.getAttribute("uname") != null) {
+        String uname = (String) session.getAttribute("uname");
+        System.out.println("uname:     " + uname);
+
+        if (uname != null) {
             String function = request.getParameter("function");
+
+            System.out.println("function:     " + function);
+
             session.setAttribute("uverified", false);
             session.setAttribute("uadded", false);
             session.setAttribute("udeleted", false);
@@ -28,6 +39,7 @@ public class Userw {
                     break;
                 case "VERIFY":
                     session.setAttribute("ufunction", function);
+
                     session.setAttribute("content_page", "user/mUnVerified.jsp");
                     break;
                 case "MODIFY":
@@ -45,20 +57,24 @@ public class Userw {
                     break;
             }
         } else {
+
             session.setAttribute("content_page", "sessionexp.jsp");
         }
+
         response.sendRedirect("index.jsp");
     }
 
     public static void handleMaintainUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+
         session.setAttribute("uverified", false);
         session.setAttribute("uadded", false);
         session.setAttribute("udeleted", false);
         session.setAttribute("ucancelled", false);
         session.setAttribute("umodified", false);
         session.setAttribute("fatal", false);
+
         if ((String) session.getAttribute("uname") != null) {
             String userName = request.getParameter("username");
             System.out.println("username is " + userName);
@@ -67,13 +83,17 @@ public class Userw {
             String conPass = request.getParameter("confpassword");
             String solId = request.getParameter("branch");
             String function = (String) session.getAttribute("ufunction");
-            String userid = request.getParameter("did");
+            String userid = request.getParameter("userid");
+            System.out.println("userid is " + userid);
             String uname = (String) session.getAttribute("uname");
             switch (function) {
                 case "ADD":
                     if (!User.userExists(userName)) {
                         if (userPw.equals(conPass)) {
-                            if (User.addUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId) > 0) {
+                            if (User.executeAddUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId, "A") > 0) {
+//                            if (User.addUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId) > 0) {
+//                               User.getUserModDetails(userid, uname, "M");
+//                               
                                 User.deleteAfterReg(userName);
                                 session.setAttribute("uadded", true);
                                 session.setAttribute("content_page", "user/mUsers.jsp");
@@ -116,11 +136,34 @@ public class Userw {
                 case "MODIFY":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
+                   // session.setAttribute("umodified", true);
+//                    int user = Integer.parseInt(userid);
+//
+//                    if (User.getUserModDetails(userid, uname, "M")) {
+//                        User.modifyUser(user);
+//                        // User.markUserUnverified(user, "M");
+//                        session.setAttribute("umodified", true);
+//                        session.setAttribute("content_page", "user/mUser_b.jsp");
+//                    } else {
+//                        session.setAttribute("fatal", true);
+//                    }
+
 //                    }
                     break;
                 case "DELETE":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
+                    //session.setAttribute("udeleted", true);
+//                    user = Integer.parseInt(userid);
+//
+//                    if (User.getUserModDetails(userid, uname, "D")) {
+//                        User.deleteUser(user);
+//                        session.setAttribute("udeleted", true);
+//                        session.setAttribute("content_page", "user/mOtherAct.jsp");
+//                    } else {
+//                        session.setAttribute("fatal", true);
+//                    }
+
                     break;
                 case "INQUIRE":
                     session.setAttribute("userid", userid);
@@ -152,29 +195,36 @@ public class Userw {
         if ((String) session.getAttribute("uname") != null) {
             String userName = request.getParameter("uname");
             String roleId = request.getParameter("roleid");
+            String userPw = "DefaultPassword";
+            String uname = (String) session.getAttribute("username");
             String userid = (String) session.getAttribute("userid");
             int user = Integer.parseInt(userid);
-
             String function = (String) session.getAttribute("ufunction");
+
             System.out.println("user id " + userid);
-            String uname = (String) session.getAttribute("uname");
+            System.out.println("function is " + function);
             switch (function) {
                 case "MODIFY":
-                    if (User.addUserModDetails(user, userName.trim(), roleId, "DummyPass", 0, "12", 0, "Y", 0, "M", uname, "Modify")) {
-                        User.markUserUnverified(user, "M");
-                        session.setAttribute("umodified", true);
+                    
+                    if (User.getUserModDetails(userid, uname, "M")) {
+                        User.modifyUser(user);
+                         session.setAttribute("umodified", true);
+                        session.setAttribute("content_page", "user/mOtherAct.jsp");
                     } else {
                         session.setAttribute("fatal", true);
                     }
                     break;
                 case "DELETE":
-                    if (User.addUserModDetails(user, userName, roleId, "DummyPass", 0, "12", 0, "Y", 0, "D", uname, "Delete")) {
-                        User.markUserUnverified(user, "D");
-                        session.setAttribute("udeleted", true);
+                    //session.setAttribute("udeleted", true);
+                    if (User.getUserModDetails(userid, uname, "D")) {
+                        User.deleteUser(user);
+                       session.setAttribute("udeleted", true);
+                        session.setAttribute("content_page", "user/mOtherAct.jsp");
                     } else {
                         session.setAttribute("fatal", true);
                     }
                     break;
+
             }
             session.removeAttribute("userid");
             session.setAttribute("content_page", "user/mOtherAct.jsp");
@@ -192,8 +242,9 @@ public class Userw {
         String uname = (String) session.getAttribute("uname");
         String userPw = request.getParameter("Password");
         String conPass = request.getParameter("Password1");
-        if (userPw.equals(conPass)) {
+        if (userPw.equals(conPass)) {//pwdchanged
             User.changePassword(uname, userPw);
+            session.setAttribute("pwdchanged", true);
             Access.logoutUser((String) session.getAttribute("uname"));
             session.setAttribute("content_page", "login.jsp");
             response.sendRedirect("login.jsp");
@@ -211,4 +262,24 @@ public class Userw {
         }
         response.sendRedirect("index.jsp");
     }
+
+//    private static Date converttoDate(String in) {
+//        try {
+//            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+//            Date date = format.parse(in);
+//            return date;
+//        } catch (ParseException ex) {
+//            System.out.println(ex.getMessage());
+//            return new Date();
+//        }
+//    }
+    private static String parseDates(Date date) {
+        DateTime dateTime = new DateTime(date);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        return dateTime.toString(fmt);
+    }
+//    public static void main(String[] args) {
+//        System.out.println(converttoDate("31-01-1990"));
+//    }
+
 }

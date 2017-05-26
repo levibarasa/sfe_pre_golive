@@ -86,7 +86,7 @@ public class MemberExitw {
             String acctName = request.getParameter("accountNo");
             String func = (String) session.getAttribute("mextren");
             String uname = (String) session.getAttribute("uname");
-            boolean hasLoan = CommonMethods.getMemberLoans(acctName);
+            boolean hasLoan = CommonMethods.getMemberLoans(acctName,uname);
             boolean computeBeforeExit;
            
             

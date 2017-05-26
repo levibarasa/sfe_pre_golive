@@ -75,7 +75,7 @@
             return false;
         }
     </script>
-        <!--script type="text/javascript">
+        <script type="text/javascript">
         if (${mextsuc == 'true'}) {
             alert("Member exit process completed successfully.\n Awaiting verification");
         }
@@ -93,7 +93,7 @@
             alert("Gross error.\n Contact system administrator");
         }
       
-    </script-->
+    </script>
     <form method="post" action="do?MOD=BOK&ACT=domext" onsubmit=" return validatePasswords(this)">
         <div class="div">
             <table width="80%" border="0" align="center">

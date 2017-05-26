@@ -54,7 +54,11 @@ public class BeanFactory {
 //            Date f_Date = sdf.parse("2017-01-01");
 //            Date t_Date = new Date();
 //            String toDate = sdf.format(t_Date);
-//            System.out.println(getCustomerReport("WES2010", "2017-01-01", toDate, "A"));
+//            Collection ar = getDisbursementReport("WES2010", "2017-01-01", toDate );
+//            for(int i=0;i < ar.size();i++){ 
+//            //System.out.println(ar.get );
+//            }
+//            
 //        } catch (ParseException e) {
 //        }
 //    }
@@ -74,13 +78,13 @@ public class BeanFactory {
 
     // Populate disbursement report.
     public static Collection getDisbursementReport(String subGroupCode, String fromDate, String toDate) {
-        String sql = "select acct_mgr_user_id, dis_amt ,dis_shdl_date from loan_disbursement_report where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
+        String sql = "select foracid,acct_name,acct_mgr_user_id, dis_amt ,dis_shdl_date from loan_disbursement_report where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
         String in = subGroupCode + "," + fromDate + "," + toDate;
-        ArrayList col = AdminDb.execArrayLists(sql, 3, in, 3);
+        ArrayList col = AdminDb.execArrayLists(sql, 3, in, 5);
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new Disbursement((String) one.get(0), (String) one.get(1), (String) one.get(2), subGroupCode));
+            collection.add(new Disbursement((String) one.get(0), (String) one.get(1),(String) one.get(2), (String) one.get(3), (String) one.get(4), subGroupCode));
         }
         return collection;
     }

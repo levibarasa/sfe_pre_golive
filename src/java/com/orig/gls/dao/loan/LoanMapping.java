@@ -15,7 +15,7 @@ public class LoanMapping {
     }
 
     public static ArrayList getAlldemandsSubGroup(String subgroupCode, String fromDate, String toDate) {
-        String sql = "select foracid, acct_name, dmd_amt from loan_demands_report where sub_group_code = ? and dmd_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111)  group by foracid,dmd_amt, acct_name";
+        String sql = "select  distinct foracid, acct_name, sum(dmd_amt)dmd_amt from loan_demands_report where sub_group_code = ? and dmd_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111)  group by foracid,dmd_amt, acct_name";
         String in = subgroupCode + "," + fromDate + "," + toDate;
         return AdminDb.execArrayLists(sql, 3, in, 3);
     }

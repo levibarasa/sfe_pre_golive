@@ -1,7 +1,10 @@
-
+<%@page import="com.orig.gls.dao.customer.Customer"%>
 <%@page import="com.orig.gls.utils.App"%>
 
 <%
+    
+   
+    
     String function = (String) session.getAttribute("gfunction");
     boolean isadded = App.isAdd(function);
     boolean isverify = App.isVerify(function);
@@ -131,7 +134,23 @@
                 popup.focus();
                 return false;
             }
-
+  
+            function getAccountChairmanValue() {
+                popup = window.open("pop/custchairman_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
+            
+            function getAccountTreasureValue() {
+                popup = window.open("pop/custtreasure_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
+             function getAccountSecretaryValue() {
+                popup = window.open("pop/custsecretary_pop.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
             function getGroupCodeValue() {
                 popup = window.open("pop/subGroupG.jsp", "Functions", "width=500,height=400");
                 popup.focus();
@@ -319,9 +338,9 @@
                     </tr>
                     <tr>
                         <td>Sub-Group Chairperson</td>
-                        <td>:</td>
-                        <td><input type="text" name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson"  <%=isreadonly%> /></td>
-                        <td></td>
+                        <td>:</td>  
+                        <td><input type="text" name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson" value="" <%=isreadonly%> /></td>
+                         <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" name="chairpersonname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="chairpersonname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -330,8 +349,8 @@
                         <td>Sub-Group Treasurer</td>
                         <td>:</td>
                         <td><input type="text" name="treasurer" onkeyup="this.value = this.value.toUpperCase();"
-                                   placeholder="Customer Id" id="treasurer"  <%=isreadonly%> /></td>
-                        <td></td>
+                                   placeholder="Customer Id" id="treasurer" value=""  <%=isreadonly%> /></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountTreasureValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" name="treasurername" onkeyup="this.value = this.value.toUpperCase();"
                                    placeholder="Customer Name" id="treasurername"  <%=isreadonly%>  /></td>            
                         <td></td>
@@ -340,8 +359,8 @@
                     <tr>
                         <td>Sub-Group Secretary</td>
                         <td>:</td>
-                        <td><input type="text" name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="secretary"  <%=isreadonly%> /></td>
-                        <td></td>
+                        <td><input type="text" name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" value="" id="secretary"  <%=isreadonly%> /></td>
+                       <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" name="secretaryname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="secretaryname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
