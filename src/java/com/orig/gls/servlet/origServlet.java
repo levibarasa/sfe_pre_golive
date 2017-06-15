@@ -137,12 +137,16 @@ public class origServlet extends HttpServlet {
                     case "doloan":
                         Loanw.handleModifyTransaction(request, response);
                         break;
+                    case "gotorpt":
+                        Reports.handleGoReport(request, response);
+                        break;
                     case "gorpt":
                         Reports.goReport(request, response);
                         break;
                     case "dorpt":
                         Loanw.handleModifyTransaction(request, response);
                         break;
+
                 }
                 break;
         }

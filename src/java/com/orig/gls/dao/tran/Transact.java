@@ -27,14 +27,16 @@ public class Transact {
 //        
 //    }
 //    
+
     public static int addTranDetails(BigDecimal tranAmt, Date tranDate, String acid, String tranParticulars, String rcreUserId, Date rcreTime, String lchgUserId, Date lchgTime, String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
-        
+
         String sql = " insert into DAILY_TRANSACTIONS_TABLE"
                 + "(FORACID,BANK_TRAN_ID,DEL_FLG,LCHG_TIME,LCHG_USER_ID,PSTD_FLG,RCRE_TIME,RCRE_USER_ID,SUB_GROUP_CODE,TRAN_AMT,TRAN_DATE ,TRAN_PARTICULARS,TRAN_TYPE) "
                 + " values (?,?,?,try_convert(date, ?, 111),?,?,try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111),?,?)";
         String rcreTime_ = sdf.format(new Date());
         String tranDate_ = sdf.format(new Date());
-        String in = acid + "," + bankTranId + "," + delFlg + "," + lchgTime + "," + lchgUserId + "," + pstdFlg + ","
+        String lchgTime_ = sdf.format(new Date());
+        String in = acid + "," + bankTranId + "," + delFlg + "," + lchgTime_ + "," + lchgUserId + "," + pstdFlg + ","
                 + rcreTime_ + "," + rcreUserId + "," + subGroupCode + "," + new BigDecimal("" + tranAmt + "") + ","
                 + tranDate_ + "," + tranParticulars + "," + tranType;
         return AdminDb.dbWork(sql, 13, in);
@@ -80,7 +82,7 @@ public class Transact {
         String r = AdminDb.getValue(sql, 1, 0, "");
         return Integer.parseInt(r) + 1;
     }
-
+     
     public static void deleteAfterVerification(String foracid) {
         completeTran(foracid);
     }
@@ -157,4 +159,21 @@ public class Transact {
         String in = foracid + ",SBGLS";
         return AdminDb.getValue(sql, 1, 2, in);
     }
+// log a transaction 
+    public static void createTransactionHistory(BigDecimal tranAmt, String foracid, String tranParticulars, String rcreUserId, String lchgUserId,  String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
+        String sql = " insert into HISTORY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,"
+                + "TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,"
+                + "PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,try_convert(date, ?, 111)"
+                + "  ,?,?,?,try_convert(date, ?, 111),?,try_convert(date, ?, 111),?,?,?,?,?)";
+        String rcreTime_ = sdf.format(new Date());
+        String tranDate_ = sdf.format(new Date());
+        String lchgTime = sdf.format(new Date());
+        String ins = new BigDecimal("" + tranAmt + "") + "," + tranDate_ + "," + foracid + "," + tranParticulars + "," + rcreUserId + "," + rcreTime_ + "," + lchgUserId + "," + lchgTime + "," + delFlg + "," + pstdFlg + "," +  tranType +"," + bankTranId + "," + subGroupCode;
+      AdminDb.dbWork(sql, 13, ins); 
+    }
+//    public static void main(String[] args) {
+    
+//        int t =createTransactionHistory(  new BigDecimal(10000), "001SIN0001000124",   "GLS LOAN REPAYMENT", "MARK","MARK",  "N", "N", "C", "PBUG1014", "WES2010");
+//        System.out.println(t);
+//    } 
 }

@@ -96,7 +96,7 @@ public class Transactionw {
                 String dat = sdf.format(new Date());
                 Date fDate = sdf.parse(dat);
                 BigDecimal amts = new BigDecimal(amt);
-                int lastId = Transact.getLastInsertId();
+                int lastId = Transact.getLastInsertId(); 
                 String bankTranId = "PBUG" + lastId;
                 String subgroup = request.getParameter("subgroup");
                 String acnt = Transact.getDebitAccountNumber(subgroup);

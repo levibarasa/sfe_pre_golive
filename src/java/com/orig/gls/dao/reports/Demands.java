@@ -2,14 +2,16 @@ package com.orig.gls.dao.reports;
 
 public class Demands {
 
-    String FORACID, ACCT_NAME, DMD_AMT, DMD_DATE, SUB_GROUP_CODE;
+    String FORACID, ACCT_NAME, DMD_AMT, DMD_DATE, SUB_GROUP_CODE, START_DATE, END_DATE;
 
-    public Demands(String FORACID, String ACCT_NAME, String DMD_AMT, String DMD_DATE, String SUB_GROUP_CODE) {
+    public Demands(String FORACID, String ACCT_NAME, String DMD_AMT, String DMD_DATE, String SUB_GROUP_CODE, String START_DATE, String END_DATE) {
         this.ACCT_NAME = ACCT_NAME;
         this.DMD_AMT = DMD_AMT;
         this.DMD_DATE = DMD_DATE;
         this.FORACID = FORACID;
         this.SUB_GROUP_CODE = SUB_GROUP_CODE;
+        this.END_DATE = END_DATE;
+        this.START_DATE = START_DATE;
     }
 
     public String getFORACID() {
@@ -18,6 +20,22 @@ public class Demands {
 
     public void setFORACID(String FORACID) {
         this.FORACID = FORACID;
+    }
+
+    public String getSTART_DATE() {
+        return START_DATE;
+    }
+
+    public void setSTART_DATE(String START_DATE) {
+        this.START_DATE = START_DATE;
+    }
+
+    public String getEND_DATE() {
+        return END_DATE;
+    }
+
+    public void setEND_DATE(String END_DATE) {
+        this.END_DATE = END_DATE;
     }
 
     public String getACCT_NAME() {

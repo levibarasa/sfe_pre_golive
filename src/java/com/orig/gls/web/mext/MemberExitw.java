@@ -1,6 +1,7 @@
 package com.orig.gls.web.mext;
 
 import com.orig.common.methods.CommonMethods;
+import com.orig.common.methods.ExitMatrix;
 import com.orig.gls.dao.customer.Customer;
 import com.orig.gls.dao.mext.MemberReturn;
 import com.orig.gls.dao.mext.Mext;
@@ -50,9 +51,9 @@ public class MemberExitw {
         if ((String) session.getAttribute("uname") != null) {
             switch (func) {
                 case "VOLUNTARY EXIT":
-                  System.out.println("Cust id being exited " + acctName);
+                    System.out.println("Cust id being exited " + acctName);
                     session.setAttribute("custId", acctName);
-                    
+
                     session.setAttribute("content_page", "mext/mCuste_c.jsp");
                     break;
                 case "DECEASED":
@@ -67,7 +68,7 @@ public class MemberExitw {
                     break;
                 default:
                     session.setAttribute("account", acctName);
-                    
+
                     System.out.println("Cust id being Re-instated " + acctName);
                     session.setAttribute("cfunction", "RE-INSTATEMENT");
                     session.setAttribute("content_page", "mext/mRen.jsp");
@@ -86,19 +87,18 @@ public class MemberExitw {
             String acctName = request.getParameter("accountNo");
             String func = (String) session.getAttribute("mextren");
             String uname = (String) session.getAttribute("uname");
-            boolean hasLoan = CommonMethods.getMemberLoans(acctName,uname);
+
+            String loanAmount = CommonMethods.getClearBalanceAmt(acctName);
+            String loanAccount = CommonMethods.getLoanAcc(acctName); 
             boolean computeBeforeExit;
-           
-            
             switch (func) {
                 case "VOLUNTARY EXIT":
-                    int exitMember = Mext.exitMember(acctName, uname,"V");
-                    if (hasLoan) {
+                    int exitMember = Mext.exitMember(acctName, uname, "V");
+                    if (exitMember > 0) {
+                        String exited = ExitMatrix.doExit(loanAccount, acctName, loanAmount, uname);
+                         session.setAttribute("exited", exited);
+                        Mext.markVoluntaryExit(acctName);
                         computeBeforeExit = true;
-                        
-                        if (exitMember > 0) {
-                            Mext.markVoluntaryExit(acctName);
-                        }
                     } else {
                         computeBeforeExit = false;
                     }
@@ -107,22 +107,23 @@ public class MemberExitw {
                         int w = Mext.getSubGrpCode(acctName);
                         Customer.removeGroupMember(w, uname);
                         session.setAttribute("mextsuc", true);
-                        session.setAttribute("content_page", "mext/mMembers.jsp");
+                        session.setAttribute("content_page", "mext/mMemberexited.jsp");
 
                     } else {
                         session.setAttribute("mextfal", true);
-                        session.setAttribute("content_page", "mext/mMembers.jsp");
+                        session.setAttribute("content_page", "mext/mMemberexited.jsp");
 
                     }
-                    session.setAttribute("content_page", "mext/mMembers.jsp");
+                    session.setAttribute("content_page", "mext/mMemberexited.jsp");
                     break;
                 case "DECEASED":
-                      exitMember = Mext.exitMember(acctName, uname,"D");
-                    if (hasLoan) {
+                    exitMember = Mext.exitMember(acctName, uname, "D");
+
+                    if (exitMember > 0) {
+                        Mext.markDeceased(acctName);
+                       String exited = ExitMatrix.doExit(loanAccount, acctName, loanAmount, uname);
+                         session.setAttribute("exited", exited);
                         computeBeforeExit = true;
-                        if (exitMember > 0) {
-                            Mext.markDeceased(acctName);
-                        }
                     } else {
                         computeBeforeExit = false;
                     }
@@ -141,12 +142,13 @@ public class MemberExitw {
                     break;
 
                 case "EXPULSION":
-                       exitMember = Mext.exitMember(acctName, uname,"E");
-                    if (hasLoan) {
+                    exitMember = Mext.exitMember(acctName, uname, "E");
+                    if (exitMember > 0) {
+                        Mext.markDeceased(acctName);
+                       String exited = ExitMatrix.doExit(loanAccount, acctName, loanAmount, uname);
+                         session.setAttribute("exited", exited);
+                        Mext.markExpelled(acctName);
                         computeBeforeExit = true;
-                        if (exitMember > 0) {
-                            Mext.markExpelled(acctName);
-                        }
                     } else {
                         computeBeforeExit = false;
                     }
@@ -164,7 +166,6 @@ public class MemberExitw {
                     session.setAttribute("content_page", "mext/mMembers.jsp");
                     break;
                 default:
-
                     int k = Integer.parseInt(acctName);
                     if (MemberReturn.retainClass(k, 200)) {
                         session.setAttribute("account", acctName);

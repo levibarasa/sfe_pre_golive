@@ -35,11 +35,11 @@ public class Group {
         return count > 0;
     }
 
-    public static int getNumberOfSbGrps(int groupId) {
+    public static int getNumberOfSbGrps(String groupId) {
         String s = "select NO_OF_SUB_GRPS from GROUPS_TABLE where group_id=?";
         int k = 0;
         try {
-            String str = AdminDb.getValue(s, 1, 1, String.valueOf(groupId));
+            String str = AdminDb.getValue(s, 1, 1,  groupId);
             k = Integer.valueOf(str);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,6 +59,7 @@ public class Group {
         return k;
     }
 
+    
     public static int getGroupId(String groupCode, String groupName) {
         String sql = "select group_id from groups_table where group_code = ? and group_name =?";
         String in = groupCode + "," + groupName;
@@ -160,11 +161,12 @@ public class Group {
                 + " meet_time,meet_place, max_allowed_members, max_allowed_sub_grps,  gp_chair,"//17-21
                 + " gp_treasurer, gp_secretary, gp_status, gp_status_code, no_of_members,"//22-26
                 + " meet_frequency, saving_accounts,savings_amt, loan_accounts,"//27-30
-                + " outstanding_bal,GP_CHAIR_ID,GP_SECRETARY_ID,GP_TREASURER_ID from "//31-34(32,33,34)
+                + " outstanding_bal,GP_CHAIR_ID,GP_SECRETARY_ID,GP_TREASURER_ID,MEET_TIME from "//31-35(32,33,34)
                 + "groups_table where group_id not in (select group_id from groups_table_mod)";
-        return AdminDb.execArrayLists(sql, 0, "", 35);
+        return AdminDb.execArrayLists(sql, 0, "", 36);
     }
 
+  
     public static ArrayList getAllGroups() {
         String sql = "select group_code, group_id, group_name, rcre_time, rcre_user_id, sol_id,"//0-5
                 + "  branch_name, grp_mgr_id, grp_reg_no, formation_date,gp_region, group_center, "//6-11
@@ -319,12 +321,12 @@ public class Group {
         AdminDb.dbWork(sql, 3, in);
     }
 
-    public static void addSubgroup(String groupId, String username) {
+    public static void addSubgroup(String groupCode, String username) {
         String s = "select no_of_sub_grps from groups_table where group_code = ?";
-        String r = AdminDb.getValue(s, 1, 1, groupId);
+        String r = AdminDb.getValue(s, 1, 1, groupCode);
         int k = Integer.parseInt(r);
         String sql = "update groups_table set no_of_sub_grps = ?, lchg_user_id = ? where group_code = ?";
-        String in = k + 1 + "," + username + "," + groupId;
+        String in = k + 1 + "," + username + "," + groupCode;
         AdminDb.dbWork(sql, 3, in);
     }
 
@@ -338,10 +340,10 @@ public class Group {
     }
 
     public static void modifyGroup(int groupId, String username) {
-        String s = "select branch_name, first_meet_time, formation_date, gp_chair, gp_region, gp_secretary, gp_status, gp_status_code, gp_treasurer, group_address, group_center,"
+        String s = "select branch_name, FIRST_MEET_DATE, formation_date, gp_chair, gp_region, gp_secretary, gp_status, gp_status_code, gp_treasurer, group_address, group_center,"
                 + "group_phone, group_village, grp_mgr_id, grp_reg_no, max_allowed_members, max_allowed_sub_grps, meet_frequency, meet_place, meet_time, nxt_meet_date, sol_id from "
                 + "groups_table_mod where group_id = ?";
-        String sql = "update groups_table set branch_name = ?, first_meet_time = ?, formation_date = ?, gp_chair = ?, gp_region = ?, gp_secretary = ?, gp_status = ?, gp_status_code= ?, gp_treasurer=?, group_address=?, group_center=?,"
+        String sql = "update groups_table set branch_name = ?, FIRST_MEET_DATE = ?, formation_date = ?, gp_chair = ?, gp_region = ?, gp_secretary = ?, gp_status = ?, gp_status_code= ?, gp_treasurer=?, group_address=?, group_center=?,"
                 + "group_phone = ?, group_village = ?, grp_mgr_id = ?, grp_reg_no = ?, max_allowed_members = ?, max_allowed_sub_grps = ?, meet_frequency = ?, meet_place = ?, meet_time = ?, nxt_meet_date = ?, sol_id =?, lchg_user_id = ? where group_id  = ?";
 
         String val = AdminDb.getValue(s, 22, 1, String.valueOf(groupId));

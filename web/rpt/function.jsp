@@ -80,34 +80,15 @@
             </tr>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-AND-SAVING-PORTFOLIO</a></div></td>
-                <td><div align="center">LASP</div></td>
+                <td><div align="center">LAS</div></td>
             </tr>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">OFFICER-MONITORING</a></div></td>
                 <td><div align="center">OM</div></td>
             </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-DISBURSEMENT </a></div></td>
-                <td><div align="center">LD</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-APPLICATION </a></div></td>
-                <td><div align="center">LA</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-APPROVAL </a></div></td>
-                <td><div align="center">LAP</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">LOAN-DISBURSEMENT </a></div></td>
-                <td><div align="center">LDI</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">ACTIVE-EXITED </a></div></td>
-                <td><div align="center">A-EXTD</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">NEW-MEMBER </a></div></td>
+             
+              <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">NEW-MEMBER</a></div></td>
                 <td><div align="center">N-MEM</div></td>
             </tr>
             

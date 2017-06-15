@@ -2,9 +2,7 @@
 <%@page import="com.orig.gls.utils.App"%>
 
 <%
-    
-   
-    
+     
     String function = (String) session.getAttribute("gfunction");
     boolean isadded = App.isAdd(function);
     boolean isverify = App.isVerify(function);
@@ -41,7 +39,6 @@
     }
 
 %>
-
 <html>
     <head>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
@@ -239,7 +236,7 @@
                         <th colspan="12" align="left" scope="col"><div class="header">&nbsp;Sub-Group Register Maintenance</div></th>
                     </tr>
                     <input type="hidden" name="function" id="function" value="${gfunction}" />
-                    <input type="hidden" name="groupId" id="groupId" value="" />
+                    
                     <tr <%=ishiddengr%>>
                         <td>Group Code</td>
                         <td>:</td>
@@ -247,7 +244,10 @@
                         <td><a href="" <%=ishiddenv%> onclick="return getGroupCodeValue()"><img src="images/search.png"></a></td>
                         <td>Group Name</td>
                         <td>:</td>
-                        <td><input type="text" name="groupname" id="groupname" onkeyup="this.value = this.value.toUpperCase();" <%=isreadonly%>  /></td>
+                        <td>
+                            <input type="hidden" name="groupId" id="groupId"   />
+                             <input type="hidden" name="subgroupId" id="subgroupId"   />
+                            <input type="text" name="groupname" id="groupname" onkeyup="this.value = this.value.toUpperCase();" <%=isreadonly%>  /></td>
                     </tr>
                     <tr>
                         <td  <%=isaddhidden%>>Sub-Group Code</td>
@@ -318,7 +318,7 @@
                         <td <%=isaddhidden%>><input type="text" name="nextmeetingd" readonly="true" onkeyup="this.value = this.value.toUpperCase();" id="nextmeetingd" /></td>            
                     </tr>
                     <tr>
-                        <td>Meeting time</td>
+                        <td>Meeting time</td> 
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="meetingtime" onkeyup="this.value = this.value.toUpperCase();" id="meetingtime" <%=isreadonly%> /></td>
                         <td></td>
@@ -334,7 +334,7 @@
                         <td></td>
                         <td hidden="true">Max Allowed Sub-groups</td>
                         <td hidden="true">:</td>
-                        <td hidden="true"><input type="text" <%=isreadonlym%> name="maxsgroups" onkeyup="this.value = this.value.toUpperCase();" id="maxsgroups" <%=isreadonly%> /></td>            
+                        <td hidden="true"><input type="text" <%=isreadonlym%> name="maxsgroups" value ="10" onkeyup="this.value = this.value.toUpperCase();" id="maxsgroups" <%=isreadonly%> /></td>            
                     </tr>
                     <tr>
                         <td>Sub-Group Chairperson</td>

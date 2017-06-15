@@ -11,36 +11,51 @@
     int size = all.size();
 %>
 <%
-    String function = (String) session.getAttribute("ufunction");
-    boolean isverify = App.isVerify(function);
-    boolean isModify = App.isModify(function);
-    boolean isDelete = App.isDelete(function);
-    boolean isCancel = App.isCancel(function);
-    boolean isInquire = App.isInquire(function);
-    String ishidden = "";
-    String label = "";
+        String function = (String) session.getAttribute("ufunction");
+        boolean isverify = App.isVerify(function);
+        boolean isModify = App.isModify(function);
+        boolean isDelete = App.isDelete(function);
+        boolean isCancel = App.isCancel(function);
+        boolean isInquire = App.isInquire(function);
+        String ishidden = "";
+        String label = "";
     String ishiddenv = "";
     String ishiddenib = "";
     String isreadonlym = "readonly='true'";
     String isreadonlymcode = "";
-    if (isverify || isDelete || isCancel || isInquire) {
+    if (isverify || isDelete || isCancel || isInquire
+
+    
+        ) {
         ishiddenv = "hidden='true'";
     }
-    if (isInquire) {
+    if (isInquire
+
+    
+        ) {
         label = "Inquire";
         ishiddenib = "hidden='true'";
     }
-    if (isModify) {
+    if (isModify
+
+    
+        ) {
         label = "Modify";
         isreadonlym = "";
         isreadonlymcode = "readonly='true'";
     }
-    if (isverify) {
+    if (isverify
+
+    
+        ) {
         label = "Verify";
         isreadonlym = "";
         isreadonlymcode = "readonly='true'";
     }
-    if (isDelete) {
+    if (isDelete
+
+    
+        ) {
         label = "Delete";
         isreadonlym = "";
         isreadonlymcode = "readonly='true'";
@@ -72,10 +87,9 @@
 </script>
 <script>
     function deleteDriver(id) {
-        if (confirm('Want to map this customer?')) {
-            var subgrou = document.getElementById(id + "subgroup").value;
-            var actType = document.getElementById(id + "custType").value;
-            window.location.href = 'do?MOD=BOK&ACT=doacustomer&did=' + id + '&subgroup=' + subgrou + '&custType=' + actType;
+        if (confirm('Want to Modify/ Delete this user?')) {
+            var username = document.getElementById(id + "username").value;
+            window.location.href = 'do?MOD=BOK&ACT=domuser&userid=' + id + '&username=' + username;
         }
     }
 </script>
@@ -83,7 +97,7 @@
 <div class="header">Active Users</div>
 <br/>
 <br/>
-<form method="post"  action="do?MOD=BOK&ACT=domuser" >
+<form method="post" action="do?MOD=BOK&ACT=domuser">
     <div class="div">
         <table width="95%" align="center"  style="border:#019ADD solid 2px;padding:10px;" border="1">
             <tr>
@@ -92,23 +106,22 @@
                 <th bgcolor="#019ADD" scope="col"><span class="style10">User Id</span></th>
                 <th bgcolor="#019ADD" scope="col"><span class="style10">Action</span></th>
             </tr>
-            <%            for (int i = 0; i < size; i++) {
-                    ArrayList one = (ArrayList) all.get(i);
+            <%            for (int i = 0; i < size ; i++) {
+                    ArrayList one = (ArrayList) all.get(i); 
             %>
-           <tr style="height:30px; padding:4px;">
-            <td><div align="center"><%=(String) one.get(0)%></div></td>
-            <td><div align="center"><%=(String) one.get(2)%></div></td>
-            <td><div align="center"><%=(String) one.get(1)%></div></td>
-            <td>
-                <input type="hidden" name="roleid" value="<%=(String) one.get(2)%>" />
-                <input type="hidden" name="acts" value="<%=label%>" />
-                <input type="hidden" name="uname" value="<%=(String) one.get(0)%>" /> 
-                <input type="hidden" name="username" value="<%=(String) one.get(0)%>" /> 
-                <input type="hidden" name="userid" value="<%=(String) one.get(1)%>" />
-                
-                <input type="submit" name="submit" value="<%=label%>" class="style10" />
-            </td>
-        </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><%=(String) one.get(0)%></div></td>
+                <td><div align="center"><%=(String) one.get(2)%></div></td>
+                <td><div align="center"><%=(String) one.get(1)%></div></td>
+                <td>
+                    <input type="hidden" name="acts" value="<%=label%>" />
+                    <input type="hidden" name="uname" value="<%=(String) one.get(0)%>" /> 
+                    <input type="hidden" name="roleid" value="<%=(String) one.get(2)%>" />
+                    <input type="hidden" name="username" value="<%=(String) one.get(0)%>" /> 
+                    <input type="hidden" name="userid" value="<%=(String) one.get(1)%>" />
+                     <input type="submit" name="submit" value="<%= label %>" class="style10" />
+                       </td>
+            </tr>
             <% }%>
         </table>
     </div>

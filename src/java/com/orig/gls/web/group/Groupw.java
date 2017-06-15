@@ -3,6 +3,7 @@ package com.orig.gls.web.group;
 import com.orig.gls.dao.bank.Bank;
 import com.orig.gls.dao.group.Group;
 import com.orig.gls.dao.subgroup.SubGroup;
+import static com.orig.gls.dao.subgroup.SubGroup.getSubGroupModDetails;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Groupw {
 
@@ -66,6 +70,7 @@ public class Groupw {
             String groupAddress = request.getParameter("groupaddress");
             int groupLoans = Integer.parseInt(request.getParameter("totalloanacs"));
             String groupName = request.getParameter("groupname");
+            String groupCode = request.getParameter("groupcode");
             String groupType = request.getParameter("grouptype");
             String groupPhone = request.getParameter("groupphone");
             String grpMgrId = request.getParameter("acctmgr");
@@ -81,7 +86,7 @@ public class Groupw {
             Date rcreTime = new Date();//rcreTime,lchgDate
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
-            String groupCode = request.getParameter("groupcode");
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
 
@@ -93,24 +98,26 @@ public class Groupw {
             String nxtDate = request.getParameter("nextmeetingdate");
 
             try {
-                
 
                 formationDate = in.parse(request.getParameter("formationdate"));
                 firstMeetDate = in.parse(request.getParameter("firstmeetingdate"));
                 nxtMeetDate = in.parse(request.getParameter("nextmeetingdate"));
-                
-                if(formationDate == null){
-                formationDate = sdf.parse(in.format(new Date()));
+
+                if (formationDate == null) {
+                    formationDate = sdf.parse(in.format(new Date()));
                 }
-                if(firstMeetDate == null){
-                firstMeetDate = sdf.parse(in.format(new Date()));
+                if (firstMeetDate == null) {
+                    firstMeetDate = sdf.parse(in.format(new Date()));
                 }
-                if(nxtMeetDate == null){
-                nxtMeetDate = sdf.parse(in.format(new Date()));
+                if (nxtMeetDate == null) {
+                    nxtMeetDate = sdf.parse(in.format(new Date()));
                 }
                 rcreTime = sdf.parse(in.format(new Date()));
                 lchgDate = sdf.parse(in.format(new Date()));
-                
+
+                System.out.println("formationDate is " + formationDate);
+                System.out.println("firstMeetDate is " + firstMeetDate);
+                System.out.println("nxtMeetDate is " + nxtMeetDate);
             } catch (ParseException asd) {
                 log.debug(asd.getMessage());
             }
@@ -119,26 +126,25 @@ public class Groupw {
             String gpChair = request.getParameter("chairpersonname");
             String gpTreasurer = request.getParameter("treasurername");
             String gpSecretary = request.getParameter("secretaryname");
-             
+
             String gpChairId = request.getParameter("chairperson");
-            String gpTreasurerId  = request.getParameter("treasurer");
-            String gpSecretaryId  = request.getParameter("secretary");
-            
+            String gpTreasurerId = request.getParameter("treasurer");
+            String gpSecretaryId = request.getParameter("secretary");
+
             String gpStatus = request.getParameter("status");
             String gpStatusCode = request.getParameter("statusreason");
             int loanAccounts = Integer.parseInt(request.getParameter("totalloanacs"));
             int savingAccounts = Integer.parseInt(request.getParameter("totalsavingacs"));
-            String solId =  request.getParameter("solid");
+            String solId = request.getParameter("solid");
             String branchName = request.getParameter("branchname");
             String meetFrequency = request.getParameter("meetingfrequency");
             String function = (String) session.getAttribute("gfunction");
             String lastOper = "";
-            System.out.println("Sol Id: "+ solId);
-            
+            System.out.println("Sol Id: " + solId);
+
             switch (function) {
                 case "ADD":
-                    
-                   branchName = Group.getbranchName(solId);
+                    branchName = Group.getbranchName(solId);
                     groupName = request.getParameter("groupname1");
                     if (!Group.groupExists(groupCode, groupName)) {
                         lastOper = "A";
@@ -151,7 +157,7 @@ public class Groupw {
                         if (groupTypes.equalsIgnoreCase("W")) {
                             maxAllowedSubGrps = 1;
                         }
-                        if (Group.executeaddGroup(bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, groupTypes,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                        if (Group.executeaddGroup(bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, groupTypes, gpChairId, gpTreasurerId, gpSecretaryId)) {
                             session.setAttribute("gadded", true);
                             session.setAttribute("content_page", "group/mGroup_a.jsp");
                         } else {
@@ -189,7 +195,9 @@ public class Groupw {
                 case "MODIFY":
                     groupId = Group.getGroupId(groupCode, groupName);
                     lastOper = "M";
-                    if (Group.addGroupModDetails(groupId, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, nxtMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                    
+                    //formationDate,firstMeetDate, nxtMeetDate
+                    if (Group.addGroupModDetails(groupId, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, nxtMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, gpChairId, gpTreasurerId, gpSecretaryId)) {
                         session.setAttribute("gmodified", true);
                         session.setAttribute("content_page", "group/mGroup_a.jsp");
                     }
@@ -197,7 +205,7 @@ public class Groupw {
                 case "DELETE":
                     groupId = Group.getGroupId(groupCode, groupName);
                     lastOper = "D";
-                    if (Group.addGroupModDetails(groupId, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, nxtMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                    if (Group.addGroupModDetails(groupId, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, nxtMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, gpChairId, gpTreasurerId, gpSecretaryId)) {
                         session.setAttribute("gdeleted", true);
                         session.setAttribute("content_page", "group/mGroup_a.jsp");
                     }
@@ -236,7 +244,7 @@ public class Groupw {
             String delFlg = "N";
             String groupAddress = request.getParameter("groupaddress");
             int groupLoans = Integer.parseInt(request.getParameter("totalloanacs"));
-            String groupName = request.getParameter("groupname");
+
             String subgroupName = request.getParameter("subgroupname");
             String groupPhone = request.getParameter("groupphone");
             String grpMgrId = request.getParameter("acctmgr");
@@ -245,48 +253,73 @@ public class Groupw {
             String lchgUserId = (String) session.getAttribute("uname");
             int maxAllowedMembers = Integer.parseInt(request.getParameter("maxmembers"));
             int noOfMembers = 0;
+              noOfMembers = Integer.parseInt(request.getParameter("totalmembers"));
+            
             double outstandingBal = Double.parseDouble(request.getParameter("totalloanbal"));
             double savingsAmt = Double.parseDouble(request.getParameter("totalsavingsbal"));
             Date rcreTime = new Date();
             String rcreUserId = (String) session.getAttribute("uname");
             String gpRegion = request.getParameter("region");
-            String groupCode = request.getParameter("groupcode");
+
             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-            Date formationDate = new Date();
+            String formationDate = "";
             String groupCenter = request.getParameter("groupcenter");
             String groupVillage = request.getParameter("groupvillage");
-            Date firstMeetDate = new Date();
-            try {
-                //fmt.format(in.parse())
-                formationDate = fmt.parse(request.getParameter("formationd"));
-                firstMeetDate = fmt.parse(request.getParameter("firstmeetingd"));
+            String firstMeetDate = "";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+              try {
+                formationDate = request.getParameter("formationd");
+                firstMeetDate = request.getParameter("firstmeetingd");
+
+                formationDate = parseDates(new Date());
+                  nxtMeetDate = in.parse(request.getParameter("nextmeetingdate"));
+
+                if (nxtMeetDate == null) {
+                    nxtMeetDate = sdf.parse(in.format(new Date()));
+                }
+                rcreTime = sdf.parse(in.format(new Date()));
+                lchgDate = sdf.parse(in.format(new Date()));
+
+                System.out.println("formationDate is " + formationDate);
+                System.out.println("firstMeetDate is " + firstMeetDate);
+                System.out.println("nxtMeetDate is " + nxtMeetDate);
             } catch (Exception asd) {
                 log.debug(asd.getMessage());
             }
             String meetTime = request.getParameter("meetingtime");
             String meetPlace = request.getParameter("meetingplace");
-            
-             String gpChairId = request.getParameter("chairperson");
-            String gpTreasurerId  = request.getParameter("treasurer");
-            String gpSecretaryId  = request.getParameter("secretary");
-            //chairpersonname,treasurername,secretaryname
+
+            String gpChairId = request.getParameter("chairperson");
+            String gpTreasurerId = request.getParameter("treasurer");
+            String gpSecretaryId = request.getParameter("secretary");
+
             String gpChair = request.getParameter("chairpersonname");
             String gpTreasurer = request.getParameter("treasurername");
             String gpSecretary = request.getParameter("secretaryname");
-            System.out.println("chairpersonname is "+gpChair);
-             System.out.println("treasurername  is "+gpTreasurer);
-              System.out.println("secretaryname is "+gpSecretary);
-              
+            System.out.println("chairpersonname is " + gpChair);
+            System.out.println("treasurername  is " + gpTreasurer);
+            System.out.println("secretaryname is " + gpSecretary);
+
             String gpStatus = request.getParameter("status");
             String gpStatusCode = request.getParameter("statusreason");
             int loanAccounts = Integer.parseInt(request.getParameter("totalloanacs"));
             int savingAccounts = Integer.parseInt(request.getParameter("totalsavingacs"));
-            String solId =  request.getParameter("solid");
+            String solId = request.getParameter("solid");
             String branchName = request.getParameter("branchname");
             String meetFrequency = request.getParameter("meetingfrequency");
             String accountNo = request.getParameter("subgroupAcnt");
             String accountName = request.getParameter("subgroupacntname");
+            String group_Id = request.getParameter("groupId");
+            String groupCode = request.getParameter("groupcode");
+            String groupName = request.getParameter("groupName");
+            String subgroup_Id = "0";
+                   subgroup_Id =  request.getParameter("subgroupId"); 
+                   System.out.println("Meet Time is: "+meetTime);
+            int groupId = 0;
+             int subgroupId =0;
+            groupId = Integer.parseInt(group_Id);
+            
             String function = (String) session.getAttribute("gfunction");
             String subgroupCode;
             Random random = new Random();
@@ -299,38 +332,38 @@ public class Groupw {
                 subgroupCode = request.getParameter("subgroupcode");
             }
             String lastOper = "";
-            int groupId = Group.getGroupIdForSubGrp(groupCode);
-            System.out.println("subgroup code is "+subgroupCode); 
-            System.out.println("solid  is "+solId); 
-             int Max =Group.getMaxSbGrps(groupId);
-            int getNumberOfGrpMembers =Group.getNumberOfSbGrps(groupId);
-            getNumberOfGrpMembers=getNumberOfGrpMembers+1;
+
+            lastOper = SubGroup.getLastOper(subgroupCode, subgroupName);
+
+            System.out.println("Last Operation   is " + lastOper);
+            System.out.println("groupId   is " + groupId);
+            System.out.println("subgroup code is " + subgroupCode);
+            System.out.println("subgroup name is " + subgroupName);
+            System.out.println("solid  is " + solId);
+            // int Max = Group.getMaxSbGrps(groupId); 
+//            int getNumberOfGrpMembers = Group.getNumberOfSbGrps(group_Id);
+//            getNumberOfGrpMembers = getNumberOfGrpMembers + 1;
             switch (function) {
                 case "ADD":
-                    if ((!SubGroup.subgroupExists(subgroupCode, subgroupName)) && (getNumberOfGrpMembers < Max)  ) {
+                    if (!SubGroup.subgroupExists(subgroupCode, subgroupName)) {
                         lastOper = "A";
-                        
-                        if (SubGroup.executeaddSubGroup(bankId, countryCode, delFlg, groupAddress, groupLoans, subgroupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, groupId, noOfMembers, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, subgroupCode, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, accountNo, accountName,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                        if (SubGroup.executeaddSubGroup(bankId, countryCode, delFlg, groupAddress, groupLoans, subgroupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, groupId, noOfMembers, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, subgroupCode, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, accountNo, accountName, gpChairId, gpTreasurerId, gpSecretaryId)) {
                             session.setAttribute("sgadded", true);
                             session.setAttribute("content_page", "group/mGroup_a.jsp");
                         } else {
                             session.setAttribute("fatal", true);
                             session.setAttribute("content_page", "subgroup/msubGroup_b.jsp");
                         }
-                        
-                        
                     } else {
                         session.setAttribute("sgexists", true);
                         session.setAttribute("content_page", "subgroup/msubGroup_b.jsp");
                     }
                     break;
                 case "VERIFY":
-                    int subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
-                    System.out.println("Sub group code " + subgroupCode);
-                    groupCode = SubGroup.getgroupCode(subgroupCode, subgroupName);
-                    lastOper = SubGroup.getLastOper(subgroupCode, subgroupName);
+                     subgroupId = Integer.parseInt(subgroup_Id);
+                   // int subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
                     System.out.println("Last operation type " + lastOper);
-                    System.out.println("group Id of subgroup being verified " + groupCode);
+                    System.out.println("group Id of subgroup being verified " + groupId);
                     switch (lastOper) {
                         case "A":
                             System.out.println("Last operation type " + lastOper);
@@ -357,9 +390,8 @@ public class Groupw {
                     break;
                 case "MODIFY":
                     subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
-                    groupId = SubGroup.getGroupId(subgroupCode);
                     lastOper = "M";
-                    if (SubGroup.addSubGroupModDetails(subgroupId, bankId, countryCode, delFlg, groupAddress, groupLoans, subgroupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, groupId, noOfMembers, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, subgroupCode, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, accountNo, accountName,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                    if (SubGroup.getSubGroupModDetails(subgroupId, lastOper)) {
                         session.setAttribute("sgmodified", true);
                         session.setAttribute("content_page", "group/mGroup_a.jsp");
                     } else {
@@ -369,9 +401,8 @@ public class Groupw {
                     break;
                 case "DELETE":
                     subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
-                    groupId = SubGroup.getGroupId(subgroupCode);
                     lastOper = "D";
-                    if (SubGroup.addSubGroupModDetails(subgroupId, bankId, countryCode, delFlg, groupAddress, groupLoans, subgroupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, groupId, noOfMembers, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, subgroupCode, formationDate, groupCenter, groupVillage, firstMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, accountNo, accountName,gpChairId,gpTreasurerId,gpSecretaryId)) {
+                    if (SubGroup.getSubGroupModDetails(subgroupId, lastOper)) {
                         session.setAttribute("sgdeleted", true);
                         session.setAttribute("content_page", "group/mGroup_a.jsp");
                     }
@@ -387,6 +418,12 @@ public class Groupw {
             session.setAttribute("content_page", "sessionexp.jsp");
         }
         response.sendRedirect("index.jsp");
+    }
+
+    private static String parseDates(Date date) {
+        DateTime dateTime = new DateTime(date);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        return dateTime.toString(fmt);
     }
 
 }

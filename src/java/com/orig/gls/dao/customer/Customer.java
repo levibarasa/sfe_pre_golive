@@ -15,7 +15,7 @@ public class Customer {
         String sql = "select DISTINCT cust_id, acct_name  from general_acct_mast_table where sub_group_code is  null and mapped_flg = ?";
         return AdminDb.execArrayLists(sql, 1, "N", 2);
     }
-
+ 
     public static int getNumberOfSbGrpMembers(int groupId) {
         String s = "select no_of_members from sub_grp_table where group_id=?";
         int k = 0;
@@ -78,6 +78,7 @@ public class Customer {
         }
         return k;
     }
+    
 
     public static void addGroupMember(int groupId, String username) {
         int k = getNumberOfGrpMembers(groupId);
@@ -178,7 +179,7 @@ public class Customer {
         return k;
     }
 
-    public static int addAuditCustomerTrail(String acid) {
+     public static int addAuditCustomerTrail(String acid) {
         String data = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"
                 + "ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER,"
                 + " ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,"
@@ -201,6 +202,47 @@ public class Customer {
                     + "," + one.get(21) + "," + one.get(22) + ","
                     + one.get(23) + "," + one.get(24)
                     + "," + one.get(25) + "," + one.get(26);
+
+            String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE("
+                    + "ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"
+                    + "ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER,"
+                    + " ENTITY_CRE_FLG, FORACID, LCHG_USER_ID,"
+                    + " LIEN_AMT, RCRE_USER_ID,SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID "
+                    + ",SUB_GROUP_CODE, MAPPED_FLG, MEMBER_STATUS, "
+                    + "CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,"
+                    + "ACCT_OPN_DATE) "
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+                    + "try_convert(date, ?, 111),try_convert(date, ?, 111) ,try_convert(date, ?, 111) "
+                    + ",try_convert(date, ?, 111))";
+            h = AdminDb.dbWork(sql, 27, in);
+        }
+        return h;
+    }
+     
+      
+    public static int addAuditCustomerReinstateTrail(String acid) {
+        String data = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"//0-3
+                + "ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER,"//4-9
+                + " ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,"//10-14
+                + "SANCT_LIM,SCHM_CODE,SCHM_TYPE, SOL_ID ,"//15-18
+                + "SUB_GROUP_CODE, MAPPED_FLG,  "//19-20
+                + "CREDIT_RATING,LAST_MODIFIED_DATE,LCHG_TIME,RCRE_TIME,"//21-24
+                + "ACCT_OPN_DATE from GENERAL_ACCT_MAST_TABLE where cust_id = ?";//25
+        ArrayList ar = AdminDb.execArrayLists(data, 1, acid, 26);
+        //System.out.println(""+ar);
+        int h = 0;
+        for (int w = 0; w < ar.size(); w++) {
+            ArrayList one = (ArrayList) ar.get(w);
+            String in = one.get(0) + "," + one.get(1) + "," + one.get(2) + ","
+                    + one.get(3) + "," + one.get(4) + "," + one.get(5) + ","
+                    + one.get(6) + "," + one.get(7) + "," + one.get(8) + ","
+                    + one.get(9) + "," + one.get(10) + "," + one.get(11) + ","
+                    + one.get(12) + "," + one.get(13) + "," + one.get(14) + ","
+                    + one.get(15) + "," + one.get(16) + "," + one.get(17) + ","
+                    + one.get(18) + "," + one.get(19) + "," + one.get(20)
+                    + "," + "R" + "," + one.get(21) + ","
+                    + one.get(22) + "," + one.get(23)
+                    + "," + one.get(24) + "," + one.get(25);
 
             String sql = "insert into GENERAL_ACCT_MAST_AUDIT_TABLE("
                     + "ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"
@@ -342,6 +384,7 @@ public class Customer {
         }
         return arr;
     }
+   
     public static ArrayList getVoluntaryExitAccountDetails(String foracid) {
         String sql = "select acct_name, sol_id, sub_group_code, credit_rating,member_status from general_acct_mast_table where member_status='V' and  cust_id = ?";
         ArrayList ar = AdminDb.execArrayLists(sql, 1, foracid, 5);

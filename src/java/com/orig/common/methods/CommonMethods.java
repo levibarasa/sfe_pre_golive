@@ -28,10 +28,27 @@ public class CommonMethods {
     }
 //get clear balance
 
+    public static String getClearBalanceAmt(String cust_Id) {
+        String sql = "select  cast(CLR_BAL_AMT as decimal(15,2))  from general_acct_mast_table where cust_id = ?  and SCHM_CODE LIKE 'GLS%'";
+        String amt = AdminDb.getValue(sql, 1, 1, cust_Id);
+        BigDecimal amts = new BigDecimal(amt).abs();
+        return amts.toString();
+    }
+
     public static double getClearBalance(String cust_Id) {
         double custId = 0.0;
         String sql = "select SUM(cast(CLR_BAL_AMT as decimal(15,2))) from general_acct_mast_table where cust_id = ?  and SCHM_CODE LIKE 'GLS%'";
         String amt = AdminDb.getValue(sql, 1, 1, cust_Id);
+        if (amt != null) {
+            custId = Double.parseDouble(amt);
+        }
+        return custId;
+    }
+
+    public static double getMemberOtherSavings(String cust_id) {
+        double custId = 0.0;
+        String sql = "select sum(cast(CLR_BAL_AMT as decimal(15,2)))AMT from general_acct_mast_table where cust_id = ?  and SCHM_CODE NOT LIKE 'GLS%' and SCHM_CODE NOT LIKE 'SBGCO'";
+        String amt = AdminDb.getValue(sql, 1, 1, cust_id);
         if (amt != null) {
             custId = Double.parseDouble(amt);
         }
@@ -45,6 +62,14 @@ public class CommonMethods {
         if (amt != null) {
             custId = Double.parseDouble(amt);
         }
+        return custId;
+    }
+
+    public static BigDecimal getMemberSaving(String cust_id) {
+        BigDecimal custId = BigDecimal.ZERO;
+        String sql = "select sum(cast(CLR_BAL_AMT as decimal(15,2)))AMT from general_acct_mast_table where cust_id = ?  and SCHM_CODE NOT LIKE 'GLS%'";
+        String amt = AdminDb.getValue(sql, 1, 1, cust_id);
+        custId = new BigDecimal(amt);
         return custId;
     }
 
@@ -108,10 +133,6 @@ public class CommonMethods {
         for (int i = 0; i < currentClearBalance.size(); i++) {
             ArrayList one = (ArrayList) currentClearBalance.get(i);
             double clrBal = Double.parseDouble((String) one.get(0));
-            int k = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-            if (k > 0) {
-                int n = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-            }
             newClearBal = (clrBal - newClearBal);
             if (newClearBal >= 0.00) {
                 String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT = ? where CUST_ID = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0  and SCHM_CODE NOT LIKE ?";
@@ -133,15 +154,8 @@ public class CommonMethods {
         return newClearBal;
     }
 
-    // getSubGrpMemberClrBalAmt
-    public static ArrayList getSubGrpMemberClrBalAmt(String cust_id) {
-        String subgroupCode = getSubGrpCode(cust_id);
-        String sql = "select cast(CLR_BAL_AMT as decimal(15,2)) from general_acct_mast_table where SUB_GROUP_CODE = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0 and SCHM_CODE NOT LIKE 'GLS%'";
-        return AdminDb.execArrayLists(sql, 1, subgroupCode, 1);
-    }
-
     public static void updateSubGrpMemberClrBalAmt(String cust_id, double newClearBal, String uname) {
-        ArrayList currentClearBalance = getSubGrpMemberClrBalAmt(cust_id);
+        ArrayList currentClearBalance = new ArrayList();//getSubGrpMemberClrBalAmt(cust_id);
         String f_Date = parseDates(new Date());
         Date fDate = new Date();
         try {
@@ -159,10 +173,6 @@ public class CommonMethods {
         for (int i = 0; i < currentClearBalance.size(); i++) {
             ArrayList one = (ArrayList) currentClearBalance.get(i);
             double clrBal = Double.parseDouble((String) one.get(0));
-            int k = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-            if (k > 0) {
-                int n = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-            }
             newClearBal = clrBal - newClearBal;
             if (clrBal >= 0 && newClearBal >= 0) {
 
@@ -176,39 +186,27 @@ public class CommonMethods {
         }
     }
 
-//    public static ArrayList getSubGrpClrBalAmt(String subgroupCode) {
-//        String sql = "select CLR_BAL_AMT from general_acct_mast_table where SUB_GROUP_CODE = ? and CLR_BAL_AMT > 0 and SCHM_CODE NOT LIKE 'GLS%'";
-//        String in = subgroupCode ;
-//        return AdminDb.execArrayLists(sql, 1, in, 1);
-//    }
+    /*
+ get groupId,
+ get sbgrpcodes by grpId
+ update member savings bal by sbgrpcode
+     */
     public static ArrayList getSubGrpClrBalAmt(String subgroupCode) {
-        //  String subgroupCode = getSubGrpCode(cust_id);
         String sql = "select cast(CLR_BAL_AMT as decimal(15,2)) from general_acct_mast_table where SUB_GROUP_CODE = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0 and SCHM_CODE NOT LIKE 'GLS%'";
         return AdminDb.execArrayLists(sql, 1, subgroupCode, 1);
     }
 
-    // getn Grp Member ClrBalAmt
-    public static ArrayList getGrpMemberClrBalAmt(String cust_id) {
-        ArrayList subgroupCodes = getSubGroupCodesByGroupId(cust_id);
-
-        ArrayList ar = new ArrayList();
-        ArrayList rs = new ArrayList();
-        for (int i = 0; i < subgroupCodes.size(); i++) {
-            ArrayList one = (ArrayList) subgroupCodes.get(i);
-            String subgroupCode = (String) one.get(0);
-            if (subgroupCode != null) {
-                ar = getSubGrpClrBalAmt(subgroupCode);
-                for (int j = 0; j < ar.size(); j++) {
-                    ArrayList ind = (ArrayList) ar.get(j);
-                    rs.add(ind);
-                }
-            }
-        }
-        return rs;
-    }
-
+//public static void main(String[] args) {
+//     ArrayList subgroupCodes =getSubGroupCodesByGroupId("000037026");
+//     for (int i = 0; i < subgroupCodes.size(); i++) {
+//            ArrayList one = (ArrayList) subgroupCodes.get(i);
+//            String subgroupCode = (String) one.get(0);
+//             System.out.println(subgroupCode);
+//        }
+//        
+//    }
     public static void updateGrpMemberClrBalAmt(String cust_id, double newClearBal, String uname) {
-        ArrayList currentClearBalance = getGrpMemberClrBalAmt(cust_id);
+        ArrayList currentClearBalance = new ArrayList();//getGrpMemberClrBalAmt(cust_id);
         String f_Date = parseDates(new Date());
         Date fDate = new Date();
         try {
@@ -226,28 +224,23 @@ public class CommonMethods {
         for (int i = 0; i < currentClearBalance.size(); i++) {
             ArrayList one = (ArrayList) currentClearBalance.get(i);
             double clrBal = Double.parseDouble((String) one.get(0));
-             int k = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-                if (k > 0) {
-                    int n = Transact.addTranDetails(BigDecimal.valueOf(newClearBal), fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-                }
             newClearBal = clrBal - newClearBal;
             if (clrBal >= 0 && newClearBal >= 0) {
 
                 String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT= ? where CUST_ID = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0  and SCHM_CODE NOT LIKE ?";
                 String schemeCode = "GLS%";
                 String in = newClearBal + "," + cust_id + "," + schemeCode;
-
                 AdminDb.dbWork(sql, 3, in);
-               
+
             }
         }
     }
 
-    public static int getSubGroupSize(String cust_id) {
+    public static String getSubGroupSize(String cust_id) {
         String subgroupCode = getSubGrpCode(cust_id);
         String sql = "select count(*)CNT from general_acct_mast_table where SUB_GROUP_CODE = ?";
         String str = AdminDb.getValue(sql, 1, 1, subgroupCode);
-        return Integer.parseInt(str);
+        return str;
     }
 
     //get group name
@@ -306,10 +299,6 @@ public class CommonMethods {
         }
         return custId;
     }
-    //  public static void main(String[] args) {//000037026
-//        double loanAmount =  getClearBalance("000037026");
-//        System.out.println(memberCleared(loanAmount));
-//    }
 
     public static void updateMemberLoanAccBal(String cust_id) {
         String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT = ? where CUST_ID = ?  and SCHM_CODE LIKE ?";
@@ -341,62 +330,12 @@ public class CommonMethods {
         return cleared;
     }
 
-//public static int CreateTransaction(BigDecimal tranAmt, Date tranDate, String acid, String tranParticulars, String rcreUserId, Date rcreTime, String lchgUserId, Date lchgTime, String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode){
-//     int k = Transact.addTranDetails(amts, fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
-//                if (k > 0) {
-//                    int n = Transact.addTranDetails(amts, fDate, actr, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "C", bankTranId, subgroup);
-//                }    
-//return 1;
-//}
     public static boolean clearLoanBeforeExit(String cust_id, String uname) {
-
         boolean exitMember = false;
-        if (cust_id != null || !cust_id.isEmpty()) {
-
-            double loanAmount = getClearBalance(cust_id);
-            double sumOfSavings = getMemberSavings(cust_id);
-            double subgroupSavings = getSubgroupSavings(cust_id);
-
-            int subgroupSize = getSubGroupSize(cust_id);
-            int groupSize = getGroupSize(cust_id);
-            double totalGroupMembersSavings = getGroupMembersSavings(cust_id);
-            int noOfIndividualMemberSavingAcc = getNoOfSavingAccs(cust_id);
-
-            double newCustSavings = (sumOfSavings + loanAmount);
-            double newSubgrpSavings = (subgroupSavings + loanAmount);
-            double newGrpSavings = (totalGroupMembersSavings + loanAmount);
-
-            if (loanAmount >= 0.0) {
-                exitMember = true;
-            } else {
-                //if member savings account is sufficient
-                if (newCustSavings >= 0) {
-                    loanAmount = (loanAmount * -1);
-                    double indivSavingAcc = loanAmount / noOfIndividualMemberSavingAcc;
-                    if (updateIndividualMemberClrBalAmt(cust_id, indivSavingAcc, uname) >= 0.00) {
-                        updateMemberLoanAccBal(cust_id);
-                        exitMember = true;
-                    }
-                    //if subgroup savings account is sufficient
-                } else if (newSubgrpSavings >= 0.0) {
-                    loanAmount = (loanAmount * -1);
-                    double indivSavingAcc = loanAmount / subgroupSize;
-                    updateSubGrpMemberClrBalAmt(cust_id, indivSavingAcc, uname);
-                    updateMemberLoanAccBal(cust_id);
-                    exitMember = true;
-                    //if group savings account is sufficient
-                } else if (newGrpSavings >= 0.0) {
-                    loanAmount = (loanAmount * -1);
-                    double indivSavingAcc = loanAmount / groupSize;
-                    updateGrpMemberClrBalAmt(cust_id, indivSavingAcc, uname);
-                    updateMemberLoanAccBal(cust_id);
-                    exitMember = true;
-                }
-
-            }
-        } else {
-            exitMember = false;
-        }
+        String loanAmount = getClearBalanceAmt(cust_id);
+        String loanAccount = getLoanAcc(cust_id);
+        ExitMatrix.doExit(loanAccount, cust_id, loanAmount, uname);
+        exitMember = true;
         return exitMember;
     }
 
@@ -437,8 +376,72 @@ public class CommonMethods {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         return dateTime.toString(fmt);
     }
-//    public static int daysBetween(Date d1, Date d2){
-//             return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
-//     }
 
+    public static String getAccMgrs(String accMgr) {
+        String sql = " select  count(ACCT_MGR_USER_ID)  from GROUP_USER_REPORT where ACCT_MGR_USER_ID =?  ";
+        String str = AdminDb.getValue(sql, 1, 1, accMgr);
+        return str;
+    }
+
+    // getSubGrpMemberClrBalAmt
+    public static ArrayList getSubGrpMemberClrBalAmt(String subgroupCode) {
+        String sql = "select cast(CLR_BAL_AMT as decimal(15,2)) from general_acct_mast_table where SUB_GROUP_CODE = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0 and SCHM_CODE NOT LIKE 'GLS%'";
+        return AdminDb.execArrayLists(sql, 1, subgroupCode, 1);
+    }
+
+    public static void updateMemberSavingAccBal(String cust_id, BigDecimal bal) {
+        String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT = ? where CUST_ID = ? and cast(clr_bal_amt as decimal(10,2)) > 0.00  and SCHM_CODE NOT LIKE ?";
+        String schemeCode = "GLS%";
+        String in = bal + "," + cust_id + "," + schemeCode;
+        AdminDb.dbWork(sql, 3, in);
+
+    }
+
+    public static void updateSbGrpSavings(String custId, String subgroupCode, BigDecimal indDeduct) {
+        ArrayList clearBalArr = getSubGrpMemberClrBalAmt(subgroupCode);
+        BigDecimal curClrBal = BigDecimal.ZERO;
+        BigDecimal bal = BigDecimal.ZERO;
+        BigDecimal zero = BigDecimal.ZERO;
+        for (int i = 0; i < clearBalArr.size(); i++) {
+            ArrayList one = (ArrayList) clearBalArr.get(i);
+            curClrBal = new BigDecimal((String) one.get(0));
+            bal = curClrBal.subtract(indDeduct);
+            if (zero.compareTo(bal) == 1) {
+                //update clr bal to zero
+                bal = BigDecimal.ZERO;
+            }
+            String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT= ? where CUST_ID = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0  and SCHM_CODE NOT LIKE ?";
+            String schemeCode = "GLS%";
+            String in = bal + "," + custId + "," + schemeCode;
+            AdminDb.dbWork(sql, 3, in);
+        }
+    }
+
+    // update Grp Member ClrBalAmt
+    public static void updateGrpMemberSaving(String custId, BigDecimal indDeduct) {
+        ArrayList subgroupCodes = getSubGroupCodesByGroupId(custId);
+        BigDecimal curClrBal = BigDecimal.ZERO;
+        BigDecimal bal = BigDecimal.ZERO;
+        BigDecimal zero = BigDecimal.ZERO;
+        for (int i = 0; i < subgroupCodes.size(); i++) {
+            ArrayList one = (ArrayList) subgroupCodes.get(i);
+            String subgroupCode = (String) one.get(0);
+            ArrayList clearBalArr = getSubGrpMemberClrBalAmt(subgroupCode);
+            for (int j = 0; j < clearBalArr.size(); j++) {
+                ArrayList two = (ArrayList) clearBalArr.get(j);
+                curClrBal = new BigDecimal((String) two.get(0));
+                bal = curClrBal.subtract(indDeduct);
+                if (zero.compareTo(bal) == 1) {
+                    //update clr bal to zero
+                    bal = BigDecimal.ZERO;
+                }
+                String sql = "update GENERAL_ACCT_MAST_TABLE SET CLR_BAL_AMT= ? where CUST_ID = ? and cast(CLR_BAL_AMT as decimal(15,2)) > 0  and SCHM_CODE NOT LIKE ?";
+                String schemeCode = "GLS%";
+                String in = bal + "," + custId + "," + schemeCode;
+                AdminDb.dbWork(sql, 3, in);
+            }
+
+        }
+
+    }
 }

@@ -51,7 +51,7 @@ public class Customerw {
         if ((String) session.getAttribute("uname") != null) {
             String account = request.getParameter("did");
             String smg = request.getParameter("subgroup");
-            String actType = request.getParameter("custType");
+            String actType = request.getParameter("custType");          
             if (actType.equals(null)) {
                 actType = "1";
             }
@@ -70,7 +70,7 @@ public class Customerw {
              getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
             if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
                 
-                if ((getAccDetails > 0) && (getNumberOfGrpMembers < Max) && (getNumberOfSbGrpMembers < getMaxSbGrpMembers) ) {
+                if ((getAccDetails > 0) && (getNumberOfGrpMembers < 60) && (getNumberOfSbGrpMembers < 60) ) {
                        Customer.addGroupMember(Customer.getGroupId(smg), (String) session.getAttribute("uname"));
                     System.out.println("Testing for any loop point two ");
                     session.setAttribute("mapsuc", true);
@@ -163,6 +163,7 @@ public class Customerw {
                     getAccDetails = Customer.getAccountDetails(account, smg, "M", actType, (String) session.getAttribute("uname"));
                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
                         if (getAccDetails > 0) {
+                             Customer.addAuditCustomerReinstateTrail(account);
                             session.setAttribute("modsuc", true);
                         } else {
                             session.setAttribute("fatal", true);
@@ -175,7 +176,7 @@ public class Customerw {
                 default:
                     getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
                     System.out.println("Doing member Re-Instatement .... ");
-                    if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
+                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
                         if (getAccDetails > 0) {
                             session.setAttribute("modsuc", true);
                             session.setAttribute("content_page", "customer/mMembers.jsp");

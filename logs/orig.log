@@ -99,3 +99,9 @@
 [origlogger] [25 May 2017 - 16:45:57] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
 [origlogger] [25 May 2017 - 16:50:05] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'GP_CHAIR_ID'. 
 [origlogger] [25 May 2017 - 16:51:48] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
+[origlogger] [29 May 2017 - 10:40:28] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 44. 
+[origlogger] [08 Jun 2017 - 09:34:48] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting the varchar value '500324.76' to data type int. 
+[origlogger] [08 Jun 2017 - 10:24:09] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting the varchar value '500324.76' to data type int. 
+[origlogger] [08 Jun 2017 - 11:26:19] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Conversion failed when converting the varchar value '500324.76' to data type int. 
+[origlogger] [08 Jun 2017 - 12:31:28] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Arithmetic overflow error converting nvarchar to data type numeric. 
+[origlogger] [12 Jun 2017 - 13:08:56] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'FORACID'. 

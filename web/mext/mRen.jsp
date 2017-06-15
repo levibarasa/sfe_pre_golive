@@ -32,7 +32,7 @@
         
         member_status = (String) one.get(11);
     }
-    
+    if (size > 0) { 
 %>
 <html>
     <head>
@@ -245,13 +245,19 @@
                         <td></td>
                     </tr>
                   
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
+                     <% } else {%>
+
+            <tr>
+                <td colspan="8">Customer cannot <%=info%>. Check customer number.</td>
+            </tr>
+            <%}%>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
                     <tr>
                         <td colspan="12"><div class="header">&nbsp;</div></td>
                     </tr>

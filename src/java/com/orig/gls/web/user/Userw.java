@@ -91,10 +91,7 @@ public class Userw {
                     if (!User.userExists(userName)) {
                         if (userPw.equals(conPass)) {
                             if (User.executeAddUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId, "A") > 0) {
-//                            if (User.addUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId) > 0) {
-//                               User.getUserModDetails(userid, uname, "M");
-//                               
-                                User.deleteAfterReg(userName);
+                               User.deleteAfterReg(userName);
                                 session.setAttribute("uadded", true);
                                 session.setAttribute("content_page", "user/mUsers.jsp");
                             } else {
@@ -136,35 +133,11 @@ public class Userw {
                 case "MODIFY":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
-                   // session.setAttribute("umodified", true);
-//                    int user = Integer.parseInt(userid);
-//
-//                    if (User.getUserModDetails(userid, uname, "M")) {
-//                        User.modifyUser(user);
-//                        // User.markUserUnverified(user, "M");
-//                        session.setAttribute("umodified", true);
-//                        session.setAttribute("content_page", "user/mUser_b.jsp");
-//                    } else {
-//                        session.setAttribute("fatal", true);
-//                    }
-
-//                    }
-                    break;
+                       break;
                 case "DELETE":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
-                    //session.setAttribute("udeleted", true);
-//                    user = Integer.parseInt(userid);
-//
-//                    if (User.getUserModDetails(userid, uname, "D")) {
-//                        User.deleteUser(user);
-//                        session.setAttribute("udeleted", true);
-//                        session.setAttribute("content_page", "user/mOtherAct.jsp");
-//                    } else {
-//                        session.setAttribute("fatal", true);
-//                    }
-
-                    break;
+                      break;
                 case "INQUIRE":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
@@ -200,25 +173,23 @@ public class Userw {
             String userid = (String) session.getAttribute("userid");
             int user = Integer.parseInt(userid);
             String function = (String) session.getAttribute("ufunction");
-
             System.out.println("user id " + userid);
             System.out.println("function is " + function);
             switch (function) {
                 case "MODIFY":
-                    
+
                     if (User.getUserModDetails(userid, uname, "M")) {
                         User.modifyUser(user);
-                         session.setAttribute("umodified", true);
+                        session.setAttribute("umodified", true);
                         session.setAttribute("content_page", "user/mOtherAct.jsp");
                     } else {
                         session.setAttribute("fatal", true);
                     }
                     break;
                 case "DELETE":
-                    //session.setAttribute("udeleted", true);
                     if (User.getUserModDetails(userid, uname, "D")) {
                         User.deleteUser(user);
-                       session.setAttribute("udeleted", true);
+                        session.setAttribute("udeleted", true);
                         session.setAttribute("content_page", "user/mOtherAct.jsp");
                     } else {
                         session.setAttribute("fatal", true);

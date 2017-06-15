@@ -72,7 +72,7 @@
             return false;
         }
     </script>
-    <script type="text/javascript">
+    <!--script type="text/javascript">
           if (${fatal == 'true'}) {
                 alert("ERROR\nA Fatal Error Has Occured\nPlease Contact System Administrator!");
             }
@@ -86,7 +86,7 @@
                 alert("Success\Group Mapping re-instatement successful. ");
             }
       
-    </script>
+    </script-->
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">Member Exit/Re-Instate Module</h2>
 

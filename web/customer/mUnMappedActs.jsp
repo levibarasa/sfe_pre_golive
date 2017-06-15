@@ -20,7 +20,7 @@
     }
       
     if (${mapErr == 'true'}) {
-        alert("Customer mapping failed");
+        alert("Customer mapping failed or \n You have reached maximum number of group members per subgroup ");
     }
     if (${subErr == 'true'}) {
         alert("Customer Mapping error. Check input values");

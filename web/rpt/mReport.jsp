@@ -2,8 +2,24 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <%
-        String path = request.getContextPath() + "/Reports/" + (String) session.getAttribute("rname") + ".pdf";
-        System.out.println("Report path " + path);
+        String path = "";
+        String rfomart = (String) session.getAttribute("rformat");
+        if(rfomart.equalsIgnoreCase("") || rfomart == null){
+        rfomart = "PDF";
+        }
+       System.out.println("Report format " + rfomart);
+        switch (rfomart) {
+            case "PDF":
+                path = request.getContextPath() + "/Reports/" + (String) session.getAttribute("rname") + ".pdf";
+                System.out.println("Report path " + path);
+                break;
+            default:
+                path = request.getContextPath() + "/Reports/" + (String) session.getAttribute("rname") + ".xlsx";
+                System.out.println("Report path " + path);
+                break;
+        }
+
+
     %>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
     <meta http-equiv="cache-control" content="max-age=0" />

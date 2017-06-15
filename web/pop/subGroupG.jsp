@@ -20,7 +20,7 @@
             function getGroupValue(ths, grpname, solid, brname, grmgr, regno, fordat,
                     regi, center, vill, addr, pho, firmdate, nxtmdate, mtime, mtplace,
                     alwdm, alwdgs, grpchair, grptre, grpsec, gpstat, gpstatcd, nomem, mefreq,
-                    saac, saacbal, lac, lacbal) {
+                    saac, saacbal, lac, lacbal,grp_id,meet_time) {
                 if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("groupcode");
                     var grpn = window.opener.document.getElementById("groupname");
@@ -48,6 +48,8 @@
                     var svacsbal = window.opener.document.getElementById("totalsavingsbal");
                     var loacs = window.opener.document.getElementById("totalloanacs");
                     var loacsbal = window.opener.document.getElementById("totalloanbal");
+                    var grpid = window.opener.document.getElementById("groupId");
+                    var meetingtime = window.opener.document.getElementById("meetingtime"); 
                     func.value = ths.innerHTML; //for innerhtml
                     grpn.value = grpname;
                     sol.value = solid;
@@ -73,7 +75,9 @@
                     svacs.value = saac;
                     svacsbal.value = saacbal;
                     loacs.value = lac;
-                    loacsbal.value = lacbal;
+                    loacsbal.value = lacbal;  
+                    grpid.value = grp_id; 
+                    meetingtime.value = meet_time;
                     window.close();
                 }
 
@@ -104,7 +108,8 @@
                                 '<%=(String) one.get(18)%>', '<%=(String) one.get(19)%>', '<%=(String) one.get(20)%>', '<%=(String) one.get(21)%>',
                                 '<%=(String) one.get(22)%>', '<%=(String) one.get(23)%>', '<%=(String) one.get(24)%>', '<%=(String) one.get(25)%>',
                                 '<%=(String) one.get(26)%>', '<%=(String) one.get(27)%>', '<%=(String) one.get(28)%>', '<%=(String) one.get(29)%>',
-                                '<%=(String) one.get(30)%>', '<%=(String) one.get(31)%>')" id="cname"><%=(String) one.get(0)%></a></div></td>
+                                '<%=(String) one.get(30)%>', '<%=(String) one.get(31)%>', '<%=(String) one.get(1)%>', '<%=(String) one.get(35)%>')
+                                                    " id="cname"><%=(String) one.get(0)%></a></div></td>
                 <td><div align="center"><%=(String) one.get(1)%></div></td>
                 <td><div align="center"><%=(String) one.get(2)%></div></td>
                 <td><div align="center"><%=(String) one.get(3)%></div></td>
