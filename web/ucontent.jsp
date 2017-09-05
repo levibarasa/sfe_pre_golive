@@ -13,6 +13,34 @@
         transform: rotate(360deg);
         -webkit-transform: rotate(360deg);
     }
+    #container {
+        width: 960px;
+        margin: 0 auto;
+    }
+
+    #primary {
+        float: left;
+        width: 240px;
+    }
+
+    #content {
+        float: left;
+        width: 480px;
+    }
+
+    #secondary {
+        float: left;
+        width: 240px;
+    }
+    input[type=submit] {
+        width: 20em;  height: 2em; border-radius: 12px;
+    }
+    input[type=button] {
+        width: 20em;  height: 2em; border-radius: 12px;
+    }
+    #footer {
+        clear: both;
+    }
 </style>
 <script type="text/javascript">
     if (${nonexistencemenu == 'true'}) {
@@ -22,25 +50,68 @@
         alert("ERROR\nAccess is denied");
     }
 </script>
+<fieldset>
+<div id="container">
 
-<table width="100%" border="0">
-    <tr>
-        <th colspan="2" style="line-height:20px; padding:10px;" scope="col"><div class="header">Group Loans System</div></th>
-</tr>
 
-<tr>
-    <th width="72%" >
-<div align="left" style="padding:10px;line-height:20px;">Simbank GLS is a product of Simba Technology Ltd developed to ensure flawless movement of credit for Individual and sub-lending Groups.</div></th>
+    <div id="primary">
 
-<th width="28%" rowspan="2" scope="col"><img class="image"  src="images/globe.png" width="245" height="245" /><br/><img src="images/group.png" width="225" height="165" /></th>
-</tr>
+    </div>
 
-<tr>
-    <td><div align="left" style="padding:10px;line-height:20px;">
-            <p><a href="#"><strong>About the Company</strong></a> </p>
-            <p><br/>
-               Simba technology Ltd was established in 1996 to be a leading system integrator in Africa. Simba has presence in Kenya, Tanzania, Nigeria and Uganda and employs more than 150 qualified and dedicated professionals. We provide Enterprise solutions, Consultancy, Training to Government and private sector. Our expertise and resource base is enhanced by our Value Added Alliances with renowned companies like Infosys Technologies Ltd, Newgen, Nucleus, Agile and ACI Worldwide to name a few.
-            </p>
-        </div></td>
-</tr>
-</table>
+    <div id="content">
+        <br/><br/> 
+        <img src="images/sfe.png" name="sfe" width="450" height="200"   border="0"/>
+    </div>
+
+    <div id="secondary">
+        <br/><br/><br/> 
+        
+        <table width="600">
+            <tr><td width="200"></td>
+                <td>
+                    <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=doLog">
+
+                        <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic ">Relationship Officer Code</center>
+
+                </td></tr><tr><td width="200"></td>
+                <td>
+            <center> <input type="text" name ="employeeID" id="employeeID" size="30"></center><br/>
+            </td></tr><tr><td width="200"></td>
+                <td>
+            <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic ">Password</center>
+
+            </td></tr><tr><td width="200"></td>
+                <td>
+            <center><input type="password" name ="Password" id="Password" size="30"></center><br/><br/>
+            </td></tr><tr><td width="200"></td>
+                <td width="100">
+            <center><input type="submit" value="    Login    " width="100" bgcolor="#24315e" style="background-color: #24315e; color: #eee;" size="30"></center>
+            </form>
+            </td></tr>
+            <tr><td width="200"></td>
+                <td><center>
+                <a href="" style="font-style:italic; color:#03f;font-size: 9 px;">
+                    Forgot or Change Password
+                </a>  
+            </center>
+            </td>
+            </tr>
+            <tr><td width="200"></td>
+                <td>
+            <center>
+                <input type="submit" value=" Reset/Change Password  " width="50" bgcolor="#000000" style="background-color:#C8C8C8; color: #eee;" size="30">
+            </center>
+            </td>
+            </tr>
+        </table>
+        </fieldset>
+    </div>
+
+
+</div>
+
+
+
+
+
+

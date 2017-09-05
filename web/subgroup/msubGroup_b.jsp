@@ -131,19 +131,19 @@
                 popup.focus();
                 return false;
             }
-  
+
             function getAccountChairmanValue() {
                 popup = window.open("pop/custchairman_pop.jsp", "Functions", "width=500,height=400");
                 popup.focus();
                 return false;
             }
-            
+
             function getAccountTreasureValue() {
                 popup = window.open("pop/custtreasure_pop.jsp", "Functions", "width=500,height=400");
                 popup.focus();
                 return false;
             }
-             function getAccountSecretaryValue() {
+            function getAccountSecretaryValue() {
                 popup = window.open("pop/custsecretary_pop.jsp", "Functions", "width=500,height=400");
                 popup.focus();
                 return false;
@@ -236,7 +236,7 @@
                         <th colspan="12" align="left" scope="col"><div class="header">&nbsp;Sub-Group Register Maintenance</div></th>
                     </tr>
                     <input type="hidden" name="function" id="function" value="${gfunction}" />
-                    
+
                     <tr <%=ishiddengr%>>
                         <td>Group Code</td>
                         <td>:</td>
@@ -246,7 +246,7 @@
                         <td>:</td>
                         <td>
                             <input type="hidden" name="groupId" id="groupId"   />
-                             <input type="hidden" name="subgroupId" id="subgroupId"   />
+                            <input type="hidden" name="subgroupId" id="subgroupId"   />
                             <input type="text" name="groupname" id="groupname" onkeyup="this.value = this.value.toUpperCase();" <%=isreadonly%>  /></td>
                     </tr>
                     <tr>
@@ -267,7 +267,7 @@
                         <td>:</td>
                         <td><input type="text" name="branchname" onkeyup="this.value = this.value.toUpperCase();" 
                                    id="branchname"  readonly="readonly" /></td>
-                        </tr>        
+                    </tr>        
                     <tr>
                         <td>Sub-Group Mgr Id</td>
                         <td>:</td>
@@ -340,7 +340,7 @@
                         <td>Sub-Group Chairperson</td>
                         <td>:</td>  
                         <td><input type="text" name="chairperson" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="chairperson" value="" <%=isreadonly%> /></td>
-                         <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" name="chairpersonname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="chairpersonname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -360,7 +360,7 @@
                         <td>Sub-Group Secretary</td>
                         <td>:</td>
                         <td><input type="text" name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" value="" id="secretary"  <%=isreadonly%> /></td>
-                       <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" name="secretaryname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="secretaryname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>

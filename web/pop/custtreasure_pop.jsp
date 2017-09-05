@@ -13,7 +13,7 @@
             -->
         </style>
         <script type="text/javascript">
-            
+
             function getAccountValue(ths, accname) {
                 if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("treasurer");
@@ -24,7 +24,7 @@
                 }
 
             }
-             
+
         </script>
 
     </head>

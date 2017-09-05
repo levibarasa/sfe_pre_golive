@@ -1,5 +1,4 @@
-
-package com.orig.gls.sms;
+package com.sfe.sms;
 
 import java.io.*;
 import java.net.*;

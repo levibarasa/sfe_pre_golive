@@ -1,6 +1,6 @@
-package com.orig.gls.dao.menu;
+package com.sfe.dao.menu;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -1,9 +1,9 @@
-package com.orig.gls.web.user;
+package com.sfe.web.user;
 
-import com.orig.gls.dao.admin.role.Role;
-import com.orig.gls.dao.admin.user.Access;
-import com.orig.gls.dao.admin.user.User;
-import com.orig.gls.security.Encode;
+import com.sfe.dao.admin.role.Role;
+import com.sfe.dao.admin.user.Access;
+import com.sfe.dao.admin.user.User;
+import com.sfe.security.Encode;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,114 +31,63 @@ public class Accessw {
         session.setAttribute("acctexpired", false);
         session.setAttribute("usrdisabled", false);
         session.setAttribute("userlogged", false);
-        String username = request.getParameter("Username");
+        String employeeID = request.getParameter("employeeID");
         String password = request.getParameter("Password");
         int userId;
         SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
-        if (User.userExists(username)) {
-            userId = User.getUserId(username);
-            ArrayList user = User.getUserDetails(String.valueOf(userId));
-
-            Encode enc = new Encode(Encode.generateUserKey(username, password), Encode.generateUserIV(username, password));
+        String branch, region;
+        branch = "Head Office";
+        region = "Head Office";
+        //getBranch(String employeeID)
+        //getRegion(String employeeID)
+        if (User.userExists(employeeID)) {
+            userId = Integer.parseInt(employeeID);
             Date currdate = new Date();
-            
-             int logattempts = 0;
-            Date pwdexpyDate = new Date();
-            Date acctexpyDate = new Date();
-            Date disabledFromDate = new Date();
-            Date disableUptoDate = new Date();
-            String newUsrFlg = "";
-            String userStatus = "";
             String roleid = "";
             String roleName = "";
-            try {
-                for (int k = 0; k < user.size(); k++) {
-                    ArrayList one = (ArrayList) user.get(k);
-                    logattempts = Integer.parseInt((String) one.get(8));
-                    String pwdDate = (String) one.get(6);
-                    String actDate = (String) one.get(7);
-                    String disFDate = (String) one.get(4);
-                    String disTDate = (String) one.get(5);
-                    pwdexpyDate = sdf.parse(pwdDate.substring(0, 10));
-                    acctexpyDate = sdf.parse(actDate.substring(0, 10));
-                    disabledFromDate = sdf.parse(disFDate.substring(0, 10));
-                    disableUptoDate = sdf.parse(disTDate.substring(0, 10));
-                    newUsrFlg = (String) one.get(2);
-                    roleid = (String) one.get(1);
-                    userStatus = (String) one.get(3);
-                    String solid = (String) one.get(9);
-                    session.setAttribute("solId", solid);
-                }
-            } catch (Exception e) {
-                log.debug(e);
-            }
-            System.out.println(disabledFromDate);
-            roleName = Role.getRoleDesc(roleid);
-            if (!User.userExistsInMod(username)) {
-                if (logattempts <= 3) {
-                    session.setAttribute("uname", username.toUpperCase());
-                    if (!currdate.after(pwdexpyDate)) {
-                        if (!currdate.after(acctexpyDate)) {
-                            if ((disabledFromDate.before(currdate) && disableUptoDate.before(currdate)) || (disabledFromDate.after(currdate) && disableUptoDate.after(currdate))) {
-                                if (!Access.userIsLoggedIn(username)) {
-                                    if (Access.userExists(username, enc.encrypt(password))) {
-                                        session.setAttribute("uname", username.toUpperCase());
-                                        if (userStatus.equalsIgnoreCase("A")) {
-                                            if (!newUsrFlg.equalsIgnoreCase("Y")) {
-                                                session.setAttribute("role", roleName);
-                                                Access.loginUser(username, "000", new Date(), session.getId());
-                                                //Access.enableUser(userId);
-                                                Access.markCorrectLoginAttempt(username);
-                                                session.setAttribute("content_page", "ucontent.jsp");
-                                                response.sendRedirect("index.jsp");
-                                            } else {
-                                                session.setAttribute("content_page", "user/chCreds.jsp");
-                                                response.sendRedirect("index.jsp");
-                                            }
-                                        } else {
-                                            session.setAttribute("userdnexists", true);
-                                            session.setAttribute("content_page", "login.jsp");
-                                            response.sendRedirect("login.jsp");
-                                        }
-                                    } else {
-                                        session.setAttribute("userdnexists", true);
-                                        Access.markWrongLoginAttempt(username);
-                                        session.setAttribute("content_page", "login.jsp");
-                                        response.sendRedirect("login.jsp");
-                                    }
-                                } else {
-                                    session.setAttribute("userlogged", true);
-                                    session.setAttribute("content_page", "ucontent.jsp");
-                                    response.sendRedirect("login.jsp");
-                                    response.sendRedirect("index.jsp");
-                                }
-                            } else {
-                                session.setAttribute("usrdisabled", true);
-                                session.setAttribute("content_page", "login.jsp");
-                                response.sendRedirect("login.jsp");
-                            }
+            String employeeCode, employeeName, accessLevel;
+            if (!Access.userIsLoggedIn(employeeID)) {
+                if (Access.userExists(employeeID, password)) {
+                    session.setAttribute("uname", employeeID);
+                    Access.MarkloginUser(employeeID, new Date());
+                    ArrayList ar = User.getUserDetails(String.valueOf(userId));
+                    for (int i = 0; i < ar.size(); i++) {
+                        ArrayList one = (ArrayList) ar.get(i);
+                        employeeCode = (String) one.get(0);
+                        employeeName = (String) one.get(1);
+                        accessLevel = (String) one.get(2);
+                        Access.loginUser(employeeCode, employeeName, accessLevel);
+                        branch = User.getBranch(employeeID);
+                        region = User.getRegion(employeeID);
 
+                        session.setAttribute("name", employeeName);
+                        session.setAttribute("code", employeeCode);
+                        session.setAttribute("branch", branch);
+                        session.setAttribute("region", region);
+                        session.setAttribute("accessLevel", accessLevel);
+                        session.setAttribute("userloggedin", true);
+
+                        if (accessLevel.equalsIgnoreCase("1")) {
+                            response.sendRedirect("indexAdmin.jsp");
+                        } else if (accessLevel.equalsIgnoreCase("2")) {
+
+                            response.sendRedirect("index.jsp");
+
+                        } else if (accessLevel.equalsIgnoreCase("3")) {
+                            response.sendRedirect("indexNationalHead.jsp");
                         } else {
-                            session.setAttribute("acctexpired", true);
                             session.setAttribute("content_page", "login.jsp");
                             response.sendRedirect("login.jsp");
                         }
-                    } else {
-                        session.setAttribute("pwdexpired", true);
-                        session.setAttribute("content_page", "user/chCreds.jsp");
-                        response.sendRedirect("index.jsp");
                     }
-
                 } else {
-                    session.setAttribute("userlocked", true);
+                    session.setAttribute("userdnexists", true);
                     session.setAttribute("content_page", "login.jsp");
                     response.sendRedirect("login.jsp");
                 }
-
             } else {
-                //session.setAttribute("usernotverified", true);
-                 session.setAttribute("usernotverified", false);
-                session.setAttribute("content_page", "login.jsp");
+                session.setAttribute("userlogged", true);
+                session.setAttribute("content_page", "ucontent.jsp");
                 response.sendRedirect("login.jsp");
             }
 
@@ -154,7 +103,7 @@ public class Accessw {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("uname") != null) {
             Access.logoutUser((String) session.getAttribute("uname"));
-            session.setAttribute("content_page", "login.jsp");
+            //session.setAttribute("content_page", "login.jsp");
             response.sendRedirect("login.jsp");
             session.invalidate();
         } else {

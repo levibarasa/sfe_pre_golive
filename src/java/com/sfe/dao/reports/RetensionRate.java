@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author Levi
  */
 public class RetensionRate {
-    
+
 }

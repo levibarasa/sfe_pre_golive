@@ -121,7 +121,7 @@
                 String rtpfmt = (String) session.getAttribute("rtpfmt") ;
                 System.out.println("Report type "+rtype);
                 System.out.println("Report format "+rtpfmt);
-            %>
+        %>
         <tr>
             <td><label>Function</label></td>
             <td style="color: red">*</td>
@@ -139,7 +139,7 @@
                     </td>
                 </label>
             </td>
-            
+
         </tr>
         <tr>
             <td>Sub group code</td>

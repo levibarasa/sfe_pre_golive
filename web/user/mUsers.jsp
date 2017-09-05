@@ -91,16 +91,16 @@
 </script>
 
 <script type="text/javascript">
-            if (${uadded == 'true'}) {
-                alert("User added Successfully");
-            }
-            if (${uexists == 'true'}) {//funull
-                alert("ERROR\nUser already exists!");
-            }
-            if (${fatal == 'true'}) {//funull
-                alert("ERROR\nFata Error Occured!");
-            }
-        </script>
+    if (${uadded == 'true'}) {
+        alert("User added Successfully");
+    }
+    if (${uexists == 'true'}) {//funull
+        alert("ERROR\nUser already exists!");
+    }
+    if (${fatal == 'true'}) {//funull
+        alert("ERROR\nFata Error Occured!");
+    }
+</script>
 <script type="text/javascript">
     var popup;
     function getworkclassValue() {
@@ -108,21 +108,21 @@
         popup.focus();
         return false;
     }
-    
+
     function getUserCodeValue() {
-                var func = document.getElementById("function");
-                if (func.value === "VERIFY") {
-                    popup = window.open("user/userpop_ver.jsp", "Functions", "width=500,height=400");
-                } else if (func.value === "MODIFY" || func.value === "DELETE") {
-                    popup = window.open("user/mUserspop_mod.jsp", "Functions", "width=500,height=400");
-                } else if (func.value === "CANCEL") {
-                    popup = window.open("user/userpop_ver.jsp", "Functions", "width=500,height=400");
-                } else if (func.value === "INQUIRE") {
-                    popup = window.open("user/userpop_all.jsp", "Functions", "width=500,height=400");
-                }
-                popup.focus();
-                return false;
-            }
+        var func = document.getElementById("function");
+        if (func.value === "VERIFY") {
+            popup = window.open("user/userpop_ver.jsp", "Functions", "width=500,height=400");
+        } else if (func.value === "MODIFY" || func.value === "DELETE") {
+            popup = window.open("user/mUserspop_mod.jsp", "Functions", "width=500,height=400");
+        } else if (func.value === "CANCEL") {
+            popup = window.open("user/userpop_ver.jsp", "Functions", "width=500,height=400");
+        } else if (func.value === "INQUIRE") {
+            popup = window.open("user/userpop_all.jsp", "Functions", "width=500,height=400");
+        }
+        popup.focus();
+        return false;
+    }
     function getStoreValue() {
         popup = window.open("user/storepop_all.jsp", "Locations", "width=500,height=400");
         popup.focus();
@@ -140,8 +140,8 @@
     <table width="80%" border="0" align="center">
         <tr>
             <th colspan="5" scope="col"><div class="header">
-            <div align="left">Add User Details </div>
-        </div></th>
+                    <div align="left">Add User Details </div>
+                </div></th>
         </tr>
         <input type="hidden" name="function" id="function" value="${ufunction}" />
         <tr>
@@ -151,7 +151,7 @@
             <td width="31%">&nbsp;</td>
             <td width="20%">&nbsp;</td>
         </tr>        
-                    
+
         <tr>
             <td>&nbsp;</td>
             <td>User Name </td>
@@ -169,7 +169,7 @@
                     <input name="password" type="password"   id="password"/>
                 </label></td>
         </tr>
-         <tr>
+        <tr>
             <td>&nbsp;</td>
             <td>Confirm password </td>
             <td style="color: red">*</td>

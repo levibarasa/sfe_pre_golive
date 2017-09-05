@@ -87,7 +87,7 @@
     if (${modsuc == 'true'}) {
         alert("SUCCESS\nUser Modified Successfully");
     }
-    
+
 </script>
 <script type="text/javascript">
     var popup;
@@ -112,8 +112,8 @@
     <table width="80%" border="0" align="center">
         <tr>
             <th colspan="5" scope="col"><div class="header">
-            <div align="left">Add Store Details </div>
-        </div></th>
+                    <div align="left">Add Store Details </div>
+                </div></th>
         </tr>
         <tr>
             <td width="20%">&nbsp;</td>

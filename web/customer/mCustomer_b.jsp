@@ -213,7 +213,7 @@
                         <td></td>
                         <td><label>
                                 <input name="Submit" <%= ishiddenib%> class="redButton" type="submit" onclick="MM_validateForm('<%= custId + "subgroupName"%>', '', 'R', '<%= custId + "subgroup"%>', '', 'R');
-                                    return document.MM_returnValue" value="Submit" />
+                                        return document.MM_returnValue" value="Submit" />
                             </label></td>
                         <td></td>
                     </tr>

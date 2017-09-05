@@ -86,12 +86,12 @@
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">OFFICER-MONITORING</a></div></td>
                 <td><div align="center">OM</div></td>
             </tr>
-             
-              <tr style="height:30px; padding:4px;">
+
+            <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">NEW-MEMBER</a></div></td>
                 <td><div align="center">N-MEM</div></td>
             </tr>
-            
+
         </table>
     </form>
 </html>

@@ -117,8 +117,8 @@
     <table width="80%" border="0" align="center">
         <tr>
             <th colspan="5" scope="col"><div class="header">
-            <div align="left">Verify User Details </div>
-        </div></th>
+                    <div align="left">Verify User Details </div>
+                </div></th>
         </tr>
         <tr>
             <td width="20%">&nbsp;</td>

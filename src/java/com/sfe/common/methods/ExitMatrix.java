@@ -1,9 +1,9 @@
-package com.orig.common.methods;
+package com.sfe.common.methods;
 
-import static com.orig.common.methods.CommonMethods.getGroupSize;
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.dao.tran.ProcessTran;
-import com.orig.gls.dao.tran.Transact;
+import static com.sfe.common.methods.CommonMethods.getGroupSize;
+import com.sfe.conn.AdminDb;
+import com.sfe.dao.tran.ProcessTran;
+import com.sfe.dao.tran.Transact;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class ExitMatrix {
             ArrayList one = (ArrayList) arr.get(k);
             BigDecimal amt = new BigDecimal((String) one.get(1));
             BigDecimal repayment;
-            if (amt.compareTo(amts) == 1) { 
+            if (amt.compareTo(amts) == 1) {
                 repayment = amts;
             } else {
                 repayment = amt;
@@ -43,7 +43,7 @@ public class ExitMatrix {
                 if (postExitMember((String) one.get(0), loanAccount, String.valueOf(finalAmt), "LOAN REPAY AC NO " + loanAccount + " OWNER")) {
                     paidAmt = paidAmt.add(repayment);
                     ownerAmt = paidAmt;
-                     Transact.createTransactionHistory(ownerAmt, (String) one.get(0), "LOAN REPAY AC NO " + loanAccount + " OWNER", uname, uname, "N", "N", "C", bankTranId, (String) one.get(2));
+                    Transact.createTransactionHistory(ownerAmt, (String) one.get(0), "LOAN REPAY AC NO " + loanAccount + " OWNER", uname, uname, "N", "N", "C", bankTranId, (String) one.get(2));
                     BigDecimal curClrBal = CommonMethods.getMemberSaving(custId);
                     bal = curClrBal.subtract(ownerAmt);
                     CommonMethods.updateMemberLoanAccBal(custId);
@@ -59,7 +59,7 @@ public class ExitMatrix {
                         String subgroupSize = CommonMethods.getSubGroupSize(custId);
                         BigDecimal sbgrpSize = new BigDecimal(subgroupSize);
                         if (subgrpAmt.compareTo(zero) == 1) {
-                        Transact.createTransactionHistory(subgrpAmt, (String) one.get(0), "LOAN REPAY AC NO " + loanAccount + " OWNER", uname, uname, "N", "N", "C", bankTranId, (String) one.get(2));
+                            Transact.createTransactionHistory(subgrpAmt, (String) one.get(0), "LOAN REPAY AC NO " + loanAccount + " OWNER", uname, uname, "N", "N", "C", bankTranId, (String) one.get(2));
                             indDeduct = subgrpAmt.divide(sbgrpSize);
                             CommonMethods.updateMemberLoanAccBal(custId);
                             CommonMethods.updateSbGrpSavings(custId, (String) one.get(2), indDeduct);
@@ -82,7 +82,7 @@ public class ExitMatrix {
                 }
             }
         }
-         return "Owner payment " + ownerAmt + " sub group payment " + subgrpAmt + " group payment " + grpAmt;
+        return "Owner payment " + ownerAmt + " sub group payment " + subgrpAmt + " group payment " + grpAmt;
     }
 
     public static boolean postExitMember(String compSavings, String loanAccount, String amount, String tranpsrts) {

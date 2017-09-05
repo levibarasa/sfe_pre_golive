@@ -49,7 +49,7 @@
                 <th bgcolor="#019ADD" scope="col" style="width: 25%"><span class="style10">Disbursement Amount</span></th>
                 <th bgcolor="#019ADD" scope="col" style="width: 25%"><span class="style10">Disbursement Date</span></th>
             </tr>        <% for (int i = 0; i < size; i++) {
-                ArrayList one = (ArrayList) all.get(i);%>
+                    ArrayList one = (ArrayList) all.get(i);%>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><%= one.get(0)%></div></td>
                 <td colspan="2"><div align="center"><%= one.get(1)%></div></td>

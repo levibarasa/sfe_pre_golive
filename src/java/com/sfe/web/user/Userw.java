@@ -1,7 +1,7 @@
-package com.orig.gls.web.user;
+package com.sfe.web.user;
 
-import com.orig.gls.dao.admin.user.Access;
-import com.orig.gls.dao.admin.user.User;
+import com.sfe.dao.admin.user.Access;
+import com.sfe.dao.admin.user.User;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class Userw {
             switch (function) {
                 case "ADD":
                     session.setAttribute("ufunction", function);
-                    session.setAttribute("content_page", "user/mUsers.jsp");
+                    session.setAttribute("content_page", "user/mUser_a.jsp");
                     break;
                 case "VERIFY":
                     session.setAttribute("ufunction", function);
@@ -76,6 +76,7 @@ public class Userw {
         session.setAttribute("fatal", false);
 
         if ((String) session.getAttribute("uname") != null) {
+
             String userName = request.getParameter("username");
             System.out.println("username is " + userName);
             String roleId = request.getParameter("workclass");
@@ -91,7 +92,7 @@ public class Userw {
                     if (!User.userExists(userName)) {
                         if (userPw.equals(conPass)) {
                             if (User.executeAddUserDetails(userName, roleId, userPw, 0, "12", 0, "Y", 0, uname, solId, "A") > 0) {
-                               User.deleteAfterReg(userName);
+                                User.deleteAfterReg(userName);
                                 session.setAttribute("uadded", true);
                                 session.setAttribute("content_page", "user/mUsers.jsp");
                             } else {
@@ -133,18 +134,18 @@ public class Userw {
                 case "MODIFY":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
-                       break;
+                    break;
                 case "DELETE":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
-                      break;
+                    break;
                 case "INQUIRE":
                     session.setAttribute("userid", userid);
                     session.setAttribute("content_page", "user/mUser_b.jsp");
                     break;
                 case "CANCEL":
                     session.setAttribute("userid", userid);
-                    userId = User.getUserId(userName);
+                    userId = 0; //User.getUserId(userName);
                     User.verifyUser(userId);
                     session.setAttribute("ucancelled", true);
                     session.setAttribute("content_page", "user/mUser_b.jsp");

@@ -1,4 +1,4 @@
-package com.orig.gls.utils;
+package com.sfe.utils;
 
 import java.io.IOException;
 
@@ -43,9 +43,10 @@ public class WebHelper {
 
         return valid;
     }
-    public static void expireSession(HttpServletRequest request){
-         HttpSession session = request.getSession(false);
-         session.setAttribute("content_page", "sessionexp.jsp");
+
+    public static void expireSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.setAttribute("content_page", "sessionexp.jsp");
     }
 
 }

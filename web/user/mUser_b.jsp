@@ -1,4 +1,4 @@
- <%@page import="com.orig.gls.utils.App"%>
+<%@page import="com.orig.gls.utils.App"%>
 <%@page import="com.orig.gls.dao.admin.user.User"%>
 <%@ page import="java.sql.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
@@ -73,36 +73,36 @@
 </script>
 
 <script type="text/javascript">
-            window.onload = function () {
-                new JsDatePick({
-                    useMode: 2,
-                    target: "disableFrom",
-                    dateFormat: "%d-%M-%Y"
-                });
-                new JsDatePick({
-                    useMode: 2,
-                    target: "disableTo",
-                    dateFormat: "%d-%M-%Y"
-                });
-                new JsDatePick({
-                    useMode: 2,
-                    target: "passexdt",
-                    dateFormat: "%d-%M-%Y"
-                });
-                new JsDatePick({
-                    useMode: 2,
-                    target: "actexdt",
-                    dateFormat: "%d-%M-%Y"
-                });
-                new JsDatePick({
-                    useMode: 2,
-                    target: "lastaccess",
-                    dateFormat: "%d-%M-%Y"
-                });
-            };
-        </script>
-        
-        <script type="text/javascript">
+    window.onload = function () {
+        new JsDatePick({
+            useMode: 2,
+            target: "disableFrom",
+            dateFormat: "%d-%M-%Y"
+        });
+        new JsDatePick({
+            useMode: 2,
+            target: "disableTo",
+            dateFormat: "%d-%M-%Y"
+        });
+        new JsDatePick({
+            useMode: 2,
+            target: "passexdt",
+            dateFormat: "%d-%M-%Y"
+        });
+        new JsDatePick({
+            useMode: 2,
+            target: "actexdt",
+            dateFormat: "%d-%M-%Y"
+        });
+        new JsDatePick({
+            useMode: 2,
+            target: "lastaccess",
+            dateFormat: "%d-%M-%Y"
+        });
+    };
+</script>
+
+<script type="text/javascript">
     if (${umodified == 'true'}) {
         alert("User Modified Successfully");
     }
@@ -110,117 +110,117 @@
         alert("User Deleted Successfully");
     }
 </script>
-        <script type="text/javascript">
-            var popup;
-            function getSolValueValue() {
-                popup = window.open("pop/solpop.jsp", "Functions", "width=500,height=400");
-                popup.focus();
-                return false;
-            }
-            function getGroupCodeValue() {
-                popup = window.open("pop/grouppop_all.jsp", "Functions", "width=500,height=400");
-                popup.focus();
-                return false;
-            }
+<script type="text/javascript">
+    var popup;
+    function getSolValueValue() {
+        popup = window.open("pop/solpop.jsp", "Functions", "width=500,height=400");
+        popup.focus();
+        return false;
+    }
+    function getGroupCodeValue() {
+        popup = window.open("pop/grouppop_all.jsp", "Functions", "width=500,height=400");
+        popup.focus();
+        return false;
+    }
 
-            function getSubGroupCodeValue() {
-                popup = window.open("pop/subgrouppop_all.jsp", "Functions", "width=500,height=400");
-                popup.focus();
-                return false;
-            }
-        </script>
-       
-         <%           
-             for (int i = 0; i < size; i++) {
-                ArrayList one = (ArrayList) all.get(i);
-                ////  userid,uname,roleid,
-        %>
+    function getSubGroupCodeValue() {
+        popup = window.open("pop/subgrouppop_all.jsp", "Functions", "width=500,height=400");
+        popup.focus();
+        return false;
+    }
+</script>
+
+<%           
+    for (int i = 0; i < size; i++) {
+       ArrayList one = (ArrayList) all.get(i);
+       ////  userid,uname,roleid,
+%>
 <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=domoduser">
-  
-     <table width="80%" border="0" align="left">
-         <tr>
-                    <th colspan="12" align="left" scope="col"><div class="header">&nbsp;User Maintenance</div></th>
-    </tr>
-    <input type="hidden" name="function" id="function" value="${ufunction}" />
-    
-     <input type="hidden" name="userid" id="userid" value="<%= (String) one.get(11)%>" />
-     
+
+    <table width="80%" border="0" align="left">
         <tr>
-                    <td>Username</td>
-                    <td>:</td>
-                    <td><input type="text" name="username" id="username" value=" <%= (String) one.get(0)%>"  /></td>
-                    <td></td>
-                    <td>Role Id</td>
-                    <td>:</td>
-                    <td><input type="text" name="roleid" id="roleid" onkeyup="this.value = this.value.toUpperCase();"   value=" <%= (String) one.get(1)%>"/></td>
-                </tr>
-                <tr>
-                    <td>New user?</td>
-                    <td>:</td>
-                    <td><input type="text" name="newuser" id="newuser" onkeyup="this.value = this.value.toUpperCase();" value=" <%= (String) one.get(2)%>"  /></td>
-                    <td></td>
-                    <td>User Status</td>
-                    <td>:</td>
-                    <td><input type="text" name="userStatus" id="userStatus" onkeyup="this.value = this.value.toUpperCase();" value=" <%= (String) one.get(3)%>"  /></td>
-                </tr>        
-                <tr>
-                    <td>Disabled From</td>
-                    <td>:</td>
-                    <td><input type="text" name="disableFrom" onkeyup="this.value = this.value.toUpperCase();" id="disableFrom"    value="<%= (String) one.get(4)%>" /></td>
-                    <td></td>
-                    <td>Disabled To</td>
-                    <td>:</td>
-                    <td><input type="text" name="disableTo" onkeyup="this.value = this.value.toUpperCase();" id="disableTo"   value="<%= (String) one.get(5)%>" /></td>
-                </tr>
-                <tr>
-                    <td>Password expiry date</td>
-                    <td>:</td>
-                    <td><input type="text" name="passexdt" onkeyup="this.value = this.value.toUpperCase();" id="passexdt"    value="<%= (String) one.get(6)%>" /></td>
-                    <td></td>
-                    <td>Account expiry date</td>
-                    <td>:</td>
-                    <td><input type="text" name="actexdt" onkeyup="this.value = this.value.toUpperCase();" id="actexdt"   value="<%= (String) one.get(7)%>" /></td>
-                </tr>
-                <tr>
-                    <td>Last access date</td>
-                    <td>:</td>
-                    <td><input type="text" name="lastaccess" onkeyup="this.value = this.value.toUpperCase();" id="lastaccess"  value="<%= (String) one.get(10)%>" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input type="reset" name="Submit2" value="Reset"   class="redButton" <%= ishiddenib%>/></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><label> 
-                              
-                            <input name="Submit" <%= ishiddenib%> class="redButton" type="submit"    value="Submit" />
-                        </label></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
+            <th colspan="12" align="left" scope="col"><div class="header">&nbsp;User Maintenance</div></th>
+        </tr>
+        <input type="hidden" name="function" id="function" value="${ufunction}" />
+
+        <input type="hidden" name="userid" id="userid" value="<%= (String) one.get(11)%>" />
+
+        <tr>
+            <td>Username</td>
+            <td>:</td>
+            <td><input type="text" name="username" id="username" value=" <%= (String) one.get(0)%>"  /></td>
+            <td></td>
+            <td>Role Id</td>
+            <td>:</td>
+            <td><input type="text" name="roleid" id="roleid" onkeyup="this.value = this.value.toUpperCase();"   value=" <%= (String) one.get(1)%>"/></td>
+        </tr>
+        <tr>
+            <td>New user?</td>
+            <td>:</td>
+            <td><input type="text" name="newuser" id="newuser" onkeyup="this.value = this.value.toUpperCase();" value=" <%= (String) one.get(2)%>"  /></td>
+            <td></td>
+            <td>User Status</td>
+            <td>:</td>
+            <td><input type="text" name="userStatus" id="userStatus" onkeyup="this.value = this.value.toUpperCase();" value=" <%= (String) one.get(3)%>"  /></td>
+        </tr>        
+        <tr>
+            <td>Disabled From</td>
+            <td>:</td>
+            <td><input type="text" name="disableFrom" onkeyup="this.value = this.value.toUpperCase();" id="disableFrom"    value="<%= (String) one.get(4)%>" /></td>
+            <td></td>
+            <td>Disabled To</td>
+            <td>:</td>
+            <td><input type="text" name="disableTo" onkeyup="this.value = this.value.toUpperCase();" id="disableTo"   value="<%= (String) one.get(5)%>" /></td>
+        </tr>
+        <tr>
+            <td>Password expiry date</td>
+            <td>:</td>
+            <td><input type="text" name="passexdt" onkeyup="this.value = this.value.toUpperCase();" id="passexdt"    value="<%= (String) one.get(6)%>" /></td>
+            <td></td>
+            <td>Account expiry date</td>
+            <td>:</td>
+            <td><input type="text" name="actexdt" onkeyup="this.value = this.value.toUpperCase();" id="actexdt"   value="<%= (String) one.get(7)%>" /></td>
+        </tr>
+        <tr>
+            <td>Last access date</td>
+            <td>:</td>
+            <td><input type="text" name="lastaccess" onkeyup="this.value = this.value.toUpperCase();" id="lastaccess"  value="<%= (String) one.get(10)%>" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="reset" name="Submit2" value="Reset"   class="redButton" <%= ishiddenib%>/></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><label> 
+
+                    <input name="Submit" <%= ishiddenib%> class="redButton" type="submit"    value="Submit" />
+                </label></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
     </table>
 </form>
-                                             <% }%>
+<% }%>

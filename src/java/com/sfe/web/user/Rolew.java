@@ -1,6 +1,6 @@
-package com.orig.gls.web.user;
+package com.sfe.web.user;
 
-import com.orig.gls.dao.admin.role.Role;
+import com.sfe.dao.admin.role.Role;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.ServletException;

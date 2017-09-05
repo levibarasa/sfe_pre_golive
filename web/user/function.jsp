@@ -31,18 +31,7 @@
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">ADD</a></div></td>
                 <td><div align="center">A</div></td>
             </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">VERIFY</a></div></td>
-                <td><div align="center">V</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">MODIFY</a></div></td>
-                <td><div align="center">M</div></td>
-            </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">INQUIRE</a></div></td>
-                <td><div align="center">I</div></td>
-            </tr>
+
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">DELETE</a></div></td>
                 <td><div align="center">D</div></td>

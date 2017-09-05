@@ -1,7 +1,7 @@
-package com.orig.gls.dao.tran;
+package com.sfe.dao.tran;
 
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.prop.GlsProp;
+import com.sfe.conn.AdminDb;
+import com.sfe.prop.SFEProp;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Transact {
 
     public static ArrayList getAllAccountsMappedtoSubGroup(String subgroupCode) {
         String sql = "select foracid, acct_name, from general_acct_mast_table where sub_group_code = ? and schm_code <>?";
-        GlsProp pr = new GlsProp();
+        SFEProp pr = new SFEProp();
         String schm = pr.getDBProperty().getProperty("wholesale.schmecode");
         String in = subgroupCode + "," + schm;
         return AdminDb.execArrayLists(sql, 2, in, 2);
@@ -82,7 +82,7 @@ public class Transact {
         String r = AdminDb.getValue(sql, 1, 0, "");
         return Integer.parseInt(r) + 1;
     }
-     
+
     public static void deleteAfterVerification(String foracid) {
         completeTran(foracid);
     }
@@ -160,7 +160,8 @@ public class Transact {
         return AdminDb.getValue(sql, 1, 2, in);
     }
 // log a transaction 
-    public static void createTransactionHistory(BigDecimal tranAmt, String foracid, String tranParticulars, String rcreUserId, String lchgUserId,  String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
+
+    public static void createTransactionHistory(BigDecimal tranAmt, String foracid, String tranParticulars, String rcreUserId, String lchgUserId, String delFlg, String pstdFlg, String tranType, String bankTranId, String subGroupCode) {
         String sql = " insert into HISTORY_TRANSACTIONS_TABLE(TRAN_AMT,TRAN_DATE, FORACID ,"
                 + "TRAN_PARTICULARS, RCRE_USER_ID, RCRE_TIME,LCHG_USER_ID, LCHG_TIME, DEL_FLG,"
                 + "PSTD_FLG,TRAN_TYPE , BANK_TRAN_ID, SUB_GROUP_CODE) values (?,try_convert(date, ?, 111)"
@@ -168,11 +169,11 @@ public class Transact {
         String rcreTime_ = sdf.format(new Date());
         String tranDate_ = sdf.format(new Date());
         String lchgTime = sdf.format(new Date());
-        String ins = new BigDecimal("" + tranAmt + "") + "," + tranDate_ + "," + foracid + "," + tranParticulars + "," + rcreUserId + "," + rcreTime_ + "," + lchgUserId + "," + lchgTime + "," + delFlg + "," + pstdFlg + "," +  tranType +"," + bankTranId + "," + subGroupCode;
-      AdminDb.dbWork(sql, 13, ins); 
+        String ins = new BigDecimal("" + tranAmt + "") + "," + tranDate_ + "," + foracid + "," + tranParticulars + "," + rcreUserId + "," + rcreTime_ + "," + lchgUserId + "," + lchgTime + "," + delFlg + "," + pstdFlg + "," + tranType + "," + bankTranId + "," + subGroupCode;
+        AdminDb.dbWork(sql, 13, ins);
     }
 //    public static void main(String[] args) {
-    
+
 //        int t =createTransactionHistory(  new BigDecimal(10000), "001SIN0001000124",   "GLS LOAN REPAYMENT", "MARK","MARK",  "N", "N", "C", "PBUG1014", "WES2010");
 //        System.out.println(t);
 //    } 

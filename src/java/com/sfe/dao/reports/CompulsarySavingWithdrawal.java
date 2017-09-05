@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author Levi
  */
 public class CompulsarySavingWithdrawal {
-    String SAVING_ACCOUNT,ACCT_NAME,LOAN_SERIES,DIS_AMT,SAVING_BAL,SAVING_WITHDRAW, START_DATE, END_DATE;
+
+    String SAVING_ACCOUNT, ACCT_NAME, LOAN_SERIES, DIS_AMT, SAVING_BAL, SAVING_WITHDRAW, START_DATE, END_DATE;
 
     public CompulsarySavingWithdrawal(String SAVING_ACCOUNT, String ACCT_NAME, String LOAN_SERIES, String DIS_AMT, String SAVING_BAL, String SAVING_WITHDRAW, String START_DATE, String END_DATE) {
         this.SAVING_ACCOUNT = SAVING_ACCOUNT;
@@ -86,5 +87,5 @@ public class CompulsarySavingWithdrawal {
     public void setSAVING_WITHDRAW(String SAVING_WITHDRAW) {
         this.SAVING_WITHDRAW = SAVING_WITHDRAW;
     }
-    
+
 }

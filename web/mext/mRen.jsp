@@ -123,7 +123,7 @@
             if (${mrenfal == 'true'}) {
                 alert("ERROR \Member  can not be Re-instated.\n Been inactive for more than 2 years.");
             }
-             if (${mvol == 'true'}) {
+            if (${mvol == 'true'}) {
                 alert("ERROR \Member  can not be Re-instated.\n Please Contact System Administrator!");
             }
             if (${modsuc == 'true'}) {
@@ -244,20 +244,20 @@
                             </label></td>
                         <td></td>
                     </tr>
-                  
-                     <% } else {%>
 
-            <tr>
-                <td colspan="8">Customer cannot <%=info%>. Check customer number.</td>
-            </tr>
-            <%}%>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
+                    <% } else {%>
+
+                    <tr>
+                        <td colspan="8">Customer cannot <%=info%>. Check customer number.</td>
+                    </tr>
+                    <%}%>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
                     <tr>
                         <td colspan="12"><div class="header">&nbsp;</div></td>
                     </tr>

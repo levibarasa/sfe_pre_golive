@@ -1,53 +1,52 @@
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
-import com.orig.common.methods.CommonMethods;
-import com.orig.gls.conn.AdminDb;
+import com.sfe.common.methods.CommonMethods;
+import com.sfe.conn.AdminDb;
 import java.util.Collection;
 import java.util.ArrayList;
 
 public class BeanFactory {
-      // Populate officer monitoring  report 
+    // Populate officer monitoring  report 
+
     public static Collection getOfficerMonitoringReport(String subGroupCode, String fromDate, String toDate) {
-        String sql =  "select distinct sol_id,ACCT_MGR_USER_ID,DIS_AMT,no_of_cases_disb from OFFICER_MONITORING_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
+        String sql = "select distinct sol_id,ACCT_MGR_USER_ID,DIS_AMT,no_of_cases_disb from OFFICER_MONITORING_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
         String in = subGroupCode + "," + fromDate + "," + toDate;
         ArrayList col = AdminDb.execArrayLists(sql, 3, in, 4);
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new OfficerMonitoring((String) one.get(0), (String) one.get(1),"","","","","","",(String) one.get(2), (String) one.get(3),fromDate,toDate));
+            collection.add(new OfficerMonitoring((String) one.get(0), (String) one.get(1), "", "", "", "", "", "", (String) one.get(2), (String) one.get(3), fromDate, toDate));
         }
-        return collection  ;
+        return collection;
     }
-    
-   
-     // Populate loan Saving  report 
+
+    // Populate loan Saving  report 
     public static Collection getLoanSavingsReport(String subGroupCode, String fromDate, String toDate) {
-        String sql =  "select distinct sol_id,ACCT_MGR_USER_ID,DIS_AMT,CLR_BAL_AMT from LOAN_SAVING_PORTFOLIO_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
+        String sql = "select distinct sol_id,ACCT_MGR_USER_ID,DIS_AMT,CLR_BAL_AMT from LOAN_SAVING_PORTFOLIO_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
         String in = subGroupCode + "," + fromDate + "," + toDate;
         ArrayList col = AdminDb.execArrayLists(sql, 3, in, 4);
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new LoanSavingsPortfolio((String) one.get(0), (String) one.get(1), (String) one.get(2), "", (String) one.get(3),fromDate,toDate));
+            collection.add(new LoanSavingsPortfolio((String) one.get(0), (String) one.get(1), (String) one.get(2), "", (String) one.get(3), fromDate, toDate));
         }
-         return collection;
+        return collection;
     }
-    
-    
-  // Populate   Retentionrate Report
-     public static Collection getRetentionReport(String subGroupCode, String fromDate, String toDate) {
-        String sql =  "select distinct ACCT_MGR_USER_ID,active_members,rein,exits,reten_rate from RETENTION_RATE_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
+
+    // Populate   Retentionrate Report
+    public static Collection getRetentionReport(String subGroupCode, String fromDate, String toDate) {
+        String sql = "select distinct ACCT_MGR_USER_ID,active_members,rein,exits,reten_rate from RETENTION_RATE_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
         String in = subGroupCode + "," + fromDate + "," + toDate;
         ArrayList col = AdminDb.execArrayLists(sql, 3, in, 5);
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new RetentionRate((String) one.get(0), (String) one.get(1),(String) one.get(2), (String) one.get(3), (String) one.get(4),fromDate,toDate));
+            collection.add(new RetentionRate((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), fromDate, toDate));
         }
         return collection;
     }
-     
-     // Populate re-instatement, addition and exit of members.
+
+    // Populate re-instatement, addition and exit of members.
     public static Collection getCustomerReport(String subGroupCode, String fromDate, String toDate, String Status) {
         String sql = "select acct_name, clr_bal_amt, cust_id, foracid, schm_code, sol_id from general_acct_mast_audit_table where sub_group_code = ? "
                 + "and last_modified_date between try_convert(date, ?, 111)   and try_convert(date, ?, 111)   and member_status = ?";
@@ -56,12 +55,12 @@ public class BeanFactory {
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new Registration((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), (String) one.get(5), subGroupCode,fromDate,toDate));
+            collection.add(new Registration((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), (String) one.get(5), subGroupCode, fromDate, toDate));
         }
         return collection;
     }
- 
-   // Populate written off report.
+
+    // Populate written off report.
     public static Collection getWriteOffReport(String subGroupCode, String fromDate, String toDate) {
         String sql = "select distinct foracid,acct_name,schm_code,dis_amt,dis_shdl_date,chrge_off_principal,pending_interest,total,loan_due_days,chrge_off_date from LOAN_CHARGE_OFF_REPORT where sub_group_code = ? and dis_shdl_date between try_convert(date, ?, 111)  and try_convert(date, ?, 111) ";
         String in = subGroupCode + "," + fromDate + "," + toDate;
@@ -69,7 +68,7 @@ public class BeanFactory {
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new ChargeOff((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), (String) one.get(5), (String) one.get(6), (String) one.get(7), (String) one.get(8), (String) one.get(9),fromDate,toDate));
+            collection.add(new ChargeOff((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), (String) one.get(5), (String) one.get(6), (String) one.get(7), (String) one.get(8), (String) one.get(9), fromDate, toDate));
         }
         return collection;
     }
@@ -82,33 +81,32 @@ public class BeanFactory {
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new Repayment((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), subGroupCode,fromDate,toDate));
+            collection.add(new Repayment((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), subGroupCode, fromDate, toDate));
         }
         return collection;
     }
-      // Populate group loan status report.
-    
-   public static Collection getGroupLoanStatusReport(String subGroupCode, String fromDate, String toDate) {
+    // Populate group loan status report.
+
+    public static Collection getGroupLoanStatusReport(String subGroupCode, String fromDate, String toDate) {
         String sql = "select  FORACID,ACCT_NAME,sub_group_phone,DIS_AMT,DIS_SHDL_DATE,branch_name,SUB_GROUP_CODE,CUST_ID from GROUP_USER_REPORT where GROUP_CODE =? and DIS_SHDL_DATE  between try_convert(date, ?, 111)  and try_convert(date, ?, 111)";
         String in = subGroupCode + "," + fromDate + "," + toDate;
         ArrayList col = AdminDb.execArrayLists(sql, 3, in, 8);
         ArrayList collection = new ArrayList();
-         for (int w = 0; w < col.size(); w++) {
+        for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-             double saving = CommonMethods.getMemberSavings((String) one.get(7));
+            double saving = CommonMethods.getMemberSavings((String) one.get(7));
             if (saving < 0) {
                 saving = (-1 * saving);
             }
             String savings = String.valueOf(saving);
-            collection.add(new GroupLoanStatus((String) one.get(0), (String) one.get(1),(String) one.get(2),
-                    (String) one.get(0),savings,(String) one.get(3),
-                   "","",(String) one.get(4),"","","","","","","","","","","",(String) one.get(5),(String) one.get(6),fromDate,toDate));
+            collection.add(new GroupLoanStatus((String) one.get(0), (String) one.get(1), (String) one.get(2),
+                    (String) one.get(0), savings, (String) one.get(3),
+                    "", "", (String) one.get(4), "", "", "", "", "", "", "", "", "", "", "", (String) one.get(5), (String) one.get(6), fromDate, toDate));
         }
         return collection;
     }
-      
-// Populate new member register report.
 
+// Populate new member register report.
     public static Collection getNewMemberReport(String subGroupCode, String fromDate, String toDate) {
         String sql = "select DISTINCT ACCT_MGR_USER_ID,group_id,SCHM_CODE  from GROUP_USER_REPORT where sub_group_code =? and formation_date  between try_convert(date, ?, 111)  and try_convert(date, ?, 111)";
         String in = subGroupCode + "," + fromDate + "," + toDate;
@@ -119,7 +117,7 @@ public class BeanFactory {
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
             CommonMethods.getAccMgrs((String) one.get(0));
-            collection.add(new NewMember((String) one.get(0), (String) one.get(1), (String) one.get(2), colSiz,fromDate,toDate));
+            collection.add(new NewMember((String) one.get(0), (String) one.get(1), (String) one.get(2), colSiz, fromDate, toDate));
         }
         return collection;
     }
@@ -134,10 +132,11 @@ public class BeanFactory {
             ArrayList one = (ArrayList) col.get(w);
             double projSavWith = (0.8 * Double.parseDouble((String) one.get(4)));
             String prjSav = String.valueOf(projSavWith);
-            collection.add(new CompulsarySavingWithdrawal((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), prjSav,fromDate,toDate));
+            collection.add(new CompulsarySavingWithdrawal((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), prjSav, fromDate, toDate));
         }
         return collection;
     }
+
     // Populate projection report
     public static Collection getProjectionReport(String subGroupCode, String fromDate, String toDate) {
         String sql = "select CUST_ID,ACCT_NAME,DIS_AMT,group_id,group_name,DIS_SHDL_DATE FROM GROUP_USER_REPORT where  sub_group_code = ? and DIS_SHDL_DATE  between try_convert(date, ?, 111)  and try_convert(date, ?, 111)";
@@ -164,7 +163,7 @@ public class BeanFactory {
             String savings = String.valueOf(saving);
             String otherSavings = String.valueOf(otherSaving);
             collection.add(new Projection((String) one.get(0), (String) one.get(1), collateral_fund, (String) one.get(2), savings,
-                    (String) one.get(5), otherSavings, (String) one.get(3), (String) one.get(4), (String) one.get(5),fromDate,toDate));
+                    (String) one.get(5), otherSavings, (String) one.get(3), (String) one.get(4), (String) one.get(5), fromDate, toDate));
         }
         return collection;
     }
@@ -177,7 +176,8 @@ public class BeanFactory {
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new Disbursement((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), (String) one.get(4), subGroupCode,fromDate,toDate));
+            collection.add(new Disbursement((String) one.get(0), (String) one.get(1), "", "",
+                    (String) one.get(3), (String) one.get(4), "", "", (String) one.get(2), "", (String) one.get(4), fromDate, toDate));
         }
         return collection;
     }
@@ -190,7 +190,7 @@ public class BeanFactory {
         ArrayList collection = new ArrayList();
         for (int w = 0; w < col.size(); w++) {
             ArrayList one = (ArrayList) col.get(w);
-            collection.add(new Demands((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), subGroupCode,fromDate,toDate));
+            collection.add(new Demands((String) one.get(0), (String) one.get(1), (String) one.get(2), (String) one.get(3), subGroupCode, fromDate, toDate));
         }
         return collection;
     }

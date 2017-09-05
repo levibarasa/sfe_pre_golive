@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>orig</servlet-name>
-        <servlet-class>com.orig.gls.servlet.origServlet</servlet-class>
+        <servlet-class>com.sfe.servlet.origServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -15,10 +15,10 @@
         </session-timeout>
     </session-config>
     <listener>
-        <listener-class>com.orig.gls.listener.origContextListener</listener-class>
+        <listener-class>com.sfe.listener.origContextListener</listener-class>
     </listener>
     <listener>
-        <listener-class>com.orig.gls.listener.origSessionListener</listener-class>
+        <listener-class>com.sfe.listener.origSessionListener</listener-class>
     </listener>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

@@ -3,30 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author Wachira
  */
 public class OfficerMonitoring {
+
     String BRANCH, OFFICER, NO_OF_CASES, PORTFOLIO, PAR_AMOUNT, PAR_PER, NPA, NPA_PER, DISB, NO_OF_CASES_DISB, START_DATE, END_DATE;
 
-public OfficerMonitoring(String BRANCH, String OFFICER, String NO_OF_CASES, String PORTFOLIO, String PAR_AMOUNT, String PAR_PER, String NPA, String NPA_PER, String DISB, String NO_OF_CASES_DISB, String START_DATE, String END_DATE){
+    public OfficerMonitoring(String BRANCH, String OFFICER, String NO_OF_CASES, String PORTFOLIO, String PAR_AMOUNT, String PAR_PER, String NPA, String NPA_PER, String DISB, String NO_OF_CASES_DISB, String START_DATE, String END_DATE) {
 
-    this.BRANCH = BRANCH;
-    this.OFFICER = OFFICER;
-    this.NO_OF_CASES = NO_OF_CASES;
-    this.PORTFOLIO = PORTFOLIO;
-    this.PAR_AMOUNT = PAR_AMOUNT;
-    this.PAR_PER = PAR_PER;
-    this.NPA = NPA;
-    this.NPA_PER = NPA_PER;
-    this.DISB = DISB;
-    this.NO_OF_CASES_DISB = NO_OF_CASES_DISB;
-    this.END_DATE = END_DATE;
-    this.START_DATE = START_DATE;
-}
+        this.BRANCH = BRANCH;
+        this.OFFICER = OFFICER;
+        this.NO_OF_CASES = NO_OF_CASES;
+        this.PORTFOLIO = PORTFOLIO;
+        this.PAR_AMOUNT = PAR_AMOUNT;
+        this.PAR_PER = PAR_PER;
+        this.NPA = NPA;
+        this.NPA_PER = NPA_PER;
+        this.DISB = DISB;
+        this.NO_OF_CASES_DISB = NO_OF_CASES_DISB;
+        this.END_DATE = END_DATE;
+        this.START_DATE = START_DATE;
+    }
 
     public String getBRANCH() {
         return BRANCH;
@@ -124,5 +125,4 @@ public OfficerMonitoring(String BRANCH, String OFFICER, String NO_OF_CASES, Stri
         this.NO_OF_CASES_DISB = NO_OF_CASES_DISB;
     }
 
-    
 }

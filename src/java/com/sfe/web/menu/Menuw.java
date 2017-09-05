@@ -1,7 +1,7 @@
-package com.orig.gls.web.menu;
+package com.sfe.web.menu;
 
-import com.orig.gls.dao.admin.user.Access;
-import com.orig.gls.dao.menu.Menu;
+import com.sfe.dao.admin.user.Access;
+import com.sfe.dao.menu.Menu;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

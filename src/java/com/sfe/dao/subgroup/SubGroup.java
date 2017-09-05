@@ -1,9 +1,9 @@
-package com.orig.gls.dao.subgroup;
+package com.sfe.dao.subgroup;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.dao.group.Group;
+import com.sfe.conn.AdminDb;
+import com.sfe.dao.group.Group;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,16 +59,17 @@ public class SubGroup {
         String in = groupCode + "," + groupName;
         return AdminDb.getValue(sql, 1, 2, in);
     }
+
     public static String groupName(String groupId) {
         String sql = "select GROUP_NAME from groups_table where group_id = ?";
         return AdminDb.getValue(sql, 1, 1, groupId);
     }
-    
- public static String groupCode(String groupId) {
+
+    public static String groupCode(String groupId) {
         String sql = "select group_code from groups_table where group_id = ?";
         return AdminDb.getValue(sql, 1, 1, groupId);
     }
-    
+
     public static String getgroupCodes(int groupCode) {
         String sql = "select group_code from groups_table where group_id = ?";
         return AdminDb.getValue(sql, 1, 1, String.valueOf(groupCode));
@@ -83,12 +84,11 @@ public class SubGroup {
 //        public static void main(String[] args) {
 //        addsubGroupDetails("001", "KE", "N", "BOX 128 0010900 NBI", 100000, "BODABODA CREW", "0776376823", "001981", "325632284", new Date(), "MIKE", 20, 9, 10, 45000, 50000, new Date(), "MIKE", "WESTLANDS", "SBG001", new Date(), "NAIROBI", "CHIROMO", new Date(), "10:00AM", "Office", "Charity", "Mark", "Justine", "N", "N", 3, 3, "001", "WESTLANDS", "W", "8328728", "MASHUJAA","000037022","000037023","000037024");
 //    }
-    
     public static String getNoOfMembers(int groupCode) {
         String sql = "select group_code from groups_table where group_id = ?";
         return AdminDb.getValue(sql, 1, 1, String.valueOf(groupCode));
     }
-    
+
     public static int addsubGroupDetails(String bankId, String countryCode, String delFlg, String subGroupAddress, double subGroupLoans, String subGroupName, String subGroupPhone, String subGrpMgrId, String subGrpRegNo, Date lchgDate, String lchgUserId, int maxAllowedMembers, int groupId, int noOfMembers, double outstandingBal, double savingsAmt, Date rcreTime, String rcreUserId, String subGpRegion, String subgroupCode, String formationDate, String subGroupCenter, String subGroupVillage, String firstMeetDate, String meetTime, String meetPlace, String subGpChair, String subGpTreasurer, String subGpSecretary, String subGpStatus, String subGpStatusCode, int loanAccounts, int savingAccounts, String solId, String branchName, String meetFrequency, String accountNo, String accountName, String gpChairId, String gpTreasurerId, String gpSecretaryId) {
         Date first_MeetDate = new Date();
         String sql = "insert into sub_grp_table(bank_id, branch_name, country_code, del_flg, group_id, "
@@ -111,7 +111,7 @@ public class SubGroup {
         if (rcreTime == null) {
             parseDates(new Date());
         }
-        
+
         //noOfMembers
         try {
             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
@@ -139,8 +139,8 @@ public class SubGroup {
                 + formationDate + "," + parseDates(lchgDate) + ","
                 + parseDates(getNextMettingDate(first_MeetDate, meetFrequency)) + ","
                 + gpChairId + "," + gpTreasurerId + "," + gpSecretaryId + ","
-                + subGpChair + "," + subGpTreasurer + "," + subGpSecretary+ "," + meetTime;
-        int addmod = AdminDb.dbWork(sql, 41, in);  
+                + subGpChair + "," + subGpTreasurer + "," + subGpSecretary + "," + meetTime;
+        int addmod = AdminDb.dbWork(sql, 41, in);
         if (addmod > 0) {
             String s = "select sub_group_id from sub_grp_table where sub_group_code = ?";
             String r = AdminDb.getValue(s, 1, 1, subgroupCode);
@@ -350,7 +350,7 @@ public class SubGroup {
                 + " nxt_meet_date=?, meet_time=?, meet_place=?, max_allowed_members=?, sub_gp_chair=?, sub_gp_treasurer=?, sub_gp_secretary=?, sub_gp_status=?,"//15-22
                 + " sub_gp_status=?, sub_gp_status_code=?, no_of_members=?, meet_frequency=?, saving_accounts=?, savings_amt=?, loan_accounts=?, outstanding_bal=?,"//23-30
                 + " sub_grp_acnt_no=?, sub_grp_acnt_name = ?, lchg_date = GETDATE(), lchg_user_id = ? where sub_group_code = ?";//31-34
-        String n = val + "," + username+ "," + subgrpcode;
+        String n = val + "," + username + "," + subgrpcode;
         AdminDb.dbWork(sq, 33, n);
     }
 

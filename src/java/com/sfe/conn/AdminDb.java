@@ -1,4 +1,4 @@
-package com.orig.gls.conn;
+package com.sfe.conn;
 
 import java.io.IOException;
 import java.sql.Connection;

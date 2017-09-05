@@ -18,9 +18,9 @@
 
         <script type="text/javascript">
             function getUserValue(ths, acctexpydate, disabledfromdate, disabledtodate, newuserflg, numpasswordatt, numpasswordhist, pwexpydate, pwdhistory, roleid) {
-                
-        
-        if (window.opener !== null && !window.opener.closed) {
+
+
+                if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("usercode");
                     var aed = window.opener.document.getElementById("acctexpydate");
                     var dfd = window.opener.document.getElementById("disabledfromdate");

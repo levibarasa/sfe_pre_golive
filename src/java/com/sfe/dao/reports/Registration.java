@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 public class Registration {
 //ACCT_NAME,CLR_BAL_AMT,CUST_ID,FORACID,SCHM_CODE,SOL_ID,SUB_GROUP_CODE
+
     String ACCT_NAME, CLR_BAL_AMT, CUST_ID, FORACID, SCHM_CODE, SOL_ID, SUB_GROUP_CODE, START_DATE, END_DATE;
 
     public Registration(String ACCT_NAME, String CLR_BAL_AMT, String CUST_ID, String FORACID, String SCHM_CODE, String SOL_ID, String SUB_GROUP_CODE, String START_DATE, String END_DATE) {

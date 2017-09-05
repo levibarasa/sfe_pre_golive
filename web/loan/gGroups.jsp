@@ -15,7 +15,7 @@
         </style>
         <script type="text/javascript">
             function getGroupCodeValue(ths, sGroupName) {
-                if (window.opener !== null && !window.opener.closed) {  
+                if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("groupcode");
                     var sgrpn = window.opener.document.getElementById("groupName");
                     func.value = ths.innerHTML; //for innerhtml

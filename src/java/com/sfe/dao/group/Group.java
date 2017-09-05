@@ -1,6 +1,6 @@
-package com.orig.gls.dao.group;
+package com.sfe.dao.group;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class Group {
         String s = "select NO_OF_SUB_GRPS from GROUPS_TABLE where group_id=?";
         int k = 0;
         try {
-            String str = AdminDb.getValue(s, 1, 1,  groupId);
+            String str = AdminDb.getValue(s, 1, 1, groupId);
             k = Integer.valueOf(str);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +59,6 @@ public class Group {
         return k;
     }
 
-    
     public static int getGroupId(String groupCode, String groupName) {
         String sql = "select group_id from groups_table where group_code = ? and group_name =?";
         String in = groupCode + "," + groupName;
@@ -166,7 +165,6 @@ public class Group {
         return AdminDb.execArrayLists(sql, 0, "", 36);
     }
 
-  
     public static ArrayList getAllGroups() {
         String sql = "select group_code, group_id, group_name, rcre_time, rcre_user_id, sol_id,"//0-5
                 + "  branch_name, grp_mgr_id, grp_reg_no, formation_date,gp_region, group_center, "//6-11
@@ -186,7 +184,7 @@ public class Group {
 //            System.out.println(one.get(32)+" "+one.get(33)+" "+one.get(34));
 //        }
 //    }
-  //return unverified users
+    //return unverified users
     public static ArrayList getUnverifiedGroups(String username) {
         String sql = "select group_code, group_id, group_name, rcre_time, rcre_user_id, sol_id, branch_name, grp_mgr_id, grp_reg_no, formation_date,gp_region, "
                 + "group_center, group_village, group_address, group_phone, first_meet_date, nxt_meet_date, meet_time,meet_place, max_allowed_members, max_allowed_sub_grps, "

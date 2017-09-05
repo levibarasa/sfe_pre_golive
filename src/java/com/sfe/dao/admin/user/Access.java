@@ -1,6 +1,6 @@
-package com.orig.gls.dao.admin.user;
+package com.sfe.dao.admin.user;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,17 +14,17 @@ public class Access {
     private static final Log log = LogFactory.getLog("origlogger");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
 
-    public static boolean userExists(String userName, String userPw) {
-        String sql = "select count(*)cnt from user_creds_tbl where user_name = ? and user_pw = ?";
-        String in = userName + "," + userPw;
+    public static boolean userExists(String employeeID, String userPw) {
+        String sql = "select count(*)cnt from Employee_Details where employeeID = ? and password = ?";
+        String in = employeeID + "," + userPw;
         String str = AdminDb.getValue(sql, 1, 2, in);
         return Integer.parseInt(str) > 0;
     }
 
-    public static void changePassword(String userName, String userPw) {
-        String sql = "update user_creds_tbl set user_pw = ?, new_user_flg = ? where user_name = ?";
-        String in = userPw + ",N," + userName;
-        AdminDb.dbWork(sql, 3, in);
+    public static void changePassword(String employeeID, String userPw) {
+        String sql = "update Employee_Details set password = ?  where employeeID = ?";
+        String in = userPw + "," + employeeID;
+        AdminDb.dbWork(sql, 2, in);
     }
 
     public static void disableUser(int userId) {
@@ -33,15 +33,15 @@ public class Access {
         AdminDb.dbWork(sql, 3, in);
     }
 
-    public static void enableUser(int userId) {
+    public static void enableUser(int employeeID) {
         String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111), disabled_upto_date = try_convert(date, ?, 111) where user_id = ?";
-        String in = sdf.format(getExpDate(1000)) + "," + sdf.format(getExpDate(1000)) + "," + userId;
+        String in = sdf.format(getExpDate(1000)) + "," + sdf.format(getExpDate(1000)) + "," + employeeID;
         AdminDb.dbWork(sql, 3, in);
     }
 
-    public static void logoutUser(String userName) {
-        String sql = "delete from logged_in_user where user_name = ?";
-        AdminDb.dbWork(sql, 1, userName);
+    public static void logoutUser(String employeeID) {
+        String sql = "delete from tbl_userCurrentLoggedIn where txt_employeeID = ?";
+        AdminDb.dbWork(sql, 1, employeeID);
     }
 
     public static ArrayList loggedInUsers(String uname) {
@@ -75,15 +75,23 @@ public class Access {
         AdminDb.dbWork(sql, 2, in);
     }
 
-    public static void loginUser(String userName, String solId, Date loggedInTime, String sessionId) {
-        String sql = "insert into logged_in_user(logged_in_time, session_id, sol_id, user_name) values (try_convert(date, getDate(), 111),?,?,?)";
-        String in = sessionId + "," + solId + "," + userName;
+    public static void MarkloginUser(String employeeID, Date loggedInTime) {
+        loggedInTime = new Date();
+        String loggedinTm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss", Locale.US).format(loggedInTime);
+        String sql = "insert into Excalibur_Usage (employeeID,loginTime) values(?,?)";
+        String in = employeeID + "," + loggedinTm;
+        AdminDb.dbWork(sql, 2, in);
+    }
+
+    public static void loginUser(String employeeID, String UserName, String userType) {
+        String sql = "insert into tbl_userCurrentLoggedIn (txt_UserName,txt_employeeID,txt_UserType) values(?,?,?)";
+        String in = UserName + "," + employeeID + "," + userType;
         AdminDb.dbWork(sql, 3, in);
     }
 
-    public static boolean userIsLoggedIn(String userName) {
-        String sql = "select count(*)cnt from logged_in_user where user_name = ?";
-        String str = AdminDb.getValue(sql, 1, 1, userName);
+    public static boolean userIsLoggedIn(String employeeID) {
+        String sql = "select count(*)cnt from tbl_userCurrentLoggedIn where txt_employeeID = ?";
+        String str = AdminDb.getValue(sql, 1, 1, employeeID);
         return Integer.parseInt(str) > 0;
     }
 
@@ -92,6 +100,5 @@ public class Access {
         cal.add(Calendar.DAY_OF_MONTH, numberOfDays);
         return cal.getTime();
     }
-    
-     
+
 }

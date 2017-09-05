@@ -1,6 +1,6 @@
-package com.orig.gls.web.tran;
+package com.sfe.web.tran;
 
-import com.orig.gls.dao.tran.Transact;
+import com.sfe.dao.tran.Transact;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -35,7 +35,7 @@ public class Transactionw {
                     session.setAttribute("content_page", "tran/mTran_add.jsp");
                     break;
                 case "VERIFY":
-                    session.setAttribute("tfunction", function);  
+                    session.setAttribute("tfunction", function);
                     session.setAttribute("content_page", "tran/tVerify.jsp");
                     break;
             }
@@ -96,12 +96,12 @@ public class Transactionw {
                 String dat = sdf.format(new Date());
                 Date fDate = sdf.parse(dat);
                 BigDecimal amts = new BigDecimal(amt);
-                int lastId = Transact.getLastInsertId(); 
+                int lastId = Transact.getLastInsertId();
                 String bankTranId = "PBUG" + lastId;
                 String subgroup = request.getParameter("subgroup");
                 String acnt = Transact.getDebitAccountNumber(subgroup);
-                System.out.println("Debit Account: "+acnt);
-               
+                System.out.println("Debit Account: " + acnt);
+
                 int k = Transact.addTranDetails(amts, fDate, acnt, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "D", bankTranId, subgroup);
                 if (k > 0) {
                     int n = Transact.addTranDetails(amts, fDate, actr, "GLS LOAN REPAYMENT", uname, fDate, uname, fDate, "N", "N", "C", bankTranId, subgroup);
@@ -132,14 +132,14 @@ public class Transactionw {
         if ((String) session.getAttribute("uname") != null) {
             String subgroupCode = request.getParameter("subgroup");
             System.out.println("Sub group for posting ... " + subgroupCode);
-            
-           if(Transact.postTransacctions(subgroupCode)){
-           //if post successful 
-           session.setAttribute("transuc", false);
-           session.setAttribute("content_page", "tran/tranVerify.jsp");
-           }else{
-             session.setAttribute("content_page", "tran/tranVerify.jsp");
-           }
+
+            if (Transact.postTransacctions(subgroupCode)) {
+                //if post successful 
+                session.setAttribute("transuc", false);
+                session.setAttribute("content_page", "tran/tranVerify.jsp");
+            } else {
+                session.setAttribute("content_page", "tran/tranVerify.jsp");
+            }
         } else {
             session.setAttribute("content_page", "sessionexp.jsp");
         }

@@ -1,16 +1,16 @@
-package com.orig.gls.servlet;
+package com.sfe.servlet;
 
-import com.orig.gls.dao.report.Reports;
-import com.orig.gls.web.category.Categoryw;
-import com.orig.gls.web.customer.Customerw;
-import com.orig.gls.web.group.Groupw;
-import com.orig.gls.web.loan.Loanw;
-import com.orig.gls.web.mext.MemberExitw;
-import com.orig.gls.web.menu.Menuw;
-import com.orig.gls.web.tran.Transactionw;
-import com.orig.gls.web.user.Accessw;
-import com.orig.gls.web.user.Rolew;
-import com.orig.gls.web.user.Userw;
+import com.sfe.dao.report.Reports;
+import com.sfe.web.category.Categoryw;
+import com.sfe.web.customer.Customerw;
+import com.sfe.web.group.Groupw;
+import com.sfe.web.loan.Loanw;
+import com.sfe.web.mext.MemberExitw;
+import com.sfe.web.menu.Menuw;
+import com.sfe.web.tran.Transactionw;
+import com.sfe.web.user.Accessw;
+import com.sfe.web.user.Rolew;
+import com.sfe.web.user.Userw;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +39,16 @@ public class origServlet extends HttpServlet {
                     case "Login":
                         Accessw.handleLoginNav(request, response);
                         break;
+                    // User section
+                    case "gomuser":
+                        Userw.handleGoUser(request, response);
+                        break;
+                    case "domuser":
+                        Userw.handleMaintainUser(request, response);
+                        break;
+                    case "domoduser":
+                        Userw.handleModifyUser(request, response);
+                        break;
                     case "dochC":
                         Userw.changePwd(request, response);
                         break;
@@ -66,8 +76,14 @@ public class origServlet extends HttpServlet {
                     case "gomgroup":
                         Groupw.handleGoGroup(request, response);
                         break;
+                  case "dogenerate":
+                        Customerw.handleGenerateList(request, response);
+                        break;
+                   case "doadcustomer":
+                        Customerw.handleAddNewCustomer(request, response);
+                        break;
                     case "doacustomer":
-                        Customerw.handleAddCustomer(request, response);
+                        Customerw.handleUpdateCustomer(request, response);
                         break;
                     case "dosac":
                         Accessw.handleSac(request, response);
@@ -108,16 +124,6 @@ public class origServlet extends HttpServlet {
                         MemberExitw.handleExitMember(request, response);
                         break;
 
-                    // User section
-                    case "gomuser":
-                        Userw.handleGoUser(request, response);
-                        break;
-                    case "domuser":
-                        Userw.handleMaintainUser(request, response);
-                        break;
-                    case "domoduser":
-                        Userw.handleModifyUser(request, response);
-                        break;
                     //Transactions    
                     case "gotran":
                         Transactionw.handleGoTransaction(request, response);

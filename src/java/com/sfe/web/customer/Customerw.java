@@ -1,7 +1,8 @@
-package com.orig.gls.web.customer;
+package com.sfe.web.customer;
 
-import com.orig.gls.dao.customer.Customer;
+import com.sfe.dao.customer.Customer; 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,47 +47,72 @@ public class Customerw {
         response.sendRedirect("index.jsp");
     }
 
-    public static void handleAddCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void handleGenerateList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if ((String) session.getAttribute("uname") != null) {
-            String account = request.getParameter("did");
-            String smg = request.getParameter("subgroup");
-            String actType = request.getParameter("custType");          
-            if (actType.equals(null)) {
-                actType = "1";
+            String rmCode = (String) session.getAttribute("uname");
+            if (rmCode.equalsIgnoreCase(null) || rmCode == "") {
+                rmCode = "242";
             }
-            System.out.println("Customer Number " + account);
-            System.out.println("Customer Sub group " + smg);
-            System.out.println("Customer type " + actType);
-            session.setAttribute("mapsuc", false);
-            session.setAttribute("mapErr", false);
-            session.setAttribute("subErr", false);
-            int Max =Customer.getMaxNumberOfGrpMembers(Customer.getGroupId(smg));
-             int getNumberOfGrpMembers =Customer.getNumberOfGrpMembers(Customer.getGroupId(smg));
-               int getMaxSbGrpMembers =Customer.getMaxSbGrpMembers(Customer.getGroupId(smg));
-             int getNumberOfSbGrpMembers =Customer.getNumberOfSbGrpMembers(Customer.getGroupId(smg));
-             Max =Max+1;
-             getMaxSbGrpMembers=getMaxSbGrpMembers+1;
-             getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
-            if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
-                
-                if ((getAccDetails > 0) && (getNumberOfGrpMembers < 60) && (getNumberOfSbGrpMembers < 60) ) {
-                       Customer.addGroupMember(Customer.getGroupId(smg), (String) session.getAttribute("uname"));
-                    System.out.println("Testing for any loop point two ");
-                    session.setAttribute("mapsuc", true);
-                    
-                } else {
-                    session.setAttribute("mapErr", true);
-                }
-                   
-            } else {
-                session.setAttribute("subErr", true);
-            }
-            session.setAttribute("content_page", "customer/mUnMappedActs.jsp");
+            ArrayList list = Customer.fetchDailyList(rmCode);
+            Customer.createDailyList(list, rmCode);  
+            Customer.populateDailyList(rmCode);
+
         } else {
             session.setAttribute("content_page", "sessionexp.jsp");
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("addnewcustomer.jsp");
+    }
+
+    public static void handleAddNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if ((String) session.getAttribute("uname") != null) {
+
+            String RmCode = (String) session.getAttribute("uname");
+            if (RmCode.equalsIgnoreCase(null) || RmCode == "") {
+                RmCode = "242";
+            }
+            String phone = request.getParameter("phoneNo");
+            String email = request.getParameter("emailId");
+            String custName = request.getParameter("cust_name");
+            int n = Customer.addNewCustomer(custName, email, phone, RmCode);
+            if (n > 0) {
+                session.setAttribute("custadd", true);
+                response.sendRedirect("addnewcustomer.jsp");
+            }
+
+        } else {
+            session.setAttribute("content_page", "sessionexp.jsp");
+        }
+        response.sendRedirect("addnewcustomer.jsp");
+    }
+
+    public static void handleUpdateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if ((String) session.getAttribute("uname") != null) {
+            String custId = (String) session.getAttribute("customid");
+            System.out.println("Customer Id : " + custId);
+            String clientcontacted = request.getParameter("clientcontacted");
+            String salescommitment = request.getParameter("salescommitment");
+            String docsubmitted = request.getParameter("docsubmitted");
+            String closed = request.getParameter("closed");
+            String comments = request.getParameter("comments");
+            String scheduledcalldate = request.getParameter("scheduledcalldate");
+            session.setAttribute("custracker", true);
+            boolean updated = false;
+            String rmCode = (String) session.getAttribute("uname");
+            rmCode = "242";
+            String sizes = (String) session.getAttribute("wklist");
+            int size = Integer.parseInt(sizes);
+            System.out.println("Weekly List Size: " + size);
+            ArrayList list = (ArrayList) session.getAttribute("updatelist");
+            System.out.println(list);
+            Customer.updateTracker(list);
+            response.sendRedirect("weeklycalllist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
+        }
+        session.setAttribute("content_page", "weeklycalllist.jsp");
+        response.sendRedirect("weeklycalllist.jsp");
     }
 
     public static void handleMaintainCustomer(HttpServletRequest request, HttpServletResponse response)
@@ -163,7 +189,7 @@ public class Customerw {
                     getAccDetails = Customer.getAccountDetails(account, smg, "M", actType, (String) session.getAttribute("uname"));
                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
                         if (getAccDetails > 0) {
-                             Customer.addAuditCustomerReinstateTrail(account);
+                            Customer.addAuditCustomerReinstateTrail(account);
                             session.setAttribute("modsuc", true);
                         } else {
                             session.setAttribute("fatal", true);
@@ -176,7 +202,7 @@ public class Customerw {
                 default:
                     getAccDetails = Customer.getAccountDetails(account, smg, "A", actType, (String) session.getAttribute("uname"));
                     System.out.println("Doing member Re-Instatement .... ");
-                     if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
+                    if (account != null && smg != null && !account.equalsIgnoreCase("") && !smg.equalsIgnoreCase("")) {
                         if (getAccDetails > 0) {
                             session.setAttribute("modsuc", true);
                             session.setAttribute("content_page", "customer/mMembers.jsp");

@@ -1,8 +1,7 @@
-package com.orig.gls.dao.admin.role;
+package com.sfe.dao.admin.role;
 
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.prop.GlsFile;
-import com.orig.gls.utils.App;
+import com.sfe.conn.AdminDb;
+import com.sfe.utils.App;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -16,7 +15,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class Role {
 
-    private static final Log log = LogFactory.getLog(App.LOGGER); 
+    private static final Log log = LogFactory.getLog(App.LOGGER);
+
     public static int getRoleId() {
         return roleId;
     }
@@ -51,7 +51,7 @@ public class Role {
         String in = "N,Y";
         return AdminDb.execArrayLists(sql, 2, in, 4);
     }
-     
+
 //    public static ArrayList getAllRolesFromFinacle() {
 //        ArrayList arr = new ArrayList();
 //        GlsFile pr = new GlsFile();
@@ -92,6 +92,7 @@ public class Role {
         AdminDb.dbWork(sql, 1, String.valueOf(roleId));
     }
 //                                                                                                                                                                                                                                         
+
     public static int addRole(String roleDesc, String entityCreFlg, String delFlg, String lchgUserId, Date lchgTime, String rcreUserId, Date rcreTime, String bankId) {
         String sql = "insert into ROLE_PROFILE_TABLE(BANK_ID, DEL_FLG, ENTITY_CRE_FLG, LCHG_TIME, LCHG_USER_ID, RCRE_TIME, RCRE_USER_ID,ROLE_DESC) values(?,?,?,try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,?,?)";
         int randomInt = 0;
@@ -135,20 +136,20 @@ public class Role {
         String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME, RCRE_REP)values (?,?,?,?,try_convert(date, ?, 111),?,?,?,?)";
         Random randomGenerator = new Random();
         int randomInt = 0;
-         String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
+        String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName + "," + rcreRep;
         int status = AdminDb.dbWork(sql, 9, in);
-        if(status == 1){
-       randomInt = getMapId(mopId);
+        if (status == 1) {
+            randomInt = getMapId(mopId);
         }
         return randomInt;
     }
 
     public static void addMappingMod(int modId, String delFlg, int mapId, String mopId, String mopText, String mopUrl, Date rcreTime, String rcreUser, int resId, String roleName) {
         String sql = "insert into res_mapping(DEL_FLG, MOP_ID, MOP_TEXT, MOP_URL, RCRE_TIME,RCRE_USER, RES_ID, ROLE_NAME)values (?,?,?,?,try_convert(date, ?, 111),?,?,?)";
-        String in =  delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
+        String in = delFlg + "," + mopId + "," + mopText + "," + mopUrl + "," + rcreTime + "," + rcreUser + "," + String.valueOf(resId) + "," + roleName;
         AdminDb.dbWork(sql, 8, in);
     }
- 
+
     public static int getRoleId(String roleDesc) {
         String sql = "select role_id from role_profile_table where role_desc = ?";
         String str = AdminDb.getValue(sql, 1, 1, roleDesc);

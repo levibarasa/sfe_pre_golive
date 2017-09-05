@@ -1,4 +1,4 @@
- <%@page import="com.orig.gls.dao.group.Group"%>
+<%@page import="com.orig.gls.dao.group.Group"%>
 <%@page import="com.orig.gls.dao.categories.Category"%>
 <%@page import="com.orig.gls.dao.admin.user.User"%>
 <%@page import="com.orig.gls.dao.branch.Branch"%>
@@ -17,10 +17,10 @@
             -->
         </style>
 
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             function getGroupValue(ths, grpname, solid, brname, grmgr, regno, fordat,
                     regi, center, vill, addr, pho, firmdate, nxtmdate, mtime, mtplace,
-                    alwdm, alwdgs,grpchairid, grpchair,grptreid,grptre,grpsecid,grpsec, gpstat, gpstatcd, nomem, mefreq,
+                    alwdm, alwdgs, grpchairid, grpchair, grptreid, grptre, grpsecid, grpsec, gpstat, gpstatcd, nomem, mefreq,
                     saac, saacbal, lac, lacbal) {
                 if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("groupcode");
@@ -77,8 +77,8 @@
                     grptr.value = grptre;
                     grpsecr.value = grpsec;
                     grpchid.value = grpchairid;
-                    grptrid.value =grptreid;
-                    grpsecrid.value=grpsecid;
+                    grptrid.value = grptreid;
+                    grpsecrid.value = grpsecid;
                     grpstat.value = gpstat;
                     grpstatcd.value = gpstatcd;
                     noofme.value = nomem;
@@ -114,9 +114,9 @@
                                 '<%=(String) one.get(6)%>', '<%=(String) one.get(7)%>', '<%=(String) one.get(8)%>', '<%=(String) one.get(9)%>',
                                 '<%=(String) one.get(10)%>', '<%=(String) one.get(11)%>', '<%=(String) one.get(12)%>', '<%=(String) one.get(13)%>',
                                 '<%=(String) one.get(14)%>', '<%=(String) one.get(15)%>', '<%=(String) one.get(16)%>', '<%=(String) one.get(17)%>',
-                                '<%=(String) one.get(18)%>', '<%=(String) one.get(19)%>', '<%=(String) one.get(20)%>',  
-                                '<%=(String) one.get(21)%>', '<%=(String) one.get(33)%>','<%=(String) one.get(22)%>','<%=(String) one.get(34)%>',
-                                '<%=(String) one.get(23)%>','<%=(String) one.get(35)%>', '<%=(String) one.get(24)%>', '<%=(String) one.get(25)%>',
+                                '<%=(String) one.get(18)%>', '<%=(String) one.get(19)%>', '<%=(String) one.get(20)%>',
+                                '<%=(String) one.get(21)%>', '<%=(String) one.get(33)%>', '<%=(String) one.get(22)%>', '<%=(String) one.get(34)%>',
+                                '<%=(String) one.get(23)%>', '<%=(String) one.get(35)%>', '<%=(String) one.get(24)%>', '<%=(String) one.get(25)%>',
                                 '<%=(String) one.get(26)%>', '<%=(String) one.get(27)%>', '<%=(String) one.get(28)%>', '<%=(String) one.get(29)%>',
                                 '<%=(String) one.get(30)%>', '<%=(String) one.get(31)%>')" id="cname"><%=(String) one.get(0)%></a></div></td>
                 <td><div align="center"><%=(String) one.get(1)%></div></td>

@@ -1,203 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Registration" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1af8c21f-e227-4800-8609-6dffad8ebb2e">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+    <property name="ireport.zoom" value="1.5"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <queryString language="SQL">
 		<![CDATA[]]>
-	</queryString>
-	<field name="ACCT_NAME" class="java.lang.String"/>
-	<field name="CLR_BAL_AMT" class="java.lang.String"/>
-	<field name="CUST_ID" class="java.lang.String"/>
-	<field name="FORACID" class="java.lang.String"/>
-	<field name="SCHM_CODE" class="java.lang.String"/>
-	<field name="SOL_ID" class="java.lang.String"/>
-	<field name="SUB_GROUP_CODE" class="java.lang.String"/>
-	<field name="START_DATE" class="java.lang.String"/>
-	<field name="END_DATE" class="java.lang.String"/>
-	<background>
-		<band/>
-	</background>
-	<title>
-		<band height="72">
-			<frame>
-				<reportElement uuid="e754e30e-e1c8-4624-a920-cbfd1d15e3b6" mode="Opaque" x="-19" y="-20" width="842" height="92" backcolor="#006699"/>
-				<staticText>
-					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="622" y="43" width="180" height="20" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
-					</textElement>
-					<text><![CDATA[GLS: Registration Report]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="c044d8e1-a864-4b9a-915c-710ea4c25877" x="363" y="63" width="100" height="20" forecolor="#FFFFFF"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Empowering you]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="78dfbd25-86aa-4a0b-97e1-7d4b54333e27" stretchType="RelativeToBandHeight" mode="Opaque" x="528" y="8" width="40" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement textAlignment="Center">
-						<font fontName="Tahoma" size="8" isBold="false"/>
-					</textElement>
-					<text><![CDATA[From:]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="true">
-					<reportElement uuid="1de02b2d-8c00-40b0-8bbe-1e94f0a2f212" mode="Opaque" x="709" y="8" width="92" height="12"/>
-					<textElement>
-						<font fontName="Tahoma" size="9"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement uuid="62066bd4-3456-40bf-abf8-a7f7f16f3945" mode="Opaque" x="577" y="8" width="92" height="12"/>
-					<textElement>
-						<font fontName="Tahoma" size="9"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="8a876888-c491-4ee2-bf13-6e1ad4d91c62" stretchType="RelativeToBandHeight" mode="Opaque" x="679" y="8" width="20" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement textAlignment="Center">
-						<font fontName="Tahoma" size="8" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ To:]]></text>
-				</staticText>
-				<image>
-					<reportElement uuid="7018d42a-6c1d-456e-b374-65b409388017" x="19" y="10" width="90" height="73"/>
-					<imageExpression><![CDATA["C:\\Users\\Levi\\Downloads\\Entertainment\\LUHYA DANCE\\Desktop\\PostbankLogo.jpg"]]></imageExpression>
-				</image>
-			</frame>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="13"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="25">
-			<staticText>
-				<reportElement uuid="47e2ac81-6a16-4c5f-866d-7633b460fcf9" mode="Opaque" x="10" y="0" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Account Name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="510f077b-519c-4bf5-8700-55c17a38f099" mode="Opaque" x="155" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Balance]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="155196b0-4704-4aa2-a8ed-f09b83d9696a" mode="Opaque" x="265" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cust ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f0a899f5-14dc-4010-8df7-a678bb5e7078" mode="Opaque" x="373" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Account No]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="7d5d8015-4761-42a8-a16a-d7cddc50159c" mode="Opaque" x="485" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Product]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="300b0301-94ad-49a0-9c8d-b109ce9f5821" mode="Opaque" x="592" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Branch]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="4defaa83-1873-4790-a460-cb961458cb3c" mode="Opaque" x="693" y="1" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sub group]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="24">
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="f1ade1ba-717a-4377-a710-64cc4e568ce1" x="20" y="4" width="90" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ACCT_NAME}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="175" y="4" width="79" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{CLR_BAL_AMT}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="6c9aa996-c601-48b2-96c6-6739e1a9c58b" x="285" y="4" width="69" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{CUST_ID}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="385" y="4" width="81" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{FORACID}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="505" y="4" width="64" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SCHM_CODE}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="612" y="4" width="48" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SOL_ID}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="703" y="4" width="80" height="20"/>
-				<textElement>
-					<font fontName="Tahoma" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SUB_GROUP_CODE}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<columnFooter>
-		<band/>
-	</columnFooter>
-	<pageFooter>
-		<band height="17">
-			<textField>
-				<reportElement uuid="03ab3845-76d0-454f-8564-8f28ac75aa9f" mode="Opaque" x="0" y="4" width="762" height="13" backcolor="#E6E6E6"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="25ceb4bc-cada-4b24-a450-fc39f00f3809" mode="Opaque" x="762" y="4" width="40" height="13" backcolor="#E6E6E6"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
-	<summary>
-		<band/>
-	</summary>
+    </queryString>
+    <field name="ACCT_NAME" class="java.lang.String"/>
+    <field name="CLR_BAL_AMT" class="java.lang.String"/>
+    <field name="CUST_ID" class="java.lang.String"/>
+    <field name="FORACID" class="java.lang.String"/>
+    <field name="SCHM_CODE" class="java.lang.String"/>
+    <field name="SOL_ID" class="java.lang.String"/>
+    <field name="SUB_GROUP_CODE" class="java.lang.String"/>
+    <field name="START_DATE" class="java.lang.String"/>
+    <field name="END_DATE" class="java.lang.String"/>
+    <background>
+        <band/>
+    </background>
+    <title>
+        <band height="72">
+            <frame>
+                <reportElement uuid="e754e30e-e1c8-4624-a920-cbfd1d15e3b6" mode="Opaque" x="-19" y="-20" width="842" height="92" backcolor="#006699"/>
+                <staticText>
+                    <reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="622" y="43" width="180" height="20" forecolor="#FFFFFF"/>
+                    <textElement textAlignment="Right">
+                        <font size="14" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[GLS: Registration Report]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement uuid="c044d8e1-a864-4b9a-915c-710ea4c25877" x="363" y="63" width="100" height="20" forecolor="#FFFFFF"/>
+                    <textElement>
+                        <font size="12"/>
+                    </textElement>
+                    <text><![CDATA[Empowering you]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement uuid="78dfbd25-86aa-4a0b-97e1-7d4b54333e27" stretchType="RelativeToBandHeight" mode="Opaque" x="528" y="8" width="40" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Tahoma" size="8" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[From:]]></text>
+                </staticText>
+                <textField isStretchWithOverflow="true">
+                    <reportElement uuid="1de02b2d-8c00-40b0-8bbe-1e94f0a2f212" mode="Opaque" x="709" y="8" width="92" height="12"/>
+                    <textElement>
+                        <font fontName="Tahoma" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement uuid="62066bd4-3456-40bf-abf8-a7f7f16f3945" mode="Opaque" x="577" y="8" width="92" height="12"/>
+                    <textElement>
+                        <font fontName="Tahoma" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
+                </textField>
+                <staticText>
+                    <reportElement uuid="8a876888-c491-4ee2-bf13-6e1ad4d91c62" stretchType="RelativeToBandHeight" mode="Opaque" x="679" y="8" width="20" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Tahoma" size="8" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[ To:]]></text>
+                </staticText>
+                <image>
+                    <reportElement uuid="38a40718-a592-4eb7-9e34-2805e3dd034b" x="29" y="10" width="90" height="73"/>
+                    <imageExpression><![CDATA["C:\\Users\\Levi\\Documents\\Group Lending System\\Group Lending System\\stable\\simgls\\src\\java\\com\\orig\\gls\\dao\\reports\\PostbankLogo.jpg"]]></imageExpression>
+                </image>
+            </frame>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="13"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement uuid="47e2ac81-6a16-4c5f-866d-7633b460fcf9" mode="Opaque" x="10" y="0" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Account Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="510f077b-519c-4bf5-8700-55c17a38f099" mode="Opaque" x="155" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Balance]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="155196b0-4704-4aa2-a8ed-f09b83d9696a" mode="Opaque" x="265" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cust ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="f0a899f5-14dc-4010-8df7-a678bb5e7078" mode="Opaque" x="373" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Account No]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="7d5d8015-4761-42a8-a16a-d7cddc50159c" mode="Opaque" x="485" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Product]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="300b0301-94ad-49a0-9c8d-b109ce9f5821" mode="Opaque" x="592" y="0" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Branch]]></text>
+            </staticText>
+            <staticText>
+                <reportElement uuid="4defaa83-1873-4790-a460-cb961458cb3c" mode="Opaque" x="693" y="1" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Sub group]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="24">
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="f1ade1ba-717a-4377-a710-64cc4e568ce1" x="20" y="4" width="90" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{ACCT_NAME}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="175" y="4" width="79" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{CLR_BAL_AMT}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="6c9aa996-c601-48b2-96c6-6739e1a9c58b" x="285" y="4" width="69" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{CUST_ID}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="385" y="4" width="81" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{FORACID}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="505" y="4" width="64" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{SCHM_CODE}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="612" y="4" width="48" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{SOL_ID}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="703" y="4" width="80" height="20"/>
+                <textElement>
+                    <font fontName="Tahoma" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{SUB_GROUP_CODE}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band/>
+    </columnFooter>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement uuid="03ab3845-76d0-454f-8564-8f28ac75aa9f" mode="Opaque" x="0" y="4" width="762" height="13" backcolor="#E6E6E6"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement uuid="25ceb4bc-cada-4b24-a450-fc39f00f3809" mode="Opaque" x="762" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band/>
+    </summary>
 </jasperReport>

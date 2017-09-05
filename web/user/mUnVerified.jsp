@@ -46,22 +46,22 @@
         <table width="95%" align="center"  style="border:#5757D9 solid 2px;padding:10px;" border="1">
             <tr>
                 <th bgcolor="#019ADD" scope="col"><span class="style10">Username </span></th>
-            <th bgcolor="#019ADD" scope="col"><span class="style10">Work class </span></th>
-            <th bgcolor="#019ADD" scope="col"><span class="style10">User Id</span></th>
-            <th bgcolor="#019ADD" scope="col"><span class="style10">Action</span></th>
+                <th bgcolor="#019ADD" scope="col"><span class="style10">Work class </span></th>
+                <th bgcolor="#019ADD" scope="col"><span class="style10">User Id</span></th>
+                <th bgcolor="#019ADD" scope="col"><span class="style10">Action</span></th>
             </tr>
             <%            for (int i = 0; i < size; i++) {
                     ArrayList one = (ArrayList) all.get(i);
             %>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><%=(String) one.get(0)%></div></td>
-            <td><div align="center"><%=(String) one.get(1)%></div></td>
-            <td><div align="center"><%=(String) one.get(2)%></div></td>
-                 <td>
-                <input type="hidden" name="username" value="<%=(String) one.get(0)%>" />
-                <input type="hidden" name="userid" value="<%=(String) one.get(2)%>" />
-                <input type="submit" name="btn" value="Verify user" class="style10" />
-            </td>
+                <td><div align="center"><%=(String) one.get(1)%></div></td>
+                <td><div align="center"><%=(String) one.get(2)%></div></td>
+                <td>
+                    <input type="hidden" name="username" value="<%=(String) one.get(0)%>" />
+                    <input type="hidden" name="userid" value="<%=(String) one.get(2)%>" />
+                    <input type="submit" name="btn" value="Verify user" class="style10" />
+                </td>
             </tr>
             <% }%>
         </table>

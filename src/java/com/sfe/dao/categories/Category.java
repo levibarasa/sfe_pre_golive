@@ -1,6 +1,6 @@
-package com.orig.gls.dao.categories;
+package com.sfe.dao.categories;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import java.util.ArrayList;
 
 public class Category {
@@ -22,7 +22,5 @@ public class Category {
         String sql = "select categorycode, categorytype, categoryvalue, bocreatedby, bank_id from categories where categorytype = ?";
         return AdminDb.execArrayLists(sql, 1, statuscategory, 5);
     }
-    
-    
 
 }

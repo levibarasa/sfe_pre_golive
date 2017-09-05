@@ -30,7 +30,7 @@
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">DISBURSEMENTS</a></div></td>
                 <td><div align="center">DISB</div></td>
             </tr>
-             <tr style="height:30px; padding:4px;">
+            <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">DEMANDS RAISED</a></div></td>
                 <td><div align="center">DMDS</div></td>
             </tr>

@@ -1,15 +1,19 @@
-package com.orig.gls.dao.report;
+package com.sfe.dao.report;
 
 import java.io.File;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 
 public class GenRpt {
 
@@ -30,10 +34,14 @@ public class GenRpt {
                     JasperExportManager.exportReportToPdfFile(jasperPrint, reportDestination);
                     break;
                 default:
-                      url = classLoader.getResourceAsStream(jrxmurl);
-                      jasperReport = JasperCompileManager.compileReport(url);
-                      jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JRBeanCollectionDataSource(col));
-                    JasperExportManager.exportReportToPdfFile(jasperPrint, reportDestination);
+                    JRXlsxExporter exporter = new JRXlsxExporter();
+                    url = classLoader.getResourceAsStream(jrxmurl);
+                    jasperReport = JasperCompileManager.compileReport(url);
+                    jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JRBeanCollectionDataSource(col));
+                    exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                    exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File(reportDestination));
+                    exporter.exportReport();
+
                     break;
             }
 

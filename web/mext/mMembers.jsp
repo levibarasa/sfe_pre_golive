@@ -68,32 +68,32 @@
 
         </script>
         <script type="text/javascript">
-        var popup;
-        function getFunctionValue() {
-            popup = window.open("mext/function.jsp", "Functions", "width=500,height=400");
-            popup.focus();
-            return false;
-        }
-    </script>
+            var popup;
+            function getFunctionValue() {
+                popup = window.open("mext/function.jsp", "Functions", "width=500,height=400");
+                popup.focus();
+                return false;
+            }
+        </script>
         <script type="text/javascript">
-        if (${mextsuc == 'true'}) {
-            alert("Member exit process completed successfully.\n Awaiting verification");
-        }
-          
-        if (${mrenfal == 'true'}) {
+            if (${mextsuc == 'true'}) {
+                alert("Member exit process completed successfully.\n Awaiting verification");
+            }
+
+            if (${mrenfal == 'true'}) {
                 alert("ERROR \Member  can not be Re-instated.\n Been inactive for more than 2 years.");
             }
-        if (${mextfal == 'true'}) {
-            alert("Member exit process failed.\nLoan amount is larger than compulsory savings account.\n Only a member without a running loan or whose\ncompulsory savings is more than sum of outstanding loan amount can be exited directly.");
-        }
-        if (${mrenfal == 'true'}) {
-            alert("Member re-instatement process failed.\nCustomer has been out of group lending for more than the specified grace period.\n New erollment is the way to go.");
-        }
-        if (${fatal == 'true'}) {
-            alert("Gross error.\n Contact system administrator");
-        }
-      
-    </script>
+            if (${mextfal == 'true'}) {
+                alert("Member exit process failed.\nLoan amount is larger than compulsory savings account.\n Only a member without a running loan or whose\ncompulsory savings is more than sum of outstanding loan amount can be exited directly.");
+            }
+            if (${mrenfal == 'true'}) {
+                alert("Member re-instatement process failed.\nCustomer has been out of group lending for more than the specified grace period.\n New erollment is the way to go.");
+            }
+            if (${fatal == 'true'}) {
+                alert("Gross error.\n Contact system administrator");
+            }
+
+        </script>
     <form method="post" action="do?MOD=BOK&ACT=domext" onsubmit=" return validatePasswords(this)">
         <div class="div">
             <table width="80%" border="0" align="center">

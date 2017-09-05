@@ -51,8 +51,8 @@
                 <td><div align="center"><%=(String) one.get(2)%></div></td>
                 <td><div align="center"><%=(String) one.get(3)%></div></td>
                 <td><div align="center"><label>
-                        <input name="Submit" class="redButton" type="submit" onclick="return document.MM_returnValue" value="Post" />
-                    </label></div></td>
+                            <input name="Submit" class="redButton" type="submit" onclick="return document.MM_returnValue" value="Post" />
+                        </label></div></td>
             </tr>
 
             <%             }

@@ -297,7 +297,7 @@
                         <td>Group Treasurer</td>
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="treasurer" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="treasurer"  <%=isreadonly%> /></td>
-                       <td><a href=""  <%=ishiddenv%> onclick="return getAccountTreasureValue()"><img src="images/search.png"></a></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountTreasureValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" <%=isreadonlym%> name="treasurername" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="treasurername"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -306,7 +306,7 @@
                         <td>Group Secretary</td>
                         <td>:</td>
                         <td><input type="text" <%=isreadonlym%> name="secretary" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Id" id="secretary"  <%=isreadonly%> /></td>
-                         <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
+                        <td><a href=""  <%=ishiddenv%> onclick="return getAccountSecretaryValue()"><img src="images/search.png"></a></td>
                         <td><input type="text" <%=isreadonlym%> name="secretaryname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="secretaryname"  <%=isreadonly%>  /></td>            
                         <td></td>
                         <td></td>
@@ -383,12 +383,12 @@
                         <td></td>
                         <td><label>
                                 <input name="Submit" <%= ishiddenib%> class="redButton" type="submit" onclick="MM_validateForm('solid', '', 'R', 'branchname', '', 'R', 'groupcode', '', 'R',
-                                            'groupname', '', 'R', 'acctmgr', '', 'R', 'regnumber', '', 'R', 'formationdate', '', 'R', 'region', '', 'R', 'groupcenter', '', 'R',
-                                            'groupvillage', '', 'R', 'groupaddress', '', 'R', 'groupphone', '', 'R', 'firstmeetingdate', '', 'R', 'nextmeetingdate', '', 'R',
-                                            'meetingtime', '', 'R', 'meetingplace', '', 'R', 'maxmembers', '', 'R', 'maxsgroups', '', 'R', 'status', '', 'R', 'statusreason', '', 'R',
-                                            'totalmembers', '', 'R', 'meetingfrequency', '', 'R', 'totalsavingacs', '', 'R', 'totalsavingsbal', '', 'R', 'totalloanacs', '', 'R',
-                                            'totalloanbal', '', 'R');
-                                    return document.MM_returnValue" value="Submit" />
+                                                'groupname', '', 'R', 'acctmgr', '', 'R', 'regnumber', '', 'R', 'formationdate', '', 'R', 'region', '', 'R', 'groupcenter', '', 'R',
+                                                'groupvillage', '', 'R', 'groupaddress', '', 'R', 'groupphone', '', 'R', 'firstmeetingdate', '', 'R', 'nextmeetingdate', '', 'R',
+                                                'meetingtime', '', 'R', 'meetingplace', '', 'R', 'maxmembers', '', 'R', 'maxsgroups', '', 'R', 'status', '', 'R', 'statusreason', '', 'R',
+                                                'totalmembers', '', 'R', 'meetingfrequency', '', 'R', 'totalsavingacs', '', 'R', 'totalsavingsbal', '', 'R', 'totalloanacs', '', 'R',
+                                                'totalloanbal', '', 'R');
+                                        return document.MM_returnValue" value="Submit" />
                             </label></td>
                         <td></td>
                     </tr>

@@ -1,4 +1,4 @@
- <%@ page import="java.sql.*,java.util.*"%>
+<%@ page import="java.sql.*,java.util.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <script type="text/javascript">
     function MM_findObj(n, d) { //v4.01
@@ -55,7 +55,7 @@
 
 </script>
 <script type="text/javascript">
-     if (${mextsuc == 'true'}) {
+    if (${mextsuc == 'true'}) {
         alert("Member exit process completed successfully.\n Awaiting verification");
     }
     if (${mextfal == 'true'}) {
@@ -70,13 +70,13 @@
 
 </script>
 <script type="text/javascript">
-        var popup;
-        function getFunctionValue() {
-            popup = window.open("mext/function.jsp", "Functions", "width=500,height=400");
-            popup.focus();
-            return false;
-        }
-    </script>
+    var popup;
+    function getFunctionValue() {
+        popup = window.open("mext/function.jsp", "Functions", "width=500,height=400");
+        popup.focus();
+        return false;
+    }
+</script>
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">Member Exit/Re-Instate Module</h2>
 

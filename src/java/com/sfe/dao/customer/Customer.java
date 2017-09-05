@@ -1,11 +1,206 @@
-package com.orig.gls.dao.customer;
+package com.sfe.dao.customer;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 public class Customer {
+private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    public static int getNewTempCustId() {
+        String sql = "Select max(Serial_Number) from Temporary_ID_Table";
+        String str = AdminDb.getValue(sql, 1, 0, "");
+        int id = Integer.parseInt(str);
+        id = id + 1;
+        return id;
+    }
 
+  public static ArrayList populateDailyList(String rmCode) {
+       String today = sdf.format(new Date());
+        String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type, email_ID,Occupation,Client_Contacted,Sales_Commitment, Docs_Submitted,Closed,Comments  from [dbo].[CUSTOMER_VIEW] where Current_Week = ?  and RM_Code2 = ?";
+        String in = today + "," +rmCode;
+        return AdminDb.execArrayLists(sql, 2, in, 11);
+    }
+    
+    public static String getRmCode(String rmCode) {
+        String sql = "select Branch from [dbo].[RM_Codelist] where RM_Code1 = ?";
+        return AdminDb.getValue(sql, 1, 1, rmCode);
+    }
+    public static String getDate(String custId) {
+        String sql = "select distinct Current_Week from [dbo].[CUSTOMER_VIEW]  where Customer_Id = ?";
+        return AdminDb.getValue(sql, 1, 1, custId);
+    }
+
+    public static ArrayList fetchDailyList(String rmCode) {
+        String sql = "select Customer_ID, RM_Code2,BM_Code,Regional_Manager_Code,Customer_Type,BM_Code1 from  [dbo].[Cust_Demo_1]  where RM_Code2 = ?";
+        String in = rmCode;
+        return AdminDb.execArrayLists(sql, 1, in, 6);
+    }
+
+    public static void main(String[] args) {
+   String today = sdf.format(new Date());
+        String rmCode ="242"; 
+    // ArrayList list = fetchDailyList(rmCode);
+    //  createDailyList(list, rmCode); 
+    System.out.println(populateDailyList(rmCode).size() );
+        System.out.println(populateDailyList(rmCode) );
+    
+    }
+    public static void createDailyList(ArrayList list, String rmCode) {
+        list = fetchDailyList(rmCode);
+        String Customer_ID, RM_Code, BM_Code, Regional_Manager_Code, Customer_Type, BM_Code_Sustainability;
+        for (int i = 0; i < 10; i++) {
+            ArrayList one = (ArrayList) list.get(i);
+            Customer_ID = (String) one.get(0);
+            RM_Code = (String) one.get(1);
+            BM_Code = (String) one.get(2);
+            Regional_Manager_Code = (String) one.get(3);
+            Customer_Type = (String) one.get(4);
+            BM_Code_Sustainability = (String) one.get(5);
+ 
+            String branch = getRmCode(rmCode);
+            String product_value = "23978";
+            String sql = "insert into [dbo].[Customer_Tracking] "
+                    + "(Customer_ID , Filled_Date, Filled_Week,Client_Contacted,Sales_Commitment,"
+                    + "Docs_Submitted,Closed,Comments,Product_Sold,"
+                    + "RM_Code,Current_Week,BM_Code,"
+                    + "Regional_Manager_Code,Branch,Product_value,Customer_Type,BM_Code_Sustainability,"
+                    + "RegM_code_Sustainability) values(?,try_convert(varchar(11),getdate(),103),"
+                    + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','None',"
+                    + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?)";
+            
+            String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
+                    + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code;
+            AdminDb.dbWork(sql, 9, in);
+        }
+    }
+
+    public static void updateTracker(ArrayList list) {
+        String custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
+        for (int i = 0; i < list.size(); i++) {
+            ArrayList one = (ArrayList) list.get(i);
+            custId = (String) one.get(0);
+            clientcontacted = (String) one.get(1);
+            salescommitment = (String) one.get(2);
+            docsubmitted = (String) one.get(3);
+            closed = (String) one.get(4);
+            comments = (String) one.get(5);
+            scheduledcalldate = (String) one.get(6);
+
+            String sql = "update [dbo].[Customer_Tracking] set Client_Contacted=?,Sales_Commitment=?, Docs_Submitted=?,Closed=?,Comments=?,Current_Week = try_convert(datetime, ?, 121) "
+                    + "where Customer_ID =?";
+            String in = clientcontacted + "," + salescommitment + "," + docsubmitted + "," + closed + "," + comments + "," + " " + scheduledcalldate + "," + custId;
+            AdminDb.dbWork(sql, 7, in);
+        }
+    }
+
+    public static int addNewCustomer(String customerName, String email, String phone, String RmCode) {
+        int tempId = getNewTempCustId();
+        String sql = "insert into [dbo].[New_Customers] (Temporary_ID,Customer_Name,Contact_Number,"
+                + "Email_ID,RM_Code,RM_Code1,Week) values(?,?,?,?,?,?,try_convert(datetime, GETDATE(), 121))";
+        String in = tempId + "," + customerName + "," + phone + "," + email + "," + RmCode + "," + RmCode;
+        int n = AdminDb.dbWork(sql, 6, in);
+        return n;
+    }
+
+    public static ArrayList getCustomers(String rmCode) {
+        String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type,Occupation,email_ID  from [dbo].[Cust_Demo_1]  where RM_Code2 = ?  and Customer_ID  in  (select Customer_ID from [dbo].[Customer_Tracking] )";
+        String in = rmCode;
+        return AdminDb.execArrayLists(sql, 1, in, 6);
+    }
+
+    public static ArrayList getCustomerTracker(String custId) {
+        String sql = "select Client_Contacted , Sales_Commitment , Docs_Submitted , Closed , Comments , Current_Week from [dbo].[Customer_Tracking] where Customer_ID = ?";
+        String in = custId;
+        return AdminDb.execArrayLists(sql, 1, in, 6);
+    }
+
+    public static ArrayList getCustomerInfo(String custId) {
+        String sql = "select distinct Customer_ID,Name,Permanent_phonenumber,Age,Marital_Status,City,Customer_Type,Permanent_Address,Occupation,Years_With_Bank,email_ID from CUSTOMER_VIEW where Customer_ID = ?";
+        String in = custId;
+        return AdminDb.execArrayLists(sql, 1, in, 11);
+    }
+
+    public static ArrayList getCustomerSoldProds(String custId) {
+        String sql = "select Product FROM [dbo].[Products_Sold] where Customer_ID = ?";
+        String in = custId;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+
+    public static ArrayList getCustomerOtherProds(String custId) {
+        String sql = "select distinct Product FROM [dbo].[Products_Sold] where Customer_ID <> ?";
+        String in = custId;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+
+    public static int getProductHolding(String custId) {
+        String sql = "select count(Product) from   [dbo].[Products_Sold] where Customer_ID  = ?";
+        String str = AdminDb.getValue(sql, 1, 1, custId);
+        return Integer.parseInt(str);
+    }
+
+    public static ArrayList getPreviousContact(String custId) {
+        String sql = "select  Date FROM [dbo].[Products_Sold] where Customer_ID = ?";
+        String in = custId;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+
+//    public static void main(String[] args) {
+//        String rmCode = "242";
+//        String days = "20"; //request.getParameter("days");
+//        int noOfdays = Integer.parseInt(days);
+//        ArrayList ar = Customer.getPreviousWeeklyCallList(rmCode, 1, noOfdays);
+//        for (int i = 0; i < ar.size(); i++) {
+//            ArrayList one = (ArrayList) ar.get(i);
+//            String custID, name, phone, custType, occupation, emailId, age, Marital_status, address, yrs, city;
+//            custID = (String) one.get(0);
+//            name = (String) one.get(1);
+//            phone = (String) one.get(2);
+//            age = (String) one.get(3);
+//            Marital_status = (String) one.get(4);
+//            city = (String) one.get(5);
+//            custType = (String) one.get(6);
+//            address = (String) one.get(7);
+//            occupation = (String) one.get(8);
+//            yrs = (String) one.get(9);
+//            emailId = (String) one.get(10);
+//            System.out.println(custID + " " + name + " " + occupation);
+//        }
+//    }
+    public static ArrayList getPreviousWeeklyCallList(String rmCode, int beginBackDay, int endBackDay) {
+        String end = getPreviousDate(beginBackDay);
+        String start = getPreviousDate(endBackDay);
+        String sql = "select Customer_ID,Name,Permanent_phonenumber,Age,Marital_Status,City,Customer_Type,Permanent_Address,Occupation,Years_With_Bank,email_ID from CUSTOMER_VIEW  where RM_Code2 = ? and current_week  between try_convert(datetime,?,121)  and try_convert(datetime, ?, 121) ";
+        String in = rmCode + "," + start + "," + end;
+        return AdminDb.execArrayLists(sql, 3, in, 11);
+    }
+
+    public static String getPreviousDate(int days) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.ss");
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime then = now.minusDays(days);
+        return then.format(format).toString();
+    }
+
+//     public static void main(String[] args) { 
+//
+//       ArrayList ar = getCustomers("242");
+//       for (int i=0; i<ar.size();i++){
+//            ArrayList one = (ArrayList) ar.get(i);
+//            String custID,name,phone,custType,occupation;
+//            custID = (String) one.get(0);
+//            name = (String) one.get(1);
+//            phone =(String) one.get(2);
+//            custType =(String) one.get(3);
+//            occupation =(String) one.get(4);
+//            
+//        System.out.println(custID+" "+name+" "+phone+" "+custType+" "+occupation);
+//       }
+//
+//    }
     public static ArrayList getUnMappedAccounts() {
         String sql = "select DISTINCT cust_id, acct_name, sol_id from general_acct_mast_table where sub_group_code is null and mapped_flg = ?";
         return AdminDb.execArrayLists(sql, 1, "N", 3);
@@ -15,7 +210,7 @@ public class Customer {
         String sql = "select DISTINCT cust_id, acct_name  from general_acct_mast_table where sub_group_code is  null and mapped_flg = ?";
         return AdminDb.execArrayLists(sql, 1, "N", 2);
     }
- 
+
     public static int getNumberOfSbGrpMembers(int groupId) {
         String s = "select no_of_members from sub_grp_table where group_id=?";
         int k = 0;
@@ -78,7 +273,6 @@ public class Customer {
         }
         return k;
     }
-    
 
     public static void addGroupMember(int groupId, String username) {
         int k = getNumberOfGrpMembers(groupId);
@@ -179,7 +373,7 @@ public class Customer {
         return k;
     }
 
-     public static int addAuditCustomerTrail(String acid) {
+    public static int addAuditCustomerTrail(String acid) {
         String data = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"
                 + "ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER,"
                 + " ENTITY_CRE_FLG, FORACID, LCHG_USER_ID, LIEN_AMT, RCRE_USER_ID,"
@@ -218,8 +412,7 @@ public class Customer {
         }
         return h;
     }
-     
-      
+
     public static int addAuditCustomerReinstateTrail(String acid) {
         String data = "select ACID,ACCT_CRNCY_CODE,ACCT_MGR_USER_ID, ACCT_NAME,"//0-3
                 + "ACCT_OWNERSHIP,BANK_ID, CLR_BAL_AMT,CUST_ID, DEL_FLG,DRWNG_POWER,"//4-9
@@ -328,7 +521,6 @@ public class Customer {
 //                    + "\n CreditRating Name: " + creditRating + "\n Member Status: " + member_status);
 //        }
 //    }
-
     // Current Account Details
     public static ArrayList getAccountDetails(String foracid) {
         String sql = "select acct_name, sol_id, sub_group_code, credit_rating,member_status from general_acct_mast_table where  cust_id = ?";
@@ -384,7 +576,7 @@ public class Customer {
         }
         return arr;
     }
-   
+
     public static ArrayList getVoluntaryExitAccountDetails(String foracid) {
         String sql = "select acct_name, sol_id, sub_group_code, credit_rating,member_status from general_acct_mast_table where member_status='V' and  cust_id = ?";
         ArrayList ar = AdminDb.execArrayLists(sql, 1, foracid, 5);

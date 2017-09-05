@@ -42,7 +42,7 @@
                 for (int i = 0; i < size; i++) {
                     ArrayList one = (ArrayList) all.get(i);
             %>
-             <tr style="height:30px; padding:4px;">
+            <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getSubGroupCodeValue(this, '<%=(String) one.get(0)%>')" id="cname"><%=(String) one.get(2)%></a></div></td>
                 <td><div align="center"><%=(String) one.get(1)%></div></td>
                 <td><div align="center"><%=(String) one.get(2)%></div></td>

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.tran;
+package com.sfe.dao.tran;
 
-import com.orig.gls.iso.Transfers;
-import com.orig.gls.prop.GlsProp;
+import com.sfe.iso.Transfers;
+import com.sfe.prop.SFEProp;
 import java.io.InputStream;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.channel.ASCIIChannel;
@@ -19,7 +19,7 @@ import org.jpos.iso.packager.GenericPackager;
 public class ProcessTran {
 
     public String postTran(String fromAcnt, String toAcnt, String amt, String parts) {
-        GlsProp bi = new GlsProp();
+        SFEProp bi = new SFEProp();
         System.out.println("Doing transaction posting");
         String host = bi.getDBProperty().getProperty("com.trans.host");
         String port = bi.getDBProperty().getProperty("com.trans.port").replaceAll("[^0-9]", "");

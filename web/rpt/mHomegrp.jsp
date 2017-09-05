@@ -118,7 +118,7 @@
         <tr>
             <td><label>Function</label></td>
             <td style="color: red">*</td>
- 
+
             <%   
                 String rtype = (String) session.getAttribute("rFunction") ;
                  

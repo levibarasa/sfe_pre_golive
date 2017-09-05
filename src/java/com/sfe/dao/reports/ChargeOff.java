@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author wachira
  */
 public class ChargeOff {
-    
-    String FORACID,ACCT_NAME,SCHM_CODE,DIS_AMT,DIS_SHDL_DATE,CHRGE_OFF_PRINCIPAL,PENDING_INTEREST,TOTAL,LOAN_DUE_DAYS,CHRGE_OFF_DATE, START_DATE, END_DATE;
-    public ChargeOff (String FORACID, String ACCT_NAME, String SCHM_CODE, String DIS_AMT, String DIS_SHDL_DATE, String CHRGE_OFF_PRINCIPAL, String PENDING_INTEREST, String TOTAL, String LOAN_DUE_DAYS, String CHRGE_OFF_DATE, String START_DATE, String END_DATE){
+
+    String FORACID, ACCT_NAME, SCHM_CODE, DIS_AMT, DIS_SHDL_DATE, CHRGE_OFF_PRINCIPAL, PENDING_INTEREST, TOTAL, LOAN_DUE_DAYS, CHRGE_OFF_DATE, START_DATE, END_DATE;
+
+    public ChargeOff(String FORACID, String ACCT_NAME, String SCHM_CODE, String DIS_AMT, String DIS_SHDL_DATE, String CHRGE_OFF_PRINCIPAL, String PENDING_INTEREST, String TOTAL, String LOAN_DUE_DAYS, String CHRGE_OFF_DATE, String START_DATE, String END_DATE) {
         this.FORACID = FORACID;
         this.ACCT_NAME = ACCT_NAME;
         this.SCHM_CODE = SCHM_CODE;

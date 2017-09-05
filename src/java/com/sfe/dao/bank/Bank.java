@@ -1,6 +1,6 @@
-package com.orig.gls.dao.bank;
+package com.sfe.dao.bank;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 
 public class Bank {
 
@@ -14,6 +14,7 @@ public class Bank {
         String sql = "select bank_id from sol_group_control_table";
         return AdminDb.getValue(sql, 1, 0, "");
     }
+
     public static String getContryCode(String bankId) {
         String sql = "select home_cntry_code from sol_group_control_table where BANK_ID = ?";
         return AdminDb.getValue(sql, 1, 1, bankId);

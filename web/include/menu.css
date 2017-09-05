@@ -20,7 +20,7 @@
     height:20px;
     padding: 3px 0;
     padding-left: 9px;
-	padding-right: 9px;
+    padding-right: 9px;
 
     width: 260px; /*185px minus all left/right paddings and margins*/
     text-decoration: none;
@@ -28,7 +28,7 @@
     background-color: #019ADD;
     border-bottom: 1px solid #FFFFFF;
     border-left: 7px solid #FFFFFF;
-	border-right: 7px solid #FFFFFF;
+    border-right: 7px solid #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -50,7 +50,7 @@
     border-bottom: 1px solid white;
     padding: 1px 0;
     padding-left: 7px;
-	padding-right: 7px;
+    padding-right: 7px;
     background-color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     /*font: bold 90% 'Trebuchet MS', 'Lucida Grande', Arial, sans-serif;*/

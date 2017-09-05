@@ -75,9 +75,10 @@
 
     </script>
 </head>
+<%@ include file="include/header_one.jsp" %>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">User Maintenance</h2>
 <form id="form1" name="form1" method="post" 
-        action="do?MOD=BOK&ACT=gomuser" 
+      action="do?MOD=BOK&ACT=gomuser" 
       onsubmit=" return validatePasswords(this)">
     <table width="70%" border="0" align="left" cellpadding="5" cellspacing="2">
         <tr>

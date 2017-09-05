@@ -18,7 +18,7 @@
     if (${mapsuc == 'true'}) {
         alert("Customer mapping successful");
     }
-      
+
     if (${mapErr == 'true'}) {
         alert("Customer mapping failed or \n You have reached maximum number of group members per subgroup ");
     }

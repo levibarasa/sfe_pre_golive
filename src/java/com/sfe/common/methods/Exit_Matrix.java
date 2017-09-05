@@ -1,13 +1,14 @@
-package com.orig.common.methods;
+package com.sfe.common.methods;
 
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.dao.tran.ProcessTran;
+import com.sfe.conn.AdminDb;
+import com.sfe.dao.tran.ProcessTran;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Exit_Matrix {
-   public static String doExit(String loanAccount, String custId, String loanAmount) {
+
+    public static String doExit(String loanAccount, String custId, String loanAmount) {
         String sql = "select foracid, clr_bal_amt, sub_group_code from general_acct_mast_table where cust_id = ? and cast(clr_bal_amt as decimal(10,2)) > 0.00";
         ArrayList arr = AdminDb.execArrayLists(sql, 1, custId, 3);
         BigDecimal amts = new BigDecimal(loanAmount);

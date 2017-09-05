@@ -1,4 +1,4 @@
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 public class Demands {
 

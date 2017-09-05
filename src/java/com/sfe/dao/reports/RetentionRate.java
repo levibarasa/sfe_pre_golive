@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author wachira
  */
 public class RetentionRate {
-  String ACCT_MGR_USER_ID,ACTIVE_MEMBERS,REIN,EXITS,RETEN_RATE, START_DATE, END_DATE;
-public RetentionRate (String ACCT_MGR_USER_ID, String ACTIVE_MEMBERS, String REIN, String EXITS, String RETEN_RATE, String START_DATE, String END_DATE){
+
+    String ACCT_MGR_USER_ID, ACTIVE_MEMBERS, REIN, EXITS, RETEN_RATE, START_DATE, END_DATE;
+
+    public RetentionRate(String ACCT_MGR_USER_ID, String ACTIVE_MEMBERS, String REIN, String EXITS, String RETEN_RATE, String START_DATE, String END_DATE) {
         this.ACCT_MGR_USER_ID = ACCT_MGR_USER_ID;
         this.ACTIVE_MEMBERS = ACTIVE_MEMBERS;
         this.REIN = REIN;
@@ -19,7 +21,7 @@ public RetentionRate (String ACCT_MGR_USER_ID, String ACTIVE_MEMBERS, String REI
         this.RETEN_RATE = RETEN_RATE;
         this.END_DATE = END_DATE;
         this.START_DATE = START_DATE;
-}
+    }
 
     public String getACCT_MGR_USER_ID() {
         return ACCT_MGR_USER_ID;

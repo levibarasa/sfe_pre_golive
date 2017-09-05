@@ -87,7 +87,7 @@
         if (${pwdexpy == 'true'}) {
             alert("ERROR\n Password for ${expyuname} is Expired");
         }
-         if (${pwdchanged == 'true'}) {
+        if (${pwdchanged == 'true'}) {
             alert("You have successfully updated your password. Kindly Login");
         }
     </script>

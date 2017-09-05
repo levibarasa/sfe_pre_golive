@@ -1,6 +1,6 @@
-package com.orig.gls.seed;
+package com.sfe.seed;
 
-import com.orig.gls.conn.AdminDb;
+import com.sfe.conn.AdminDb;
 import java.util.ArrayList;
 
 public class Country {

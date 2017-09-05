@@ -1,4 +1,4 @@
-package com.orig.gls.iso;
+package com.sfe.iso;
 
 import java.io.IOException;
 import java.util.Random;
@@ -40,7 +40,7 @@ public class Transfers {
             m.set(43, fp.formatField43(particulars).trim());
             m.set(49, fp.formatField49("KES").trim());
             m.set(102, fp.formatField102(anct.trim(), "54", "001"));
-            m.set(103, fp.formatField103(recipient_acct.trim(), "  57","001"));
+            m.set(103, fp.formatField103(recipient_acct.trim(), "  57", "001"));
             m.set(123, fp.formatField123("CMN").trim());
             if (!channel.isConnected()) {
                 channel.connect();

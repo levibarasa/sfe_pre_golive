@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author wachira
  */
 public class LoanSavingsPortfolio {
-    String BRANCH_ID,CREDIT_OFFICER_NAME,DISBURSED_AMOUNT,OS_PRINCIPAL,TOTAL_SAVINGS,END_DATE,START_DATE;
+
+    String BRANCH_ID, CREDIT_OFFICER_NAME, DISBURSED_AMOUNT, OS_PRINCIPAL, TOTAL_SAVINGS, END_DATE, START_DATE;
 
     public LoanSavingsPortfolio(String BRANCH_ID, String CREDIT_OFFICER_NAME, String DISBURSED_AMOUNT, String OS_PRINCIPAL, String TOTAL_SAVINGS, String START_DATE, String END_DATE) {
         this.BRANCH_ID = BRANCH_ID;
@@ -77,7 +78,5 @@ public class LoanSavingsPortfolio {
     public void setTOTAL_SAVINGS(String TOTAL_SAVINGS) {
         this.TOTAL_SAVINGS = TOTAL_SAVINGS;
     }
-    
-   
-    
+
 }

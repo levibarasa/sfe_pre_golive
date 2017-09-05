@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.iso;
+package com.sfe.iso;
 
 import java.io.InputStream;
 import org.apache.log4j.Logger;
@@ -16,6 +16,7 @@ import org.jpos.iso.packager.GenericPackager;
  * @author Administrator
  */
 public class Message {
+
     private static final Logger log = Logger.getLogger("simlogger");
     private String mti;
     private String field2;
@@ -61,7 +62,7 @@ public class Message {
                 }
             }
         } catch (ISOException e) {
-           log.debug(e);
+            log.debug(e);
         } finally {
             log.debug("--------------------");
         }

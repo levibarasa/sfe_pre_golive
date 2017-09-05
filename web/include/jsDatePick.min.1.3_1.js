@@ -17,22 +17,22 @@ g_currentDateObject.dateObject = new Date();
 g_currentDateObject.day = g_currentDateObject.dateObject.getDate();
 g_currentDateObject.month = g_currentDateObject.dateObject.getMonth() + 1;
 g_currentDateObject.year = g_currentDateObject.dateObject.getFullYear();
-JsgetElem = function(a) {
+JsgetElem = function (a) {
     return document.getElementById(a)
 };
-String.prototype.trim = function() {
+String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/g, "")
 };
-String.prototype.ltrim = function() {
+String.prototype.ltrim = function () {
     return this.replace(/^\s+/, "")
 };
-String.prototype.rtrim = function() {
+String.prototype.rtrim = function () {
     return this.replace(/\s+$/, "")
 };
-String.prototype.strpad = function() {
+String.prototype.strpad = function () {
     return(!isNaN(this) && this.toString().length == 1) ? "0" + this : this
 };
-JsDatePick = function(a) {
+JsDatePick = function (a) {
     if (document.all) {
         this.isie = true;
         this.iever = JsDatePick.getInternetExplorerVersion()
@@ -49,10 +49,10 @@ JsDatePick = function(a) {
     this.setConfiguration(a);
     this.makeCalendar()
 };
-JsDatePick.getCalInstanceById = function(a) {
+JsDatePick.getCalInstanceById = function (a) {
     return g_arrayOfUsedJsDatePickCals[parseInt(a, 10)]
 };
-JsDatePick.getInternetExplorerVersion = function() {
+JsDatePick.getInternetExplorerVersion = function () {
     var c = -1, a, b;
     if (navigator.appName == "Microsoft Internet Explorer") {
         a = navigator.userAgent;
@@ -63,21 +63,21 @@ JsDatePick.getInternetExplorerVersion = function() {
         return c
     }
 };
-JsDatePick.prototype.setC = function(a, b) {
+JsDatePick.prototype.setC = function (a, b) {
     if (this.isie && this.iever > 7) {
         a.setAttribute("class", b)
     } else {
         a.className = b
     }
 };
-JsDatePick.prototype.getUnUsedGlobalNumber = function() {
+JsDatePick.prototype.getUnUsedGlobalNumber = function () {
     var a = Math.floor(Math.random() * 1000);
     while (!this.isUnique_GlobalNumber(a)) {
         a = Math.floor(Math.random() * 1000)
     }
     return a
 };
-JsDatePick.prototype.isUnique_GlobalNumber = function(b) {
+JsDatePick.prototype.isUnique_GlobalNumber = function (b) {
     var a;
     for (a = 0; a < g_arrayOfUsedJsDatePickCalsGlobalNumbers.length; a++) {
         if (g_arrayOfUsedJsDatePickCalsGlobalNumbers[a] == b) {
@@ -86,20 +86,20 @@ JsDatePick.prototype.isUnique_GlobalNumber = function(b) {
     }
     return true
 };
-JsDatePick.prototype.addOnSelectedDelegate = function(a) {
+JsDatePick.prototype.addOnSelectedDelegate = function (a) {
     if (typeof (a) == "function") {
         this.addonSelectedDelegate = a
     }
     return false
 };
-JsDatePick.prototype.setOnSelectedDelegate = function(a) {
+JsDatePick.prototype.setOnSelectedDelegate = function (a) {
     if (typeof (a) == "function") {
         this.onSelectedDelegate = a;
         return true
     }
     return false
 };
-JsDatePick.prototype.executeOnSelectedDelegateIfExists = function() {
+JsDatePick.prototype.executeOnSelectedDelegateIfExists = function () {
     if (typeof (this.onSelectedDelegate) == "function") {
         this.onSelectedDelegate()
     }
@@ -107,14 +107,14 @@ JsDatePick.prototype.executeOnSelectedDelegateIfExists = function() {
         this.addonSelectedDelegate()
     }
 };
-JsDatePick.prototype.setRepopulationDelegate = function(a) {
+JsDatePick.prototype.setRepopulationDelegate = function (a) {
     if (typeof (a) == "function") {
         this.repopulationDelegate = a;
         return true
     }
     return false
 };
-JsDatePick.prototype.setConfiguration = function(a) {
+JsDatePick.prototype.setConfiguration = function (a) {
     this.oConfiguration.isStripped = (a.isStripped != null) ? a.isStripped : false;
     this.oConfiguration.useMode = (a.useMode != null) ? a.useMode : 1;
     this.oConfiguration.selectedDate = (a.selectedDate != null) ? a.selectedDate : null;
@@ -136,7 +136,7 @@ JsDatePick.prototype.setConfiguration = function(a) {
         this.currentDay = this.oCurrentDay.day
     }
 };
-JsDatePick.prototype.resizeCalendar = function() {
+JsDatePick.prototype.resizeCalendar = function () {
     this.leftWallStrechedElement.style.height = "0px";
     this.rightWallStrechedElement.style.height = "0px";
     var a = this.JsDatePickBox.offsetHeight, b = a - 16;
@@ -147,12 +147,12 @@ JsDatePick.prototype.resizeCalendar = function() {
     this.rightWallStrechedElement.style.height = b + "px";
     return true
 };
-JsDatePick.prototype.closeCalendar = function() {
+JsDatePick.prototype.closeCalendar = function () {
     this.JsDatePickBox.style.display = "none";
-    document.onclick = function() {
+    document.onclick = function () {
     }
 };
-JsDatePick.prototype.populateFieldWithSelectedDate = function() {
+JsDatePick.prototype.populateFieldWithSelectedDate = function () {
     JsgetElem(this.oConfiguration.target).value = this.getSelectedDayFormatted();
     if (this.lastPickedDateObject) {
         delete (this.lastPickedDateObject)
@@ -163,7 +163,7 @@ JsDatePick.prototype.populateFieldWithSelectedDate = function() {
     this.lastPickedDateObject.year = this.selectedDayObject.year;
     this.closeCalendar()
 };
-JsDatePick.prototype.makeCalendar = function() {
+JsDatePick.prototype.makeCalendar = function () {
     var j = document, e, a, b, k, g, h, f, o, i, m, n, l, c;
     e = j.createElement("div");
     a = j.createElement("div");
@@ -172,22 +172,22 @@ JsDatePick.prototype.makeCalendar = function() {
     this.setC(a, "clearfix");
     this.setC(b, "jsDatePickCloseButton");
     b.setAttribute("globalNumber", this.globalNumber);
-    b.onmouseover = function() {
+    b.onmouseover = function () {
         var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber"));
         d.setTooltipText(g_l.CLOSE);
         d.setC(this, "jsDatePickCloseButtonOver")
     };
-    b.onmouseout = function() {
+    b.onmouseout = function () {
         var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber"));
         d.setTooltipText("");
         d.setC(this, "jsDatePickCloseButton")
     };
-    b.onmousedown = function() {
+    b.onmousedown = function () {
         var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber"));
         d.setTooltipText(g_l.CLOSE);
         d.setC(this, "jsDatePickCloseButtonDown")
     };
-    b.onmouseup = function() {
+    b.onmouseup = function () {
         var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber"));
         d.setTooltipText("");
         d.setC(this, "jsDatePickCloseButton");
@@ -249,10 +249,10 @@ JsDatePick.prototype.makeCalendar = function() {
                 n.parentNode.replaceChild(l, n);
                 l.appendChild(n);
                 n.setAttribute("globalNumber", this.globalNumber);
-                n.onclick = function() {
+                n.onclick = function () {
                     JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")).showCalendar()
                 };
-                n.onfocus = function() {
+                n.onfocus = function () {
                     JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")).showCalendar()
                 };
                 l.style.position = "relative";
@@ -283,7 +283,7 @@ JsDatePick.prototype.makeCalendar = function() {
         }
     }
 };
-JsDatePick.prototype.determineFieldDate = function() {
+JsDatePick.prototype.determineFieldDate = function () {
     var b, c, e, g, l, d, a, h, k, f = false, j = false;
     if (this.lastPickedDateObject) {
         this.setSelectedDay({year: parseInt(this.lastPickedDateObject.year), month: parseInt(this.lastPickedDateObject.month, 10), day: parseInt(this.lastPickedDateObject.day, 10)})
@@ -322,7 +322,7 @@ JsDatePick.prototype.determineFieldDate = function() {
                         case"%Y":
                         case"%y":
                             h = d
-                        }
+                    }
                 }
                 if (f) {
                     for (d = 0; d < 12; d++) {
@@ -351,28 +351,28 @@ JsDatePick.prototype.determineFieldDate = function() {
         }
     }
 };
-JsDatePick.prototype.senseDivider = function(a) {
+JsDatePick.prototype.senseDivider = function (a) {
     return a.replace("%d", "").replace("%j", "").replace("%m", "").replace("%M", "").replace("%n", "").replace("%F", "").replace("%Y", "").replace("%y", "").substr(0, 1)
 };
-JsDatePick.prototype.showCalendar = function() {
+JsDatePick.prototype.showCalendar = function () {
     if (this.JsDatePickBox.style.display == "none") {
         this.determineFieldDate();
         this.JsDatePickBox.style.display = "block";
         this.resizeCalendar();
         this.executePopulationDelegateIfExists();
-        this.JsDatePickBox.onmouseover = function() {
-            document.onclick = function() {
+        this.JsDatePickBox.onmouseover = function () {
+            document.onclick = function () {
             }
         };
         this.JsDatePickBox.setAttribute("globalCalNumber", this.globalNumber);
-        this.JsDatePickBox.onmouseout = function() {
+        this.JsDatePickBox.onmouseout = function () {
             document.onclick = new Function("g_arrayOfUsedJsDatePickCals[" + this.getAttribute("globalCalNumber") + "].closeCalendar();")
         }
     } else {
         return
     }
 };
-JsDatePick.prototype.isAvailable = function(c, a, b) {
+JsDatePick.prototype.isAvailable = function (c, a, b) {
     if (c > this.oCurrentDay.year) {
         return false
     }
@@ -384,7 +384,7 @@ JsDatePick.prototype.isAvailable = function(c, a, b) {
     }
     return true
 };
-JsDatePick.prototype.getDOMCalendarStripped = function() {
+JsDatePick.prototype.getDOMCalendarStripped = function () {
     var h = document, e, i, b, a, f, c, g;
     e = h.createElement("div");
     if (this.oConfiguration.isStripped) {
@@ -419,7 +419,7 @@ JsDatePick.prototype.getDOMCalendarStripped = function() {
     this.populateMainBox(a);
     return e
 };
-JsDatePick.prototype.makeDOMWeekDays = function(a) {
+JsDatePick.prototype.makeDOMWeekDays = function (a) {
     var c = 0, g = document, f = g_l.DAYS_3, e, b;
     for (c = this.oConfiguration.weekStartDay; c < 7; c++) {
         b = g.createElement("div");
@@ -439,7 +439,7 @@ JsDatePick.prototype.makeDOMWeekDays = function(a) {
     }
     b.style.marginRight = "0px"
 };
-JsDatePick.prototype.repopulateMainBox = function() {
+JsDatePick.prototype.repopulateMainBox = function () {
     while (this.boxMainCellsContainer.firstChild) {
         this.boxMainCellsContainer.removeChild(this.boxMainCellsContainer.firstChild)
     }
@@ -447,12 +447,12 @@ JsDatePick.prototype.repopulateMainBox = function() {
     this.resizeCalendar();
     this.executePopulationDelegateIfExists()
 };
-JsDatePick.prototype.executePopulationDelegateIfExists = function() {
+JsDatePick.prototype.executePopulationDelegateIfExists = function () {
     if (typeof (this.repopulationDelegate) == "function") {
         this.repopulationDelegate()
     }
 };
-JsDatePick.prototype.populateMainBox = function(h) {
+JsDatePick.prototype.populateMainBox = function (h) {
     var f = document, g, l, c = 1, k = false, n = this.currentMonth - 1, j, a, m, e, b;
     j = new Date(this.currentYear, n, 1, 1, 0, 0);
     a = j.getTime();
@@ -504,7 +504,7 @@ JsDatePick.prototype.populateMainBox = function(h) {
                 g.setAttribute("isJsDatePickDisabled", 1)
             }
         }
-        g.onmouseover = function() {
+        g.onmouseover = function () {
             var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")), i;
             i = d.getCurrentColorScheme();
             if (parseInt(this.getAttribute("isSelected")) == 1) {
@@ -521,7 +521,7 @@ JsDatePick.prototype.populateMainBox = function(h) {
                 this.style.background = "url(" + d.oConfiguration.imgPath + i + "_dayOver.gif) left top no-repeat"
             }
         };
-        g.onmouseout = function() {
+        g.onmouseout = function () {
             var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")), i;
             i = d.getCurrentColorScheme();
             if (parseInt(this.getAttribute("isSelected")) == 1) {
@@ -538,7 +538,7 @@ JsDatePick.prototype.populateMainBox = function(h) {
                 this.style.background = "url(" + d.oConfiguration.imgPath + i + "_dayNormal.gif) left top no-repeat"
             }
         };
-        g.onmousedown = function() {
+        g.onmousedown = function () {
             var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")), i;
             i = d.getCurrentColorScheme();
             if (parseInt(this.getAttribute("isSelected")) == 1) {
@@ -555,7 +555,7 @@ JsDatePick.prototype.populateMainBox = function(h) {
                 this.style.background = "url(" + d.oConfiguration.imgPath + i + "_dayDown.gif) left top no-repeat"
             }
         };
-        g.onmouseup = function() {
+        g.onmouseup = function () {
             var d = JsDatePick.getCalInstanceById(this.getAttribute("globalNumber")), i;
             i = d.getCurrentColorScheme();
             if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
@@ -613,12 +613,12 @@ JsDatePick.prototype.populateMainBox = function(h) {
     this.lastPostedDay = null;
     return h
 };
-JsDatePick.prototype.unsetSelection = function() {
+JsDatePick.prototype.unsetSelection = function () {
     this.flag_aDayWasSelected = false;
     this.selectedDayObject = {};
     this.repopulateMainBox()
 };
-JsDatePick.prototype.setSelectedDay = function(a) {
+JsDatePick.prototype.setSelectedDay = function (a) {
     this.flag_aDayWasSelected = true;
     this.selectedDayObject.day = parseInt(a.day, 10);
     this.selectedDayObject.month = parseInt(a.month, 10);
@@ -627,7 +627,7 @@ JsDatePick.prototype.setSelectedDay = function(a) {
     this.currentYear = a.year;
     this.repopulateMainBox()
 };
-JsDatePick.prototype.isSelectedDay = function(a) {
+JsDatePick.prototype.isSelectedDay = function (a) {
     if (this.flag_aDayWasSelected) {
         if (parseInt(a) == this.selectedDayObject.day && this.currentMonth == this.selectedDayObject.month && this.currentYear == this.selectedDayObject.year) {
             return true
@@ -637,14 +637,14 @@ JsDatePick.prototype.isSelectedDay = function(a) {
     }
     return false
 };
-JsDatePick.prototype.getSelectedDay = function() {
+JsDatePick.prototype.getSelectedDay = function () {
     if (this.flag_aDayWasSelected) {
         return this.selectedDayObject
     } else {
         return false
     }
 };
-JsDatePick.prototype.getSelectedDayFormatted = function() {
+JsDatePick.prototype.getSelectedDayFormatted = function () {
     if (this.flag_aDayWasSelected) {
         var a = this.oConfiguration.dateFormat;
         a = a.replace("%d", this.selectedDayObject.day.toString().strpad());
@@ -660,7 +660,7 @@ JsDatePick.prototype.getSelectedDayFormatted = function() {
         return false
     }
 };
-JsDatePick.prototype.setDaySelection = function(a) {
+JsDatePick.prototype.setDaySelection = function (a) {
     var b = this.getCurrentColorScheme();
     if (this.flag_DayMarkedBeforeRepopulation) {
         this.lastMarkedDayObject.setAttribute("isSelected", 0);
@@ -687,28 +687,28 @@ JsDatePick.prototype.setDaySelection = function(a) {
         a.style.background = "url(" + this.oConfiguration.imgPath + b + "_dayDown.gif) left top no-repeat"
     }
 };
-JsDatePick.prototype.isToday = function(a) {
+JsDatePick.prototype.isToday = function (a) {
     var b = this.oCurrentDay.month - 1;
     if (a.getDate() == this.oCurrentDay.day && a.getMonth() == b && a.getFullYear() == this.oCurrentDay.year) {
         return true
     }
     return false
 };
-JsDatePick.prototype.setControlBarText = function(a) {
+JsDatePick.prototype.setControlBarText = function (a) {
     var b = document.createTextNode(a);
     while (this.controlsBarTextCell.firstChild) {
         this.controlsBarTextCell.removeChild(this.controlsBarTextCell.firstChild)
     }
     this.controlsBarTextCell.appendChild(b)
 };
-JsDatePick.prototype.setTooltipText = function(a) {
+JsDatePick.prototype.setTooltipText = function (a) {
     while (this.tooltip.firstChild) {
         this.tooltip.removeChild(this.tooltip.firstChild)
     }
     var b = document.createTextNode(a);
     this.tooltip.appendChild(b)
 };
-JsDatePick.prototype.moveForwardOneYear = function() {
+JsDatePick.prototype.moveForwardOneYear = function () {
     var a = this.currentYear + 1;
     if (a < parseInt(this.oConfiguration.yearsRange[1])) {
         this.currentYear++;
@@ -718,7 +718,7 @@ JsDatePick.prototype.moveForwardOneYear = function() {
         return false
     }
 };
-JsDatePick.prototype.moveBackOneYear = function() {
+JsDatePick.prototype.moveBackOneYear = function () {
     var a = this.currentYear - 1;
     if (a > parseInt(this.oConfiguration.yearsRange[0])) {
         this.currentYear--;
@@ -728,7 +728,7 @@ JsDatePick.prototype.moveBackOneYear = function() {
         return false
     }
 };
-JsDatePick.prototype.moveForwardOneMonth = function() {
+JsDatePick.prototype.moveForwardOneMonth = function () {
     if (this.currentMonth < 12) {
         this.currentMonth++
     } else {
@@ -740,7 +740,7 @@ JsDatePick.prototype.moveForwardOneMonth = function() {
     }
     this.repopulateMainBox()
 };
-JsDatePick.prototype.moveBackOneMonth = function() {
+JsDatePick.prototype.moveBackOneMonth = function () {
     if (this.currentMonth > 1) {
         this.currentMonth--
     } else {
@@ -752,10 +752,10 @@ JsDatePick.prototype.moveBackOneMonth = function() {
     }
     this.repopulateMainBox()
 };
-JsDatePick.prototype.getCurrentColorScheme = function() {
+JsDatePick.prototype.getCurrentColorScheme = function () {
     return this.oConfiguration.cellColorScheme
 };
-JsDatePick.prototype.getDOMControlBar = function() {
+JsDatePick.prototype.getDOMControlBar = function () {
     var h = document, c, f, g, b, a, e;
     c = h.createElement("div");
     f = h.createElement("div");
@@ -780,7 +780,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
     c.appendChild(b);
     c.appendChild(a);
     c.appendChild(e);
-    f.onmouseover = function() {
+    f.onmouseover = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -793,7 +793,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         i.setTooltipText(g_l.MONTH_FWD);
         i.setC(this, "monthForwardButtonOver")
     };
-    f.onmouseout = function() {
+    f.onmouseout = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -806,7 +806,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText("");
         d.setC(this, "monthForwardButton")
     };
-    f.onmousedown = function() {
+    f.onmousedown = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -819,7 +819,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         i.setTooltipText(g_l.MONTH_FWD);
         i.setC(this, "monthForwardButtonDown")
     };
-    f.onmouseup = function() {
+    f.onmouseup = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -833,7 +833,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setC(this, "monthForwardButton");
         d.moveForwardOneMonth()
     };
-    g.onmouseover = function() {
+    g.onmouseover = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -846,7 +846,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.MONTH_BCK);
         d.setC(this, "monthBackwardButtonOver")
     };
-    g.onmouseout = function() {
+    g.onmouseout = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -859,7 +859,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText("");
         d.setC(this, "monthBackwardButton")
     };
-    g.onmousedown = function() {
+    g.onmousedown = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -872,7 +872,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.MONTH_BCK);
         d.setC(this, "monthBackwardButtonDown")
     };
-    g.onmouseup = function() {
+    g.onmouseup = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -886,7 +886,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setC(this, "monthBackwardButton");
         d.moveBackOneMonth()
     };
-    b.onmouseover = function() {
+    b.onmouseover = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -899,7 +899,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.YEAR_FWD);
         d.setC(this, "yearForwardButtonOver")
     };
-    b.onmouseout = function() {
+    b.onmouseout = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -912,7 +912,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText("");
         d.setC(this, "yearForwardButton")
     };
-    b.onmousedown = function() {
+    b.onmousedown = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -925,7 +925,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.YEAR_FWD);
         d.setC(this, "yearForwardButtonDown")
     };
-    b.onmouseup = function() {
+    b.onmouseup = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -939,7 +939,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setC(this, "yearForwardButton");
         d.moveForwardOneYear()
     };
-    a.onmouseover = function() {
+    a.onmouseover = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -952,7 +952,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.YEAR_BCK);
         d.setC(this, "yearBackwardButtonOver")
     };
-    a.onmouseout = function() {
+    a.onmouseout = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -965,7 +965,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText("");
         d.setC(this, "yearBackwardButton")
     };
-    a.onmousedown = function() {
+    a.onmousedown = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return
@@ -978,7 +978,7 @@ JsDatePick.prototype.getDOMControlBar = function() {
         d.setTooltipText(g_l.YEAR_BCK);
         d.setC(this, "yearBackwardButtonDown")
     };
-    a.onmouseup = function() {
+    a.onmouseup = function () {
         var i, d;
         if (parseInt(this.getAttribute("isJsDatePickDisabled")) == 1) {
             return

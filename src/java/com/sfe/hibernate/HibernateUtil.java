@@ -1,4 +1,4 @@
-package com.orig.gls.hibernate;
+package com.sfe.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,10 +46,10 @@ public class HibernateUtil {
     private static void closeSessionFactory(SessionFactory factory) {
         if (factory instanceof SessionFactoryImpl) {
             SessionFactoryImpl sf = (SessionFactoryImpl) factory;
-            ConnectionProvider conn = sf.getConnectionProvider();
-            if (conn instanceof C3P0ConnectionProvider) {
-                ((C3P0ConnectionProvider) conn).close();
-            }
+            //        ConnectionProvider conn = sf.getConnectionProvider();
+//            if (conn instanceof C3P0ConnectionProvider) {
+//                ((C3P0ConnectionProvider) conn).close();
+//            }
         }
         factory.close();
     }

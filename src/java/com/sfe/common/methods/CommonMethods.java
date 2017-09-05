@@ -1,7 +1,7 @@
-package com.orig.common.methods;
+package com.sfe.common.methods;
 
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.dao.tran.Transact;
+import com.sfe.conn.AdminDb;
+import com.sfe.dao.tran.Transact;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author Levi
  */
 public class Projection {
-    
-    String CUST_ID,ACCT_NAME,COLLATERAL_FUND,DIS_AMT,VOLUNTARY_SAVING,DIS_DATE,OTHER_SAVING,GROUP_ID,GROUP_NAME,TRAN_DATE, START_DATE, END_DATE;
+
+    String CUST_ID, ACCT_NAME, COLLATERAL_FUND, DIS_AMT, VOLUNTARY_SAVING, DIS_DATE, OTHER_SAVING, GROUP_ID, GROUP_NAME, TRAN_DATE, START_DATE, END_DATE;
 
     public Projection(String CUST_ID, String ACCT_NAME, String COLLATERAL_FUND, String DIS_AMT, String VOLUNTARY_SAVING, String DIS_DATE, String OTHER_SAVING, String GROUP_ID, String GROUP_NAME, String TRAN_DATE, String START_DATE, String END_DATE) {
         this.CUST_ID = CUST_ID;
@@ -123,5 +123,5 @@ public class Projection {
     public void setTRAN_DATE(String TRAN_DATE) {
         this.TRAN_DATE = TRAN_DATE;
     }
-    
+
 }

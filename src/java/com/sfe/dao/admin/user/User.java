@@ -1,8 +1,7 @@
-package com.orig.gls.dao.admin.user;
+package com.sfe.dao.admin.user;
 
-import com.orig.gls.conn.AdminDb;
-import com.orig.gls.prop.GlsFile;
-import com.orig.gls.security.Encode;
+import com.sfe.conn.AdminDb;
+import com.sfe.security.Encode;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -21,13 +20,13 @@ public class User {
     private static final Log log = LogFactory.getLog("origlogger");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    public static boolean userExists(String userName) {
-        String sql = "select count(*)cnt from user_creds_tbl where user_name = ?";
-        String str = AdminDb.getValue(sql, 1, 1, userName);
+    public static boolean userExists(String employeeID) {
+        String sql = "select count(*)cnt from Employee_Details where employeeID = ?";
+        String str = AdminDb.getValue(sql, 1, 1, employeeID);
         return Integer.parseInt(str) > 0;
     }
 
-    public static int getUserId(String userName) {
+    public static int getUserName(String userName) {
         String sql = "select user_id from user_creds_tbl where user_name = ?";
         String str = AdminDb.getValue(sql, 1, 1, userName);
         return Integer.parseInt(str);
@@ -64,26 +63,36 @@ public class User {
         String sql = "select user_name, user_id,role_id from user_creds_tbl_mod";
         return AdminDb.execArrayLists(sql, 0, "", 3);
     }
-//----
 
-    public static ArrayList getUserDetails(String in) {
-        String sql = "select user_name, role_id, new_user_flg, user_status, disabled_from_date, disabled_upto_date, pw_expy_date, acct_expy_date,NUM_PWD_ATTEMPTS,SOL_ID,LAST_ACCESS_TIME,USER_ID from user_creds_tbl where user_id = ?";
-        return AdminDb.execArrayLists(sql, 1, in, 12);
+    public static ArrayList getUserDetails(String employeeID) {
+        String sql = "select employeeID,employeeName,accessLevelID from Employee_Details where employeeID = ?";
+        return AdminDb.execArrayLists(sql, 1, employeeID, 3);
     }
 
-//         public static void main(String[] args) { 
-//     ArrayList all = getUserDetails("1146");
-//    int size = all.size();
-//                for (int i = 0; i < size; i++) {
-//                ArrayList one = (ArrayList) all.get(i);
-//             
-//                    System.out.println((String) one.get(0)+" "+(String) one.get(1)+" "+(String) one.get(2)
-//                    +" "+(String) one.get(3)+" "+(String) one.get(4)+" "+(String) one.get(5)+" "+(String) one.get(6)
-//                     +" "+(String) one.get(7)+" "+(String) one.get(8)+" "+(String) one.get(9) +" "+(String) one.get(10)
-//                            +" "+(String) one.get(10)
-//                    ); 
-//                }
+//    public static void main(String[] args) {
+//       ArrayList ar = getUserDetails("442");
+//       for (int i=0; i<ar.size();i++){
+//            ArrayList one = (ArrayList) ar.get(i);
+//            String employeeCode,employeeName,accessLevel;
+//            employeeCode = (String) one.get(0);
+//            employeeName = (String) one.get(1);
+//            accessLevel =(String) one.get(2);
+//            
+//        System.out.println(employeeCode+" "+employeeName+" "+accessLevel);
+//       }
 //    }
+    //getBranch(String employeeID)
+    //getRegion(String employeeID)
+    public static String getBranch(String employeeID) {
+        String sql = " select Branch from RM_Codelist where RM_Code1 = ?";
+        return AdminDb.getValue(sql, 1, 1, employeeID);
+    }
+
+    public static String getRegion(String employeeID) {
+        String sql = " select Region from RM_Codelist where RM_Code1 = ?";
+        return AdminDb.getValue(sql, 1, 1, employeeID);
+    }
+
     public static String lastOper(String in) {
         String sql = " select last_oper from user_creds_tbl_mod where user_id=?";
         return AdminDb.getValue(sql, 1, 1, in);
@@ -136,9 +145,6 @@ public class User {
         String adds = lastOper + "," + uname;
         in = in + adds;
         int n = AdminDb.dbWork(s, 16, in);
-//        if (n > 0) {
-//            modified = true;
-//        }
         return n;
     }
 
@@ -168,11 +174,7 @@ public class User {
         lastInsertID = lastInsertUserId(userName);
         return lastInsertID;
     }
-//    public static void main(String[] args) {
-//        System.out.println( getUserModDetails("1154", "ELIUD", "M") );
-//    }
 
-    //
     public static boolean addUserModDetails(int userId, String userName, String roleId, String userPw, int numPwdHistory, String pwdHistory, int numPwdAttempts, String newUserFlg, int acctInactiveDays, String lastOper, String rcreUserId, String mType) {
         String disabledFromDate = "";
         String disabledUptoDate = "";
@@ -198,25 +200,13 @@ public class User {
                 break;
         }
 
-        //1,3,4,5,9,
         String sql = "insert into user_creds_tbl_mod(ACCT_EXPY_DATE,ACCT_INACTIVE_DAYS,DISABLED_FROM_DATE, DISABLED_UPTO_DATE,LAST_ACCESS_TIME,NEW_USER_FLG,NUM_PWD_ATTEMPTS,NUM_PWD_HISTORY,PW_EXPY_DATE,PWD_HISTORY,ROLE_ID,USER_ID,USER_NAME,USER_PW,LAST_OPER,RCRE_USER_ID) values(try_convert(date, ?, 111) ,?,try_convert(date, ?, 111) ,try_convert(date, ?, 111),try_convert(date, ?, 111),?,?,?,try_convert(date, ?, 111) ,?,?,?,?,?,?,?)";
         int role = getRoleId(roleId);
         Random randomGenerator = new Random();
-//        int randomInt = randomGenerator.nextInt(1000000);
-//        String formatedInt;
-//        formatedInt = String.format("%06d", randomInt);
-
         String in = acctExpyDate + "," + acctInactiveDays + "," + disabledFromDate + "," + disabledUptoDate + "," + lastAccessTime + "," + newUserFlg + "," + numPwdAttempts + "," + numPwdHistory + "," + pwExpyDate + "," + pwdHistory + "," + role + "," + userId + "," + userName + "," + EncodeUserPassword(userName, userPw) + "," + lastOper + "," + rcreUserId;
         return AdminDb.dbWork(sql, 16, in) > 0;
 
     }
-    //"User", "DBA", "user1234", 0, "12", 0, "Y", 0, "Eliud", "001"
-//    public static void main(String[] args) {
-//        System.out.println( addUserModDetails(2158, "MARK", "DBA",
-//        "pass1234", 0, "12", 
-//         0, "Y", 0, 
-//                "C", "MARK", "Modify"));
-//    }
 
     public static void verifyUser(int userId) {
         String sql = "delete from USER_CREDS_TBL_MOD where user_id = ?";
@@ -231,31 +221,6 @@ public class User {
     public static ArrayList getUsersList() {
         String sql = "SELECT  USER_NAME ,SOL_ID,ROLE_DESC FROM  FINACLE_USERS";
         return AdminDb.execArrayLists(sql, 0, "", 3);
-    }
-
-    public static ArrayList getFileUsersList() {
-        ArrayList arr = new ArrayList();
-        GlsFile pr = new GlsFile();
-        String uploadFilepath = pr.getDBProperty().getProperty("user.file");
-        String line;
-        try {
-            FileInputStream fs = new FileInputStream(uploadFilepath);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
-            String[] split;
-            while ((line = br.readLine()) != null) {
-                split = line.split("\\|");
-                ArrayList one = new ArrayList();
-                one.add(split[0]);
-                one.add(split[1]);
-                one.add(split[2]);
-                arr.add(one);
-            }
-            fs.close();
-            br.close();
-        } catch (Exception asd) {
-            log.debug(asd.getMessage());
-        }
-        return arr;
     }
 
     public static int modifyUser(int userId) {

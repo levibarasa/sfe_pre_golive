@@ -1,7 +1,7 @@
-package com.orig.gls.web.category;
+package com.sfe.web.category;
 
-import com.orig.gls.dao.bank.Bank;
-import com.orig.gls.dao.categories.Category;
+import com.sfe.dao.bank.Bank;
+import com.sfe.dao.categories.Category;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

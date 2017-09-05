@@ -30,7 +30,7 @@
         </style>
         <script type="text/javascript" src="include/jquery-1.4.2.min.js"></script>
     </head>
-    <body>
+    <body bgcolor="#24315e" >
         <div id="SlideMenu1">
             <div class="menutitle">&nbsp;User Access Menu</div>
             <ul>
@@ -40,8 +40,8 @@
                 <li><a href="do?MOD=BOK&ACT=chC">Change Password</a></li>
                 <li><a href="do?MOD=BOK&ACT=Logout">Logout</a></li>
                     <%} else {%>
-                <li><a href="do?MOD=BOK&ACT=Login">Login</a></li>
-                    <%}%>
+                <!--<li><a href="do?MOD=BOK&ACT=Login">Login</a></li> -->
+                <%}%>
             </ul>
             <div class="menutitle">&nbsp;</div>	
         </div>

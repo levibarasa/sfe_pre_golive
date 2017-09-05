@@ -119,8 +119,8 @@
                     <input type="hidden" name="roleid" value="<%=(String) one.get(2)%>" />
                     <input type="hidden" name="username" value="<%=(String) one.get(0)%>" /> 
                     <input type="hidden" name="userid" value="<%=(String) one.get(1)%>" />
-                     <input type="submit" name="submit" value="<%= label %>" class="style10" />
-                       </td>
+                    <input type="submit" name="submit" value="<%= label %>" class="style10" />
+                </td>
             </tr>
             <% }%>
         </table>

@@ -1,6 +1,6 @@
-package com.orig.gls.dao.report;
+package com.sfe.dao.report;
 
-import com.orig.gls.prop.GlsProp;
+import com.sfe.prop.SFEProp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,10 +8,10 @@ import java.sql.SQLException;
 public class DBConnection {
 
     Connection conn;
-    GlsProp pr;
+    SFEProp pr;
 
     public DBConnection() {
-        pr = new GlsProp();
+        pr = new SFEProp();
     }
 
     public Connection getDbConnection() {
@@ -21,12 +21,7 @@ public class DBConnection {
             String userName = pr.getDBProperty().getProperty("database.user");
             String pass = pr.getDBProperty().getProperty("database.pass");
             conn = DriverManager.getConnection(url, userName, pass);
-
-//            Class.forName(pr.getDBProperty().getProperty("database.driver"));
-//            conn = DriverManager.getConnection(pr.getDBProperty().getProperty("database.url") + ":@" + pr.getDBProperty().getProperty("database.host")
-//                    + ":" + pr.getDBProperty().getProperty("database.port") + ":" + pr.getDBProperty().getProperty("database.sid"),
-//                    pr.getDBProperty().getProperty("database.user"), pr.getDBProperty().getProperty("database.pass"));
-        } catch (ClassNotFoundException asd) {
+       } catch (ClassNotFoundException asd) {
             System.err.println(asd.getMessage());
         } catch (SQLException asd) {
             System.err.println(asd.getMessage());

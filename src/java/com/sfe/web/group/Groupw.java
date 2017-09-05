@@ -1,9 +1,9 @@
-package com.orig.gls.web.group;
+package com.sfe.web.group;
 
-import com.orig.gls.dao.bank.Bank;
-import com.orig.gls.dao.group.Group;
-import com.orig.gls.dao.subgroup.SubGroup;
-import static com.orig.gls.dao.subgroup.SubGroup.getSubGroupModDetails;
+import com.sfe.dao.bank.Bank;
+import com.sfe.dao.group.Group;
+import com.sfe.dao.subgroup.SubGroup;
+import static com.sfe.dao.subgroup.SubGroup.getSubGroupModDetails;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -195,7 +195,7 @@ public class Groupw {
                 case "MODIFY":
                     groupId = Group.getGroupId(groupCode, groupName);
                     lastOper = "M";
-                    
+
                     //formationDate,firstMeetDate, nxtMeetDate
                     if (Group.addGroupModDetails(groupId, bankId, countryCode, delFlg, groupAddress, groupLoans, groupName, groupPhone, grpMgrId, grpRegNo, lchgDate, lchgUserId, maxAllowedMembers, maxAllowedSubGrps, noOfMembers, noOfSubGrps, outstandingBal, savingsAmt, rcreTime, rcreUserId, gpRegion, groupCode, formationDate, groupCenter, groupVillage, firstMeetDate, nxtMeetDate, meetTime, meetPlace, gpChair, gpTreasurer, gpSecretary, gpStatus, gpStatusCode, loanAccounts, savingAccounts, solId, branchName, meetFrequency, lastOper, gpChairId, gpTreasurerId, gpSecretaryId)) {
                         session.setAttribute("gmodified", true);
@@ -253,8 +253,8 @@ public class Groupw {
             String lchgUserId = (String) session.getAttribute("uname");
             int maxAllowedMembers = Integer.parseInt(request.getParameter("maxmembers"));
             int noOfMembers = 0;
-              noOfMembers = Integer.parseInt(request.getParameter("totalmembers"));
-            
+            noOfMembers = Integer.parseInt(request.getParameter("totalmembers"));
+
             double outstandingBal = Double.parseDouble(request.getParameter("totalloanbal"));
             double savingsAmt = Double.parseDouble(request.getParameter("totalsavingsbal"));
             Date rcreTime = new Date();
@@ -268,12 +268,12 @@ public class Groupw {
             String groupVillage = request.getParameter("groupvillage");
             String firstMeetDate = "";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-              try {
+            try {
                 formationDate = request.getParameter("formationd");
                 firstMeetDate = request.getParameter("firstmeetingd");
 
                 formationDate = parseDates(new Date());
-                  nxtMeetDate = in.parse(request.getParameter("nextmeetingdate"));
+                nxtMeetDate = in.parse(request.getParameter("nextmeetingdate"));
 
                 if (nxtMeetDate == null) {
                     nxtMeetDate = sdf.parse(in.format(new Date()));
@@ -314,12 +314,12 @@ public class Groupw {
             String groupCode = request.getParameter("groupcode");
             String groupName = request.getParameter("groupName");
             String subgroup_Id = "0";
-                   subgroup_Id =  request.getParameter("subgroupId"); 
-                   System.out.println("Meet Time is: "+meetTime);
+            subgroup_Id = request.getParameter("subgroupId");
+            System.out.println("Meet Time is: " + meetTime);
             int groupId = 0;
-             int subgroupId =0;
+            int subgroupId = 0;
             groupId = Integer.parseInt(group_Id);
-            
+
             String function = (String) session.getAttribute("gfunction");
             String subgroupCode;
             Random random = new Random();
@@ -360,8 +360,8 @@ public class Groupw {
                     }
                     break;
                 case "VERIFY":
-                     subgroupId = Integer.parseInt(subgroup_Id);
-                   // int subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
+                    subgroupId = Integer.parseInt(subgroup_Id);
+                    // int subgroupId = SubGroup.getsubGroupId(subgroupCode, subgroupName);
                     System.out.println("Last operation type " + lastOper);
                     System.out.println("group Id of subgroup being verified " + groupId);
                     switch (lastOper) {

@@ -77,8 +77,8 @@
     <table width="80%" border="0" align="left">
         <tr>
             <th colspan="5" align="left" scope="col"><div class="header">
-            <div align="left">Categories Maintenance</div>
-        </div></th>
+                    <div align="left">Categories Maintenance</div>
+                </div></th>
         </tr>
         <tr>
             <td width="20%">&nbsp;</td>

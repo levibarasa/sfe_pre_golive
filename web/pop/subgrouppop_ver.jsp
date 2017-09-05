@@ -16,8 +16,8 @@
         <script type="text/javascript">
             function getGroupValue(ths, grpname, solid, brname, grmgr, regno, fordat,
                     regi, center, vill, addr, pho, firmdate, nxtmdate, mtime, mtplace,
-                    alwdm,grpchairid, grpchair,grptreid, grptre,grpsecid, grpsec, gpstat, gpstatcd, nomem, mefreq,
-                    saac, saacbal, lac, lacbal, grpcode, groupname, acctno, acctName,grpid,sbgrpid,meet_time) {
+                    alwdm, grpchairid, grpchair, grptreid, grptre, grpsecid, grpsec, gpstat, gpstatcd, nomem, mefreq,
+                    saac, saacbal, lac, lacbal, grpcode, groupname, acctno, acctName, grpid, sbgrpid, meet_time) {
                 if (window.opener !== null && !window.opener.closed) {
                     var func = window.opener.document.getElementById("subgroupcode");
                     var grpn = window.opener.document.getElementById("subgroupname");
@@ -36,7 +36,7 @@
                     var metime = window.opener.document.getElementById("meetingtime");
                     var meplace = window.opener.document.getElementById("meetingplace");
                     var alowedm = window.opener.document.getElementById("maxmembers");
-                     var grpchid = window.opener.document.getElementById("chairperson");
+                    var grpchid = window.opener.document.getElementById("chairperson");
                     var grptrid = window.opener.document.getElementById("treasurer");
                     var grpsecrid = window.opener.document.getElementById("secretary");
                     var grpch = window.opener.document.getElementById("chairpersonname");
@@ -51,12 +51,12 @@
                     var loacs = window.opener.document.getElementById("totalloanacs");
                     var loacsbal = window.opener.document.getElementById("totalloanbal");
                     var mgrpcode = window.opener.document.getElementById("groupcode");
-                    var mgrpname = window.opener.document.getElementById("groupname");                    
+                    var mgrpname = window.opener.document.getElementById("groupname");
                     var actNo = window.opener.document.getElementById("subgroupAcnt");
                     var actName = window.opener.document.getElementById("subgroupacntname");
                     var grpId = window.opener.document.getElementById("groupId");
                     var sbGrpId = window.opener.document.getElementById("subgroupId");
-                     var meetingtime = window.opener.document.getElementById("meetingtime");
+                    var meetingtime = window.opener.document.getElementById("meetingtime");
                     func.value = ths.innerHTML; //for innerhtml
                     grpn.value = grpname;
                     actNo.value = acctno;
@@ -76,7 +76,7 @@
                     metime.value = mtime;
                     meplace.value = mtplace;
                     alowedm.value = alwdm;
-                     grpchid.value = grpchairid;
+                    grpchid.value = grpchairid;
                     grptrid.value = grptreid;
                     grpsecrid.value = grpsecid;
                     grpch.value = grpchair;
@@ -94,7 +94,7 @@
                     mgrpname.value = groupname;
                     grpId.value = grpid;
                     sbGrpId.value = sbgrpid;
-                     meetingtime.value = meet_time;
+                    meetingtime.value = meet_time;
                     window.close();
                 }
             }
@@ -124,12 +124,12 @@
                                 '<%=(String) one.get(6)%>', '<%=(String) one.get(7)%>', '<%=(String) one.get(8)%>', '<%=(String) one.get(9)%>',
                                 '<%=(String) one.get(10)%>', '<%=(String) one.get(11)%>', '<%=(String) one.get(12)%>', '<%=(String) one.get(13)%>',
                                 '<%=(String) one.get(14)%>', '<%=(String) one.get(15)%>', '<%=(String) one.get(16)%>', '<%=(String) one.get(17)%>',
-                                '<%=(String) one.get(18)%>','<%=(String) one.get(19)%>', '<%=(String) one.get(34)%>','<%=(String) one.get(20)%>',
-                                '<%=(String) one.get(35)%>', '<%=(String) one.get(21)%>','<%=(String) one.get(36)%>',
+                                '<%=(String) one.get(18)%>', '<%=(String) one.get(19)%>', '<%=(String) one.get(34)%>', '<%=(String) one.get(20)%>',
+                                '<%=(String) one.get(35)%>', '<%=(String) one.get(21)%>', '<%=(String) one.get(36)%>',
                                 '<%=(String) one.get(22)%>', '<%=(String) one.get(23)%>', '<%=(String) one.get(24)%>', '<%=(String) one.get(25)%>',
                                 '<%=(String) one.get(26)%>', '<%=(String) one.get(27)%>', '<%=(String) one.get(28)%>', '<%=(String) one.get(29)%>',
-                                '<%=(String) one.get(30)%>','<%=grCode%>','<%=grouName%>','<%=(String) one.get(33)%>',
-                                '<%=(String) one.get(37)%>','<%=(String) one.get(38)%>','<%=(String) one.get(1)%>', '<%=(String) one.get(39)%>')" id="cname"><%=(String) one.get(0)%></a></div></td>
+                                '<%=(String) one.get(30)%>', '<%=grCode%>', '<%=grouName%>', '<%=(String) one.get(33)%>',
+                                '<%=(String) one.get(37)%>', '<%=(String) one.get(38)%>', '<%=(String) one.get(1)%>', '<%=(String) one.get(39)%>')" id="cname"><%=(String) one.get(0)%></a></div></td>
                 <td><div align="center"><%=(String) one.get(1)%></div></td>
                 <td><div align="center"><%=(String) one.get(2)%></div></td>
                 <td><div align="center"><%=(String) one.get(3)%></div></td>

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.orig.gls.dao.reports;
+package com.sfe.dao.reports;
 
 /**
  *
  * @author Levi
  */
 public class NewMember {
-   String ACCT_MGR_USER_ID,GROUP_ID,GROUP_PRODUCT,NEW_MEMBERS,START_DATE,END_DATE;
+
+    String ACCT_MGR_USER_ID, GROUP_ID, GROUP_PRODUCT, NEW_MEMBERS, START_DATE, END_DATE;
 
     public NewMember(String ACCT_MGR_USER_ID, String GROUP_ID, String GROUP_PRODUCT, String NEW_MEMBERS, String START_DATE, String END_DATE) {
         this.ACCT_MGR_USER_ID = ACCT_MGR_USER_ID;
@@ -69,6 +70,4 @@ public class NewMember {
         this.END_DATE = END_DATE;
     }
 
-     
-   
 }

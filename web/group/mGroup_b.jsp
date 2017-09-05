@@ -342,8 +342,8 @@
                         <td><input type="text" <%=isreadonlym%> name="maxsgroups" onkeyup="this.value = this.value.toUpperCase();" id="maxsgroups" value="10"/></td>            
                     </tr>
                     <%
-                         String chairpersonid ="000037039";
-                         
+                        String chairpersonid = "000037039";
+
                     %>
                     <tr>
                         <td>Group Chairperson</td>
@@ -354,11 +354,11 @@
                         <td><a href=""  <%=ishiddenv%> onclick="return getAccountChairmanValue()"><img src="images/search.png"></a></td>
                         <td colspan="3"><input type="text" <%=isreadonlym%> name="chairpersonname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="chairpersonname" size="50"/></td>            
                         <td></td>
-                     </tr>
+                    </tr>
                     <%
-                          String treasurerid ="000037045";
-                          
-                         
+                        String treasurerid = "000037045";
+
+
                     %>
                     <tr>
                         <td>Group Treasurer</td>
@@ -370,9 +370,9 @@
                         <td colspan="3"><input type="text" <%=isreadonlym%> name="treasurername" onkeyup="this.value = this.value.toUpperCase();" placeholder="Customer Name" id="treasurername"  size="50"/></td>            
                         <td></td>
                     </tr>
-                     <%
-                         String secretaryid ="000037023";
-                        
+                    <%
+                        String secretaryid = "000037023";
+
                     %>
                     <tr>
                         <td>Group Secretary</td>

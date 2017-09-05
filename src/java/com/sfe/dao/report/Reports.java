@@ -1,6 +1,6 @@
-package com.orig.gls.dao.report;
+package com.sfe.dao.report;
 
-import com.orig.gls.dao.reports.BeanFactory;
+import com.sfe.dao.reports.BeanFactory;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,24 +21,24 @@ public class Reports extends HttpServlet {
 
     public static void handleGoReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession(false); 
+        HttpSession session = request.getSession(false);
         session.setAttribute("dtErr", false);
         if ((String) session.getAttribute("uname") != null) {
             String function = request.getParameter("rFunction");
-             String rtpfmt = request.getParameter("rtpfmt");
-            function =function.trim();
-            
+            String rtpfmt = request.getParameter("rtpfmt");
+            function = function.trim();
+
             switch (function) {
                 case "GROUP-LOAN-STATUS":
-                     session.setAttribute("content_page", "rpt/mHomegrp.jsp");
-                     session.setAttribute("rFunction", function);
-                      session.setAttribute("rtpfmt", rtpfmt);
+                    session.setAttribute("content_page", "rpt/mHomegrp.jsp");
+                    session.setAttribute("rFunction", function);
+                    session.setAttribute("rtpfmt", rtpfmt);
                     break;
-                
+
                 default:
                     session.setAttribute("content_page", "rpt/rptHome.jsp");
                     session.setAttribute("rFunction", function);
-                      session.setAttribute("rtpfmt", rtpfmt);
+                    session.setAttribute("rtpfmt", rtpfmt);
                     break;
             }
         } else {
@@ -46,7 +46,7 @@ public class Reports extends HttpServlet {
         }
         response.sendRedirect("index.jsp");
     }
-    
+
     public static void goReport(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -54,14 +54,14 @@ public class Reports extends HttpServlet {
         session.setAttribute("dtErr", false);
         if ((String) session.getAttribute("uname") != null) {
             String rtype = request.getParameter("rFunction");
-            rtype =rtype.trim();
-            
-            if(rtype.equalsIgnoreCase("GROUP-LOAN-STATUS")){
-              session.setAttribute("content_page", "rpt/mHomegrp.jsp");
-            }else{
-            session.setAttribute("content_page", "rpt/rptHome.jsp");
+            rtype = rtype.trim();
+
+            if (rtype.equalsIgnoreCase("GROUP-LOAN-STATUS")) {
+                session.setAttribute("content_page", "rpt/mHomegrp.jsp");
+            } else {
+                session.setAttribute("content_page", "rpt/rptHome.jsp");
             }
-            
+
             String rtpfmt = request.getParameter("rtpfmt");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
@@ -82,15 +82,14 @@ public class Reports extends HttpServlet {
             System.out.println("From Date:" + fDate);
             System.out.println("To Date:" + tDate);
             String subgroup = request.getParameter("subgroup");
-              String groupcode = request.getParameter("groupcode");
-              
+            String groupcode = request.getParameter("groupcode");
+
             String path = (String) context.getAttribute("reportdir");
             String rname = rtype;
             if (IsDateValid(fDate) || IsDateValid(tDate)) {
                 session.setAttribute("dtErr", true);
                 session.setAttribute("content_page", "rpt/mHome.jsp");
-            } 
-             else {
+            } else {
                 Map p = new HashMap();
                 String jrxmlurl = "";
                 Collection col = new ArrayList();
@@ -104,7 +103,7 @@ public class Reports extends HttpServlet {
 
                     case "DISBURSEMENT":
                         col = BeanFactory.getDisbursementReport(subgroup, fDate, tDate);
-                        jrxmlurl = "com/orig/gls/dao/reports/loanDisburse.jrxml";
+                        jrxmlurl = "com/orig/gls/dao/reports/disbursedloanregister.jrxml";
                         break;
 
                     case "DEMANDS":
@@ -187,24 +186,24 @@ public class Reports extends HttpServlet {
                 }
                 rtpfmt = rtpfmt.trim();
                 GenRpt rf = new GenRpt();
-                String format ="";
+                String format = "";
                 switch (rtpfmt) {
                     case "PDF":
-                        format=".pdf";
+                        format = ".pdf";
                         String pt = path + System.getProperty("file.separator") + rname + format;
                         session.setAttribute("rpath", pt);
                         break;
                     default:
-                        format=".xlsx";
+                        format = ".xlsx";
                         pt = path + System.getProperty("file.separator") + rname + ".xlsx";
                         session.setAttribute("rpath", pt);
                         break;
-                 }
-                 String rformat = rtpfmt;
-                  session.setAttribute("rformat", rtpfmt);
-                rf.formatPurchaseOrder(jrxmlurl, path, rname, p, col,format);
-                        session.setAttribute("rname", rname);
-                        session.setAttribute("content_page", "rpt/mReport.jsp");
+                }
+                String rformat = rtpfmt;
+                session.setAttribute("rformat", rtpfmt);
+                rf.formatPurchaseOrder(jrxmlurl, path, rname, p, col, format);
+                session.setAttribute("rname", rname);
+                session.setAttribute("content_page", "rpt/mReport.jsp");
             }
         } else {
             session.setAttribute("content_page", "sessionexp.jsp");
