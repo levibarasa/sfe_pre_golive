@@ -81,14 +81,7 @@ r<html>
             document.MM_returnValue = (errors === '');
         }
     </script>
-    <script type="text/javascript">
-        if (${userloggedin == 'true'}) {
-            alert("Welcome.You have successfully logged in.");
-        }
-        if (${adminloggedin == 'true'}) {
-            alert("You have successfully as Admin");
-        }
-    </script>
+     
     <style type="text/css">
         <!--
         html,body{

@@ -1,8 +1,11 @@
 package com.sfe.web.customer;
 
-import com.sfe.dao.customer.Customer; 
+import com.sfe.dao.customer.Customer;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,106 +16,175 @@ import org.apache.commons.logging.LogFactory;
 public class Customerw {
 
     private static final Log log = LogFactory.getLog("origlogger");
+      private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     static int getAccDetails = 0;
 
-    public static void handleGoCustomer(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+      
+    public static void handleAddExistCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if ((String) session.getAttribute("uname") != null) {
-            String function = request.getParameter("function");
-            session.setAttribute("cfunction", function);
-            session.setAttribute("modsuc", false);
-            session.setAttribute("delsuc", false);
-            session.setAttribute("fatal", false);
-            switch (function) {
-                case "ADD":
-                    session.setAttribute("mapsuc", false);
-                    session.setAttribute("mapErr", false);
-                    session.setAttribute("subErr", false);
-                    session.setAttribute("content_page", "customer/mUnMappedActs.jsp");
-                    break;
-                case "VERIFY":
-                    session.setAttribute("content_page", "customer/mCustMod.jsp");
-                    break;
-                case "VERIFY MEMBER EXIT":
-                    session.setAttribute("content_page", "customer/mCustModExit.jsp");
-                    break;
-                default:
-                    session.setAttribute("content_page", "customer/mOtherActions.jsp");
-                    break;
-            }
+        
+         String custId = request.getParameter("custId"); 
+             if ((String) session.getAttribute("uname") != null) {
+            String rmCode = request.getParameter("rmCode");
+            
+                Customer.createNewCustomer(custId, rmCode);  
+           
+            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("uname", rmCode);
+            // session.setAttribute("rmCode", rmCode);
+            response.sendRedirect("weeklycalllist.jsp");
+            
         } else {
-            session.setAttribute("content_page", "sessionexp.jsp");
+            session.setAttribute("content_page", "populatelist.jsp");
         }
-        response.sendRedirect("index.jsp");
+        //  session.setAttribute("content_page", "populatelist.jsp");
+        //response.sendRedirect("weeklycalllist.jsp");
+    }
+     public static void handleDoSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        
+         String custId = request.getParameter("custId"); 
+             if ((String) session.getAttribute("uname") != null) {
+            String rmCode = request.getParameter("rmCode");
+            
+                Customer.createNewCustomer(custId, rmCode);  
+           
+            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("uname", rmCode);
+            // session.setAttribute("rmCode", rmCode);
+            response.sendRedirect("weeklycalllist.jsp");
+            
+        } else {
+            session.setAttribute("content_page", "populatelist.jsp");
+        }
+        //  session.setAttribute("content_page", "populatelist.jsp");
+        //response.sendRedirect("weeklycalllist.jsp");
     }
 
     public static void handleGenerateList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if ((String) session.getAttribute("uname") != null) {
-            String rmCode = (String) session.getAttribute("uname");
-            if (rmCode.equalsIgnoreCase(null) || rmCode == "") {
-                rmCode = "242";
-            }
-            ArrayList list = Customer.fetchDailyList(rmCode);
-            Customer.createDailyList(list, rmCode);  
+         
+            if ((String) session.getAttribute("uname") != null) {
+                
+           // String rmCode = request.getParameter("rmCode");
+           String rmCode =(String) session.getAttribute("uname");
+        System.out.println("RmCode :"+rmCode);
+            
+            ArrayList list = Customer.fetchDailyList(rmCode); 
+            Customer.createDailyList(list, rmCode);
             Customer.populateDailyList(rmCode);
-
+            session.setAttribute("content_page", "populatelist.jsp");
+             session.setAttribute("uname", rmCode);
+              session.setAttribute("rmCode", rmCode);
+            response.sendRedirect("weeklycalllist.jsp");
         } else {
-            session.setAttribute("content_page", "sessionexp.jsp");
+            session.setAttribute("content_page", "populatelist.jsp");
         }
-        response.sendRedirect("addnewcustomer.jsp");
+        //  session.setAttribute("content_page", "populatelist.jsp");
+        //response.sendRedirect("weeklycalllist.jsp");
     }
 
     public static void handleAddNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if ((String) session.getAttribute("uname") != null) {
-
-            String RmCode = (String) session.getAttribute("uname");
-            if (RmCode.equalsIgnoreCase(null) || RmCode == "") {
-                RmCode = "242";
-            }
-            String phone = request.getParameter("phoneNo");
+            
+            String RmCode = request.getParameter("rmCode");
+            System.out.println("RmCode "+RmCode);
+            String phone = request.getParameter("phoneNo"); 
             String email = request.getParameter("emailId");
             String custName = request.getParameter("cust_name");
             int n = Customer.addNewCustomer(custName, email, phone, RmCode);
+            int custIdTemp = Customer.getNewTempCustId(); 
+            String Customer_ID = String.valueOf(custIdTemp);
             if (n > 0) {
                 session.setAttribute("custadd", true);
+                 session.setAttribute("rmCode", RmCode);
                 response.sendRedirect("addnewcustomer.jsp");
-            }
+                session.setAttribute("content_page", "addnewcustomer.jsp");
+                Customer.createNewCustomer(Customer_ID, RmCode);
+               }
+            
 
         } else {
-            session.setAttribute("content_page", "sessionexp.jsp");
+            session.setAttribute("content_page", "addnewcustomer.jsp");
         }
-        response.sendRedirect("addnewcustomer.jsp");
+        //response.sendRedirect("addnewcustomer.jsp");
     }
 
+        public static void handleUpdatePrevCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        session.setAttribute("custracker", false);
+        String rmCode =  request.getParameter("rmCode");
+        rmCode = request.getParameter("rmCode");
+            String custId ="";
+            String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
+                custId =  request.getParameter("custId");  
+               clientcontacted = request.getParameter("clientcontacted");
+                salescommitment = request.getParameter("salescommitment") ;
+                docsubmitted = request.getParameter("docsubmitted") ;
+                closed = request.getParameter("closed") ;
+                comments = request.getParameter("comments") ;
+                scheduledcalldate = request.getParameter("scheduledcalldate");
+                
+                ArrayList list = Customer.populateDailyList(rmCode);
+                int counter = Customer.getItemCounter(list,custId);
+                 System.out.println("At Counter: "+counter);
+                 System.out.println("CustId : "+custId);
+                 
+              System.out.println("scheduledcalldate : "+scheduledcalldate);
+                 session.setAttribute("uname", rmCode);
+                 System.out.println(" From UI"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
+                  Customer.updatePrevTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate);
+                  session.setAttribute("rmCode", rmCode); 
+                  session.setAttribute("fromdate", scheduledcalldate);
+                  session.setAttribute("todate", scheduledcalldate);
+                  System.out.println((String) session.getAttribute("uname"));
+                  if ((String) session.getAttribute("uname") != null) { 
+            
+               response.sendRedirect("updatetrackerclose.jsp");
+                
+            session.setAttribute("content_page", "updatetrackerclose.jsp");
+
+        }
+        session.setAttribute("content_page", "updatetrackerclose.jsp");
+        // response.sendRedirect("populatelist.jsp");
+    }
+        
     public static void handleUpdateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        session.setAttribute("custracker", false);
         if ((String) session.getAttribute("uname") != null) {
-            String custId = (String) session.getAttribute("customid");
-            System.out.println("Customer Id : " + custId);
-            String clientcontacted = request.getParameter("clientcontacted");
-            String salescommitment = request.getParameter("salescommitment");
-            String docsubmitted = request.getParameter("docsubmitted");
-            String closed = request.getParameter("closed");
-            String comments = request.getParameter("comments");
-            String scheduledcalldate = request.getParameter("scheduledcalldate");
-            session.setAttribute("custracker", true);
             boolean updated = false;
-            String rmCode = (String) session.getAttribute("uname");
-            rmCode = "242";
-            String sizes = (String) session.getAttribute("wklist");
-            int size = Integer.parseInt(sizes);
-            System.out.println("Weekly List Size: " + size);
-            ArrayList list = (ArrayList) session.getAttribute("updatelist");
-            System.out.println(list);
-            Customer.updateTracker(list);
-            response.sendRedirect("weeklycalllist.jsp");
-            session.setAttribute("content_page", "weeklycalllist.jsp");
+            String rmCode = request.getParameter("rmCode");
+            String custId ="";
+            String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
+              String today = sdf.format(new Date()); 
+              custId =  request.getParameter("custId"); //
+              System.out.println("custId :"+custId);
+               clientcontacted = request.getParameter("clientcontacted");
+                salescommitment = request.getParameter("salescommitment") ;
+                docsubmitted = request.getParameter("docsubmitted") ;
+                closed = request.getParameter("closed") ;
+                comments = request.getParameter("comments") ;
+                scheduledcalldate = request.getParameter("scheduledcalldate");
+                System.out.println("clientcontacted :"+clientcontacted);
+               if(scheduledcalldate =="" || scheduledcalldate.equalsIgnoreCase("")){
+                scheduledcalldate = today;
+                } 
+                ArrayList list = Customer.populateDailyList(rmCode);
+                int counter = Customer.getItemCounter(list,custId);
+                 System.out.println("At Counter: "+counter);
+                 System.out.println("CustId : "+custId);
+                  System.out.println(" From UI"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
+                  Customer.updateTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate);
+           session.setAttribute("rmCode", rmCode);
+                  response.sendRedirect("updatetrackerclose.jsp");
+            session.setAttribute("custracker", true);
+            session.setAttribute("content_page", "updatetrackerclose.jsp");
+
         }
-        session.setAttribute("content_page", "weeklycalllist.jsp");
-        response.sendRedirect("weeklycalllist.jsp");
+       // session.setAttribute("content_page", "populatelist.jsp");
+        // response.sendRedirect("populatelist.jsp");
     }
 
     public static void handleMaintainCustomer(HttpServletRequest request, HttpServletResponse response)

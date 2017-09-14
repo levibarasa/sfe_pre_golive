@@ -1,20 +1,19 @@
 <%@page import="com.sfe.dao.customer.Customer"%>
 <html>
     <head>
-        <title>Logged In Administrator</title>
+        <title>Complete List</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
 
         <link rel="stylesheet" type="text/css" href="include/menu.css">
-<%
-   
-    
-String rmCode = "242";
-ArrayList ar = Customer.getCustomers(rmCode);
-int size = ar.size();
-    
-%>
+        <%
+
+            String rmCode = request.getParameter("rmCode");
+            System.out.println("Rm Code: " + rmCode);
+            ArrayList ar = Customer.getCompleteList(rmCode);
+            int size = ar.size();
+        %>
     </style>
     <script type="text/javascript" src="include/jquery-1.4.2.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -113,14 +112,7 @@ int size = ar.size();
         }
 
     </script>
-    <script type="text/javascript">
-        if (${custracker == 'true'}) {
-            alert("You have updated the weekly list successfully");
-        }
-        if (${custrack == 'true'}) {
-            alert("Sorry.There was a problem updating weekly list");
-        }
-    </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#example').DataTable({
@@ -276,9 +268,9 @@ int size = ar.size();
 <body>
     <%@ include file="include/header_one.jsp" %>
     <Strong style="font-size:16px; align-self center;"><u>
-            Customers to be contacted for Current week
+           Complete List
         </u></Strong>
-     <table width="100%">  
+    <table width="100%">  
         <tr width="100%">
             <td width="20%"><br/>
                 <p> <input type="button" name="home" onClick="window.location = 'index.jsp'" value="Home" width="100%" id="home"   style="color:#ffffff;background-color:#24315e"></p>
@@ -287,198 +279,979 @@ int size = ar.size();
                 <p> <input type="button" name="reports" value="Reports" width="100%" id="reports"   style="opacity: 0.6; cursor: not-allowed;color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="updaterevenue" value="Update Revenue/Income" width="100%" id="updaterevenue"   style="opacity: 0.6; cursor: not-allowed;color:#ffffff;background-color:#24315e"></p>
             </td>
-             
-            <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=doacustomer">
-                  <td width="60%">
+
+        <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=doacustomer">
+            <td width="60%">
                 <div class="zui-wrapper">
                     <div class="zui-scroller">
                         <table class="zui-table">
                             <thead>
-                            <th >Customer ID </th>
-                            <th >Name</th>
+                            <th>Customer ID </th> 
+                            <th>Name</th>
                             <th>Phone Number</th>
+                            <th>Age</th>
+                            <th>Marital Status</th>
+                            <th>City</th>
                             <th>Customer Type</th>
-                            <th>Email ID</th>
+                            <th>Permanent Address</th>
                             <th>Occupation</th>
-                            <th>Current Product Holdings</th>
-                            <th>Client Contacted</th>
-                            <th>Sales Commitment</th>
-                            <th>Docs Submitted</th>
-                            <th>Closed</th>
-                            <th>Comments</th>
-                            <th>Scheduled Call Date</th>
+                            <th>Years with Bank</th>
+                            <th>Email ID</th>
+                            <th>Total Products</th>
+                            <th>Agency Banking</th>
+                            <th>Business Transaction</th>
+                            <th>Call Deposit</th>
+                            <th>Collection Scheme</th>
+                            <th>Fcy Transaction</th>
+                            <th>Flexi Deposit</th>
+                            <th>Housing Loan</th>
+                            <th>Hp Loan</th> <th>IMS</th> <th>Insurance Premium</th> <th>Locker Security</th>
+                            <th>NGO</th> <th>Online Savers</th> <th>Overdraft</th> <th>Personal Transaction</th>
+                            <th>Term Deposit</th> <th>Term Loan</th> <th>Trade Finance</th> <th>Young Savers</th>
+                            <th>Bank Assurance</th> <th>Credit Cards</th> <th>Prepaid Cards</th> <th>Internet Banking</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <%        
-                                    size =10;
-                                    session.setAttribute("wklist", size); 
-                                    for (int i = 0; i < size; i++) {
-                                        ArrayList one = (ArrayList) ar.get(i);
-                                        String custID, name, phone, custType, occupation, emailId;
-                                        custID = (String) one.get(0);
-                                        name = (String) one.get(1);
-                                        phone = (String) one.get(2);
-                                        custType = (String) one.get(3);
-                                        occupation = (String) one.get(4);
-                                        emailId = (String) one.get(5);
 
-                              ArrayList two =  Customer.getCustomerTracker(custID);
-                              
-                         for (int j = 0; j < two.size(); j++) {
-                                        ArrayList three = (ArrayList) two.get(j);
-                            String clientContacted , salesCommitment , docsSubmitted , closed , comments , currentWeek;
-                                        clientContacted = (String) three.get(0);
-                                        salesCommitment = (String) three.get(1);
-                                        docsSubmitted = (String) three.get(2);
-                                        closed = (String) three.get(3);
-                                        comments = (String) three.get(4);
-                                        currentWeek = (String) three.get(5);
+                                <%                                    for (int i = 0; i < size; i++) {
+                                        ArrayList one = (ArrayList) ar.get(i);
+                                        int totalProducts = 0;
+                                        String Customer_ID, Name, Permanent_phonenumber, Age, Marital_Status, City, Customer_Type, Permanent_Address, Occupation, Years_with_Bank, email_ID,
+                                                Agency_Banking,
+                                                Business_Transaction, Call_Deposit, Collection_Scheme, Fcy_Transaction, Flexi_Deposit, Housing_Loan, Hp_Loan,
+                                                Ims, Insurance_Premium, Locker_Security, Ngo, Online_Savers, Overdraft, Personal_Transaction, Term_Deposit,
+                                                Term_Loan, Trade_Finance, Young_Savers, Bank_Assurance, Credit_Cards, Prepaid_Cards, Internet_Banking;
+                                        Customer_ID = (String) one.get(0);
+                                        Name = (String) one.get(1);
+                                        Permanent_phonenumber = (String) one.get(2);
+                                        Age = (String) one.get(3);
+                                        Marital_Status = (String) one.get(4);
+                                        City = (String) one.get(5);
+                                        Customer_Type = (String) one.get(6);
+                                        Permanent_Address = (String) one.get(7);
+                                        Occupation = (String) one.get(8);
+                                        Years_with_Bank = (String) one.get(9);
+                                        email_ID = (String) one.get(10);
+                                        email_ID = (String) one.get(10);
+                                        totalProducts = Customer.getCurrentProducts(Customer_ID).size();
+
+                                        Agency_Banking = (String) one.get(11);
+                                        Business_Transaction = (String) one.get(12);
+                                        Call_Deposit = (String) one.get(13);
+                                        Collection_Scheme = (String) one.get(14);
+                                        Fcy_Transaction = (String) one.get(15);
+                                        Flexi_Deposit = (String) one.get(16);
+                                        Housing_Loan = (String) one.get(17);
+                                        Hp_Loan = (String) one.get(18);
+                                        Ims = (String) one.get(19);
+                                        Insurance_Premium = (String) one.get(20);
+                                        Locker_Security = (String) one.get(21);
+                                        Ngo = (String) one.get(22);
+                                        Online_Savers = (String) one.get(23);
+                                        Overdraft = (String) one.get(24);
+                                        Personal_Transaction = (String) one.get(25);
+                                        Term_Deposit = (String) one.get(26);
+                                        Term_Loan = (String) one.get(27);
+                                        Trade_Finance = (String) one.get(28);
+                                        Young_Savers = (String) one.get(29);
+                                        Bank_Assurance = (String) one.get(30);
+                                        Credit_Cards = (String) one.get(31);
+                                        Prepaid_Cards = (String) one.get(32);
+                                        Internet_Banking = (String) one.get(33);
+
 
                                 %>   
                                 <tr style="font-size: 9px">
                                     <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                                        <a href=""  onclick="return getCustInfoValue()" style="font-size:9px;color: #666666; text-decoration: none;" >
-                                            <%=custID%>
-                                        </a>
-
-                                        <%
-                                            session.setAttribute("customid", custID);
-                                        %>
+                                        <%=Customer_ID%>
                                     </td>
                                     <td   style="font-size: 9px">
-                                        <a href="" onclick="return getCustInfoValue()" style="font-size:9px;color: #666666; text-decoration: none;word-wrap: break-word;">  
-                                          <span style="display:block;width:200px;word-wrap:break-word;">
-                                           <%=name%>
-                                          </span> 
-                                           
-                                        </a>
+                                        <span style="display:block;width:200px;word-wrap:break-word;">
+                                            <%=Name%>
+                                        </span> 
+
                                     </td>
-                                    <td   width="80px" style="font-size:9px;color: #666666;"><%=phone%></td>
-                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=custType%></td>
-                                    <td   width="80px" style="font-size:9px;color: #666666;"><%=emailId%></td>
-                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=occupation%></td>
+                                    <td   width="80px" style="font-size:9px;color: #666666;"><%=Permanent_phonenumber%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=Age%></td>
+                                    <td   width="80px" style="font-size:9px;color: #666666;"><%=Marital_Status%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=City%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=Customer_Type%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=Permanent_Address%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=Occupation%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=Years_with_Bank%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=email_ID%></td>
+                                    <td    width="80px" style="font-size:9px;color: #666666;"><%=totalProducts%></td>                                     
                                     <%
-                                        int rating = Customer.getProductHolding(custID);
+                                        int agency_Banking = Integer.parseInt(Agency_Banking);
+                                        int business_Transaction = Integer.parseInt(Business_Transaction);
+                                        int call_Deposit = Integer.parseInt(Call_Deposit);
+                                        int collection_Scheme = Integer.parseInt(Collection_Scheme);
+                                        int fcy_Transaction = Integer.parseInt(Fcy_Transaction);
+                                        int flexi_Deposit = Integer.parseInt(Flexi_Deposit);
+                                        int housing_Loan = Integer.parseInt(Housing_Loan);
+                                        int hp_Loan = Integer.parseInt(Hp_Loan);
+                                        int ims = Integer.parseInt(Ims);
+                                        int insurance_Premium = Integer.parseInt(Insurance_Premium);
+                                        int locker_Security = Integer.parseInt(Locker_Security);
+                                        int ngo = Integer.parseInt(Ngo);
+                                        int online_Savers = Integer.parseInt(Online_Savers);
+                                        int overdraft = Integer.parseInt(Overdraft);
+                                        int personal_Transaction = Integer.parseInt(Personal_Transaction);
+                                        int term_Deposit = Integer.parseInt(Term_Deposit);
+                                        int term_Loan = Integer.parseInt(Term_Loan);
+                                        int trade_Finance = Integer.parseInt(Trade_Finance);
+                                        int young_Savers = Integer.parseInt(Young_Savers);
+                                        int bank_Assurance = Integer.parseInt(Bank_Assurance);
+                                        int credit_Cards = Integer.parseInt(Credit_Cards);
+                                        int prepaid_Cards = Integer.parseInt(Prepaid_Cards);
+                                        int internet_Banking = Integer.parseInt(Internet_Banking);
+
+
                                     %> 
 
+                                    <td   width="80px"   <%                                        if (agency_Banking < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (agency_Banking == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (agency_Banking == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (agency_Banking == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (agency_Banking > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=agency_Banking%>
+                                    </td>
                                     <td   width="80px"   <%
-                                        if (rating < 1) {
-                                        %> 
-                                        style="background-color:red;font-size: 9px;"
-                                        <%
-                                        } else
-                                        %> 
-                                        <% if (rating == 2) {
-                                        %> 
-                                        style="font-size: 9px;background-color:yellow;"
-                                        <%
-                                        } else
-                                        %> 
-                                        <% if (rating == 3) {
-                                        %> 
-                                        style="font-size: 9px;background-color:yellow;"
-                                        <%
-                                        } else
-                                        %> 
-                                        <% if (rating == 4) {
-                                        %> 
-                                        style="font-size: 9px;background-color:yellow;"
-                                        <%
-                                        } else
-                                        %> 
 
-                                        <% if (rating > 5) {
-                                        %> 
-                                        style="font-size: 9px;background-color:green;"
-                                        <%
-                                            }
-                                        %> 
-                                        >
-                                        <%=rating%>
+                                        if (business_Transaction < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (business_Transaction == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (business_Transaction == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (business_Transaction == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (business_Transaction > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=business_Transaction%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (call_Deposit < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (call_Deposit == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (call_Deposit == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (call_Deposit == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (call_Deposit > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=call_Deposit%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (collection_Scheme < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (collection_Scheme == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (collection_Scheme == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (collection_Scheme == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (collection_Scheme > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=collection_Scheme%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (fcy_Transaction < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (fcy_Transaction == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (fcy_Transaction == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (fcy_Transaction == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (fcy_Transaction > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=fcy_Transaction%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (flexi_Deposit < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (flexi_Deposit == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (flexi_Deposit == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (flexi_Deposit == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (flexi_Deposit > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=flexi_Deposit%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (housing_Loan < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (housing_Loan == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (housing_Loan == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (housing_Loan == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (housing_Loan > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=housing_Loan%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (hp_Loan < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (hp_Loan == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (hp_Loan == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (hp_Loan == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (hp_Loan > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=hp_Loan%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (ims < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ims == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ims == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ims == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (ims > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=ims%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (insurance_Premium < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (insurance_Premium == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (insurance_Premium == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (insurance_Premium == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (insurance_Premium > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=insurance_Premium%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (locker_Security < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (locker_Security == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (locker_Security == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (locker_Security == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (locker_Security > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=locker_Security%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (ngo < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ngo == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ngo == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (ngo == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (ngo > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=ngo%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (online_Savers < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (online_Savers == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (online_Savers == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (online_Savers == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (online_Savers > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=online_Savers%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (overdraft < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (overdraft == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (overdraft == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (overdraft == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (overdraft > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=overdraft%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (personal_Transaction < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (personal_Transaction == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (personal_Transaction == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (personal_Transaction == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (personal_Transaction > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=personal_Transaction%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (term_Deposit < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Deposit == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Deposit == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Deposit == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (term_Deposit > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=term_Deposit%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (term_Loan < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Loan == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Loan == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (term_Loan == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (term_Loan > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=term_Loan%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (trade_Finance < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (trade_Finance == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (trade_Finance == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (trade_Finance == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (trade_Finance > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=trade_Finance%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (young_Savers < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (young_Savers == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (young_Savers == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (young_Savers == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (young_Savers > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=young_Savers%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (bank_Assurance < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (bank_Assurance == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (bank_Assurance == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (bank_Assurance == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (bank_Assurance > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=bank_Assurance%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (credit_Cards < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (credit_Cards == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (credit_Cards == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (credit_Cards == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (credit_Cards > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=credit_Cards%>
+                                    </td>
+                                    <td   width="80px"   <%
+
+                                        if (prepaid_Cards < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (prepaid_Cards == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (prepaid_Cards == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (prepaid_Cards == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (prepaid_Cards > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=prepaid_Cards%>
                                     </td>
 
-                                    <td width="80px">
-                                        <select name="clientcontacted">
-                                             <option value="<%=clientContacted%>"><%=clientContacted%></option>
-                                            <option value="yes"></option>
-                                            <option value="no">Yes</option> 
-                                        </select>
+                                    <td   width="80px"   <%
 
+                                        if (internet_Banking < 1) {
+                                          %> 
+                                          style="background-color:red;font-size: 9px;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (internet_Banking == 2) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (internet_Banking == 3) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+                                          <% if (internet_Banking == 4) {
+                                          %> 
+                                          style="font-size: 9px;background-color:yellow;"
+                                          <%
+                                          } else
+                                          %> 
+
+                                          <% if (internet_Banking > 5) {
+                                          %> 
+                                          style="font-size: 9px;background-color:green;"
+                                          <%
+                                              }
+                                          %> 
+                                          >
+                                        <%=internet_Banking%>
                                     </td>
-                                    <td  style="font-size: 9px;" width="80px">
-                                        <select name="salescommitment">
-                                            <option value="<%=salesCommitment%>"><%=salesCommitment%></option>
-                                            <option value="yes"></option>
-                                            <option value="no">Yes</option> 
-                                        </select>
-                                    </td>   
-                                    <td  style="font-size: 9px;" width="80px"><select name="docsubmitted">
-                                            <option value="<%=docsSubmitted%>"><%=docsSubmitted%></option>
-                                            <option value="yes"> </option>
-                                            <option value="no">Yes</option> 
-                                        </select></td>
-                                    <td  style="font-size: 9px;" width="80px"><select name="closed">
-                                             <option value="<%=closed%>"><%=closed%></option>
-                                            <option value="yes"></option>
-                                            <option value="no">Yes</option> 
-                                        </select></td>
-                                    <td  style="font-size: 9px;" width="80px">
-                                        <input type="text" id ="comments" value="<%=comments%>" name="comments" size="30">
-                                    </td>
-                                    <td  style="font-size: 9px;" width="80px">
-                                        <input type="date" value="<%=currentWeek%>" name="scheduledcalldate">
-                                    </td> 
                                 </tr>
-                                    
-                               
-<%
-                     Date todate = new java.util.Date();
-                      if(clientContacted == null) {
-                      clientContacted ="No";
-                      }
-                      if(salesCommitment == null) {
-                      salesCommitment ="No";
-                      }
-                      if(docsSubmitted == null) {
-                      docsSubmitted ="No";
-                      }
-                      if(closed == null) {
-                      closed ="No";
-                      }
-                      if(comments == "") {
-                      comments ="Not Done";
-                      }
-                      if(currentWeek == null) {
-                      currentWeek =""+todate;
-                      }
-                       
-                     ArrayList update = new ArrayList();
-                     for(int t=0 ;t <three.size(); t++){
-                     update.add(custID);
-                     update.add(clientContacted);
-                     update.add(salesCommitment);
-                     update.add(docsSubmitted);
-                     update.add(closed);
-                     update.add(comments);
-                     update.add(currentWeek);
-                     }
-                     session.setAttribute("updatelist", update);
-                     
-                     
-                                   } }
+
+
+                                <%
+
+                                    }
                                 %> 
                             </tbody>
                         </table>
                     </div>
                 </div>
-                            
-                <input type="submit" name="Save" value="Save" width="100%" id="save"   style="color:#ffffff;background-color:#24315e;align-self: center;">
-             
-            </form>
-            </td>
-        </tr>
-    </table>
+
+        </form>
+    </td>
+</tr>
+</table>
 
 </div>
 

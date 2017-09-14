@@ -43,6 +43,10 @@
     </script>
 
     <script type="text/javascript" src="include/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" >
+        
+        
+        </script>
 </head>
 <script>
         $(function () {
@@ -76,6 +80,8 @@
             Region : <%=user_region%> 
 
         </td>
+        
+        
         <td width="200" rowspan="3" bgcolor="#24315e">
             <form name="logout"  method="post" action="do?MOD=BOK&ACT=Logout">
                 <input type="submit" value="    Logout    " onclick="doLogout()" width="100" class="logout" bgcolor="#24315e" style="background-color: #C8C8C8; color: #eee;" size="30">
@@ -83,8 +89,8 @@
         </td>
     </tr>
     <tr>
-        <td align="center" height="27" bgcolor="#24315e" class="demo2" style="padding-left:20px;color:#000000"><b>
-
+        <td align="center" height="27" bgcolor="#24315e" class="demo2" style="padding-left:20px;color:#FFF; text-align:center; font-size:22px;"><b>
+SALES FORCE EFFECTIVENESS TOOL
             </b></td>
     </tr>
     <tr>

@@ -124,3 +124,21 @@
 [origlogger] [01 Sep 2017 - 21:24:04] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ID', table 'SFE.dbo.Customer_Tracking'; column does not allow nulls. INSERT fails. 
 [origlogger] [05 Sep 2017 - 10:01:23] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 2. 
 [origlogger] [05 Sep 2017 - 10:01:23] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 2. 
+[origlogger] [02 Sep 2017 - 09:48:15] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 3. 
+[origlogger] [07 Sep 2017 - 16:59:35] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 1 is out of range. 
+[origlogger] [07 Sep 2017 - 17:00:29] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 1 is out of range. 
+[origlogger] [07 Sep 2017 - 17:00:54] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near '0001338'. 
+[origlogger] [07 Sep 2017 - 18:43:05] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 2. 
+[origlogger] [07 Sep 2017 - 18:43:38] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near the keyword 'and'. 
+[origlogger] [07 Sep 2017 - 18:46:08] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 1 is out of range. 
+[origlogger] [07 Sep 2017 - 18:46:21] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'PUSHPA'. 
+[origlogger] [07 Sep 2017 - 18:46:48] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'PUSHPA'. 
+[origlogger] [07 Sep 2017 - 18:47:26] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'PUSHPA'. 
+[origlogger] [07 Sep 2017 - 18:47:54] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'PUSHPA'. 
+[origlogger] [09 Sep 2017 - 12:49:20] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near the keyword 'SELECT'. 
+[origlogger] [12 Sep 2017 - 11:56:50] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near ','. 
+[origlogger] [12 Sep 2017 - 12:03:45] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near ','. 
+[origlogger] [12 Sep 2017 - 16:33:42] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Invalid column name 'Current_Week'. 
+[origlogger] [12 Sep 2017 - 16:46:42] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 2 is out of range. 
+[origlogger] [13 Sep 2017 - 14:12:27] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 1. 
+[origlogger] [13 Sep 2017 - 14:13:43] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near the keyword 'and'. 

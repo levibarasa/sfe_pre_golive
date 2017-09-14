@@ -74,24 +74,7 @@
             }
         </script>
         <script type="text/javascript">
-            if (${userlocked == 'true'}) {
-                alert("You have exceeded the maximum Login Attempts\nUser is Locked");
-            }
-            if (${userdnexists == 'true'}) {
-                alert("Log in failed. Check User Credentials");
-            }
-            if (${pwdexpired == 'true'}) {
-                alert("User Password Has Expired");
-            }
-            if (${usernotverified == 'true'}) {
-                alert("User Maintenance is incomplete");
-            }
-            if (${acctexpired == 'true'}) {
-                alert("User account has expired");
-            }
-            if (${usrdisabled == 'true'}) {
-                alert("User account is disabled");
-            }
+         
             if (${userlogged == 'true'}) {
                 alert("User is already logged in. Log in again to kill session former session");
             }
@@ -100,6 +83,10 @@
             }
         </script>
         <style type="text/css">
+            header, body, section, footer, aside, nav, main, article, figure {
+                  display: block; 
+             }
+            
             <!--
             html,body{
                 text-align: center;

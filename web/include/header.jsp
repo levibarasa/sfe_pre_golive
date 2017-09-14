@@ -24,7 +24,8 @@
         <td width="200" rowspan="3" bgcolor="#24315e"><a href="#"> </a></td>
     </tr>
     <tr>
-        <td align="center" height="27" bgcolor="#24315e" class="demo2" style="padding-left:20px;color:#00344B"><b> </b></td>
+        <td align="center" height="27" bgcolor="#24315e" class="demo2" style="padding-left:20px;color:#FFF; font-size:22px;"><b> 
+        SALES FORCE EFFECTIVENESS TOOL</b></td>
     </tr>
     <tr>
         <td bgcolor="#24315e" style="padding-left:20px;">&nbsp;</td>

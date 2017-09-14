@@ -1,15 +1,18 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%> 
 <%@page import="com.sfe.dao.customer.Customer"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%> 
 <html>
-    <head>
-        <title>Previous  Call List Period</title>
+<header>
+      <title>Reminders</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
-
-        <link rel="stylesheet" type="text/css" href="include/menu.css">
-
-    </style>
+      <link rel="stylesheet" type="text/css" href="include/menu.css">
+     </style>
     <script type="text/javascript" src="include/jquery-1.4.2.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <link href="include/admin.css" rel="stylesheet" type="text/css">
@@ -84,6 +87,27 @@
             if (errors)
                 alert('The following error(s) occurred:\n' + errors);
             document.MM_returnValue = (errors === '');
+        }
+    </script> 
+    <script  type="text/javascript"> 
+    function dopostDriver(id) {  
+        var rmCode = document.getElementById("rmCode").value;
+            window.location.href ='addExisting.jsp?custId=' + id+'&rmCode'=rmCode;
+             }
+</script>
+    
+    
+     <script type="text/javascript">
+                function autoredirec(id) { 
+            window.location.href = "previousweeklycalllist.jsp?rmCode="+id;
+                }
+      </script>
+    <script type="text/javascript">
+        if (${custracker == 'true'}) {
+            alert("You have updated the Daily list successfully");
+        }
+        if (${custrack == 'true'}) {
+            alert("Sorry.There was a problem updating weekly list");
         }
     </script>
     <script type="text/javascript">
@@ -214,7 +238,7 @@
             overflow-y: scroll;
             padding-bottom: 5px;
             max-width: 1000px; 
-            max-height: 6000px;
+            max-height: 350px;
         }
         .zui-table .zui-sticky-col {
             border-left: solid 1px #DDEFEF;
@@ -236,47 +260,97 @@
                 loop: true
             });
         });
-    </script>
-    <script type="text/javascript"> 
-        var popup;
-        function getPrevWklyListValue() { 
-            var fromdate = document.getElementById("fromdate").value;
-            var todate =  document.getElementById("todate").value;
-            var pendinglist =  document.getElementById("pendinglist").value;
-            var rmCode = document.getElementById("rmCode").value;
-            popup = window.open("previousweeklycalllist.jsp?fromdate=" +fromdate+"&todate=" + todate+ "&rmCode=" + rmCode, "Previous Weekly List", "width=1000,height=800");
-            popup.focus();
-            return false
+    </script> 
+        <% 
+     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());  
+     
+        String rmCode = request.getParameter("rmCode");
+            System.out.println("RM Code: " + rmCode); 
+            ArrayList ar = Customer.getReminders(rmCode);
+             int size = ar.size();
+
+        %>
+</header>
+            <body>
+  
+                
+<form id="form1" name="form1" method="post"action="addExisting.jsp" >
+    <td width="60%">
+        <div class="zui-wrapper">
+            <div class="zui-scroller">
+                <table class="zui-table">
+                    <thead>
+                    <th >Customer ID </th>
+                    <th >Name</th>
+                    <th>Phone Number</th>
+                    <th>Customer Type</th>
+                    <th>Email ID</th>
+                    <th>Occupation</th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                           
+                            String Customer_ID, Name, Permanent_phonenumber,
+                                    Customer_Type, email_ID, Occupation ;
+                            if(size > 0){
+                            for (int i = 0; i < size; i++) {
+                                ArrayList one = (ArrayList) ar.get(i);
+
+                                Customer_ID = (String) one.get(0);
+
+                                Name = (String) one.get(1);
+                                Permanent_phonenumber = (String) one.get(2);
+                                Customer_Type = (String) one.get(3);
+                                email_ID = (String) one.get(4);
+                                Occupation = (String) one.get(5); 
+                        
+                        
+                        %>    
+                    <tr style="font-size: 9px">
+                        <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                            <a href=""  onClick=" " style="font-size:9px;color: #666666; text-decoration: none;" >
+                                <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
+                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Customer_ID%>" name ="custId" id="custId">
+                            </a>
+                             
+                        </td>
+                        <td   style="font-size: 9px">
+                            <a href="" onClick=" " style="font-size:9px;color: #666666; text-decoration: none;word-wrap: break-word;">  
+                                <span style="display:block;width:200px;word-wrap:break-word;">
+                                    <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Name%>" name ="name" id="name"> 
+
+
+                                </span> 
+
+                            </a>
+                        </td>
+                        <td   width="80px" style="font-size:9px;color: #666666;"><%=Permanent_phonenumber%></td>
+                        <td    width="80px" style="font-size:9px;color: #666666;"><%=Customer_Type%></td>
+                        <td   width="80px" style="font-size:9px;color: #666666;"><%=email_ID%></td>
+                        <td    width="80px" style="font-size:9px;color: #666666;"><%=Occupation%></td>
+                         
+                    </tr>
+     <%
+                    }
         }
-    </script>
+        else{
 
-</head>
-<%
-    
- String rmCode = request.getParameter("rmCode");
-    %>
-<body>
-    <form name="" >
-        <br/>   <br/> <strong>From Date:<input type="date"   value="" name="fromdate" id="fromdate"> 
-        <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
-        
-        </strong> 
-        <strong>To Date:<input type="date"  value="" name="todate" id="todate"> 
-        <br/> 
-        
-        </strong> 
- 
-        <p align="left"> 
-        <input type="checkbox" name="pendinglist" id="pendinglist">
-        Pending List
-        </p>    
-        <input type="submit" name="submit" value="Submit" onClick="return getPrevWklyListValue()" width="100%" id="submit"   style="color:#ffffff;background-color:#24315e;align-self: center;">
-    </form>
-</td>
-</tr>
-</table>
-
-</div>
+                     %> 
+                    <strong> You do not have Reminders</strong> 
+                     
+                     <%
+                         }
+                         %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
 
+</form> 
+                    
+    </body>
+</html>

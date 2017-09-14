@@ -1,15 +1,18 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%> 
 <%@page import="com.sfe.dao.customer.Customer"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%> 
 <html>
-    <head>
-        <title>Previous Weekly Call List</title>
+<header>
+      <title>Previously Call List</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
-
-        <link rel="stylesheet" type="text/css" href="include/menu.css">
-
-    </style>
+      <link rel="stylesheet" type="text/css" href="include/menu.css">
+     </style>
     <script type="text/javascript" src="include/jquery-1.4.2.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <link href="include/admin.css" rel="stylesheet" type="text/css">
@@ -85,7 +88,94 @@
                 alert('The following error(s) occurred:\n' + errors);
             document.MM_returnValue = (errors === '');
         }
+    </script> 
+    <script  type="text/javascript"> 
+        /**
+    function dopostDriver(id) {  
+        var clientcontactedj = window.opener.document.getElementById("clientcontacted").value;
+        var salescommitmentj = window.opener.document.getElementById("salescommitment").value;
+        var docsubmittedj = window.opener.document.getElementById("docsubmitted").value;
+        var closedj = window.opener.document.getElementById("closed").value;
+        var commentsj = window.opener.document.getElementById("comments").value;
+        var scheduledcalldatej = document.getElementById("scheduledcalldate").value;
+            window.location.href = 'do?MOD=BOK&ACT=doapcustomer&custId=' + id+'&clientcontacted=' + clientcontactedj+'&salescommitment=' + salescommitmentj+'&docsubmitted=' + docsubmittedj+'&closed=' + closedj+'&comments=' + commentsj+'&scheduledcalldate='+ scheduledcalldatej;
+             }
+             */
+</script>
+    <script type="text/javascript">
+        var popup;
+        function getCustUpdatePreValue(id) {
+            
+        var rmCode = document.getElementById("rmCode").value;
+        var scheduledcalldate = document.getElementById("scheduledcalldate").value;
+             popup = window.open("updatetrackerprevious.jsp?custId="+id+"&rmCode="+rmCode+"&scheduledcalldate="+scheduledcalldate, "Update Customer Information", "width=600,height=600");
+            popup.focus();
+            return false
+        }
+        function getCustInfoPreValue(id) {
+             popup = window.open("customerInformation.jsp?custId="+id, "Customer Information", "width=1000,height=800");
+            popup.focus();
+            return false
+        }
+         
+ 
     </script>
+    <script type="text/javascript">
+        var popup;
+        function completeListRmCode() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'completelist.jsp?rmCode=' + rmCode;
+        } 
+        function getCustUpdateValue(id) {
+            var rmCode = document.getElementById("rmCode").value;
+            var clientcontacted = document.getElementById("clientcontacted").value;
+            var salescommitment = document.getElementById("salescommitment").value;
+            var docsubmitted = document.getElementById("docsubmitted").value;
+            var closed = document.getElementById("closed").value;
+            var comments = document.getElementById("comments").value;
+            var scheduledcalldate = document.getElementById("scheduledcalldate").value;
+            var scheduledcalldate = document.getElementById("scheduledcalldate").value;
+            popup = window.open("updatetrackerprevious.jsp?custId=" + id + "&rmCode=" + rmCode+ "&clientcontacted=" + clientcontacted+ "&salescommitment=" + salescommitment+ "&docsubmitted=" + docsubmitted+ "&closed=" + closed+ "&comments=" + comments+"&scheduledcalldate="+scheduledcalldate, "Update Customer Information", "width=600,height=600");
+            popup.focus();
+            return false
+        }
+        function getCustInfoValue(id) {
+            popup = window.open("customerInformation.jsp?custId=" + id, "Customer Information", "width=1000,height=800");
+            popup.focus();
+            return false
+        }
+        function getPrevWklyListCrtValue() {
+            var rmCode = document.getElementById("rmCode").value;
+            popup = window.open("callistperiod.jsp?rmCode=" + rmCode, "Previous Weekly List", "width=600,height=600");
+            popup.focus();
+            return false
+        }
+
+        function addNewCustomerValue() {
+            var rmCode = document.getElementById("rmCode").value;
+            popup = window.open("addnewcustomer.jsp?rmCode=" + rmCode, "Add New Customer", "width=600,height=600");
+            popup.focus();
+            return false
+        }
+
+        function addExistingCustomerValue() {
+            var rmCode = document.getElementById("rmCode").value;
+            popup = window.open("addexistingcustomer.jsp?rmCode=" + rmCode, "Add Existing Customer", "width=600,height=400");
+            popup.focus();
+            return false
+        }
+        function postRmCode() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'do?MOD=BOK&ACT=dogenerate&rmCode=' + rmCode;
+        }
+    </script>
+    
+     <script type="text/javascript">
+                function autoredirec(id) { 
+            window.location.href = "previousweeklycalllist.jsp?rmCode="+id;
+                }
+      </script>
+     
     <script type="text/javascript">
         $(document).ready(function () {
             $('#example').DataTable({
@@ -214,7 +304,7 @@
             overflow-y: scroll;
             padding-bottom: 5px;
             max-width: 1000px; 
-            max-height: 6000px;
+            max-height: 350px;
         }
         .zui-table .zui-sticky-col {
             border-left: solid 1px #DDEFEF;
@@ -237,86 +327,195 @@
             });
         });
     </script>
-</head>
-<body>
- 
-    <table width="100%">
-        <tr width="100%">
-            <td width="20%"><br/>
-            </td>
-            <td width="60%">
-                <div class="zui-wrapper">
-                    <div class="zui-scroller">
-                        <table class="zui-table">
-                            <thead>  
-                            <th >Customer ID </th>
-                            <th >Name</th>
-                            <th>Phone Number</th>
-                            <th>Age</th>
-                            <th>Marital Status</th>
-                            <th>City</th>
-                            <th> Customer Type</th>
-                            <th>Permanent Address </th>
-                            <th>Occupation </th>
-                            <th>Years With Bank </th>
-                            <th> Email ID</th> 
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    String user_code = (String) session.getAttribute("code");
-                                    String days = "14"; // = request.getParameter("days"); 
-                                    String rmCode = user_code; 
-                                     rmCode = "242";
-                                     days = "14";
-                                   
-                                    System.out.println("Days selected:" + days);
-                                    System.out.println("RM Code:" + rmCode);
-                                    int noOfdays = Integer.parseInt(days);
-                                    ArrayList ar = Customer.getPreviousWeeklyCallList(rmCode, 1, noOfdays);
-                                    for (int i = 0; i < ar.size(); i++) {
-                                        ArrayList one = (ArrayList) ar.get(i);
-                                        String custID, name, phone, custType, occupation, emailId, age, Marital_status, address, yrs, city;
-                                        custID = (String) one.get(0);
-                                        name = (String) one.get(1);
-                                        phone = (String) one.get(2);
-                                        age = (String) one.get(3);
-                                        Marital_status = (String) one.get(4);
-                                        city = (String) one.get(5);
-                                        custType = (String) one.get(6);
-                                        address = (String) one.get(7);
-                                        occupation = (String) one.get(8);
-                                        yrs = (String) one.get(9);
-                                        emailId = (String) one.get(10);
-                                %>     
-                                <tr style="font-size: 9px">
-                                    <td style="font-size: 12px"> <%=custID%> </td>
-                                    <td   style="font-size: 12px"><%=name%> </td>
-                                    <td   style="font-size: 12px"><%=phone%></td>
-                                    <td    style="font-size: 12px"><%=age%></td>
-                                    <td  style="font-size: 12px"><%=Marital_status%></td>
-                                    <td  style="font-size: 12px"><%=city%></td>
-                                    <td  style="font-size: 12px"> <%=custType%></td>
-                                    <td style="font-size: 12px"> <%=address%></td>
-                                    <td style="font-size: 12px"><%=occupation%> </td>
-                                    <td style="font-size: 12px"><%=yrs%> </td>
-                                    <td style="font-size: 12px"> <%=emailId%></td> 
-                                </tr>
-                                <%
-                                    }
-                                %>  
+        <% 
+     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());  
+     SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());  
+      String fromDate = request.getParameter("fromdate");
+      String todate  = request.getParameter("todate");
+       //String pendinglist = request.getParameter("pendinglist");
+        System.out.println("From Date1: "+fromDate); 
+        System.out.println("To Date1: "+todate);  
+        String from = sdf1.format(new Date());
+        String to = sdf1.format(new Date());
+        
+        if(fromDate != null || fromDate != ""){
+         from = Customer.dateConverter(fromDate);
+        }
+         if(todate != null || todate != ""){
+         to = Customer.dateConverter(todate);
+        }
+          
+        if(fromDate.compareTo(from) == 0){ 
+            from = fromDate;
+        }
+        if(todate.compareTo(to) == 0){ 
+            to = todate;
+        }
+         
+        System.out.println("From Date: "+from);
+        System.out.println("To Date: "+to);
+           String rmCode = request.getParameter("rmCode");
+            System.out.println("RM Code: " + rmCode); 
+            ArrayList ar = Customer.populatePreviousList(rmCode,from,to);
+            int size = ar.size();
+ %>
+</header>
+            <body>
+  
+<form id="form1" name="form1" method="post" >
+    <td width="60%">
+        <div class="zui-wrapper">
+            <div class="zui-scroller">
+                <table class="zui-table">
+                                    <thead>
+                                    <th>Update</th>
+                                    <th >Customer ID </th>
+                                    <th >Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Customer Type</th>
+                                    <th>Email ID</th>
+                                    <th>Occupation</th>
+                                    <th>Current Product Holdings</th>
+                                    <th>Client Contacted</th>
+                                    <th>Sales Commitment</th>
+                                    <th>Docs Submitted</th>
+                                    <th>Closed</th>
+                                    <th>Comments</th>
+                                    <th>Scheduled Call Date</th>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <input type="submit" name="Save" value="Save" width="100%" id="save"   style="color:#ffffff;background-color:#24315e;align-self: center;">
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                               String Customer_ID, Name, Permanent_phonenumber,
+                                                    Customer_Type, email_ID, Occupation, Client_Contacted,
+                                                    Sales_Commitment, Docs_Submitted, Closed, Comments, Filled_Week;
+                                            for (int i = 0; i < size; i++) {
+                                                ArrayList one = (ArrayList) ar.get(i);
 
-            </td>
-        </tr>
-    </table>
+                                                Customer_ID = (String) one.get(0);
 
-</div>
-
+                                                Name = (String) one.get(1);
+                                                Permanent_phonenumber = (String) one.get(2);
+                                                Customer_Type = (String) one.get(3);
+                                                email_ID = (String) one.get(4);
+                                                Occupation = (String) one.get(5);
+                                                Client_Contacted = (String) one.get(6);
+                                                Sales_Commitment = (String) one.get(7);
+                                                Docs_Submitted = (String) one.get(8);
+                                                Closed = (String) one.get(9);
+                                                Comments = (String) one.get(10);
+                                                Filled_Week = (String) one.get(11);
 
 
+                                        %>   
+
+                                        <tr style="font-size: 9px">
+                                            <td  style="font-size: 9px;" width="80px">
+                                                <a href ="" onclick="return getCustUpdateValue('<%= Customer_ID%>')">
+                                                    <img src="images/update.jpg" name="alarm" width="30" height="30"   border="0"/> 
+                                                </a>
+                                            </td> 
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <a  href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="font-size:9px;color: #666666; text-decoration: none;" >
+                                                    <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Customer_ID%>" name ="custId" id="custId">
+                                                </a>
+                                                <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
+                                            </td>
+                                            <td   style="font-size: 9px">
+                                                <a href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="font-size:9px;color: #666666; text-decoration: none;word-wrap: break-word;">  
+                                                    <span style="display:block;width:200px;word-wrap:break-word;">
+                                                        <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Name%>" name ="name" id="name"> 
+
+
+                                                    </span> 
+
+                                                </a>
+                                            </td>
+                                            <td   width="80px" style="font-size:9px;color: #666666;"><%=Permanent_phonenumber%></td>
+                                            <td    width="80px" style="font-size:9px;color: #666666;"><%=Customer_Type%></td>
+                                            <td   width="80px" style="font-size:9px;color: #666666;"><%=email_ID%></td>
+                                            <td    width="80px" style="font-size:9px;color: #666666;"><%=Occupation%></td>
+                                            <%
+
+                                                int rating = Customer.getCurrentProducts(Customer_ID).size();
+                                            %> 
+
+                                            <td   width="80px"   <%
+                                                if (rating < 1) {
+                                                  %> 
+                                                  style="background-color:red;font-size: 9px;"
+                                                  <%
+                                                  } else
+                                                  %> 
+                                                  <% if (rating == 2) {
+                                                  %> 
+                                                  style="font-size: 9px;background-color:yellow;"
+                                                  <%
+                                                  } else
+                                                  %> 
+                                                  <% if (rating == 3) {
+                                                  %> 
+                                                  style="font-size: 9px;background-color:yellow;"
+                                                  <%
+                                                  } else
+                                                  %> 
+                                                  <% if (rating == 4) {
+                                                  %> 
+                                                  style="font-size: 9px;background-color:yellow;"
+                                                  <%
+                                                  } else
+                                                  %> 
+
+                                                  <% if (rating > 5) {
+                                                  %> 
+                                                  style="font-size: 9px;background-color:green;"
+                                                  <%
+                                                      }
+                                                  %> 
+                                                  >
+                                                <%=rating%>
+                                            </td>
+
+
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Client_Contacted%>" name ="clientcontacted" id="clientcontacted">
+                                            </td>
+
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Sales_Commitment%>" name ="salescommitment" id="salescommitment">
+                                            </td>
+
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Docs_Submitted%>" name ="docsubmitted" id="docsubmitted">
+                                            </td>
+
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Closed%>" name ="closed" id="closed">
+                                            </td>
+
+                                            <td  style="font-size: 9px;" width="80px">
+                                                <input readonly="readonly"  type="text" id ="comments" value="<%=Comments%>" id="comments"  name="comments" size="30">
+                                            </td>
+                                            <td  style="font-size: 9px;" width="80px">
+                                                <input readonly="readonly"  type="text" value="<%=Filled_Week%>" name="scheduledcalldate" id="scheduledcalldate">
+                                            </td> 
+
+                                        </tr>
+
+                                        <%
+                                            }
+
+                     %> 
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+</form> 
+                    
+    </body>
+</html>

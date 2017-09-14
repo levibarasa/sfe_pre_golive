@@ -1,6 +1,5 @@
 package com.sfe.web.user;
-
-import com.sfe.dao.admin.role.Role;
+ 
 import com.sfe.dao.admin.user.Access;
 import com.sfe.dao.admin.user.User;
 import com.sfe.security.Encode;
@@ -37,9 +36,7 @@ public class Accessw {
         SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
         String branch, region;
         branch = "Head Office";
-        region = "Head Office";
-        //getBranch(String employeeID)
-        //getRegion(String employeeID)
+        region = "Head Office"; 
         if (User.userExists(employeeID)) {
             userId = Integer.parseInt(employeeID);
             Date currdate = new Date();
@@ -48,7 +45,8 @@ public class Accessw {
             String employeeCode, employeeName, accessLevel;
             if (!Access.userIsLoggedIn(employeeID)) {
                 if (Access.userExists(employeeID, password)) {
-                    session.setAttribute("uname", employeeID);
+                    session.setAttribute("uname", employeeID); 
+                    session.setAttribute("rmCode", employeeID); 
                     Access.MarkloginUser(employeeID, new Date());
                     ArrayList ar = User.getUserDetails(String.valueOf(userId));
                     for (int i = 0; i < ar.size(); i++) {
@@ -86,14 +84,21 @@ public class Accessw {
                     response.sendRedirect("login.jsp");
                 }
             } else {
-                session.setAttribute("userlogged", true);
-                session.setAttribute("content_page", "ucontent.jsp");
-                response.sendRedirect("login.jsp");
+                
+                Access.logoutUser(employeeID);
+            //session.setAttribute("content_page", "login.jsp");
+            response.sendRedirect("login.jsp");
+           // session.invalidate();
+                //session.setAttribute("userlogged", true);
+               //  session.setAttribute("content_page", "ucontent.jsp");
+               // response.sendRedirect("login.jsp");
+               session.setAttribute("uname", employeeID); 
+               session.setAttribute("rmCode", employeeID); 
             }
 
         } else {
-            session.setAttribute("userdnexists", true);
-            session.setAttribute("content_page", "login.jsp");
+           // session.setAttribute("userdnexists", true);
+          //  session.setAttribute("content_page", "login.jsp");
             response.sendRedirect("login.jsp");
         }
     }
@@ -107,8 +112,8 @@ public class Accessw {
             response.sendRedirect("login.jsp");
             session.invalidate();
         } else {
-            session.setAttribute("content_page", "sessionexp.jsp");
-            response.sendRedirect("index.jsp");
+            //session.setAttribute("content_page", "sessionexp.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 

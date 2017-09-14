@@ -49,8 +49,7 @@
     if (${rolemenunone == 'true'}) {
         alert("ERROR\nAccess is denied");
     }
-</script>
-<fieldset>
+</script> 
 <div id="container">
 
 
@@ -103,8 +102,7 @@
             </center>
             </td>
             </tr>
-        </table>
-        </fieldset>
+        </table> 
     </div>
 
 

@@ -15,54 +15,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class Userw {
 
-    public static void handleGoUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        String uname = (String) session.getAttribute("uname");
-        System.out.println("uname:     " + uname);
-
-        if (uname != null) {
-            String function = request.getParameter("function");
-
-            System.out.println("function:     " + function);
-
-            session.setAttribute("uverified", false);
-            session.setAttribute("uadded", false);
-            session.setAttribute("udeleted", false);
-            session.setAttribute("ucancelled", false);
-            session.setAttribute("umodified", false);
-            session.setAttribute("fatal", false);
-            switch (function) {
-                case "ADD":
-                    session.setAttribute("ufunction", function);
-                    session.setAttribute("content_page", "user/mUser_a.jsp");
-                    break;
-                case "VERIFY":
-                    session.setAttribute("ufunction", function);
-
-                    session.setAttribute("content_page", "user/mUnVerified.jsp");
-                    break;
-                case "MODIFY":
-                    session.setAttribute("ufunction", function);
-                    session.setAttribute("content_page", "user/mOtherAct.jsp");
-                    break;
-                case "DELETE":
-                    session.setAttribute("ufunction", function);
-                    session.setAttribute("content_page", "user/mOtherAct.jsp");
-                    break;
-
-                case "INQUIRE":
-                    session.setAttribute("ufunction", function);
-                    session.setAttribute("content_page", "user/mOtherAct.jsp");
-                    break;
-            }
-        } else {
-
-            session.setAttribute("content_page", "sessionexp.jsp");
-        }
-
-        response.sendRedirect("index.jsp");
-    }
+     
 
     public static void handleMaintainUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
