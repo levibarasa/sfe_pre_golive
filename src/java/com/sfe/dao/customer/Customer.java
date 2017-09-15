@@ -12,11 +12,11 @@ public class Customer {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    
+
     public static int getNewTempCustId() {
         String sql = " Select max(Temporary_ID) from New_Customers";
         String str = AdminDb.getValue(sql, 1, 0, "");
-        int id = Integer.parseInt(str); 
+        int id = Integer.parseInt(str);
         return id;
     }
 
@@ -25,42 +25,40 @@ public class Customer {
         return AdminDb.getValue(sql, 1, 1, custId);
     }
 
- 
     public static ArrayList getReminders(String rmCode) {
         String today = sdf1.format(new Date());
         String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type,email_ID,Occupation,Client_Contacted,Sales_Commitment,Docs_Submitted,Closed,Comments,Filled_Week  from [dbo].[CUSTOMER_VIEW] where  Filled_Week between  ?  and '5017-09-01'   and RM_Code2 = ?";
         String in = today + "," + rmCode;
         return AdminDb.execArrayLists(sql, 2, in, 12);
-         }
-   
+    }
 
-     public static ArrayList getNewCustomer(String rmCode) { 
+    public static ArrayList getNewCustomer(String rmCode) {
         String today = sdf.format(new Date());
         String sql = "select   Temporary_ID, Customer_Name, Contact_Number, Email_ID, RM_Code,Customer_Type, Client_Contacted, Sales_Commitment, Docs_Submitted, Closed, Comments, Filled_Week  from [dbo].[NEW_CUSTOMER_VIEW] where Current_Week = ?  and  RM_Code = ?";
         String in = today + "," + rmCode;
         return AdminDb.execArrayLists(sql, 2, in, 12);
-         }
-      
-    
-     public static ArrayList getDailyList(String rmCode) {
-         ArrayList newCust =getNewCustomer(rmCode);
-         ArrayList daily = populateDailyList(rmCode);
-        ArrayList full =  new ArrayList();
-        ArrayList full1 =  new ArrayList();
-        ArrayList fullArr =  new ArrayList(); 
-        for(int i =0;i <daily.size();i++){
+    }
+
+    public static ArrayList getDailyList(String rmCode) {
+        ArrayList newCust = getNewCustomer(rmCode);
+        ArrayList daily = populateDailyList(rmCode);
+        ArrayList full = new ArrayList();
+        ArrayList full1 = new ArrayList();
+        ArrayList fullArr = new ArrayList();
+        for (int i = 0; i < daily.size(); i++) {
             full = (ArrayList) daily.get(i);
-            fullArr.add(full); 
-           }
-         
-        for(int k =0;k <newCust.size();k++){
+            fullArr.add(full);
+        }
+
+        for (int k = 0; k < newCust.size(); k++) {
             full1 = (ArrayList) newCust.get(k);
             fullArr.add(full1);
-           }
-        
+        }
+
         return fullArr;
     }
-      public static ArrayList populateDailyList(String rmCode) {
+
+    public static ArrayList populateDailyList(String rmCode) {
         String today = sdf.format(new Date());
         String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type, email_ID,Occupation,Client_Contacted,Sales_Commitment, Docs_Submitted,Closed,Comments,Filled_Week  from [dbo].[CUSTOMER_VIEW] where Current_Week = ?  and RM_Code2 = ?";
         String in = today + "," + rmCode;
@@ -82,7 +80,7 @@ public class Customer {
         String in = rmCode;
         return AdminDb.execArrayLists(sql, 1, in, 6);
     }
- 
+
     public static ArrayList populatePreviousList(String rmCode, String fromDate, String toDate) {
         String sql = "select  distinct Customer_ID,Name,Permanent_phonenumber,Customer_Type,email_ID,Occupation,Client_Contacted,Sales_Commitment,"
                 + " Docs_Submitted,Closed,Comments,Filled_Week  from [dbo].[CUSTOMER_VIEW] where "
@@ -116,11 +114,10 @@ public class Customer {
     }
 
     public static ArrayList fetchDailyList(String rmCode) {
-        String sql = "select Customer_ID, RM_Code2,BM_Code,Regional_Manager_Code,Customer_Type,BM_Code1 from  [dbo].[Cust_Demo_1]  where RM_Code2 = ?  and Customer_ID not in (select Customer_ID from [dbo].[Customer_Tracking])";
+        String sql = "select Customer_ID, RM_Code2,BM_Code,Regional_Manager_Code,Customer_Type,BM_Code1 from  [dbo].[Cust_Demo_1]  where RM_Code2 = ?  and Customer_ID not in (select Customer_ID from [dbo].[Customer_Track])";
         String in = rmCode;
         return AdminDb.execArrayLists(sql, 1, in, 6);
     }
-    
 
     public static String getCustomerByName(String name) {
         String sql = "select Name  from [dbo].[Cust_Demo_1]  where Name like '%" + name + "%'";
@@ -238,7 +235,7 @@ public class Customer {
         }
         return current;
     }
- 
+
     public static ArrayList getCompleteList(String rmCode) {
         String sql = "select Customer_ID, Name, Permanent_phonenumber, Age, Marital_Status, City, Customer_Type, Permanent_Address,Occupation, Years_with_Bank, email_ID,AGENCY_BANKING, BUSINESS_TRANSACTION,CALL_DEPOSIT, COLLECTION_SCHEME, FCY_TRANSACTION, FLEXI_DEPOSIT, HOUSING_LOAN, HP_LOAN, IMS, INSURANCE_PREMIUM,LOCKER_SECURITY, NGO, ONLINE_SAVERS, OVERDRAFT, PERSONAL_TRANSACTION, TERM_DEPOSIT, TERM_LOAN, TRADE_FINANCE,YOUNG_SAVERS, BANK_ASSURANCE, CREDIT_CARDS, PREPAID_CARDS, INTERNET_BANKING from  [dbo].[CUSTOMER_PRODUCTS_VIEW]   where RM_Code =  ?";
         String in = rmCode;
@@ -358,26 +355,79 @@ public class Customer {
         return AdminDb.execArrayLists(sql, 1, in, 4);
     }
 
+    public static String getCategory(String Product) {
+        String sql = "select Category from [dbo].[Product_type] where Product ==?";
+        return AdminDb.getValue(sql, 1, 1, Product);
+    }
+
+    public static ArrayList getCustRmDetails(String Customer_ID) {
+        String sql = "select distinct BM_Code,Regional_Manager_Code,Customer_Type FROM [dbo].[Cust_Demo_1] where Customer_ID = ?";
+        String in = Customer_ID;
+        return AdminDb.execArrayLists(sql, 1, in, 3);
+    }
+
+    public static void sellProducts(String list[], String Customer_ID) {
+        if (list.length > 0) {
+            String Product, Products_Category, Average_Value ;
+           String BM_Code ="";
+           String Regional_Manager_Code ="";
+            String Customer_Type ="";
+            ArrayList lst = getCustRmDetails(Customer_ID);
+            for (int k = 0; k < lst.size(); k++) {
+
+                ArrayList one = (ArrayList) lst.get(k);
+                BM_Code = (String) one.get(0);
+                Regional_Manager_Code = (String) one.get(1);
+                Customer_Type = (String) one.get(2);
+
+            }
+            for (int i = 0; i < list.length; i++) {
+                Product = list[i];
+                Products_Category = getCategory(Product);
+                Average_Value = "0";
+
+                String sql = "insert into [dbo].[Products_Sold] (Customer_ID,Date_Sold,Product,"
+                        + "Products_Category,Week_Sold,Average_Value,BM_Code,Regional_Manager_Code,"
+                        + "Customer_Type) values(?,try_convert(varchar(11),getdate(),103),?,?"
+                        + ",try_convert(varchar(11),getdate(),103),?,?,?,?)";
+
+                String in = Customer_ID + "," + Product + "," + Products_Category + "," + Average_Value + "," + BM_Code + ","
+                        + " " + Regional_Manager_Code + "," + Customer_Type;
+                AdminDb.dbWork(sql, 7, in);
+            }
+        }
+    }
+
+    public static void updateProducts(String list[], String custId) {
+        if (list.length > 0) {
+            for (int i = 0; i < list.length; i++) {
+                String product = list[i];
+                String sql = "update  [dbo].[Customer_Product1] set ? ='1' where CUST_ID = ?";
+                String in = product + "," + custId;
+                AdminDb.dbWork(sql, 2, in);
+            }
+        }
+    }
+
     public static void createNewCustomer(String Customer_ID, String rmCode) {
         ArrayList list = getRMDetails(rmCode);
         String RM_Code = "";
         String BM_Code = "";
         String Regional_Manager_Code = "";
         String BM_Code_Sustainability = "";
-        //int batch_no = getMaxBatch(rmCode);
-         
+
         String Customer_Type = "";
         for (int i = 0; i < list.size(); i++) {
-            ArrayList one = (ArrayList) list.get(0); 
-            if(i == 10){
+            ArrayList one = (ArrayList) list.get(0);
+            if (i == 10) {
                 break;
             }
             RM_Code = (String) one.get(0);
             BM_Code = (String) one.get(1);
             Regional_Manager_Code = (String) one.get(2);
             BM_Code_Sustainability = (String) one.get(3);
-            
-        } 
+
+        }
         Customer_Type = "BUSINESS BANKING";
         String branch = getRmCode(rmCode);
         String product_value = "23978";
@@ -391,58 +441,53 @@ public class Customer {
                 + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,? )";
 
         String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
-                + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code ;
+                + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code;
         AdminDb.dbWork(sql, 9, in);
-         
+
     }
-  
-     
-//   public static int getMaxBatch(String rmCode) { 
-//        String s = "Select max(batch_no) from [dbo].[Customer_Tracking] where RM_Code = ?";
-//        int k2 = 1; 
-//        int k = 0;
-//            String str = AdminDb.getValue(s, 1, 1, rmCode);
-//            if(!str.equalsIgnoreCase(null) || str != ""){
-//            k = Integer.valueOf(str);
-//            }
-//            if(k > 0){
-//            k2 = k;
-//            }
-//           return k2;
-//    }
-//   
-      
+
+    public static void createTrack(String Customer_ID, String RM_Code) {
+        String sql = "insert into [dbo].[Customer_Track] (Customer_ID,RM_Code,Filled_Date,Filled_Week)"
+                + " values(?,?,try_convert(varchar(11),getdate(),103),try_convert(varchar(11),getdate(),103))";
+        String in = Customer_ID + "," + RM_Code;
+        AdminDb.dbWork(sql, 2, in);
+    }
+
     public static void createDailyList(ArrayList list, String rmCode) {
         list = fetchDailyList(rmCode);
-       
-        int size = list.size(); 
-        String Customer_ID, RM_Code, BM_Code, Regional_Manager_Code, Customer_Type, BM_Code_Sustainability;
-        for (int i = 0; i < 10; i++) {
-            ArrayList one = (ArrayList) list.get(i);
-            
-            Customer_ID = (String) one.get(0);
-            RM_Code = (String) one.get(1);
-            BM_Code = (String) one.get(2);
-            Regional_Manager_Code = (String) one.get(3);
-            Customer_Type = (String) one.get(4);
-            BM_Code_Sustainability = (String) one.get(5);
-            String product_value = "23978";
-            String branch = getRmCode(rmCode);
-            
-            String sql = "insert into [dbo].[Customer_Tracking] "
-                    + "(Customer_ID , Filled_Date, Filled_Week,Client_Contacted,Sales_Commitment,"
-                    + "Docs_Submitted,Closed,Comments,Product_Sold,"
-                    + "RM_Code,Current_Week,BM_Code,"
-                    + "Regional_Manager_Code,Branch,Product_value,Customer_Type,BM_Code_Sustainability,"
-                    + "RegM_code_Sustainability ) values(?,try_convert(varchar(11),getdate(),103),"
-                    + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','None',"
-                    + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?)";
 
-            String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
-                    + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code ;
-            AdminDb.dbWork(sql, 9, in);
-          }
-        
+        int size = list.size();
+        if (size > 0) {
+            String Customer_ID, RM_Code, BM_Code, Regional_Manager_Code, Customer_Type, BM_Code_Sustainability;
+            for (int i = 0; i < 10; i++) {
+                ArrayList one = (ArrayList) list.get(i);
+
+                Customer_ID = (String) one.get(0);
+                RM_Code = (String) one.get(1);
+                BM_Code = (String) one.get(2);
+                Regional_Manager_Code = (String) one.get(3);
+                Customer_Type = (String) one.get(4);
+                BM_Code_Sustainability = (String) one.get(5);
+                String product_value = "23978";
+                String branch = getRmCode(rmCode);
+                createTrack(Customer_ID, rmCode);
+                String sql = "insert into [dbo].[Customer_Tracking] "
+                        + "(Customer_ID , Filled_Date, Filled_Week,Client_Contacted,Sales_Commitment,"
+                        + "Docs_Submitted,Closed,Comments,Product_Sold,"
+                        + "RM_Code,Current_Week,BM_Code,"
+                        + "Regional_Manager_Code,Branch,Product_value,Customer_Type,BM_Code_Sustainability,"
+                        + "RegM_code_Sustainability ) values(?,try_convert(varchar(11),getdate(),103),"
+                        + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','None',"
+                        + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?)";
+
+                String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
+                        + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code;
+                AdminDb.dbWork(sql, 9, in);
+            }
+        } else {
+
+        }
+
     }
 
     public static String dateConverter(String date) {
@@ -452,18 +497,7 @@ public class Customer {
         String newDate = dd + "/" + MM + "/" + yyyy;
         return newDate;
     }
-     public static void main(String[] args) {
-         String date1 ="2017-09-14";
-         String date ="14/09/2017";
-         String stroke = date1.substring(2,3);
-         if(stroke.compareTo("/")  != 0){
-         System.out.println("Not Stroke");
-         }else{
-          System.out.println("Stroke");
-         }
-    }
-    
-    
+
     public static ArrayList getList() {
         String sql = "select Customer_ID,Client_Contacted ,Sales_Commitment,Docs_Submitted,Closed,Comments,Current_Week from [dbo].[Customer_Tracking] where Current_Week = '05/09/2017'  and RM_Code ='242'";
         return AdminDb.execArrayLists(sql, 0, "", 7);
@@ -471,45 +505,52 @@ public class Customer {
 
     public static void updateTracker(String custId, String clientcontacted, String salescommitment, String docsubmitted, String closed, String comments, String scheduledcalldate) {
         String today = sdf.format(new Date());
-        String scheduleddate =""; 
-       String stroke = scheduledcalldate.substring(2,3);
-         if(stroke.compareTo("/")  != 0){ 
-         scheduleddate = dateConverter(scheduledcalldate);
-         }else{
-         scheduleddate =scheduledcalldate;
-         }
-         System.out.println("scheduleddate: "+scheduleddate);
-          String sql = "update [dbo].[Customer_Tracking] set Client_Contacted=?,Sales_Commitment=?, Docs_Submitted=?,Closed=?,Comments=?,Filled_Week = ? "
+        String todays = "";
+        String scheduleddate = "";
+        String stroke = scheduledcalldate.substring(2, 3);
+        String stroketoday = today.substring(2, 3);
+        if (stroke.compareTo("/") != 0) {
+            scheduleddate = dateConverter(scheduledcalldate);
+        } else {
+            scheduleddate = scheduledcalldate;
+        }
+
+        if (stroketoday.compareTo("/") != 0) {
+            todays = dateConverter(today);
+        } else {
+            todays = today;
+        }
+
+        System.out.println("scheduleddate: " + scheduleddate);
+        String sql = "update [dbo].[Customer_Tracking] set Client_Contacted=?,Sales_Commitment=?, Docs_Submitted=?,Closed=?,Comments=?,Filled_Week = ? "
                 + "where Customer_ID =? and Filled_Week = ?";
-        String in = clientcontacted + "," + salescommitment + "," + docsubmitted + "," + closed + "," + comments + "," + " " + scheduleddate + "," + custId + "," + today;
+        String in = clientcontacted + "," + salescommitment + "," + docsubmitted + "," + closed + "," + comments + "," + " " + scheduleddate + "," + custId + "," + todays;
         AdminDb.dbWork(sql, 8, in);
     }
-    
+
     public static void updatePrevTracker(String custId, String clientcontacted, String salescommitment, String docsubmitted, String closed, String comments, String scheduledcalldate) {
-        String scheduleddate =""; 
-       String stroke = scheduledcalldate.substring(2,3);
-         if(stroke.compareTo("/")  != 0){ 
-         scheduleddate = dateConverter(scheduledcalldate);
-         }else{
-         scheduleddate =scheduledcalldate;
-         } 
-           System.out.println("scheduleddate: "+scheduleddate);
-         String sql = "update [dbo].[Customer_Tracking] set Client_Contacted=?,Sales_Commitment=?, Docs_Submitted=?,Closed=?,Comments=?,Filled_Week = ? "
+        String scheduleddate = "";
+        String stroke = scheduledcalldate.substring(2, 3);
+        if (stroke.compareTo("/") != 0) {
+            scheduleddate = dateConverter(scheduledcalldate);
+        } else {
+            scheduleddate = scheduledcalldate;
+        }
+        System.out.println("scheduleddate: " + scheduleddate);
+        String sql = "update [dbo].[Customer_Tracking] set Client_Contacted=?,Sales_Commitment=?, Docs_Submitted=?,Closed=?,Comments=?,Filled_Week = ? "
                 + "where Customer_ID =? and Filled_Week = ?";
         String in = clientcontacted + "," + salescommitment + "," + docsubmitted + "," + closed + "," + comments + "," + " " + scheduleddate + "," + custId + "," + scheduleddate;
         AdminDb.dbWork(sql, 8, in);
     }
 
-    public static int addNewCustomer(String customerName, String email, String phone, String RmCode) { 
+    public static int addNewCustomer(String customerName, String email, String phone, String RmCode) {
         String sql = "insert into [dbo].[New_Customers] (Customer_Name,Contact_Number,"
                 + "Email_ID,RM_Code,RM_Code1,Week) values(?,?,?,?,?,try_convert(datetime, GETDATE(), 121))";
-        String in =  customerName + "," + phone + "," + email + "," + RmCode + "," + RmCode;
+        String in = customerName + "," + phone + "," + email + "," + RmCode + "," + RmCode;
         int n = AdminDb.dbWork(sql, 5, in);
         return n;
     }
 
-  
-         
     public static ArrayList getCustomers(String rmCode) {
         String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type,Occupation,email_ID  from [dbo].[Cust_Demo_1]  where RM_Code2 = ?  and Customer_ID  in  (select Customer_ID from [dbo].[Customer_Tracking] )";
         String in = rmCode;
@@ -567,7 +608,7 @@ public class Customer {
         return then.format(format).toString();
     }
 
-//     public static void main(String[] args) { 
+//     public static   main(String[] args) { 
 //
 //       ArrayList ar = getCustomers("242");
 //       for (int i=0; i<ar.size();i++){
@@ -711,7 +752,7 @@ public class Customer {
         String sql = "select member_status from  general_acct_mast_table where CUST_ID= ?";
         return AdminDb.getValue(sql, 1, 1, accnt);
     }
-//   public static void main(String[] args) {
+//   public static voi  main(String[] args) {
 //        System.out.println(getAccountDetails("000037026", "WES2010", "A","1", "MARK"));
 //    }
 
@@ -874,36 +915,6 @@ public class Customer {
         }
     }
 
-//    public static void main(String[] args) {
-//
-//        String custId = "";
-//        String acctName, savingsAcnt, oprAcnt, loanAcnt, solId, groupCode, groupName, subgroupCode, subgroupName, creditRating, member_status;
-//        acctName = savingsAcnt = loanAcnt = oprAcnt = solId = groupCode = groupName = subgroupCode = subgroupName = creditRating = member_status = "";
-//        ArrayList all = getAccountDetails("000037022");
-//        int size = all.size();
-//
-//        for (int i = 0; i < size; i++) {
-//            ArrayList one = (ArrayList) all.get(i);
-//            custId = (String) one.get(0);
-//            acctName = (String) one.get(1);
-//            savingsAcnt = (String) one.get(2);
-//            loanAcnt = (String) one.get(3);
-//            oprAcnt = (String) one.get(4);
-//            solId = (String) one.get(5);
-//            groupCode = (String) one.get(6);
-//            subgroupCode = (String) one.get(7);
-//            groupName = (String) one.get(8);
-//            subgroupName = (String) one.get(9);
-//            creditRating = (String) one.get(10);
-//            member_status = (String) one.get(11);
-//
-//            System.out.println("CustId: " + custId + "\n Acc Name: " + acctName + "\n Sav Acc: " + savingsAcnt
-//                    + "\n Loan Acc: " + loanAcnt + "\n Loan Acc: " + oprAcnt + "\n Sol Id: " + solId + "\n Group Code: " + groupCode + "\n SubGroup Code: "
-//                    + subgroupCode + "\n Group Name: " + groupName + "\n SubGroup Name: " + subgroupName
-//                    + "\n CreditRating Name: " + creditRating + "\n Member Status: " + member_status);
-//        }
-//    }
-    // Current Account Details
     public static ArrayList getAccountDetails(String foracid) {
         String sql = "select acct_name, sol_id, sub_group_code, credit_rating,member_status from general_acct_mast_table where  cust_id = ?";
         ArrayList ar = AdminDb.execArrayLists(sql, 1, foracid, 5);

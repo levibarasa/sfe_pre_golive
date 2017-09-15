@@ -67,19 +67,8 @@ Update Customer Tracker Details
 </td>
         <td   style="color: gray; font-style:italic;"> 
             <select width="20px" id="clientcontacted" name="clientcontacted">
-                               <option><%= clientcontacted %></option> 
-                              <%
-                                  if(clientcontacted.equalsIgnoreCase("Yes")){
-                                  %> 
-                                <option value="No">No</option>
-                                <%
-                                    } else
-                                  if(clientcontacted.equalsIgnoreCase("No")){
-                                  %>
-                                  <option value="Yes">Yes</option>
-                                   <%
-                                    }  
-                                  %>  
+                           <option value="No">No</option>
+                             <option value="Yes">Yes</option>  
                                 </select>
         </td>
     </tr>
@@ -89,7 +78,7 @@ Update Customer Tracker Details
   </td>
         <td   style="color: gray; font-style:italic;"> 
              <select width="20px" id="salescommitment" name="salescommitment">
-                  <option ><%= salescommitment %></option> 
+                 <!-- <option ><%= // salescommitment %></option> -->
                               <option value="No">No</option>
                              <option value="Yes">Yes</option>
                    
@@ -100,7 +89,7 @@ Update Customer Tracker Details
         <td    style="color:gray; font-style:italic;">Docs Submited</td>
         <td   style="color: gray; font-style:italic;">  
 <select width="20px" id="docsubmitted" name="docsubmitted"> 
-                                <option  ><%= docsubmitted %></option> 
+                           <!--     <option  ><%= //docsubmitted %></option> -->
                              <option value="No">No</option>
                              <option value="Yes">Yes</option>
                                 
@@ -111,7 +100,7 @@ Update Customer Tracker Details
         <td    style="color:gray; font-style:italic;">Closed</td>
         <td   style="color: gray; font-style:italic;"> 
 <select width="20px" id="closed" name="closed">
-                             <option>  <%= closed %></option> 
+                        <!--     <option>  <%= //closed %></option> -->
                               <option value="No">No</option>
                              <option value="Yes">Yes</option>
           </select>

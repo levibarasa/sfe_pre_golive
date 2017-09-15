@@ -156,10 +156,10 @@ public class Customerw {
         if ((String) session.getAttribute("uname") != null) {
             boolean updated = false;
             String rmCode = request.getParameter("rmCode");
+            String product[] = request.getParameterValues("product");
             String custId ="";
             String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
-              String today = sdf.format(new Date()); 
-              custId =  request.getParameter("custId"); //
+                custId =  request.getParameter("custId"); 
               System.out.println("custId :"+custId);
                clientcontacted = request.getParameter("clientcontacted");
                 salescommitment = request.getParameter("salescommitment") ;
@@ -168,16 +168,16 @@ public class Customerw {
                 comments = request.getParameter("comments") ;
                 scheduledcalldate = request.getParameter("scheduledcalldate");
                 System.out.println("clientcontacted :"+clientcontacted);
-               if(scheduledcalldate =="" || scheduledcalldate.equalsIgnoreCase("")){
-                scheduledcalldate = today;
-                } 
-                ArrayList list = Customer.populateDailyList(rmCode);
+                  ArrayList list = Customer.populateDailyList(rmCode);
                 int counter = Customer.getItemCounter(list,custId);
                  System.out.println("At Counter: "+counter);
                  System.out.println("CustId : "+custId);
-                  System.out.println(" From UI"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
+                  System.out.println(" From UI :"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
                   Customer.updateTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate);
-           session.setAttribute("rmCode", rmCode);
+            Customer.sellProducts(product, custId);
+            Customer.updateProducts(product, custId);
+                  
+                  session.setAttribute("rmCode", rmCode);
                   response.sendRedirect("updatetrackerclose.jsp");
             session.setAttribute("custracker", true);
             session.setAttribute("content_page", "updatetrackerclose.jsp");
