@@ -268,7 +268,7 @@
 <body>
     <%@ include file="include/header_one.jsp" %>
     <Strong style="font-size:16px; align-self center;"><u>
-           Complete List
+            Complete List
         </u></Strong>
     <table width="100%">  
         <tr width="100%">

@@ -2,12 +2,12 @@
     <header>
 
         <script type="text/javascript">
-            
+
             var request;
-            
+
             function sendInfo()
-            {  
-                var name = document.searchname.cust_name .value;
+            {
+                var name = document.searchname.cust_name.value;
                 var custid = document.searchname.cust_Id.value;
                 var url = "do?MOD=BOK&ACT=dosearch&val=" + name;
                 var url1 = "do?MOD=BOK&ACT=dosearch&val1=" + custid;
@@ -31,7 +31,7 @@
                 } catch (e) {
                     alert("Unable to connect to server");
                 }
-                
+
             }
 
             function getInfo() {
@@ -42,29 +42,29 @@
             }
 
         </script>
-         <script type="text/javascript">
-        function getCustExistingValue() {
-        var id = document.getElementById("custId").value;// 
-        var custName = document.getElementById("custName").value;
-        var rmCode = document.getElementById("rmCode").value;
-             popup = window.open("displayexistingcustomer.jsp?custId="+id+"&custName="+custName+"&rmCode="+rmCode, "Existing Customer Information", "width=600,height=600");
-            popup.focus();
-            return false
-        }
-         </script>
+        <script type="text/javascript">
+            function getCustExistingValue() {
+                var id = document.getElementById("custId").value;// 
+                var custName = document.getElementById("custName").value;
+                var rmCode = document.getElementById("rmCode").value;
+                popup = window.open("displayexistingcustomer.jsp?custId=" + id + "&custName=" + custName + "&rmCode=" + rmCode, "Existing Customer Information", "width=600,height=600");
+                popup.focus();
+                return false
+            }
+        </script>
     </header>
 
     <body>
         <%
            String rmCode = request.getParameter("rmCode");
-            %>
+        %>
     <center>
         <form id="searchname" name="searchname"   method="post" action="">
             <table width="400"> 
                 <tr width="400">
-                    <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
-                    <td    style="color: black; font-style:italic;">Customer Name   Or</td>
-                    <td   style="color: black; font-style:italic;"> Customer ID</td>
+                <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
+                <td    style="color: black; font-style:italic;">Customer Name   Or</td>
+                <td   style="color: black; font-style:italic;"> Customer ID</td>
                 </tr>
                 <tr width="400">
                     <td    style="color:gray; font-style:italic;">
@@ -76,10 +76,10 @@
                 </tr>
             </table>
         </form>
-        
-    <center><input type="button" onclick="return getCustExistingValue()" name="search" value="Search" width="100%" id="search"   style="color:#ffffff;background-color:#24315e;align-self: center;width: 15em;  height: 2em; border-radius: 12px;"></center>
-  
+
+        <center><input type="button" onclick="return getCustExistingValue()" name="search" value="Search" width="100%" id="search"   style="color:#ffffff;background-color:#24315e;align-self: center;width: 15em;  height: 2em; border-radius: 12px;"></center>
+
     </center>
-    </body>
-    
+</body>
+
 </html>

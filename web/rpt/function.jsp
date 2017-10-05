@@ -23,12 +23,16 @@
     <form id="popup">
         <table width="95%" align="center"  style="border:#013567 solid 2px;padding:10px;" border="0">
             <tr>   
-                <th bgcolor="#00C3F9" scope="col"><span class="style10">Report Name </span></th>
-                <th bgcolor="#00C3F9" scope="col"><span class="style10">Report Code </span></th>
+                <th bgcolor="#24315e" scope="col"><span class="style10">Report Name </span></th>
+                <th bgcolor="#24315e" scope="col"><span class="style10">Report Code </span></th>
             </tr>
             <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">Sales Pipeline</a></div></td>
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">SalesPipeline</a></div></td>
                 <td><div align="center">SP</div></td>
+            </tr>
+            <tr style="height:30px; padding:4px;">
+                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">RM-SalesPipeline</a></div></td>
+                <td><div align="center">RMSP</div></td>
             </tr>
             <tr style="height:30px; padding:4px;">
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">Gap to Budget</a></div></td>
@@ -42,10 +46,7 @@
                 <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">Performance Dashboard</a></div></td>
                 <td><div align="center">PD</div></td>
             </tr>
-            <tr style="height:30px; padding:4px;">
-                <td><div align="center"><a href="" onclick="getFunctionValue(this)" id="cname">RM-Sales Pipeline</a></div></td>
-                <td><div align="center">RMSP</div></td>
-            </tr>
-          </table>
+
+        </table>
     </form>
 </html>

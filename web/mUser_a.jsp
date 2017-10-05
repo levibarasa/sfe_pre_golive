@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Logged In Administrator</title>
+        <title>SFE Tool</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">

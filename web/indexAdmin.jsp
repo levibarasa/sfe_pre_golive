@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Logged In Administrator</title>
+        <title>SFE Tool</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
@@ -81,8 +81,16 @@
             document.MM_returnValue = (errors === '');
         }
     </script>
+     <script type="text/javascript">
+        var popup;
+         function getManageRmValue() { 
+            popup = window.open("managerUser.jsp", "Add Existing Customer", "width=700,height=600");
+            popup.focus();
+            return false
+        }
+     </script>
     <script type="text/javascript">
-        
+
         if (${adminloggedin == 'true'}) {
             alert("You have successfully as Admin");
         }
@@ -160,8 +168,9 @@
     <table width="100%">
         <tr width="100%">
             <td width="20%"><br/>
-                <p> <input type="button" name="home" onClick="window.location = 'index.jsp'" value="Home" width="100%" id="home"   style="color:#ffffff;background-color:#24315e"></p>
-                <p> <input type="submit" name="adminaccess" value="Admin Access"  onclick="window.location = 'mUser_a.jsp'" width="100%" id="adminaccess"   style="color:#ffffff;background-color:#24315e"></p>
+                <p> <input type="button" name="home" onClick="window.location = 'indexAdmin.jsp'" value="Home" width="100%" id="home"   style="color:#ffffff;background-color:#24315e"></p>
+                
+                <p> <input type="submit" name="adminaccess" value="Admin Access"  onclick="return getManageRmValue()" width="100%" id="adminaccess"   style="color:#ffffff;background-color:#24315e"></p>
 
                 <p> <input type="button" name="inputdata" value="Input Data" width="100%" id="inputdata"   style="border-radius: 12px; color:#ffffff;background-color:#24315e"></p>
 

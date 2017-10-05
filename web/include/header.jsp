@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td align="center" height="27" bgcolor="#24315e" class="demo2" style="padding-left:20px;color:#FFF; font-size:22px;"><b> 
-        SALES FORCE EFFECTIVENESS TOOL</b></td>
+                SALES FORCE EFFECTIVENESS TOOL</b></td>
     </tr>
     <tr>
         <td bgcolor="#24315e" style="padding-left:20px;">&nbsp;</td>

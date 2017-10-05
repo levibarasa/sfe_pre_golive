@@ -1,6 +1,7 @@
 package com.sfe.web.customer;
 
-import com.sfe.dao.customer.Customer;
+import com.sfe.dao.customer.Customer; 
+import static com.sfe.dao.customer.Customer.getRM_Name;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,44 +17,45 @@ import org.apache.commons.logging.LogFactory;
 public class Customerw {
 
     private static final Log log = LogFactory.getLog("origlogger");
-      private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()); 
+     
     static int getAccDetails = 0;
 
-      
     public static void handleAddExistCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        
-         String custId = request.getParameter("custId"); 
-             if ((String) session.getAttribute("uname") != null) {
+
+        String custId = request.getParameter("custId");
+        if ((String) session.getAttribute("uname") != null) {
             String rmCode = request.getParameter("rmCode");
-            
-                Customer.createNewCustomer(custId, rmCode);  
-           
+
+            Customer.createNewExistingCustomer(custId, rmCode);
+
             session.setAttribute("content_page", "populatelist.jsp");
             session.setAttribute("uname", rmCode);
             // session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
-            
+
         } else {
             session.setAttribute("content_page", "populatelist.jsp");
         }
         //  session.setAttribute("content_page", "populatelist.jsp");
         //response.sendRedirect("weeklycalllist.jsp");
     }
-     public static void handleDoSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public static void handleDoSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        
-         String custId = request.getParameter("custId"); 
-             if ((String) session.getAttribute("uname") != null) {
+
+        String custId = request.getParameter("custId");
+        if ((String) session.getAttribute("uname") != null) {
             String rmCode = request.getParameter("rmCode");
-            
-                Customer.createNewCustomer(custId, rmCode);  
-           
+
+            Customer.createNewCustomer(custId, rmCode, "");
+
             session.setAttribute("content_page", "populatelist.jsp");
             session.setAttribute("uname", rmCode);
             // session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
-            
+
         } else {
             session.setAttribute("content_page", "populatelist.jsp");
         }
@@ -63,19 +65,20 @@ public class Customerw {
 
     public static void handleGenerateList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-         
-            if ((String) session.getAttribute("uname") != null) {
-                
-           // String rmCode = request.getParameter("rmCode");
-           String rmCode =(String) session.getAttribute("uname");
-        System.out.println("RmCode :"+rmCode);
-            
-            ArrayList list = Customer.fetchDailyList(rmCode); 
+
+        if ((String) session.getAttribute("uname") != null) {
+
+            // String rmCode = request.getParameter("rmCode");
+            String rmCode = (String) session.getAttribute("uname");
+            System.out.println("RmCode :" + rmCode);
+
+            ArrayList list = Customer.fetchDailyList(rmCode);
+             System.out.println("List to be generated: "+list.size());
             Customer.createDailyList(list, rmCode);
             Customer.populateDailyList(rmCode);
             session.setAttribute("content_page", "populatelist.jsp");
-             session.setAttribute("uname", rmCode);
-              session.setAttribute("rmCode", rmCode);
+            session.setAttribute("uname", rmCode);
+            session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
         } else {
             session.setAttribute("content_page", "populatelist.jsp");
@@ -83,107 +86,151 @@ public class Customerw {
         //  session.setAttribute("content_page", "populatelist.jsp");
         //response.sendRedirect("weeklycalllist.jsp");
     }
-
+    
+    
+ 
+    public static void handleAddNewProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+if ((String) session.getAttribute("uname") != null) {
+        String custId = request.getParameter("custId");
+        String today = sdf.format(new Date());
+            String rmCode = request.getParameter("rmCode");
+            String product = request.getParameter("product");
+            Customer.deleteDefaultTrack(custId); 
+            Customer.createNewExistingCustomerProduct(custId, rmCode,product);
+              session.setAttribute("uname", rmCode);
+            session.setAttribute("rmCode", rmCode);
+            session.setAttribute("custId", custId); 
+            
+    
+         } else { 
+        } 
+        response.sendRedirect("addproductclose.jsp");
+    }
     public static void handleAddNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if ((String) session.getAttribute("uname") != null) {
-            
+
             String RmCode = request.getParameter("rmCode");
-            System.out.println("RmCode "+RmCode);
-            String phone = request.getParameter("phoneNo"); 
+            System.out.println("RmCode " + RmCode);
+            String phone = request.getParameter("phoneNo");
             String email = request.getParameter("emailId");
             String custName = request.getParameter("cust_name");
             int n = Customer.addNewCustomer(custName, email, phone, RmCode);
-            int custIdTemp = Customer.getNewTempCustId(); 
+            int custIdTemp = Customer.getNewTempCustId();
             String Customer_ID = String.valueOf(custIdTemp);
+            String Customer_Type ="BUSINESS BANKING";
+             String rmName = "";
             if (n > 0) {
                 session.setAttribute("custadd", true);
-                 session.setAttribute("rmCode", RmCode);
-                response.sendRedirect("addnewcustomer.jsp");
-                session.setAttribute("content_page", "addnewcustomer.jsp");
-                Customer.createNewCustomer(Customer_ID, RmCode);
-               }
-            
+                session.setAttribute("rmCode", RmCode);
+                  
+                Customer.createNewCustomer(Customer_ID, RmCode, custName);
+                rmName = getRM_Name(RmCode);
+                 Customer.createCustProd(RmCode, rmName, Customer_ID, custName, Customer_Type);
+            }
 
         } else {
-            session.setAttribute("content_page", "addnewcustomer.jsp");
-        }
-        //response.sendRedirect("addnewcustomer.jsp");
+              }
+        response.sendRedirect("updatetrackerclose.jsp");
     }
 
-        public static void handleUpdatePrevCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void handleUpdatePrevCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         session.setAttribute("custracker", false);
-        String rmCode =  request.getParameter("rmCode");
-        rmCode = request.getParameter("rmCode");
-            String custId ="";
-            String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
-                custId =  request.getParameter("custId");  
-               clientcontacted = request.getParameter("clientcontacted");
-                salescommitment = request.getParameter("salescommitment") ;
-                docsubmitted = request.getParameter("docsubmitted") ;
-                closed = request.getParameter("closed") ;
-                comments = request.getParameter("comments") ;
-                scheduledcalldate = request.getParameter("scheduledcalldate");
-                
-                ArrayList list = Customer.populateDailyList(rmCode);
-                int counter = Customer.getItemCounter(list,custId);
-                 System.out.println("At Counter: "+counter);
-                 System.out.println("CustId : "+custId);
-                 
-              System.out.println("scheduledcalldate : "+scheduledcalldate);
-                 session.setAttribute("uname", rmCode);
-                 System.out.println(" From UI"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
-                  Customer.updatePrevTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate);
-                  session.setAttribute("rmCode", rmCode); 
-                  session.setAttribute("fromdate", scheduledcalldate);
-                  session.setAttribute("todate", scheduledcalldate);
-                  System.out.println((String) session.getAttribute("uname"));
-                  if ((String) session.getAttribute("uname") != null) { 
-            
-               response.sendRedirect("updatetrackerclose.jsp");
-                
-            session.setAttribute("content_page", "updatetrackerclose.jsp");
+        String productvalue = request.getParameter("productvalue");
+        String currency = request.getParameter("currency");
+        String rmCode = request.getParameter("rmCode");
+        String product = request.getParameter("product");
+        String marketedProd = request.getParameter("marketedProduct");
+        String custId = "";
+        String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
+        custId = request.getParameter("custId");
+        clientcontacted = request.getParameter("clientcontacted");
+        salescommitment = request.getParameter("salescommitment");
+        docsubmitted = request.getParameter("docsubmitted");
+        closed = request.getParameter("closed");
+        comments = request.getParameter("comments");
+        scheduledcalldate = request.getParameter("scheduledcalldate");
+        String today = sdf.format(new Date());
+        ArrayList list = Customer.populateDailyList(rmCode);
+        int counter = Customer.getItemCounter(list, custId);
+        System.out.println("product :" + product);
+        System.out.println("CustId : " + custId); 
+        if (comments == "") {
+            comments = "None";
+        }
+        if (scheduledcalldate == "") {
+            scheduledcalldate = today;
+        }
+         
+        System.out.println("marketedProd: " + marketedProd);
+        System.out.println("scheduledcalldate : " + scheduledcalldate);
+        session.setAttribute("uname", rmCode);
+        System.out.println(" From UI" + custId + "  " + clientcontacted + "  " + salescommitment + "  " + docsubmitted + "  " + closed + "  " + comments + "  " + scheduledcalldate + "  " + currency + "  " + productvalue + "  " + marketedProd);
+        Customer.updatePrevTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate, currency, productvalue, marketedProd);
+        Customer.sellProducts(product, custId, productvalue, scheduledcalldate);
+        Customer.updateProducts(product, custId);
 
+        session.setAttribute("rmCode", rmCode);
+        session.setAttribute("fromdate", scheduledcalldate);
+        session.setAttribute("todate", scheduledcalldate);
+        System.out.println((String) session.getAttribute("uname"));
+        if ((String) session.getAttribute("uname") != null) {
+
+            response.sendRedirect("updatetrackerclose.jsp");
+
+            //  session.setAttribute("content_page", "updatetrackerclose.jsp");
         }
         session.setAttribute("content_page", "updatetrackerclose.jsp");
         // response.sendRedirect("populatelist.jsp");
     }
-        
+
     public static void handleUpdateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         session.setAttribute("custracker", false);
         if ((String) session.getAttribute("uname") != null) {
             boolean updated = false;
+            String productvalue = request.getParameter("productvalue");
+            String currency = request.getParameter("currency");
             String rmCode = request.getParameter("rmCode");
-            String product[] = request.getParameterValues("product");
-            String custId ="";
+            String product = request.getParameter("product");
+            String productsold = request.getParameter("productsold");  
+            String leadsrc = request.getParameter("leadsrc");
+            String trackid = request.getParameter("trackid");
+            String custId = "";
+            String today = sdf.format(new Date());
             String clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate;
-                custId =  request.getParameter("custId"); 
-              System.out.println("custId :"+custId);
-               clientcontacted = request.getParameter("clientcontacted");
-                salescommitment = request.getParameter("salescommitment") ;
-                docsubmitted = request.getParameter("docsubmitted") ;
-                closed = request.getParameter("closed") ;
-                comments = request.getParameter("comments") ;
-                scheduledcalldate = request.getParameter("scheduledcalldate");
-                System.out.println("clientcontacted :"+clientcontacted);
-                  ArrayList list = Customer.populateDailyList(rmCode);
-                int counter = Customer.getItemCounter(list,custId);
-                 System.out.println("At Counter: "+counter);
-                 System.out.println("CustId : "+custId);
-                  System.out.println(" From UI :"+ custId +"  "+ clientcontacted +"  "+ salescommitment +"  "+  docsubmitted +"  "+ closed +"  "+  comments +"  "+  scheduledcalldate);
-                  Customer.updateTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate);
-            Customer.sellProducts(product, custId);
+            custId = request.getParameter("custId");
+            System.out.println("custId :" + custId);
+            System.out.println("product :" + product); 
+            clientcontacted = request.getParameter("clientcontacted");
+            salescommitment = request.getParameter("salescommitment");
+            docsubmitted = request.getParameter("docsubmitted");
+            closed = request.getParameter("closed");
+            comments = request.getParameter("comments");
+            scheduledcalldate = request.getParameter("scheduledcalldate");
+            System.out.println("clientcontacted :" + clientcontacted);
+            if (comments == "") {
+                comments = "None";
+            }  
+
+            ArrayList list = Customer.populateDailyList(rmCode);
+            int counter = Customer.getItemCounter(list, custId);
+            System.out.println("CustId : " + custId);
+            System.out.println(" From UI :" + custId + "  " + clientcontacted + "  " + salescommitment + "  " + docsubmitted + "  " + closed + "  " + comments + "  " + scheduledcalldate + "  " + currency + "  " + productvalue + "  " + productsold + "  " +leadsrc + "  " +trackid);
+            Customer.updateTracker(custId, clientcontacted, salescommitment, docsubmitted, closed, comments, scheduledcalldate, currency, productvalue, product,leadsrc,trackid,productsold);
+          if(productsold.equalsIgnoreCase("Yes")){
+            Customer.sellProducts(product, custId, productvalue, scheduledcalldate);
             Customer.updateProducts(product, custId);
-                  
-                  session.setAttribute("rmCode", rmCode);
-                  response.sendRedirect("updatetrackerclose.jsp");
+                }
+            session.setAttribute("rmCode", rmCode);
+            response.sendRedirect("updatetrackerclose.jsp");
             session.setAttribute("custracker", true);
             session.setAttribute("content_page", "updatetrackerclose.jsp");
 
         }
-       // session.setAttribute("content_page", "populatelist.jsp");
+        // session.setAttribute("content_page", "populatelist.jsp");
         // response.sendRedirect("populatelist.jsp");
     }
 

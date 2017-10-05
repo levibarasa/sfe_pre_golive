@@ -21,7 +21,7 @@ public class DBConnection {
             String userName = pr.getDBProperty().getProperty("database.user");
             String pass = pr.getDBProperty().getProperty("database.pass");
             conn = DriverManager.getConnection(url, userName, pass);
-       } catch (ClassNotFoundException asd) {
+        } catch (ClassNotFoundException asd) {
             System.err.println(asd.getMessage());
         } catch (SQLException asd) {
             System.err.println(asd.getMessage());
@@ -38,4 +38,17 @@ public class DBConnection {
             System.out.println(d.getMessage());
         }
     }
+//          public static void main(String[] args) {
+//           DBConnection   bConnection = new DBConnection();
+//           if (bConnection.getDbConnection()!=null)
+//           {
+//            System.out.println("Connected");    
+//           }
+//           else
+//           {
+//
+//           System.out.println("Fuck you"); 
+//           }
+//           
+//    }
 }

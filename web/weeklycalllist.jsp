@@ -1,7 +1,7 @@
 <%@page import="com.sfe.dao.customer.Customer"%>
 <html>
     <head>
-        <title>Logged In Administrator</title>
+        <title>SFE Tool</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
@@ -14,7 +14,7 @@
             if (rmCode == null || rmCode == "") {
                 rmCode = rmCode1;
             }
-            System.out.println("RM Code: " + rmCode); 
+            System.out.println("RM Code: " + rmCode);
             ArrayList ar = Customer.getDailyList(rmCode);
             int size = ar.size();
 
@@ -104,7 +104,7 @@
             var rmCode = document.getElementById("rmCode").value;
             window.location.href = 'completelist.jsp?rmCode=' + rmCode;
         }
-         
+
         function getCustUpdateValue(id) {
             var rmCode = document.getElementById("rmCode").value;
             var clientcontacted = document.getElementById("clientcontacted").value;
@@ -113,7 +113,13 @@
             var closed = document.getElementById("closed").value;
             var comments = document.getElementById("comments").value;
             var scheduledcalldate = document.getElementById("scheduledcalldate").value;
-            popup = window.open("updatetracker.jsp?custId=" + id + "&rmCode=" + rmCode+ "&clientcontacted=" + clientcontacted+ "&salescommitment=" + salescommitment+ "&docsubmitted=" + docsubmitted+ "&closed=" + closed+ "&comments=" + comments+ "&scheduledcalldate=" + scheduledcalldate, "Update Customer Information", "width=600,height=600");
+            popup = window.open("updatetrackerlist.jsp?custId=" + id + "&rmCode=" + rmCode + "&clientcontacted=" + clientcontacted + "&salescommitment=" + salescommitment + "&docsubmitted=" + docsubmitted + "&closed=" + closed + "&comments=" + comments + "&scheduledcalldate=" + scheduledcalldate, "Update Customer Information", "width=1000,height=600");
+            popup.focus();
+            return false
+        }
+        function addExistingCustomerAllValue() {
+            var rmCode = document.getElementById("rmCode").value;
+            popup = window.open("addexistingcustomerAll.jsp?rmCode=" + rmCode, "Add Existing Customer", "width=600,height=400");
             popup.focus();
             return false
         }
@@ -146,10 +152,10 @@
             var rmCode = document.getElementById("rmCode").value;
             window.location.href = 'do?MOD=BOK&ACT=dogenerate&rmCode=' + rmCode;
         }
-        function dopostRptDriver() {  
-                var rmCode = document.getElementById("rmCode").value;
-            window.location.href ='crptHome.jsp?rmCode=' + rmCode;
-             }
+        function dopostRptDriver() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'crptHome.jsp?rmCode=' + rmCode;
+        }
     </script>
     <script type="text/javascript">
 
@@ -318,14 +324,15 @@
     <input type="button" name="preweeklycallist" onclick="return getPrevWklyListCrtValue()"  value="Previous Call List" width="100%" id="preweeklycallist"   style="color:#ffffff;background-color:#24315e">
     <img src="images/user.png" name="alarm" width="30" height="30"   border="0"/>
     <input type="button" name="addnewcustomer" onclick="return addNewCustomerValue()" value="Add New Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
-    <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerValue()" value="Add Existing Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
+    <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerValue()" value="Add My Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
+    <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerAllValue()" value="Search Any Bank Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
     <table width="100%">  
         <tr width="100%">
             <td width="20%"><br/>
                 <p> <input type="button" name="home" onClick="window.location = 'index.jsp'" value="Home" width="100%" id="home"   style="color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="weeklycalllist" onClick="window.location = 'weeklycalllist.jsp'" value="Daily Call List" width="100%" id="weeklycalllist"   style="color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="completelist" onClick=" return completeListRmCode();" value="Complete List" width="100%" id="completelist"   style="color:#ffffff;background-color:#24315e"></p>
-                <p> <input type="button" name="reports" onClick="return dopostRptDriver(); window.location = 'crptHome.jsp'" value="Reports" width="100%" id="reports"   style=" color:#ffffff;background-color:#24315e"></p>
+                <p> <input type="button" name="reports" onClick="return dopostRptDriver(); window.location = 'crptHome.jsp'" value="Reports" width="100%" id="reports"   style="opacity: 0.6; cursor: not-allowed; color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="updaterevenue" value="Update Revenue/Income" width="100%" id="updaterevenue"   style="opacity: 0.6; cursor: not-allowed;color:#ffffff;background-color:#24315e"></p>
             </td>
             <td> 
@@ -393,12 +400,12 @@
                                                 </a>
                                             </td> 
                                             <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                                                <a  href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="font-size:9px;color: #666666; text-decoration: none;" >
+                                                <a  href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="color: #666666; text-decoration: none;" >
                                                     <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Customer_ID%>" name ="custId" id="custId">
                                                 </a>
                                             </td>
                                             <td   style="font-size: 9px">
-                                                <a href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="font-size:9px;color: #666666; text-decoration: none;word-wrap: break-word;">  
+                                                <a href="" onclick="return getCustInfoValue('<%= Customer_ID%>')" style="color: #666666; text-decoration: none;word-wrap: break-word;">  
                                                     <span style="display:block;width:200px;word-wrap:break-word;">
                                                         <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Name%>" name ="name" id="name"> 
 
@@ -453,36 +460,36 @@
                                             </td>
 
 
-            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Client_Contacted%>" name ="clientcontacted" id="clientcontacted">
-            </td>
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Client_Contacted%>" name ="clientcontacted" id="clientcontacted">
+                                            </td>
 
-            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Sales_Commitment%>" name ="salescommitment" id="salescommitment">
-            </td>
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Sales_Commitment%>" name ="salescommitment" id="salescommitment">
+                                            </td>
 
-            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Docs_Submitted%>" name ="docsubmitted" id="docsubmitted">
-            </td>
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Docs_Submitted%>" name ="docsubmitted" id="docsubmitted">
+                                            </td>
 
-            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
-                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Closed%>" name ="closed" id="closed">
-            </td>
+                                            <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 
+                                                <input readonly="readonly" style="border: none;background-color: transparent;" type="text" value="<%=Closed%>" name ="closed" id="closed">
+                                            </td>
 
-            <td  style="font-size: 9px;" width="80px">
-                <input readonly="readonly"  type="text" id ="comments" value="<%=Comments%>" id="comments"  name="comments" size="30">
-            </td>
-            <td  style="font-size: 9px;" width="80px"> 
-                <input readonly="readonly"  type="text" value="<%=Filled_Week%>" name="scheduledcalldate" id="scheduledcalldate">
-            </td> 
+                                            <td  style="font-size: 9px;" width="80px">
+                                                <input readonly="readonly"  type="text" id ="comments" value="<%=Comments%>" id="comments"  name="comments" size="30">
+                                            </td>
+                                            <td  style="font-size: 9px;" width="80px"> 
+                                                <input readonly="readonly"  type="text" value="<%=Filled_Week%>" name="scheduledcalldate" id="scheduledcalldate">
+                                            </td> 
 
-        </tr>
+                                        </tr>
 
                                         <%
                                             }
- 
+
                                         %> 
-                                        
+
                                     </tbody>
                                 </table>
                             </div>

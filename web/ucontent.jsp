@@ -42,6 +42,16 @@
         clear: both;
     }
 </style>
+
+
+<script type="text/javascript">
+    function getChangePassW() {
+        popup = window.open("changePass.jsp?", "Change Password", "width=600,height=600");
+        popup.focus();
+        return false
+    }
+</script> 
+
 <script type="text/javascript">
     if (${nonexistencemenu == 'true'}) {
         alert("ERROR\nMenu Option Does Not Exist");
@@ -64,20 +74,20 @@
 
     <div id="secondary">
         <br/><br/><br/> 
-        
+
         <table width="600">
             <tr><td width="200"></td>
                 <td>
                     <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=doLog">
 
-                        <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic ">Relationship Officer Code</center>
+                        <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic ">Windows User Name</center>
 
                 </td></tr><tr><td width="200"></td>
                 <td>
-            <center> <input type="text" name ="employeeID" id="employeeID" size="30"></center><br/>
+            <center> <input type="text" name ="username" id="username" size="30"></center><br/>
             </td></tr><tr><td width="200"></td>
                 <td>
-            <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic ">Password</center>
+            <center style="font: Calibri; font-size: 14px; color:#03f; font-weight:bolder; font-style: italic "> Windows Password</center>
 
             </td></tr><tr><td width="200"></td>
                 <td>
@@ -89,16 +99,14 @@
             </td></tr>
             <tr><td width="200"></td>
                 <td><center>
-                <a href="" style="font-style:italic; color:#03f;font-size: 9 px;">
-                    Forgot or Change Password
-                </a>  
+                <br/>  <br/>
             </center>
             </td>
             </tr>
             <tr><td width="200"></td>
                 <td>
             <center>
-                <input type="submit" value=" Reset/Change Password  " width="50" bgcolor="#000000" style="background-color:#C8C8C8; color: #eee;" size="30">
+                <!-- <input type="submit" value=" Reset/Change Password"  onClick=" return getChangePassW();" width="50" bgcolor="#000000" style="font-style:italic; color:#03f;font-size: 9 px;" size="30"> -->
             </center>
             </td>
             </tr>

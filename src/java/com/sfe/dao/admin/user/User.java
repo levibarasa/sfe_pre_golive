@@ -237,23 +237,10 @@ public class User {
         return n;
     }
 
-    public static void changePassword(String username, String passwrd) {
-        String disabledFromDate = getfutureDateString("Year", 2);
-        String disabledUptoDate = getfutureDateString("Year", 3);
-        String pwExpyDate = getfutureDateString("Month", 3);
-        String acctExpyDate = getfutureDateString("Month", 3);
-        String rcre_time = getfutureDateString("Month", 0);
-        String pass = EncodeUserPassword(username, passwrd);
-
-        String in = disabledFromDate + "," + disabledUptoDate + "," + pwExpyDate
-                + "," + acctExpyDate + ",N," + pass + "," + username;
-        String sql = "update user_creds_tbl set disabled_from_date = try_convert(date, ?, 111)"
-                + ", disabled_upto_date = try_convert(date, ?, 111) , pw_expy_date = try_convert(date, ?, 111) "
-                + ", acct_expy_date = try_convert(date, ?, 111), last_access_time = try_convert(date, ?, 111)"
-                + " , new_user_flg = 'N', user_pw = ? where user_name =?";
-
-        if ((AdminDb.dbWork(sql, 7, in)) > 0) {
-        }
+    public static void changePassword(String employeeID, String userPw) {
+        String sql = "update Employee_Details set password = ?  where employeeID = ?";
+        String in = userPw + "," + employeeID;
+        AdminDb.dbWork(sql, 2, in);
     }
 
     public static void modifyUser(int userId, String username) {

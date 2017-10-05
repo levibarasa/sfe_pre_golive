@@ -28,8 +28,8 @@ public class origSessionListener implements HttpSessionListener {
         HttpSession sess = se.getSession();
         String username = (String) sess.getAttribute("uname");
         Access.logoutUser(username);
-        sessions.remove(se.getSession().getId());
-        sess.setAttribute("content_page", "login.jsp"); 
+        sessions.remove(se.getSession().getId()); 
+         sess.setAttribute("content_page", "login.jsp");
     }
 
     public static boolean invalidate(String sessionId) {

@@ -1,7 +1,8 @@
 package com.sfe.servlet;
- 
-import com.sfe.web.customer.Customerw; 
-import com.sfe.web.user.Accessw; 
+
+import com.sfe.dao.report.Reports;
+import com.sfe.web.customer.Customerw;
+import com.sfe.web.user.Accessw;
 import com.sfe.web.user.Userw;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class origServlet extends HttpServlet {
                         break;
                     case "Login":
                         Accessw.handleLoginNav(request, response);
-                        break; 
+                        break;
                     case "domuser":
                         Userw.handleMaintainUser(request, response);
                         break;
@@ -45,18 +46,21 @@ public class origServlet extends HttpServlet {
                         break;
                     case "Logout":
                         Accessw.handleLogout(request, response);
-                        break;  
-                  case "dogenerate":
+                        break;
+                    case "dogenerate":
                         Customerw.handleGenerateList(request, response);
                         break;
-                   case "dosearch":
+                    case "dosearch":
                         Customerw.handleDoSearch(request, response);
                         break;
-                   case "doadcustomer":
+                    case "doadcustomer":
                         Customerw.handleAddNewCustomer(request, response);
                         break;
                     case "doadexistcustomer":
                         Customerw.handleAddExistCustomer(request, response);
+                        break; 
+                    case "doaddproduct":
+                        Customerw.handleAddNewProduct(request, response);
                         break;
                     case "doacustomer":
                         Customerw.handleUpdateCustomer(request, response);
@@ -69,21 +73,21 @@ public class origServlet extends HttpServlet {
                         break;
                     case "gosac":
                         Accessw.goSac(request, response);
-                        break; 
+                        break;
                     case "domodcustomer":
                         Customerw.handleMaintainCustomer(request, response);
                         break;
                     case "domcustomer":
                         Customerw.handleModifyCustomer(request, response);
-                        break;    
-   
-  
+                        break;
+
+//  
 //                    case "gotorpt":
 //                        Reports.handleGoReport(request, response);
 //                        break;
-//                    case "gorpt":
-//                        Reports.goReport(request, response);
-//                        break; 
+                    case "gorpt":
+                        Reports.goReport(request, response);
+                        break;
 
                 }
                 break;

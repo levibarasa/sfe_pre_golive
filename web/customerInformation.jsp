@@ -2,19 +2,19 @@
 <%@page import="java.util.ArrayList"%>
 
 <%
-    %>
+%>
 <html>
     <head>
         <title>Customer Information</title>
         <style type="text/css">
             #apDiv1 {
-	position:absolute;
-	width:848px;
-	height:263px;
-	z-index:1;
-	left: 321px;
-	top: 318px;
-	background-color: #CCC;
+                position:absolute;
+                width:848px;
+                height:263px;
+                z-index:1;
+                left: 321px;
+                top: 318px;
+                background-color: #CCC;
             }
         </style>
     </head>
@@ -129,12 +129,12 @@
 
                    }
                         else{
-                        %>
+                    %>
 
-                        <option >2017-07-23 </option>   
-                         <%
-                            }
-                             %>
+                    <option >2017-07-23 </option>   
+                    <%
+                       }
+                    %>
 
                 </select>
             </div>
@@ -156,7 +156,7 @@
                     <option >  <%=produ%></option> 
                     <%
                         }  
-                             %>
+                    %>
 
                 </select> 
                 <div id="apDiv1" style=" border-style:solid; border:thin;">
@@ -167,7 +167,8 @@
                             box-shadow: inset 0px 0px 7px  rgba(0, 0, 0, 0.33);"> 
 
                         <%
-                            ArrayList array = Customer.getCustomerSoldProds(custId);
+                             
+                            ArrayList array = Customer.getNextBestProduct(custId);
                             int sizes =array.size(); 
                                 for (int i = 0; i < sizes; i++) {
                                     ArrayList one = (ArrayList) array.get(i);
@@ -177,11 +178,11 @@
                         <%
                             }
                        
-                             %>
+                        %>
                     </select>                     
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                   
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                   
                     <select name='currentproducts2' multiple="multiple" size=6 style="height:100px;-moz-box-shadow: inset 0px 0px 7px  rgba(0, 0, 0, 0.33);
                             -webkit-box-shadow: inset 0px 0px 7px  rgba(0, 0, 0, 0.33);        
                             box-shadow: inset 0px 0px 7px  rgba(0, 0, 0, 0.33);">
@@ -198,14 +199,14 @@
                     </select>
                     <br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                         
-<img src="images/arrowdown.png" name="alarm" width="39" height="30"   border="0"/>
-                    
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;               
-         <img src="images/sold.png" name="alarm" width="60" height="30"   border="0"/>            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                    <img src="images/arrowdown.png" name="alarm" width="39" height="30"   border="0"/>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;               
+                    <img src="images/sold.png" name="alarm" width="60" height="30"   border="0"/>            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                     <img src="images/arrowdown.png" name="alarm" width="30" height="30"   border="0"/>
 
                     <table width="400" height="77" border="1" >
@@ -223,13 +224,13 @@
                         </tr>
                     </table>
                     <form name="form1" method="post" action="">
-                 
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="submit" name="save" id="save" value="Save" align="right">
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" name="save" id="save" value="Save" align="right">
                     </form>
                 </div>
-<br/>
+                <br/>
                 <Strong style="font-style:italic;color:#24315e;font-size:14px;">Turnover Details: </Strong> <br/>
                 <table width="237" style="border:1px solid #000;">
                     <tr style="border:none;">

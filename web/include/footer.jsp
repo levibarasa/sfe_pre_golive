@@ -4,7 +4,7 @@
         <tr>
             <td width="1000" rowspan="3" bgcolor="#24315e" >
         <caption style="font-family:sans-serif; font-style: italic; background-color: #24315e; color:#FFFFFF; font-size: 10px;  ">
-             I&M BANK KENYA 
+            I&M BANK KENYA 
         </caption> 
         </td>
 

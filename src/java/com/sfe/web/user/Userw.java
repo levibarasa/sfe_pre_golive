@@ -15,8 +15,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class Userw {
 
-     
-
     public static void handleMaintainUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -167,11 +165,11 @@ public class Userw {
         String uname = (String) session.getAttribute("uname");
         String userPw = request.getParameter("Password");
         String conPass = request.getParameter("Password1");
-        if (userPw.equals(conPass)) {//pwdchanged
+        if (userPw.equals(conPass)) {
             User.changePassword(uname, userPw);
             session.setAttribute("pwdchanged", true);
             Access.logoutUser((String) session.getAttribute("uname"));
-            session.setAttribute("content_page", "login.jsp");
+            // session.setAttribute("content_page", "login.jsp");
             response.sendRedirect("login.jsp");
         }
     }

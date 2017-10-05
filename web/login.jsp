@@ -1,3 +1,4 @@
+<%@ page import = "java.io.*,java.util.*" %>
 <html>
     <head>
         <title>Sales Force Effectiveness Tool</title>
@@ -74,7 +75,7 @@
             }
         </script>
         <script type="text/javascript">
-         
+
             if (${userlogged == 'true'}) {
                 alert("User is already logged in. Log in again to kill session former session");
             }
@@ -84,9 +85,9 @@
         </script>
         <style type="text/css">
             header, body, section, footer, aside, nav, main, article, figure {
-                  display: block; 
-             }
-            
+                display: block; 
+            }
+
             <!--
             html,body{
                 text-align: center;
@@ -131,18 +132,22 @@
             <tr>
                 <td>
                     <%
-                        String conPage = (String) session.getAttribute("content_page");
+                        String conPage = (String) session.getAttribute("content_page"); 
+                        String loggedInUser = (String) session.getAttribute("loggedInUser");
                         System.out.println("conPage ==> " + conPage);
-                        if (conPage != null) {
-                    %>
+                            
+                        if (conPage != null) { 
+                          %>
                     <jsp:include page="<%=conPage%>"/>
                     <%
-                    } else {
+                    } else { 
+
                     %>
                     <jsp:include page="ucontent.jsp"/>
                     <%
                         }
-                    %></td>
+                    %>
+                  </td>
             </tr>
         </table>
 

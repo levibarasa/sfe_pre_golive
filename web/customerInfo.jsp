@@ -3,7 +3,7 @@
 
 <%
    // session.setAttribute("content_page", "customerInfo.jsp");
-    %>
+%>
 <html>
     <head>
         <title>Customer Information</title>
@@ -113,7 +113,7 @@
                     </table>
 
                 </div>
-               
+
 
             </div>
         </fieldset>

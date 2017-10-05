@@ -70,12 +70,12 @@
             new JsDatePick({
                 useMode: 2,
                 target: "todate",
-                dateFormat: "%d-%M-%Y"
+                dateFormat: "%d/%m/%Y"
             });
             new JsDatePick({
                 useMode: 2,
                 target: "fromdate",
-                dateFormat: "%d-%M-%Y"
+                dateFormat: "%d/%m/%Y"
             });
         };
     </script>
@@ -86,8 +86,8 @@
     </script>
     <script type="text/javascript">
         var popup;
-        function getSubGroupCodeValue() {
-            popup = window.open("loan/subGroups.jsp", "Functions", "width=500,height=400, resizable=false");
+        function getRmCodeValue() {
+            popup = window.open("rpt/rmCodeList.jsp", "Functions", "width=500,height=400, resizable=false");
             popup.focus();
             return false;
         }
@@ -108,33 +108,55 @@
             return false;
         }
     </script>
+
 </head>
 <h2 style="font: bold 90% 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 16px">Reports Module</h2>
-<form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=gotorpt" onsubmit=" return validatePasswords(this)">
+<form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=gorpt" onsubmit=" return validatePasswords(this)">
     <table width="90%" border="0" align="left" cellpadding="5" cellspacing="2">
         <tr>
-            <th colspan="8" scope="col"><div class="header">&nbsp;Reports Module</div></th>
         </tr>
         <tr>
             <td><label>Function</label></td>
             <td style="color: red">*</td>
+
             <td><label>
-                    <input name="rFunction" type="text" readonly="true"  id="rFunction" onkeyup="caps(this)" class="textboxes" />
-                    <td><a href="" onclick="return getRPTFunctionValue()"><img src="images/search.png"></a>
+                    <input name="rFunction" type="text" value ="" readonly="true"  id="rFunction" onkeyup="caps(this)" class="textboxes" />
+                    <td> <a href="" onclick="return getRPTFunctionValue()"><img src="images/search.png"></a>
                     </td>
                 </label>
             </td>
             <td><label>Report Format</label></td>
             <td style="color: red">*</td>
             <td><label>
-                    <input name="rtpfmt" type="text" readonly="true"  id="rtpfmt" onkeyup="caps(this)" class="textboxes" />
+                    <input name="rtpfmt" type="text" value ="" readonly="true"  id="rtpfmt" onkeyup="caps(this)" class="textboxes" />
                     <td><a href="" onclick="return getFunctionValue()"><img src="images/search.png"></a>
                     </td>
                 </label>
             </td>
 
         </tr>
+        <tr>
+            <td>Rm code</td>
+            <td>:</td>
+            <td><input type="hidden" name="rmCode" onkeyup="this.value = this.value.toUpperCase();" value="" id="rmCode" readonly="true" />
+                <input type="text" name="rmName" onkeyup="this.value = this.value.toUpperCase();" value="" id="rmName" readonly="true" /></td>
+            <td><a href="" onclick="return getRmCodeValue()"/><img src="images/search.png"/></a></td>
+            <td> </td>
+            <td> </td>
+            <td colspan="2"></td>
 
+        </tr>
+        <tr>
+            <td>From date</td>
+            <td>:</td>
+            <td><input type="text" name="fromdate" readonly="true" onkeyup="this.value = this.value.toUpperCase();"  id="fromdate" required="true"/></td>
+            <td></td>
+            <td>To date</td>
+            <td>:</td>
+            <td><input type="text" name="todate" readonly="true" onkeyup="this.value = this.value.toUpperCase();"  id="todate" required="true"/></td>
+            <td>
+            <td>&nbsp;</td>
+        </tr>
         <tr>
             <td>&nbsp;</td>
             <td><label>
@@ -146,8 +168,8 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td><label>
-                    <input name="Submit" class="redButton" type="submit" onclick="MM_validateForm('rFunction', '', 'R', 'subgroup', '', 'R', 'fromdate', '', 'R', 'todate', '', 'R');
+            <td><label>  
+                    <input name="Submit" class="redButton" type="submit" onclick="MM_validateForm('rFunction', '', 'R', 'groupcode', '', 'R', 'fromdate', '', 'R', 'todate', '', 'R');
                             return document.MM_returnValue;
                             validatePasswords(this)" value="Go" />
                 </label></td>
@@ -161,7 +183,6 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="8"><div class="header">&nbsp;</div></td>
         </tr>
     </table>
 </form>

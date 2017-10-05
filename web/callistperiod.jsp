@@ -33,6 +33,10 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
     <script language="javaScript" type="text/javascript" src="include/sim.js"></script>
+    <script type="text/javascript" src="include/jquery.1.4.2.js"></script>
+    <script type="text/javascript" src="include/jsDatePick.jquery.min.1.3.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" href="include/jsDatePick_ltr.min.css" />
     <script type="text/javascript">
         function MM_findObj(n, d) { //v4.01
             var p, i, x;
@@ -93,6 +97,42 @@
                 "scrollX": true
             });
         });
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            new JsDatePick({
+                useMode: 2,
+                target: "fromdate",
+                dateFormat: "%d/%m/%Y",
+                selectedDate: {
+                    day: 5,
+                    month: 9,
+                    year: 2017
+                },
+                yearsRange: [1978, 2020],
+                limitToToday: false,
+                cellColorScheme: "beige",
+                dateFormat: "%d/%m/%Y",
+                imgPath: "img/",
+                weekStartDay: 1
+            });
+            new JsDatePick({
+                useMode: 2,
+                target: "todate",
+                dateFormat: "%d/%m/%Y",
+                selectedDate: {
+                    day: 5,
+                    month: 9,
+                    year: 2017
+                },
+                yearsRange: [1978, 2020],
+                limitToToday: false,
+                cellColorScheme: "beige",
+                dateFormat: "%d/%m/%Y",
+                imgPath: "img/",
+                weekStartDay: 1
+            });
+        };
     </script>
     <style type="text/css">
         div.dataTables_wrapper {
@@ -237,14 +277,14 @@
             });
         });
     </script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         var popup;
-        function getPrevWklyListValue() { 
+        function getPrevWklyListValue() {
             var fromdate = document.getElementById("fromdate").value;
-            var todate =  document.getElementById("todate").value;
-            var pendinglist =  document.getElementById("pendinglist").value;
+            var todate = document.getElementById("todate").value;
+            var pendinglist = document.getElementById("pendinglist").value;
             var rmCode = document.getElementById("rmCode").value;
-            popup = window.open("previousweeklycalllist.jsp?fromdate=" +fromdate+"&todate=" + todate+ "&rmCode=" + rmCode, "Previous Weekly List", "width=1000,height=800");
+            popup = window.open("previousweeklycalllist.jsp?fromdate=" + fromdate + "&todate=" + todate + "&rmCode=" + rmCode, "Previous Weekly List", "width=1000,height=800");
             popup.focus();
             return false
         }
@@ -254,21 +294,21 @@
 <%
     
  String rmCode = request.getParameter("rmCode");
-    %>
+%>
 <body>
-    <form name="" >
-        <br/>   <br/> <strong>From Date:<input type="date"   value="" name="fromdate" id="fromdate"> 
-        <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
-        
+    <form name="" > 
+        <br/>   <br/> <strong>From Date:<input type="text"   value="" name="fromdate" id="fromdate"> 
+            <input type="hidden" name="rmCode" id="rmCode" value="<%= rmCode %>">
+
         </strong> 
-        <strong>To Date:<input type="date"  value="" name="todate" id="todate"> 
-        <br/> 
-        
+        <strong>To Date:<input type="text"  value="" name="todate" id="todate"> 
+            <br/> 
+
         </strong> 
- 
+
         <p align="left"> 
-        <input type="checkbox" name="pendinglist" id="pendinglist">
-        Pending List
+            <input type="checkbox" name="pendinglist" id="pendinglist">
+            Pending List
         </p>    
         <input type="submit" name="submit" value="Submit" onClick="return getPrevWklyListValue()" width="100%" id="submit"   style="color:#ffffff;background-color:#24315e;align-self: center;">
     </form>

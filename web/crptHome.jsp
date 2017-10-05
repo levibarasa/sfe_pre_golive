@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Logged In Administrator</title>
+        <title>SFE Tool</title>
         <link href="include/admin.css" rel="stylesheet" type="text/css">
         <link href="include/menu.css" rel="stylesheet" type="text/css">
         <link href="include/main.css" rel="stylesheet" type="text/css">
@@ -82,35 +82,35 @@
         }
     </script>
     <script type="text/javascript">
-        
+
         if (${adminloggedin == 'true'}) {
             alert("You have successfully as Admin");
         }
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
         var popup;
-        
-          function getReminders() {
+
+        function getReminders() {
             var rmCode = document.getElementById("rmCode").value;
-            popup = window.open("reminder.jsp?rmCode="+rmCode, "Reminder List", "width=1000,height=600");
+            popup = window.open("reminder.jsp?rmCode=" + rmCode, "Reminder List", "width=1000,height=600");
             popup.focus();
             return false
         }
-        </script>
-     <script type="text/javascript">
-         function dopostRptDriver() {  
-                var rmCode = document.getElementById("rmCode").value;
-            window.location.href ='rptHome.jsp?rmCode=' + rmCode;
-             }
-         function dopostDriver() {  
-                var rmCode = document.getElementById("rmCode").value;
-            window.location.href ='weeklycalllist.jsp?rmCode=' + rmCode;
-             }
-             
-        function completeListRmCode() {  
-                var rmCode = document.getElementById("rmCode").value;
-            window.location.href ='completelist.jsp?rmCode=' + rmCode;
-             }
+    </script>
+    <script type="text/javascript">
+        function dopostRptDriver() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'rptHome.jsp?rmCode=' + rmCode;
+        }
+        function dopostDriver() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'weeklycalllist.jsp?rmCode=' + rmCode;
+        }
+
+        function completeListRmCode() {
+            var rmCode = document.getElementById("rmCode").value;
+            window.location.href = 'completelist.jsp?rmCode=' + rmCode;
+        }
     </script>
     <style type="text/css">
         <!--
@@ -181,7 +181,7 @@
 </head>
 <body>
     <%@ include file="include/header_one.jsp" %> 
-<input type="hidden" name="rmCode" id="rmCode" value="<%= user_code %>">
+    <input type="hidden" name="rmCode" id="rmCode" value="<%= user_code %>">
     <table width="100%">
         <tr width="100%">
             <td width="20%"><br/>
@@ -194,10 +194,10 @@
 
             </td>
             <td width="80%">
-          <%@ include file="rptHome.jsp" %>
-           
-           
-          </td> 
+                <%@ include file="rptHome.jsp" %>
+
+
+            </td> 
         </tr>
     </table>
 

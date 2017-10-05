@@ -1,5 +1,5 @@
 package com.sfe.web.user;
- 
+
 import com.sfe.dao.admin.user.Access;
 import com.sfe.dao.admin.user.User;
 import com.sfe.security.Encode;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import com.sfe.dao.admin.user.LdapLogin;
 
 public class Accessw {
 
@@ -23,82 +24,89 @@ public class Accessw {
     public static void handleLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        session.setAttribute("userdnexists", false);
-        session.setAttribute("usernotverified", false);
-        session.setAttribute("userlocked", false);
-        session.setAttribute("pwdexpired", false);
-        session.setAttribute("acctexpired", false);
-        session.setAttribute("usrdisabled", false);
-        session.setAttribute("userlogged", false);
-        String employeeID = request.getParameter("employeeID");
+        
+        String username = request.getParameter("username");
         String password = request.getParameter("Password");
+        String employeeID = "";
+        LdapLogin ldapExaminer = new LdapLogin();
+        String loggedInUser ="";// ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
+        System.out.println("Logged in User: " + loggedInUser); 
+        String testUser1 = "soumya.rao";
+        String testUser = "nicholast";  
+        loggedInUser = testUser;
+          session.setAttribute("loggedInUser", loggedInUser);
+//                if (loggedInUser != null && conPage == null) {
+//          employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
+//            session.setAttribute("uname", employeeID);
+//            session.setAttribute("rmCode", employeeID);
+//            conPage ="index.jsp";
+//            session.setAttribute("content_page",conPage);
+//                      }
         int userId;
         SimpleDateFormat in = new SimpleDateFormat("dd-MMM-yyyy");
         String branch, region;
         branch = "Head Office";
-        region = "Head Office"; 
-        if (User.userExists(employeeID)) {
+        region = "Head Office";   
+        if (!loggedInUser.equalsIgnoreCase("") || !loggedInUser.equalsIgnoreCase(null)) {
+              employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
+
             userId = Integer.parseInt(employeeID);
             Date currdate = new Date();
             String roleid = "";
             String roleName = "";
+            System.out.println("RmCode: " + employeeID);
             String employeeCode, employeeName, accessLevel;
-            if (!Access.userIsLoggedIn(employeeID)) {
-                if (Access.userExists(employeeID, password)) {
-                    session.setAttribute("uname", employeeID); 
-                    session.setAttribute("rmCode", employeeID); 
-                    Access.MarkloginUser(employeeID, new Date());
-                    ArrayList ar = User.getUserDetails(String.valueOf(userId));
-                    for (int i = 0; i < ar.size(); i++) {
-                        ArrayList one = (ArrayList) ar.get(i);
-                        employeeCode = (String) one.get(0);
-                        employeeName = (String) one.get(1);
-                        accessLevel = (String) one.get(2);
-                        Access.loginUser(employeeCode, employeeName, accessLevel);
-                        branch = User.getBranch(employeeID);
-                        region = User.getRegion(employeeID);
+            System.out.println("employeeID: "+employeeID); 
+            session.setAttribute("uname", employeeID);
+            session.setAttribute("rmCode", employeeID);
+            Access.MarkloginUser(employeeID, new Date());
+            ArrayList ar = User.getUserDetails(String.valueOf(userId));
+            System.out.println(ar);
+            for (int i = 0; i < ar.size(); i++) {
+                ArrayList one = (ArrayList) ar.get(i);
+                employeeCode = (String) one.get(0);
+                employeeName = (String) one.get(1);
+                accessLevel = (String) one.get(2);
+                Access.loginUser(employeeCode, employeeName, accessLevel);
+                branch = User.getBranch(employeeID);
+                region = User.getRegion(employeeID);
 
-                        session.setAttribute("name", employeeName);
-                        session.setAttribute("code", employeeCode);
-                        session.setAttribute("branch", branch);
-                        session.setAttribute("region", region);
-                        session.setAttribute("accessLevel", accessLevel);
-                        session.setAttribute("userloggedin", true);
-
-                        if (accessLevel.equalsIgnoreCase("1")) {
-                            response.sendRedirect("indexAdmin.jsp");
-                        } else if (accessLevel.equalsIgnoreCase("2")) {
-
-                            response.sendRedirect("index.jsp");
-
-                        } else if (accessLevel.equalsIgnoreCase("3")) {
-                            response.sendRedirect("indexNationalHead.jsp");
-                        } else {
-                            session.setAttribute("content_page", "login.jsp");
-                            response.sendRedirect("login.jsp");
-                        }
+                session.setAttribute("name", employeeName);
+                session.setAttribute("code", employeeCode);
+                session.setAttribute("branch", branch);
+                session.setAttribute("region", region);
+                session.setAttribute("accessLevel", accessLevel);
+                session.setAttribute("userloggedin", true);
+                String conPage = (String) session.getAttribute("content_page");
+                 
+                  System.out.println("conPage ndaani: "+conPage);
+                if (accessLevel.equalsIgnoreCase("1") && conPage == null) {
+                    response.sendRedirect("indexAdmin.jsp");
+                    System.out.println("conPage => "+conPage);
+                    if(conPage == null){
+                    session.setAttribute("content_page","indexAdmincontent.jsp");
+                    conPage ="indexAdmin.jsp";
                     }
-                } else {
-                    session.setAttribute("userdnexists", true);
+                } else if (accessLevel.equalsIgnoreCase("2") && conPage == null) {
+                    response.sendRedirect("index.jsp");
+                    System.out.println("conPage => "+conPage);
+                    if(conPage == null){
+                    session.setAttribute("content_page","index_content.jsp");
+                    } 
+                } else if (accessLevel.equalsIgnoreCase("3") && conPage == null) {
+                    response.sendRedirect("indexNationalHead.jsp");
+                    System.out.println("conPage => "+conPage);
+                     if(conPage == null){
+                    session.setAttribute("content_page","indexNationalHeadcontent.jsp");
+                    } 
+                      } else if(conPage == null){
                     session.setAttribute("content_page", "login.jsp");
                     response.sendRedirect("login.jsp");
                 }
-            } else {
-                
-                Access.logoutUser(employeeID);
-            //session.setAttribute("content_page", "login.jsp");
-            response.sendRedirect("login.jsp");
-           // session.invalidate();
-                //session.setAttribute("userlogged", true);
-               //  session.setAttribute("content_page", "ucontent.jsp");
-               // response.sendRedirect("login.jsp");
-               session.setAttribute("uname", employeeID); 
-               session.setAttribute("rmCode", employeeID); 
             }
 
         } else {
-           // session.setAttribute("userdnexists", true);
-          //  session.setAttribute("content_page", "login.jsp");
+            session.setAttribute("userdnexists", true);
             response.sendRedirect("login.jsp");
         }
     }

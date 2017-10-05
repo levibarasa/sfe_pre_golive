@@ -45,7 +45,7 @@ public class origSessionFilter implements Filter {
             HttpSession session = request.getSession(false);
             if (null == session) {
                 RequestDispatcher reqd = request.getRequestDispatcher("login.jsp");
-                    reqd.forward(request, response);
+                reqd.forward(request, response);
 
             }
         }
