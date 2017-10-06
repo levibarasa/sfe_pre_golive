@@ -85,25 +85,8 @@
         }
     </script>
     <script type="text/javascript">
- 
+
         var popup;
-        function getRegionValue() {
-            popup = window.open("rpt/rmRegion.jsp", "Functions", "width=500,height=400, resizable=false");
-            popup.focus();
-            return false;
-        }
-        function getBranchValue() { 
-         var region = document.getElementById("region").value;
-            popup = window.open("rpt/rmBranch.jsp?region="+region, "Functions", "width=500,height=400, resizable=false");
-            popup.focus();
-            return false;
-        }
-        function getSegmentValue() {
-            var region = document.getElementById("region").value;
-            popup = window.open("rpt/rmSegment.jsp", "Functions", "width=500,height=400, resizable=false");
-            popup.focus();
-            return false;
-        }
         function getRmCodeValue() {
             popup = window.open("rpt/rmCodeList.jsp", "Functions", "width=500,height=400, resizable=false");
             popup.focus();
@@ -132,15 +115,15 @@
 <form id="form1" name="form1" method="post" action="do?MOD=BOK&ACT=gorpt" onsubmit=" return validatePasswords(this)">
             <center> 
 
-                  
-                <table width="600" align="right">
+                <br/><br/> 
+                <table width="600">
                     <tr width="600">
                      <td >&nbsp; </td>
                         <td    style="color: black; font-style:italic;">&nbsp; </td>
-                         
+                        
                     </tr><tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">Report</td>
-                        <td  style="color: black; font-style:italic;">
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">Report</td>
+                        <td  style="color: gray; font-style:italic;">
                         
                         <label>
                     <input name="rFunction" type="text" value ="" readonly="true"  id="rFunction" onkeyup="caps(this)" class="textboxes" />
@@ -149,8 +132,8 @@
                     </td>
                     </tr>  
                     <tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">Region</td>
-                        <td   style="color: black; font-style:italic;"> 
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">Region</td>
+                        <td   style="color: gray; font-style:italic;"> 
 
                            <label>
                     <input name="region" type="text" value ="" readonly="true"  id="region" onkeyup="caps(this)" class="textboxes" />
@@ -159,26 +142,26 @@
                         </td>
                     </tr> 
                     <tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">Branch</td>
-                        <td   style="color: black; font-style:italic;">  <label>
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">Branch</td>
+                        <td   style="color: gray; font-style:italic;">  <label>
                     <input name="branch" type="text" value ="" readonly="true"  id="branch" onkeyup="caps(this)" class="textboxes" />
-                     <a href="" onclick="return getBranchValue()"><img src="images/search.png"></a>
-                     </label>
-                        </td>
-                    </tr> 
-                    <tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">RM</td>
-                        <td   style="color: black; font-style:italic;">  
-                 <input type="hidden" name="rmCode" onkeyup="this.value = this.value.toUpperCase();" value="" id="rmCode" readonly="true" />       
-                        <label>
-                    <input name="rmName" type="text" value ="" readonly="true"  id="rmName" onkeyup="caps(this)" class="textboxes" />
-                     <a href="" onclick="return getRmCodeValue()"><img src="images/search.png"></a>
+                     <a href="" onclick="return getFunctionValue()"><img src="images/search.png"></a>
                      </label>
                         </td>
                     </tr>
                     <tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">Segment</td>
-                        <td   style="color: black; font-style:italic;"> 
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">RM</td>
+                        <td   style="color: gray; font-style:italic;">  
+                 <input type="hidden" name="rmCode" onkeyup="this.value = this.value.toUpperCase();" value="" id="rmCode" readonly="true" />       
+                        <label>
+                    <input name="rmName" type="text" value ="" readonly="true"  id="rmName" onkeyup="caps(this)" class="textboxes" />
+                     <a href="" onclick="return getBranchValue()"><img src="images/search.png"></a>
+                     </label>
+                        </td>
+                    </tr>
+                    <tr width="600">
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">Segment</td>
+                        <td   style="color: gray; font-style:italic;"> 
                              <label>
                     <input name="segment" type="text" value ="" readonly="true"  id="segment" onkeyup="caps(this)" class="textboxes" />
                      <a href="" onclick="return getSegmentValue()"><img src="images/search.png"></a>
@@ -187,8 +170,8 @@
                     </tr> 
                     
                     <tr width="600">
-                        <td    style="color:black; font-style:italic;font-size:14px;font-weight:bold;">Report Format</td>
-                        <td  style="color: black; font-style:italic;">
+                        <td    style="color:gray; font-style:italic;font-size:18px;font-weight:bold;">Report Format</td>
+                        <td  style="color: gray; font-style:italic;">
                         
                         <label>
                     <input name="rtpfmt" type="text" value ="" readonly="true"  id="rtpfmt" onkeyup="caps(this)" class="textboxes" />
@@ -196,8 +179,14 @@
                      </label>
                     </td>
                     </tr>  
+
+                    <%
+                    }
+                    %>
+                    
+                    
                     <tr width="600">
-                     <td style="color:black; font-style:italic;font-size:14px;font-weight:bold;" >From Date:</td> <td >
+                     <td style="color:gray; font-style:italic;font-size:18px;font-weight:bold;" >From Date:</td> <td >
                         <input type="text" name="fromdate" readonly="true" onkeyup="this.value = this.value.toUpperCase();"  id="fromdate" required="true"/>
                        
                         
@@ -205,7 +194,7 @@
                          
                     </tr>
                      <tr width="600">
-                     <td style="color:black; font-style:italic;font-size:14px;font-weight:bold;"> To Date: </td>
+                     <td style="color:gray; font-style:italic;font-size:18px;font-weight:bold;"> To Date: </td>
                         <td    style="color: black; font-style:italic;"><input type="text" name="todate" readonly="true" onkeyup="this.value = this.value.toUpperCase();"  id="todate" required="true"/> </td>
                          
                     </tr>
@@ -219,20 +208,20 @@
                 </label> 
                       </td>
                         <td    style="color: black; font-style:italic;">
-                         <div align="center">
+                         <div align="right">
                         <label>  
-                    <input size="10" name="Submit" class="redButton" type="submit" onclick="MM_validateForm('rFunction', '', 'R', 'groupcode', '', 'R', 'fromdate', '', 'R', 'todate', '', 'R');
+                    <input name="Submit" class="redButton" type="submit" onclick="MM_validateForm('rFunction', '', 'R', 'groupcode', '', 'R', 'fromdate', '', 'R', 'todate', '', 'R');
                             return document.MM_returnValue;
                             validatePasswords(this)" value="Go" />
                 </label>
                 </div>
                          </td>
-                         
+                       
                     </tr>
                      <tr width="600">
                      <td >&nbsp; </td>
                         <td    style="color: black; font-style:italic;"></td>
-                       
+                        
                     </tr>
                 </table>
                 <br/><br/>
@@ -245,8 +234,6 @@
 
         </form>
     </center>
-    <p align="left">
-        <img src="images/rpt.png" width="300" height="300">
-    </p> 
+    <p>&nbsp;</p>
 </body>
 </html>

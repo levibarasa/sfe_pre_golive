@@ -21,7 +21,23 @@ public class Customer {
         int id = Integer.parseInt(str);
         return id;
     }
-
+    
+     
+      public static ArrayList getSegment(String rmCode) {
+         String sql = "select distinct Customer_Type from [dbo].[Customer_Tracking] where RM_Code = ?";
+        String in = rmCode ;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+    
+     public static ArrayList getBranch(String region) {
+         String sql = "select distinct Branch from [dbo].[RM_Codelist] where Region = ?";
+        String in = region ;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+     public static ArrayList getRegion() {
+        String sql = "select distinct Region from [dbo].[RM_Codelist]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
      public static ArrayList getAcessLevel() {
         String sql = "select distinct accessLevelID from [dbo].[Employee_Details]";
         return AdminDb.execArrayLists(sql, 0, "", 1);

@@ -332,7 +332,7 @@
                 <p> <input type="button" name="home" onClick="window.location = 'index.jsp'" value="Home" width="100%" id="home"   style="color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="weeklycalllist" onClick="window.location = 'weeklycalllist.jsp'" value="Daily Call List" width="100%" id="weeklycalllist"   style="color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="completelist" onClick=" return completeListRmCode();" value="Complete List" width="100%" id="completelist"   style="color:#ffffff;background-color:#24315e"></p>
-                <p> <input type="button" name="reports" onClick="return dopostRptDriver(); window.location = 'crptHome.jsp'" value="Reports" width="100%" id="reports"   style="opacity: 0.6; cursor: not-allowed; color:#ffffff;background-color:#24315e"></p>
+                <p> <input type="button" name="reports" onClick="return dopostRptDriver(); window.location = 'crptHome.jsp'" value="Reports" width="100%" id="reports"   style="color:#ffffff;background-color:#24315e"></p>
                 <p> <input type="button" name="updaterevenue" value="Update Revenue/Income" width="100%" id="updaterevenue"   style="opacity: 0.6; cursor: not-allowed;color:#ffffff;background-color:#24315e"></p>
             </td>
             <td> 
