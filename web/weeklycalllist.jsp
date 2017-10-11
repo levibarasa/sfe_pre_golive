@@ -154,7 +154,8 @@
         }
         function dopostRptDriver() {
             var rmCode = document.getElementById("rmCode").value;
-            window.location.href = 'crptHome.jsp?rmCode=' + rmCode;
+            var designation  = document.getElementById("designation").value;
+            window.location.href = 'crptHome.jsp?rmCode=' + rmCode+'&designation='+designation;
         }
     </script>
     <script type="text/javascript">
@@ -325,7 +326,7 @@
     <img src="images/user.png" name="alarm" width="30" height="30"   border="0"/>
     <input type="button" name="addnewcustomer" onclick="return addNewCustomerValue()" value="Add New Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
     <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerValue()" value="Add My Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
-    <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerAllValue()" value="Search Any Bank Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
+    <input type="button" name="addexistingcustomer" onclick="return addExistingCustomerAllValue()" value="Add Any Bank Customer" width="100%" id="addnewcustomer"   style="color:#ffffff;background-color:#24315e">
     <table width="100%">  
         <tr width="100%">
             <td width="20%"><br/>
@@ -338,13 +339,17 @@
             <td> 
 
 
-                <%                    //window.location = 'completelist.jsp' ;
+                <%  
+              String designation = Customer.getRMDesignation(rmCode);
+            
+//window.location = 'completelist.jsp' ;
                     if (size > 0) {
                 %>
                 <%@page import="java.util.List"%>
                 <%@page import="java.util.ArrayList"%> 
                 <form id="form1" name="form1" method="post" >
                     <input type="hidden" id ="rmCode" value="<%=rmCode%>" name="rmCode" >
+                    <input type="hidden" id ="designation" value="<%=designation%>" name="designation" >
                     <td width="60%">
                         <div class="zui-wrapper">
                             <div class="zui-scroller">
@@ -396,7 +401,7 @@
                                         <tr style="font-size: 9px">
                                             <td  style="font-size: 9px;" width="80px">
                                                 <a href ="" onclick="return getCustUpdateValue('<%= Customer_ID%>')">
-                                                    <img src="images/update.jpg" name="alarm" width="30" height="30"   border="0"/> 
+                                                    <img src="images/update.jpg" name="alarm" width="20" height="20"   border="0"/> 
                                                 </a>
                                             </td> 
                                             <td style="font-size: 9px;width: 50px;overflow: hidden; text-overflow: ellipsis;" width="80px"> 

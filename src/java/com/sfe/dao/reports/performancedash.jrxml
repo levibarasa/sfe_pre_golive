@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Registration" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1af8c21f-e227-4800-8609-6dffad8ebb2e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="142"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="CLIENT_CONTACTED" class="java.lang.String"/>
+	<field name="SALES_COMMITMENT" class="java.lang.String"/>
+	<field name="DOCS_SUBMITTED" class="java.lang.String"/>
+	<field name="CLOSED" class="java.lang.String"/>
+	<field name="HITRATE" class="java.lang.String"/>
+	<field name="RM_CODE" class="java.lang.String"/>
+	<field name="START_DATE" class="java.lang.String"/>
+	<field name="END_DATE" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="100">
+			<frame>
+				<reportElement uuid="e754e30e-e1c8-4624-a920-cbfd1d15e3b6" mode="Opaque" x="-17" y="-10" width="842" height="92" backcolor="#3366FF"/>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="23" y="42" width="309" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Performance dashboard – BB and Affluent]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="589" y="20" width="248" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Rating criteria (% adherence)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="641" y="40" width="29" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[<60%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="735" y="40" width="45" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[60-80%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="641" y="60" width="29" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[>80%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="21" y="62" width="309" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Serif" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[2.5 weeks post implementation]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53">
+			<frame>
+				<reportElement uuid="ea3aa186-9eff-4cea-9c9a-99a2965ffe8d" mode="Opaque" x="3" y="3" width="800" height="22" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<staticText>
+					<reportElement uuid="78dfbd25-86aa-4a0b-97e1-7d4b54333e27" stretchType="RelativeToBandHeight" mode="Opaque" x="370" y="0" width="61" height="22" forecolor="#FFFFFF" backcolor="#3366FF"/>
+					<textElement textAlignment="Center">
+						<font fontName="Serif" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[outputs]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement uuid="78dfbd25-86aa-4a0b-97e1-7d4b54333e27" stretchType="RelativeToBandHeight" mode="Opaque" x="124" y="3" width="61" height="22" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Inputs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78dfbd25-86aa-4a0b-97e1-7d4b54333e27" stretchType="RelativeToBandHeight" mode="Opaque" x="598" y="3" width="109" height="22" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[key take aways]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="0" y="25" width="235" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[No. of customer meetings1 per week per RM #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="232" y="25" width="248" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[New transactional products sold per week per RM, (#) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="483" y="25" width="248" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Non-funded revenue/Total revenue, (%) ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="145">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="11" y="4" width="24" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_CONTACTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="51" y="4" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALES_COMMITMENT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="90" y="4" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCS_SUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="120" y="4" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLOSED}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="0" y="34" width="220" height="1" forecolor="#6666FF"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="6" y="76" width="72" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="158" y="76" width="72" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ec118cb8-d3b6-44e7-a021-1427efa2a9e7" x="235" y="0" width="1" height="110" forecolor="#6666FF"/>
+			</line>
+			<line>
+				<reportElement uuid="2f111926-639c-40fa-8a21-6fed82c4c3b7" x="482" y="0" width="1" height="110" forecolor="#6666FF"/>
+			</line>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="3" y="56" width="74" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hit rate2 (%)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="251" y="3" width="24" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_CONTACTED}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="240" y="80" width="150" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cross-sell ratio, #]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="239" y="33" width="200" height="1" forecolor="#6666FF"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="389" y="3" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLOSED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="339" y="3" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCS_SUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="291" y="3" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALES_COMMITMENT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="436" y="24" width="34" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HITRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="238" y="100" width="72" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="398" y="100" width="72" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="483" y="34" width="198" height="1" forecolor="#6666FF"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="528" y="4" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALES_COMMITMENT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="616" y="4" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLOSED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="576" y="4" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCS_SUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="485" y="109" width="72" height="11"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="488" y="4" width="24" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_CONTACTED}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="485" y="87" width="241" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Avg. Balance – Liabilities per week per RM, (Kes’ mn)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1807bfed-0526-48a9-ba75-ef2a2d5165e7" x="645" y="109" width="72" height="11"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="78" y="66" width="99" height="1" forecolor="#6666FF"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="187" y="53" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HITRATE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="485" y="62" width="246" height="1" forecolor="#6666FF"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="590" y="66" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCS_SUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="697" y="25" width="34" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HITRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="542" y="66" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALES_COMMITMENT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="502" y="66" width="24" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_CONTACTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="630" y="66" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLOSED}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="485" y="39" width="164" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total revenue per week per RM,  (#)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c55835b7-e52b-4fe1-933f-0a6840913f60" x="239" y="42" width="24" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_CONTACTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c595f8d1-b869-46da-ad50-71582646f505" x="327" y="42" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCS_SUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b944e2d4-b714-4a7a-8a58-2d0dfbe56a1f" x="367" y="42" width="19" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLOSED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d2c06e7-5451-403e-947b-5cb923ebd325" x="279" y="42" width="25" height="20"/>
+				<textElement>
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALES_COMMITMENT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8b246cff-1748-4aae-b049-770c16f20eb4" x="245" y="69" width="232" height="1" forecolor="#6666FF"/>
+			</line>
+			<staticText>
+				<reportElement uuid="e5e0c4d9-80c5-47a3-a621-1a31d26add84" x="3" y="126" width="783" height="16" forecolor="#3333FF"/>
+				<textElement>
+					<font fontName="Serif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1 Includes customer calls and visits; 2 Number of clients who buy at least one product divided by number of clients contacted; 3 Previously focussed on lending products with 90% hit rate; 4 Adherance rate to SFE tools and routines]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21"/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

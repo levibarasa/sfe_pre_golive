@@ -1,3 +1,8 @@
+<%@page import="com.sfe.dao.customer.Customer"%>
+<%
+    String designation = Customer.getRMDesignation(user_code);
+    %>
+    <input type="hidden" name="designation" id="designation" value="<%= designation %>">
 <input type="hidden" name="rmCode" id="rmCode" value="<%= user_code %>">
     <table width="100%">
         <tr width="100%">

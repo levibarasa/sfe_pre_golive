@@ -766,3 +766,4 @@
 [origlogger] [30 Sep 2017 - 13:35:22] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
 [origlogger] [30 Sep 2017 - 13:36:00] [DEBUG][conn.AdminDb][dbWork][45] - com.microsoft.sqlserver.jdbc.SQLServerException: String or binary data would be truncated. 
 [origlogger] [04 Oct 2017 - 17:00:49] [DEBUG][conn.AdminDb][getValue][107] - com.microsoft.sqlserver.jdbc.SQLServerException: The value is not set for the parameter number 2. 
+[origlogger] [09 Oct 2017 - 15:21:59] [DEBUG][conn.AdminDb][execArrayLists][137] - com.microsoft.sqlserver.jdbc.SQLServerException: The index 1 is out of range. 

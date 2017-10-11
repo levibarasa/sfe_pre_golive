@@ -16,7 +16,7 @@ public class Access {
 
     public static String getRMCodeByWindowsUserName(String userName) {
         String sql = "select employeeID from Employee_Details where WindowsUserName = ?";
-        String str = AdminDb.getValue(sql, 1, 1, userName);
+        String str = AdminDb.getValue(sql, 1, 1, userName); 
         return str;
     }
 

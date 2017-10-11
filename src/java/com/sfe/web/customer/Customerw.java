@@ -25,18 +25,19 @@ public class Customerw {
         HttpSession session = request.getSession(false);
 
         String custId = request.getParameter("custId");
+         
         if ((String) session.getAttribute("uname") != null) {
             String rmCode = request.getParameter("rmCode");
 
             Customer.createNewExistingCustomer(custId, rmCode);
 
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
             session.setAttribute("uname", rmCode);
             // session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
 
         } else {
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
         }
         //  session.setAttribute("content_page", "populatelist.jsp");
         //response.sendRedirect("weeklycalllist.jsp");
@@ -46,18 +47,19 @@ public class Customerw {
         HttpSession session = request.getSession(false);
 
         String custId = request.getParameter("custId");
+         
         if ((String) session.getAttribute("uname") != null) {
             String rmCode = request.getParameter("rmCode");
 
             Customer.createNewCustomer(custId, rmCode, "");
 
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
             session.setAttribute("uname", rmCode);
             // session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
 
         } else {
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
         }
         //  session.setAttribute("content_page", "populatelist.jsp");
         //response.sendRedirect("weeklycalllist.jsp");
@@ -65,23 +67,23 @@ public class Customerw {
 
     public static void handleGenerateList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-
+ 
         if ((String) session.getAttribute("uname") != null) {
 
-            // String rmCode = request.getParameter("rmCode");
-            String rmCode = (String) session.getAttribute("uname");
+             String rmCode = request.getParameter("rmCode");
+             rmCode = (String) session.getAttribute("uname");
             System.out.println("RmCode :" + rmCode);
 
             ArrayList list = Customer.fetchDailyList(rmCode);
              System.out.println("List to be generated: "+list.size());
             Customer.createDailyList(list, rmCode);
             Customer.populateDailyList(rmCode);
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
             session.setAttribute("uname", rmCode);
             session.setAttribute("rmCode", rmCode);
             response.sendRedirect("weeklycalllist.jsp");
         } else {
-            session.setAttribute("content_page", "populatelist.jsp");
+            session.setAttribute("content_page", "weeklycalllist.jsp");
         }
         //  session.setAttribute("content_page", "populatelist.jsp");
         //response.sendRedirect("weeklycalllist.jsp");
@@ -91,13 +93,15 @@ public class Customerw {
  
     public static void handleAddNewProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-if ((String) session.getAttribute("uname") != null) {
+ 
+        if ((String) session.getAttribute("uname") != null) {
         String custId = request.getParameter("custId");
-        String today = sdf.format(new Date());
+        String today = sdf.format(new Date()); 
             String rmCode = request.getParameter("rmCode");
             String product = request.getParameter("product");
+            String leadsrc = request.getParameter("leadsrc");
             Customer.deleteDefaultTrack(custId); 
-            Customer.createNewExistingCustomerProduct(custId, rmCode,product);
+            Customer.createNewExistingCustomerProduct(custId, rmCode,product,leadsrc);
               session.setAttribute("uname", rmCode);
             session.setAttribute("rmCode", rmCode);
             session.setAttribute("custId", custId); 
@@ -109,6 +113,7 @@ if ((String) session.getAttribute("uname") != null) {
     }
     public static void handleAddNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        
         if ((String) session.getAttribute("uname") != null) {
 
             String RmCode = request.getParameter("rmCode");
@@ -119,7 +124,7 @@ if ((String) session.getAttribute("uname") != null) {
             int n = Customer.addNewCustomer(custName, email, phone, RmCode);
             int custIdTemp = Customer.getNewTempCustId();
             String Customer_ID = String.valueOf(custIdTemp);
-            String Customer_Type ="BUSINESS BANKING";
+            String Customer_Type =" ";
              String rmName = "";
             if (n > 0) {
                 session.setAttribute("custadd", true);
@@ -175,7 +180,8 @@ if ((String) session.getAttribute("uname") != null) {
         session.setAttribute("rmCode", rmCode);
         session.setAttribute("fromdate", scheduledcalldate);
         session.setAttribute("todate", scheduledcalldate);
-        System.out.println((String) session.getAttribute("uname"));
+        int unam = (int) session.getAttribute("uname");
+        
         if ((String) session.getAttribute("uname") != null) {
 
             response.sendRedirect("updatetrackerclose.jsp");
@@ -189,6 +195,7 @@ if ((String) session.getAttribute("uname") != null) {
     public static void handleUpdateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         session.setAttribute("custracker", false);
+         
         if ((String) session.getAttribute("uname") != null) {
             boolean updated = false;
             String productvalue = request.getParameter("productvalue");

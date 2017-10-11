@@ -18,7 +18,8 @@
         <script language="javaScript" type="text/javascript" src="include/sim.js"></script>
         <link rel="stylesheet" type="text/css" href="include/menu.css">
         <%
-            String uname = (String) session.getAttribute("uname");
+            
+            String uname = (String) session.getAttribute("uname"); 
             String classname = (String) session.getAttribute("uwcname");
         %>
         <style type="text/css">

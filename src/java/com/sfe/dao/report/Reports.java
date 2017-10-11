@@ -24,16 +24,21 @@ public class Reports extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         ServletContext context = request.getServletContext();
-        session.setAttribute("dtErr", false);
-        if ((String) session.getAttribute("uname") != null) {
+        session.setAttribute("dtErr", false); 
+        if ( (String) session.getAttribute("uname") != null) {
             String rtype = request.getParameter("rFunction");
             rtype = rtype.trim();
             String rtpfmt = request.getParameter("rtpfmt");
-
+            String region = request.getParameter("region");
+            String branch = request.getParameter("branch");
+            String segment = request.getParameter("segment");
+               
             String fDate = request.getParameter("fromdate");
             String tDate = request.getParameter("todate");
 
             String rmCode = request.getParameter("rmName");
+            int rmCod = Integer.parseInt(rmCode);
+            rmCode = String.valueOf(rmCod);
             System.out.println("rmCode: " + rmCode);
             String path = (String) context.getAttribute("reportdir");
             String rname = rtype;
@@ -44,18 +49,42 @@ public class Reports extends HttpServlet {
             System.out.println("From Date:" + fDate);
             System.out.println("To Date:" + tDate);
             rtype = rtype.trim();
-
+ 
             switch (rtype) {
-                case "SalesPipeline":
-                    col = BeanFactory.getSalesPipeline(rmCode, fDate, tDate);
-                    jrxmlurl = "com/sfe/dao/reports/salespipeline.jrxml";
-
-                    break;
+                case "SalesPipeline": 
+                    if(region.equalsIgnoreCase("ALL") && branch.equalsIgnoreCase("ALL") && segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByAllRegions(fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    } else if(branch.equalsIgnoreCase("ALL") && segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByRegion(region, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    }else if(segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByBranch(branch, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    }else{
+                    col = BeanFactory.getRMSales(rmCode, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                      }
+                       break;
                 case "RM-SalesPipeline":
-                    col = BeanFactory.getRMSalesPipeline(rmCode, fDate, tDate);
-                    jrxmlurl = "com/sfe/dao/reports/ProductSold.jrxml";
-
-                    break;
+                    if(region.equalsIgnoreCase("ALL") && branch.equalsIgnoreCase("ALL") && segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByAllRegions(fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    } else if(branch.equalsIgnoreCase("ALL") && segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByRegion(region, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    }else if(segment.equalsIgnoreCase("ALL")){
+                    col = BeanFactory.getRMSaleByBranch(branch, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                    }else{
+                    col = BeanFactory.getRMSales(rmCode, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/Sales.jrxml";
+                      }
+                 break;
+                 case "Performance Dashboard":
+                     col = BeanFactory.getSalesPerformance(rmCode, fDate, tDate);
+                    jrxmlurl = "com/sfe/dao/reports/performancedash.jrxml";
+                 break;
                 default:
 
                     col = BeanFactory.getSalesPipeline(rmCode, fDate, tDate);

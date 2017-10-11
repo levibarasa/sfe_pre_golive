@@ -27,7 +27,7 @@
 //        
 //        String username = request.getParameter("username");
 //        String password = request.getParameter("Password");
-//        String employeeID = "";
+//        int employeeID = 0;
 //        LdapLogin ldapExaminer = new LdapLogin();
 //        String loggedInUser = ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
 //        System.out.println("Logged in User: " + loggedInUser); 
@@ -49,7 +49,7 @@
 //        if (!loggedInUser.equalsIgnoreCase("") || !loggedInUser.equalsIgnoreCase(null)) {
 //              employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
 //
-//            userId = Integer.parseInt(employeeID);
+//            userId = employeeID;
 //            Date currdate = new Date();
 //            String roleid = "";
 //            String roleName = "";

@@ -99,8 +99,10 @@
     </script>
     <script type="text/javascript">
         function dopostRptDriver() {
+            
             var rmCode = document.getElementById("rmCode").value;
-            window.location.href = 'crptHome.jsp?rmCode=' + rmCode;
+             var designation = document.getElementById("designation").value;
+            window.location.href = 'crptHome.jsp?rmCode=' + rmCode+'&designation='+designation ;
         }
         function dopostDriver() {
             var rmCode = document.getElementById("rmCode").value;

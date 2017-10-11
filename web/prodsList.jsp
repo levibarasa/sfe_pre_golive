@@ -20,7 +20,8 @@
              function doaddprodpostDriver(id) {
               var rmCode = document.getElementById("rmCode").value;
               var product = document.getElementById("product").value;
-             window.location.href = 'do?MOD=BOK&ACT=doaddproduct&custId=' + id + '&rmCode=' + rmCode+ '&product=' + product ;
+              var leadsrc = document.getElementById("leadsrc").value;
+             window.location.href = 'do?MOD=BOK&ACT=doaddproduct&custId=' + id + '&rmCode=' + rmCode+ '&product=' + product + '&leadsrc=' + leadsrc;
             }
 
         </script>
@@ -59,7 +60,28 @@
                         
                         </td>
                     </tr>  
+                    <tr width="400">
+                        <td    style="color:gray; font-style:italic;">Product Lead Source</td>
+                        <td  style="color: gray; font-style:italic;">
+                               <%
+                                 ArrayList leadsrc = Customer.getLeadSrc();  
+                                %>
+                           <select name="leadsrc" id="leadsrc">
+                            
+                                  <%
+                                    for (int k = 0; k < leadsrc.size(); k++) {
+                                        ArrayList two = (ArrayList) leadsrc.get(k);
+                                        String ldsrc = (String) two.get(0);
+                                %> 
+                                <option  value ="<%=ldsrc%>" > <%=ldsrc%></option>  
+                                <%
+                                    }
+                                  %>
+                            </select>
+                        
+                        </td>
+                    </tr>  
         </table>
-                            <center><input type="submit" onclick="return doaddprodpostDriver(id);" name="update" value="Add Product to Market/Sell" width="100%" id="update"   style="color:#ffffff;background-color:#24315e;align-self: center;width: 20em;  height: 2.5em; border-radius: 12px;"></center>
+                            <center><input type="submit" onClick="return doaddprodpostDriver(id);" name="update" value="Add Product to Market/Sell" width="100%" id="update"   style="color:#ffffff;background-color:#24315e;align-self: center;width: 20em;  height: 2.5em; border-radius: 12px;"></center>
     </form>
 </html>

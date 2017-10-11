@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="include/menu.css">
     <%
         String uname = (String) session.getAttribute("uname");
-        String classname = (String) session.getAttribute("uwcname");
+         String classname = (String) session.getAttribute("uwcname");
     %>
     <style type="text/css">
         body
@@ -68,7 +68,7 @@
 
             <%
                 String user_name = (String) session.getAttribute("name");
-                String user_code = (String) session.getAttribute("code");
+                String user_code = (String) session.getAttribute("code"); 
                 String user_branch = (String) session.getAttribute("branch");
                 String user_region = (String) session.getAttribute("region");
                 String user_access_leve = (String) session.getAttribute("accessLevel");

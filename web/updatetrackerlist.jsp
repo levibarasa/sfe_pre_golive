@@ -483,7 +483,7 @@
                         </th>
                          
                         <th>  
-                        Average<br/> Product Value 
+                        Product Value 
                         </th><th>  
                         Client <br/>Contacted
                         </th><th>
@@ -499,7 +499,7 @@
                         <th>  
                         Comments
                         </th><th> 
-                        Scheduled Date
+                         Date Contacted
                         </th> 
                        
                         
@@ -538,14 +538,25 @@
                         <a href="" onclick="return getProductValue()"><img src="images/search.png"></a>
                          </td> 
                          <td> 
-                        <input  name="leadsrc" type="text"  id="leadsrc" value="<%=Lead_Source%>" size="10">
+                        <input  readonly="readonly"  name="leadsrc" type="text"  id="leadsrc" value="<%=Lead_Source%>" size="10">
                          </td>  
                         <td>
-                        
-                        <select name="currency" id="currency" width="5">
-                                <option selected="selected"  value="Ksh">Ksh</option>
-                                <option value="USD">USD</option> 
+                            <%
+                                 ArrayList currency = Customer.getCurency();  
+                                %>
+                        <select name="currency" id="currency">
+                            
+                                  <%
+                                    for (int k = 0; k < currency.size(); k++) {
+                                        ArrayList two = (ArrayList) currency.get(k);
+                                        String cry = (String) two.get(0);
+                                %> 
+                                <option  value ="<%=cry%>" > <%=cry%></option>  
+                                <%
+                                    }
+                                  %>
                             </select>
+                             
                         </td>
                         <td>
                         <input   name="productvalue" type="text" id="productvalue" value="<%= Product_value%>" size="10"  >

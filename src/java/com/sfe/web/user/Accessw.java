@@ -29,12 +29,11 @@ public class Accessw {
         String password = request.getParameter("Password");
         String employeeID = "";
         LdapLogin ldapExaminer = new LdapLogin();
-        String loggedInUser ="";// ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
+        String loggedInUser = ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
         System.out.println("Logged in User: " + loggedInUser); 
         String testUser1 = "soumya.rao";
-        String testUser = "nicholast";  
-        loggedInUser = testUser;
-          session.setAttribute("loggedInUser", loggedInUser);
+        String testUser = "nicholast"; 
+          session.setAttribute("loggedInUser", loggedInUser); 
 //                if (loggedInUser != null && conPage == null) {
 //          employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
 //            session.setAttribute("uname", employeeID);
@@ -84,8 +83,7 @@ public class Accessw {
                     response.sendRedirect("indexAdmin.jsp");
                     System.out.println("conPage => "+conPage);
                     if(conPage == null){
-                    session.setAttribute("content_page","indexAdmincontent.jsp");
-                    conPage ="indexAdmin.jsp";
+                    session.setAttribute("content_page","indexAdmin.jsp");
                     }
                 } else if (accessLevel.equalsIgnoreCase("2") && conPage == null) {
                     response.sendRedirect("index.jsp");
@@ -97,7 +95,7 @@ public class Accessw {
                     response.sendRedirect("indexNationalHead.jsp");
                     System.out.println("conPage => "+conPage);
                      if(conPage == null){
-                    session.setAttribute("content_page","indexNationalHeadcontent.jsp");
+                    session.setAttribute("content_page","indexNationalHead.jsp");
                     } 
                       } else if(conPage == null){
                     session.setAttribute("content_page", "login.jsp");

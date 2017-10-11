@@ -85,7 +85,7 @@ public class User {
     //getRegion(String employeeID)
     public static String getBranch(String employeeID) {
         String sql = " select Branch from RM_Codelist where RM_Code1 = ?";
-        return AdminDb.getValue(sql, 1, 1, employeeID);
+        return AdminDb.getValue(sql, 1, 1, employeeID );
     }
 
     public static String getRegion(String employeeID) {

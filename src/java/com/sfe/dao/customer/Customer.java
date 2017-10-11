@@ -20,9 +20,50 @@ public class Customer {
         String str = AdminDb.getValue(sql, 1, 0, "");
         int id = Integer.parseInt(str);
         return id;
+    } 
+ 
+    public static String getRMBranchCode(String rmCode) {
+        String sql = "select distinct [Branch Code] from [dbo].[RM_Codelist] where RM_Code1 = ?";
+        String str = AdminDb.getValue(sql, 1, 1, rmCode); 
+        return str;
+    } 
+     public static String getRMBranch(String rmCode) {
+        String sql = "select distinct Branch from [dbo].[RM_Codelist] where RM_Code1 = ?";
+        String str = AdminDb.getValue(sql, 1, 1, String.valueOf(rmCode)); 
+        return str;
+    } 
+     public static String getRMRegion(String rmCode) {
+        String sql = "select distinct Region from [dbo].[RM_Codelist] where RM_Code1 = ?";
+        String str = AdminDb.getValue(sql, 1, 1, String.valueOf(rmCode)); 
+        return str;
+    } 
+     public static String getRMDesignation(String rmCode) {
+        String sql = "select distinct Designation from [dbo].[RM_Codelist] where RM_Code1 = ?";
+        String str = AdminDb.getValue(sql, 1, 1, rmCode); 
+        return str;
+    } 
+     public static ArrayList getCurency() {
+        String sql = "select Currency_Code from [dbo].[Currency]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
     }
-    
-     
+     public static ArrayList getLeadSrc() {
+        String sql = "select LEAD_SOURCE from [dbo].[Product_Lead_Source]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
+//     public static void main(String[] args) {
+//        ArrayList ar = getRmCode("2ND NGONG AVENUE") ;
+//         int size = ar.size();
+//          for (int i = 0; i < size; i++) {
+//                    ArrayList one = (ArrayList) ar.get(i);
+//          String rmCode = (String) one.get(0);
+//              System.out.println(rmCode);
+//          }
+//    }
+     public static ArrayList getRmCode(String branch) {
+         String sql = "select RM_Code1 from [dbo].[RM_Codelist] where Branch = ?";
+        String in = branch ;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
       public static ArrayList getSegment(String rmCode) {
          String sql = "select distinct Customer_Type from [dbo].[Customer_Tracking] where RM_Code = ?";
         String in = rmCode ;
@@ -34,10 +75,27 @@ public class Customer {
         String in = region ;
         return AdminDb.execArrayLists(sql, 1, in, 1);
     }
+       
+     public static ArrayList getRmsByBranch(String region) {
+         String sql = "select RM_Code1 from [dbo].[RM_Codelist]  where Branch = ?";
+        String in = region ;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+      public static ArrayList getRmsByRegion(String region) {
+         String sql = "select RM_Code1 from [dbo].[RM_Codelist]  where Region = ?";
+        String in = region ;
+        return AdminDb.execArrayLists(sql, 1, in, 1);
+    }
+     
+       public static ArrayList getRmsByAllRegions() {
+         String sql = "select RM_Code1 from [dbo].[RM_Codelist]"; 
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
      public static ArrayList getRegion() {
         String sql = "select distinct Region from [dbo].[RM_Codelist]";
         return AdminDb.execArrayLists(sql, 0, "", 1);
     }
+      
      public static ArrayList getAcessLevel() {
         String sql = "select distinct accessLevelID from [dbo].[Employee_Details]";
         return AdminDb.execArrayLists(sql, 0, "", 1);
@@ -117,10 +175,18 @@ public class Customer {
         String in = today + "," + rmCode;
         return AdminDb.execArrayLists(sql, 2, in, 12);
     }
-
+     
+     public static ArrayList populateExistingDailyList(String rmCode) {
+        String today = sdf.format(new Date());
+        String sql = "select Customer_ID,Name,Permanent_phonenumber,Customer_Type, email_ID,Occupation,Client_Contacted,Sales_Commitment, Docs_Submitted,Closed,Comments,Filled_Week  from [dbo].[EXISTING_CUSTOMER] where Current_Week = ?  and RM_Code = ?";
+        String in = today + "," + rmCode;
+        return AdminDb.execArrayLists(sql, 2, in, 12);
+    }
     public static ArrayList getDailyList(String rmCode) {
         ArrayList newCust = getNewCustomer(rmCode);
         ArrayList daily = populateDailyList(rmCode);
+        ArrayList dailyExisting = populateExistingDailyList(rmCode);
+        ArrayList ful = new ArrayList();
         ArrayList full = new ArrayList();
         ArrayList full1 = new ArrayList();
         ArrayList fullArr = new ArrayList();
@@ -128,7 +194,10 @@ public class Customer {
             full = (ArrayList) daily.get(i);
             fullArr.add(full);
         }
-
+        for (int j = 0; j < dailyExisting.size(); j++) {
+            ful = (ArrayList) dailyExisting.get(j);
+            fullArr.add(ful);
+        }
         for (int k = 0; k < newCust.size(); k++) {
             full1 = (ArrayList) newCust.get(k);
             fullArr.add(full1);
@@ -627,7 +696,7 @@ public class Customer {
     }
 
      
-    public static void createNewExistingCustomerProduct(String Customer_ID, String rmCode,String product) {
+    public static void createNewExistingCustomerProduct(String Customer_ID, String rmCode,String product, String leadsrc) {
         ArrayList list = getRMDetails(rmCode);
         String RM_Code = "";
         String BM_Code = "";
@@ -656,13 +725,13 @@ public class Customer {
                 + "Docs_Submitted,Closed,Comments,Product_Sold,"
                 + "RM_Code,Current_Week,BM_Code,"
                 + "Regional_Manager_Code,Branch,Product_value,Customer_Type,BM_Code_Sustainability,"
-                + "RegM_code_Sustainability,Marketed_Value,Currency ) values(?,try_convert(varchar(11),getdate(),103),"
+                + "RegM_code_Sustainability,Marketed_Value,Currency,Lead_Source ) values(?,try_convert(varchar(11),getdate(),103),"
                 + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','None',"
-                + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?,?,'Ksh' )";
+                + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?,?,'Ksh',? )";
 
         String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
-                + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code + "," + product;
-        AdminDb.dbWork(sql, 10, in);
+                + " " + product_value + "," + Customer_Type + "," + BM_Code_Sustainability + "," + RM_Code + "," + product + "," + leadsrc;
+        AdminDb.dbWork(sql, 11, in);
 
     }
 public static void createNewExistingCustomer(String Customer_ID, String rmCode ) {
@@ -686,7 +755,7 @@ public static void createNewExistingCustomer(String Customer_ID, String rmCode )
 
         }
 
-        Customer_Type = "BUSINESS BANKING";
+        Customer_Type = " ";
           branch = getRmBranch(rmCode);
         String product_value = "0";
         String rmName = getRM_Name(rmCode);
@@ -696,7 +765,7 @@ public static void createNewExistingCustomer(String Customer_ID, String rmCode )
                 + "RM_Code,Current_Week,BM_Code,"
                 + "Regional_Manager_Code,Branch,Product_value,Customer_Type,BM_Code_Sustainability,"
                 + "RegM_code_Sustainability,Marketed_Value,Currency  ) values(?,try_convert(varchar(11),getdate(),103),"
-                + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','None',"
+                + "try_convert(varchar(11),getdate(),103),'No','No','No','No','None','No',"
                 + "?,try_convert(varchar(11),getdate(),103),?,?,?,?,?,?,?,'D','Ksh')";
 
         String in = Customer_ID + "," + RM_Code + "," + BM_Code + "," + Regional_Manager_Code + "," + branch + ","
